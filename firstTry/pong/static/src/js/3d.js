@@ -9,7 +9,7 @@ const P1_POV = 1;
 const P2_POV = 2;
 
 // make player names centered
-startGame(7, 1);
+startGame(6, 1);
 
 function startGame(playerCount, mappov)
 {
