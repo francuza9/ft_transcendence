@@ -8,13 +8,19 @@ const LOCALGAME = 0;
 const P1_POV = 1;
 const P2_POV = 2;
 
-// make player names centered
-startGame(6, 1);
+const NO_MAP = 0;
+const MOUNTAIN_MAP = 1;
+const DESERT_MAP = 2;
+const HELL_MAP = 3;
+const SPACE_MAP = 4;
 
-function startGame(playerCount, mappov)
+// make player names centered
+startGame(8, 1, NO_MAP);
+
+function startGame(playerCount, mappov, map)
 {
 	if (playerCount == 2 && mappov < 3)
 		create2Pgame(mappov);
 	else if (playerCount > 2 && playerCount <= 8)
-		createMultigame(playerCount, mappov);
+		createMultigame(playerCount, mappov, map);
 }
