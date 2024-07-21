@@ -15,12 +15,12 @@ const HELL_MAP = 3;
 const SPACE_MAP = 4;
 
 // make player names centered
-startGame(8, 1, NO_MAP);
+startGame(6, 1, DESERT_MAP, [0, 0]);
 
-function startGame(playerCount, mappov, map)
+function startGame(playerCount, mappov, map, score)
 {
 	if (playerCount == 2 && mappov < 3)
-		create2Pgame(mappov);
+		create2Pgame(mappov, score);
 	else if (playerCount > 2 && playerCount <= 8)
 		createMultigame(playerCount, mappov, map);
 }
