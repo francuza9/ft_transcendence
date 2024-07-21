@@ -28,17 +28,21 @@ export function buildDesert(plane, scene) {
     const desert = new THREE.Mesh(geometry, material);
 
 	const geometryPs = new THREE.CylinderGeometry(0.1, 20, 20, 4);
+	const geometryPm = new THREE.CylinderGeometry(0.1, 16.25, 16.25, 4);
 	const geometryP = new THREE.CylinderGeometry(0.1, 12.5, 12.5, 4);
 	const materialP = new THREE.MeshStandardMaterial({ map: textureP });
 	const pyramidS = new THREE.Mesh(geometryPs, materialP);
+	const pyramidM = new THREE.Mesh(geometryPm, materialP);
 	const pyramid = new THREE.Mesh(geometryP, materialP);
 
-	pyramidS.position.set(-40, 0, -10);
-	pyramid.position.set(15, 0, -15);	
+	pyramidS.position.set(-40, 10, -10);
+	pyramidM.position.set(-12, 7.5, 25);
+	pyramid.position.set(15, 5, -15);	
 
 	desert.rotation.x = -Math.PI / 2;
 	desert.position.y = 0.45;
 
+	group.add(pyramidM);
 	group.add(pyramidS);
 	group.add(pyramid);
     group.add(desert);
