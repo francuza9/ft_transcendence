@@ -147,8 +147,8 @@ function checkCollision(ball, players, score, lights, scoremesh)
 			ball.direction.z = Math.sin(-bounceangle);
 		}
 		ball.direction.x *= -1;
-		if (ball.speed < 0.8)
-			ball.speed += 0.01;
+		if (ball.speed < 0.4)
+			ball.speed += 0.02;
 		if (ball.direction.x > 0)
 		{
 			ball.color = 0xff0000;
@@ -180,6 +180,8 @@ function checkCollision(ball, players, score, lights, scoremesh)
 		updateScoreText(score);
 	}
 	// Check if scoremesh has a material and if that material has a color property
+	if (scoremesh === 0)
+		return ;
 	if (scoremesh.material && scoremesh.material.color) {
 	    if (score[0] > score[1])
 	        scoremesh.material.color.setHex(0xff0000); // Set to red
@@ -189,8 +191,7 @@ function checkCollision(ball, players, score, lights, scoremesh)
 	        scoremesh.material.color.setHex(0xffffff); // Set to white
 	} else {
 	    console.error("Material or color property not found on scoremesh.");
-}
-		
+	}
 }
 
 function onKeydown(event) {

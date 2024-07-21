@@ -35,7 +35,7 @@ function sendMessage(message) {
 
 
 // make player names centered
-startGame(6, 4, DESERT_MAP, [0, 0]);
+startGame(2, 0, DESERT_MAP, [0, 0]);
 
 function startGame(playerCount, mappov, map, score)
 {
