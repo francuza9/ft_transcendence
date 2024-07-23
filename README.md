@@ -1,3 +1,5 @@
+Don't push virtual environment to repository !! 
+
 Set up virtual environment:
 1) git clone < repository url >
 2) cd < cloned repository >
