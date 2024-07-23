@@ -6,7 +6,7 @@ export function initPlayers(n)
 {
 	const geometrySmall = new THREE.CylinderGeometry(0.1,0.1, 2);
 	const geometry = new THREE.BoxGeometry(0.5, 0.01, 2);
-	const geometryBig = new THREE.BoxGeometry(0.5, 0.5, 2);
+	const geometryBig = new THREE.BoxGeometry(0.2, 0.2, 2);
 	const materialp1 = new THREE.MeshLambertMaterial( {color:0xff0000, emissive: 0xff0000} );
 	const materialp2 = new THREE.MeshLambertMaterial( {color:0x0000ff, emissive: 0x0000ff} );
 
@@ -28,8 +28,8 @@ export function initPlayers(n)
 	else
 	{
 		const p1 = new THREE.Mesh(geometryBig, materialp1);
-		p1.position.x = -5.75;
-		p1.position.y = 0.75;
+		p1.position.x = -5.9;
+		p1.position.y = 0.6;
 		group.add(p1);
 	}
 	if (n === 3)
@@ -47,8 +47,8 @@ export function initPlayers(n)
 	else
 	{
 		const p2 = new THREE.Mesh(geometryBig, materialp2);
-		p2.position.x = 5.75;
-		p2.position.y = 0.75;
+		p2.position.x = 5.9;
+		p2.position.y = 0.6;
 		group.add(p2);
 	}
 

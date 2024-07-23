@@ -5,7 +5,7 @@ import { OrbitControls } from 'https://cdn.jsdelivr.net/npm/three@0.161.0/exampl
 import { TextGeometry } from 'https://cdn.jsdelivr.net/npm/three@0.161.0/examples/jsm/geometries/TextGeometry.js';
 import { FontLoader } from 'https://cdn.jsdelivr.net/npm/three@0.161.0/examples/jsm/loaders/FontLoader.js';
 
-import { initScene, initCamera, initRenderer} from './firstRun/init.js';
+import { initScene, initCamera, initRenderer} from './init.js';
 import { initCornerLights } from './objects/cornerLights.js';
 import { initText } from './objects/text.js';
 import { initPlane, initEdges, initWalls} from './objects/plane.js';
@@ -66,6 +66,7 @@ export function create2Pgame(mappov)
 	group.add(players);
 	group.add(planeEdges);
 	group.add(ballmesh);
+	group.add(ball.getMesh2());
 	group.add(groupCornerLights);
 
 	window.addEventListener('resize', onWindowResize, false);
@@ -108,16 +109,16 @@ function updatePlayerPositions(players) {
     const p2 = players.children[1];
 
     if (keys.w && p1.position.z > -3.5) {
-        p1.position.z -= 0.1;
+        p1.position.z -= 0.2;
     }
     if (keys.s && p1.position.z < 3.5) {
-        p1.position.z += 0.1;
+        p1.position.z += 0.2;
     }
     if (keys.ArrowUp && p2.position.z > -3.5) {
-        p2.position.z -= 0.1;
+        p2.position.z -= 0.2;
     }
     if (keys.ArrowDown && p2.position.z < 3.5) {
-        p2.position.z += 0.1;
+        p2.position.z += 0.2;
     }
 }
 
@@ -130,25 +131,35 @@ function checkCollision(ball, players, score, lights, scoremesh)
 	let bounceangle;
 
 	if (ball.ball.position.z > 4.1 || ball.ball.position.z < -4.1)
-		ball.direction.z *= -1;
-	if (ball.ball.position.x > 5 && ball.ball.position.z < p2.position.z + 1 && ball.ball.position.z > p2.position.z - 1
-		|| ball.ball.position.x < -5 && ball.ball.position.z < p1.position.z + 1 && ball.ball.position.z > p1.position.z - 1)
 	{
-		if (ball.ball.position.x > 5)
+		ball.direction.z *= -1;
+		ball.ball.rotation.y = 0;
+		ball.ball.rotation.z = -ball.direction.z;
+		// console.log(ball.ball.rotation.x, ball.ball.rotation.y,ball.ball.rotation.z);
+	}
+	if (ball.ball.position.x > 5.3 && ball.ball.position.z - 0.125 < p2.position.z + 1 && ball.ball.position.z + 0.125 > p2.position.z - 1
+		|| ball.ball.position.x < -5.3 && ball.ball.position.z - 0.125 < p1.position.z + 1 && ball.ball.position.z + 0.125 > p1.position.z - 1)
+	{
+		if (ball.ball.position.x > 5.2)
 		{
 			relativeinter = p2.position.z - ball.ball.position.z;
 			bounceangle = relativeinter * Math.PI / 4;
 			ball.direction.z = Math.sin(-bounceangle);
+			ball.ball.rotation.y = 0;
+			ball.ball.rotation.z = -ball.direction.z;
 		}
 		else
 		{
 			relativeinter = p1.position.z - ball.ball.position.z;
 			bounceangle = relativeinter * Math.PI / 4;
 			ball.direction.z = Math.sin(-bounceangle);
+			ball.ball.rotation.y = 0;
+			ball.ball.rotation.z = ball.direction.z;
+			// console.log(ball.ball.rotation.x, ball.ball.rotation.y,ball.ball.rotation.z);
 		}
 		ball.direction.x *= -1;
-		if (ball.speed < 0.4)
-			ball.speed += 0.02;
+		// if (ball.speed < 0.3)
+			// ball.speed += 0.02;
 		if (ball.direction.x > 0)
 		{
 			ball.color = 0xff0000;
@@ -162,6 +173,11 @@ function checkCollision(ball, players, score, lights, scoremesh)
 				lights[i].color.setHex(0x0000ff);
 		}
 		ball.ball.material.color.setHex(ball.color);
+		console.log("direction: ");
+		console.log(ball.direction.x, ball.direction.y,ball.direction.z);
+		console.log("rotation: ");
+		console.log(ball.ball.rotation.x, ball.ball.rotation.y,ball.ball.rotation.z);
+		return ;
 	}
 	if (ball.ball.position.x > 5.5)
 	{

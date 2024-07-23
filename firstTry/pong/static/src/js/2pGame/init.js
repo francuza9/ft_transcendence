@@ -15,8 +15,8 @@ export function initCamera(n)
 	
 	if (n != 1 && n != 2)
 	{
-		camera.position.y = 7;
-		camera.position.z = 11;
+		camera.position.y = 10;
+		camera.position.z = 9;
 	}
 	else if (n == 1)
 	{
