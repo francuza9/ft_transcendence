@@ -2,7 +2,7 @@ import * as THREE from 'three';
 
 import { OrbitControls } from 'https://cdn.jsdelivr.net/npm/three@0.161.0/examples/jsm/controls/OrbitControls.js';
 
-import { initScene, initCamera, initRenderer} from '../2pGame/firstRun/init.js';
+import { initScene, initCamera, initRenderer} from '../2pGame/init.js';
 import { initPlane } from './objects/plane.js';
 import { createEdges } from './objects/edges.js';
 import { fixCamera } from './scene/camera.js';

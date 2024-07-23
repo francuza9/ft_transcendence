@@ -3,14 +3,21 @@ import * as THREE from 'three';
 export class Ball {
     constructor() {
         // Ball geometry and material
-        const ballGeometry = new THREE.SphereGeometry(0.25, 32, 32);
+        const ballGeometry = new THREE.SphereGeometry(0.25, 8, 32);
         const ballMaterial = new THREE.MeshLambertMaterial({ color: 0xffffff });
+		const ballMaterial2 = new THREE.MeshLambertMaterial({ color: 0x000000 });
 
 		this.color = 0xffffff;
 
         // Ball mesh
         this.ball = new THREE.Mesh(ballGeometry, ballMaterial);
+		this.ball2 = new THREE.Mesh(ballGeometry, ballMaterial2);
         this.ball.position.set(0, 0.75, 0); // Set initial position with y = 0.75
+		this.ball2.position.set(0, 0.75, 0);
+		this.ball2.rotation.y = 0.1;
+		this.ball.rotation.x = Math.PI / 2;
+		this.ball2.rotation.x = Math.PI / 2;
+
 
         // Animation parameters
         this.speed = 0.05; // Adjust speed as needed
@@ -29,11 +36,23 @@ export class Ball {
 	}
 
     animate() {
-        // Move ball in direction
-        this.ball.position.add(this.direction.clone().multiplyScalar(this.speed));
+	    // Move ball in direction
+	    this.ball.position.add(this.direction.clone().multiplyScalar(this.speed));
+		this.ball2.position.set(this.ball.position.x, this.ball.position.y, this.ball.position.z);
+	
+		// this.ball.rotation.x += this.direction.z * 0.1;
+		// this.ball.rotation.y += -this.direction.x * 0.1;
+		this.ball.rotation.y -= this.direction.x / 15;
+		
+		// this.ball.rotation.x -= (this.ball.rotation.y * this.ball.rotation.z) % (Math.PI );
 
-		this.adjustColorTowardsWhite();
-    }
+		// this.ball.rotation.y += 0.1 * this.direction.z;
+		this.ball2.rotation.y = this.ball.rotation.y + 0.1;
+		this.ball2.rotation.z = this.ball.rotation.z;
+		this.ball2.rotation.x = this.ball.rotation.x;
+
+	    this.adjustColorTowardsWhite();
+	}
 
 	adjustColorTowardsWhite() {
     // Extract RGB components
@@ -56,4 +75,8 @@ export class Ball {
     getMesh() {
         return this.ball;
     }
+
+	getMesh2() {
+		return this.ball2;
+	}
 }
