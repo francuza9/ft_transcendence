@@ -1,4 +1,4 @@
-Set up virtual environment on every git clone:
+Set up virtual environment:
 1) git clone < repository url >
 2) cd < cloned repository >
 3) python3 -m venv < name you want for venv >
