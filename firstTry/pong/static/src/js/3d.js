@@ -20,6 +20,7 @@ socket.onmessage = function(e) {
 
 socket.onopen = function(e) {
     console.log('WebSocket connection opened.');
+	sendMessage('Hello, Pong!');
 };
 
 socket.onclose = function(e) {
@@ -31,7 +32,7 @@ function sendMessage(message) {
         'message': message
     }));
 }
-// sendMessage('Hello, Pong!');
+
 // js test
 
 
