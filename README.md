@@ -17,7 +17,7 @@ Managing Staticfiles:
 on every change for uvicorn to see changes this command needs to be run.
 _______________________________________________
 to configure a PostgreSQL database:  
-1) sudo apt update && apt install postgresql postgresql-contrib  
+1) sudo apt update && sudo apt install postgresql postgresql-contrib  
 2) sudo systemctl start postgresql  
 3) sudo -u postgres psql  
 4) In PostgreSQL prompt:  
