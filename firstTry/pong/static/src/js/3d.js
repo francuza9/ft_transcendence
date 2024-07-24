@@ -9,7 +9,7 @@ const HELL_MAP = 3;
 const SPACE_MAP = 4;
 
 // js test socket
-/* console.log(window.location.host);
+console.log(window.location.host);
 const socket = new WebSocket('ws://' + window.location.host + '/ws/pong/');
 
 socket.onmessage = function(e) {
@@ -29,7 +29,7 @@ function sendMessage(message) {
     socket.send(JSON.stringify({
         'message': message
     }));
-} */
+}
 // sendMessage('Hello, Pong!');
 // js test
 

@@ -47,7 +47,7 @@ export function create2Pgame(mappov)
 	const players = new initPlayers(mappov + 1);
 
 	// create ball
-	let ball = new Ball();
+	let ball = new Ball(scene);
 	const ballmesh = ball.getMesh();
 
 	// create light
@@ -131,12 +131,7 @@ function checkCollision(ball, players, score, lights, scoremesh)
 	let bounceangle;
 
 	if (ball.ball.position.z > 4.1 || ball.ball.position.z < -4.1)
-	{
-		ball.direction.z *= -1;
-		ball.ball.rotation.y = 0;
-		ball.ball.rotation.z = -ball.direction.z;
-		// console.log(ball.ball.rotation.x, ball.ball.rotation.y,ball.ball.rotation.z);
-	}
+        ball.direction.z *= -1;
 	if (ball.ball.position.x > 5.3 && ball.ball.position.z - 0.125 < p2.position.z + 1 && ball.ball.position.z + 0.125 > p2.position.z - 1
 		|| ball.ball.position.x < -5.3 && ball.ball.position.z - 0.125 < p1.position.z + 1 && ball.ball.position.z + 0.125 > p1.position.z - 1)
 	{
@@ -145,21 +140,16 @@ function checkCollision(ball, players, score, lights, scoremesh)
 			relativeinter = p2.position.z - ball.ball.position.z;
 			bounceangle = relativeinter * Math.PI / 4;
 			ball.direction.z = Math.sin(-bounceangle);
-			ball.ball.rotation.y = 0;
-			ball.ball.rotation.z = -ball.direction.z;
 		}
 		else
 		{
 			relativeinter = p1.position.z - ball.ball.position.z;
 			bounceangle = relativeinter * Math.PI / 4;
 			ball.direction.z = Math.sin(-bounceangle);
-			ball.ball.rotation.y = 0;
-			ball.ball.rotation.z = ball.direction.z;
-			// console.log(ball.ball.rotation.x, ball.ball.rotation.y,ball.ball.rotation.z);
 		}
 		ball.direction.x *= -1;
-		// if (ball.speed < 0.3)
-			// ball.speed += 0.02;
+		if (ball.speed < 0.3)
+			ball.speed += 0.02;
 		if (ball.direction.x > 0)
 		{
 			ball.color = 0xff0000;
@@ -173,10 +163,6 @@ function checkCollision(ball, players, score, lights, scoremesh)
 				lights[i].color.setHex(0x0000ff);
 		}
 		ball.ball.material.color.setHex(ball.color);
-		console.log("direction: ");
-		console.log(ball.direction.x, ball.direction.y,ball.direction.z);
-		console.log("rotation: ");
-		console.log(ball.ball.rotation.x, ball.ball.rotation.y,ball.ball.rotation.z);
 		return ;
 	}
 	if (ball.ball.position.x > 5.5)
