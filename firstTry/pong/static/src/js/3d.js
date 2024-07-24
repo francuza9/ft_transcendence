@@ -9,8 +9,9 @@ const HELL_MAP = 3;
 const SPACE_MAP = 4;
 
 // js test socket
-console.log(window.location.host);
-const socket = new WebSocket('ws://' + window.location.host + '/ws/pong/');
+// const socket = new WebSocket('ws://' + window.location.host + '/ws/pong/');
+const socket = new WebSocket('ws://localhost:8000/ws/pong/');
+
 
 socket.onmessage = function(e) {
     const data = JSON.parse(e.data);

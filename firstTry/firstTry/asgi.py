@@ -15,7 +15,6 @@ from channels.auth import AuthMiddlewareStack
 from channels.security.websocket import AllowedHostsOriginValidator
 import pong.routing
 
-
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'firstTry.settings')
 
 application = ProtocolTypeRouter({
