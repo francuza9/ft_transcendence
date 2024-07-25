@@ -10,11 +10,10 @@ _______________________________________________
 Run Server:  
 1) source venv/bin/activate  
 2) cd firstTry  
-3) uvicorn firstTry.asgi:application --reload --port 8000  
+3) python3 manage.py runserver
 _______________________________________________
 Managing Staticfiles:  
 1) python3 manage.py collectstatic  
-on every change for uvicorn to see changes this command needs to be run.
 _______________________________________________
 to configure a PostgreSQL database:  
 1) sudo apt update && sudo apt install postgresql postgresql-contrib  
