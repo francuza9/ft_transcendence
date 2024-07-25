@@ -33,15 +33,14 @@ ALLOWED_HOSTS = [
 # Application definition
 
 INSTALLED_APPS = [
-    'django.contrib.admin',
+    'daphne',
+	'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
 	'pong',
-	'channels',
-	'corsheaders',
 ]
 
 ASGI_APPLICATION = 'firstTry.asgi.application'
