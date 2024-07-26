@@ -9,8 +9,9 @@ const HELL_MAP = 3;
 const SPACE_MAP = 4;
 
 // js test socket
-console.log(window.location.host);
-const socket = new WebSocket('ws://' + window.location.host + '/ws/pong/');
+// const socket = new WebSocket('ws://' + window.location.host + '/ws/pong/');
+/* const socket = new WebSocket('ws://localhost:8000/ws/pong/');
+
 
 socket.onmessage = function(e) {
     const data = JSON.parse(e.data);
@@ -19,6 +20,7 @@ socket.onmessage = function(e) {
 
 socket.onopen = function(e) {
     console.log('WebSocket connection opened.');
+	sendMessage('Hello, Pong!');
 };
 
 socket.onclose = function(e) {
@@ -29,13 +31,13 @@ function sendMessage(message) {
     socket.send(JSON.stringify({
         'message': message
     }));
-}
-// sendMessage('Hello, Pong!');
+} */
+
 // js test
 
 
 // make player names centered
-startGame(2, 0, DESERT_MAP, [0, 0]);
+startGame(2, 1, DESERT_MAP, [0, 0]);
 
 function startGame(playerCount, mappov, map, score)
 {
