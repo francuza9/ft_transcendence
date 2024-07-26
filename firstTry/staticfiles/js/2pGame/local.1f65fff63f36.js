@@ -125,15 +125,3 @@ function updateScoreText(score) {
         }
     });
 }
-
-window.addEventListener('keydown', (event) => {
-    if (event.key in keys) {
-        keys[event.key] = true;
-    }
-});
-
-window.addEventListener('keyup', (event) => {
-    if (event.key in keys) {
-        keys[event.key] = false;
-    }
-});

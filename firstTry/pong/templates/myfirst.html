@@ -1,36 +1,12 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-	<style>
-		body { margin: 0; }
-	</style>
-	{% load static %}
-	<link rel="icon" href="{% static 'favicon.ico' %}" type="image/x-icon">
-	<script type="importmap">
-	{
-		"imports": {
-			"three": "https://cdn.jsdelivr.net/npm/three@0.165.0/build/three.module.js",
-			"renderpass": "https://cdn.jsdelivr.net/npm/three@0.165.0/examples/jsm/postprocessing/RenderPass.js",
-			"effectcomposer": "https://cdn.jsdelivr.net/npm/three@0.165.0/examples/jsm/postprocessing/EffectComposer.js",
-			"unrealbloompass": "https://cdn.jsdelivr.net/npm/three@0.165.0/examples/jsm/postprocessing/UnrealBloomPass.js",
-			"fontloader": "https://cdn.jsdelivr.net/npm/three@0.165.0/examples/jsm/loaders/FontLoader.js",
-			"linematerial": "https://cdn.jsdelivr.net/npm/three@0.165.0/examples/jsm/lines/LineMaterial.js",
-			"linesegment": "https://cdn.jsdelivr.net/npm/three@0.165.0/examples/jsm/lines/LineSegments2.js",
-			"linegeometry": "https://cdn.jsdelivr.net/npm/three@0.165.0/examples/jsm/lines/LineGeometry.js",
-			"line2": "https://cdn.jsdelivr.net/npm/three@0.165.0/examples/jsm/lines/Line2.js",
-			"timer": "https://cdn.jsdelivr.net/npm/three@0.165.0/examples/jsm/misc/Timer.js",
-			"orbitcontrols": "https://cdn.jsdelivr.net/npm/three@0.165.0/examples/jsm/controls/OrbitControls.js",
-			"cameracontrols": "https://cdn.jsdelivr.net/npm/camera-controls@2.8.5/dist/camera-controls.module.min.js"
-		}
+{% extends 'base.html' %}
 
-	}
-	</script>
-    <!-- {% load static %}
-	<script type="module" src="{% static 'src/js/3d.js' %}"></script> -->
-	
-</head>
-<body>
-	<script type="module" src="../static/src/js/3d.js"></script>
-</body>
-</html>
+{% load static %} <!-- This line is crucial -->
+
+{% block title %}3D Game{% endblock %}
+
+{% block content %}
+<div id="pong">
+    <!-- Your pong view content -->
+</div>
+<script type="module" src="{% static 'src/js/3d.js' %}"></script>
+{% endblock %}

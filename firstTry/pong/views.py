@@ -3,14 +3,22 @@ from django.http import HttpResponse
 from django.template import loader
 
 def pong(request):
-	template = loader.get_template('myfirst.html')
-	return	HttpResponse(template.render())
+    if request.headers.get('x-requested-with') == 'XMLHttpRequest':
+        template = loader.get_template('pong_partial.html')
+    else:
+        template = loader.get_template('myfirst.html')
+    return HttpResponse(template.render({}, request))
 
 def login_view(request):
-    return (render(request, 'login.html'))
+    if request.headers.get('x-requested-with') == 'XMLHttpRequest':
+        return render(request, 'login_partial.html')
+    return render(request, 'login.html')
 
 def register_view(request):
-    return (render(request, 'register.html'))
+    if request.headers.get('x-requested-with') == 'XMLHttpRequest':
+        return render(request, 'register_partial.html')
+    return render(request, 'register.html')
+
 	# if request.method == 'POST':
         # form = AuthenticationForm(request, data=request.POST)
         # if form.is_valid():

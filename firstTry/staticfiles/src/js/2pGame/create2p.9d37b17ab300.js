@@ -13,14 +13,14 @@ import { initScore } from './objects/score.js';
 import { updatePlayerPositions, checkCollision } from './local.js';
 
 const group = new THREE.Group();
-export let keys = {
+let keys = {
 	"w": false,
 	"s": false,
 	"ArrowUp": false,
 	"ArrowDown": false
 };
 let score = [0, 0];
-export let scoremesh = 0;
+let scoremesh = 0;
 
 initScore(score).then(scorea => {
 	scoremesh = scorea;
