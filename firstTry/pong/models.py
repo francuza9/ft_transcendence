@@ -28,8 +28,8 @@ class Profile(models.Model):
 	createdAt = models.DateTimeField(auto_now_add=True)
 	updatedAt = models.DateTimeField(auto_now=True)
 
-def __str__(self):
-	return self.displayName
+	def __str__(self):
+		return self.displayName
 
 
 class Tournament(models.Model):
@@ -39,8 +39,8 @@ class Tournament(models.Model):
 	endDate = models.DateTimeField()
 	winner = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True, related_name='won_tournaments')
 
-def __str__(self):
-	return self.name
+	def __str__(self):
+		return self.name
 
 
 class Game(models.Model):
@@ -65,5 +65,5 @@ class Message(models.Model):
 	content = models.TextField()
 	createdAt = models.DateTimeField(auto_now_add=True)
 
-def __str__(self):
-	return f"Message from {self.sender} to {self.recipient} at {self.createdAt}"
+	def __str__(self):
+		return f"Message from {self.sender} to {self.recipient} at {self.createdAt}"

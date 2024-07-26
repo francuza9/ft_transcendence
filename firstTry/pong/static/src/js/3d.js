@@ -10,7 +10,7 @@ const SPACE_MAP = 4;
 
 // js test socket
 // const socket = new WebSocket('ws://' + window.location.host + '/ws/pong/');
-const socket = new WebSocket('ws://localhost:8000/ws/pong/');
+/* const socket = new WebSocket('ws://localhost:8000/ws/pong/');
 
 
 socket.onmessage = function(e) {
@@ -31,13 +31,13 @@ function sendMessage(message) {
     socket.send(JSON.stringify({
         'message': message
     }));
-}
+} */
 
 // js test
 
 
 // make player names centered
-startGame(2, 0, DESERT_MAP, [0, 0]);
+startGame(2, 1, DESERT_MAP, [0, 0]);
 
 function startGame(playerCount, mappov, map, score)
 {
