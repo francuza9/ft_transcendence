@@ -78,7 +78,7 @@ CORS_ALLOW_ALL_ORIGINS = True
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR / 'global_templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
