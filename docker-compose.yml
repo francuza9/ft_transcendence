@@ -3,11 +3,11 @@ services:
     build:
       context: ./dockers/nginx
       dockerfile: Dockerfile
+    container_name: nginx
     ports:
       - "80:80"
-      - "4243:443"
+      - "443:443"
     volumes:
-      # - ./localhost.conf:/etc/nginx/conf.d/default.conf
       - ./dockers/nginx/ssl:/etc/nginx/ssl
     depends_on:
       - django
@@ -16,6 +16,7 @@ services:
     build:
       context: ./dockers/django
       dockerfile: Dockerfile
+    container_name: django
     expose:
       - "8000"
     volumes:
@@ -28,18 +29,18 @@ services:
       - DB_PASSWORD=He11oWorld
       - DB_HOST=db
       - DB_PORT=5432
-    # command: ["./wait-for-it.sh", "db:5432", "--", "sh", "-c", "python manage.py migrate && python manage.py runserver 0.0.0.0:8000"]
 
   db:
     build:
       context: ./dockers/postgresql
       dockerfile: Dockerfile
+    container_name: db
     environment:
       POSTGRES_DB: transcend_db
       POSTGRES_USER: db_user
       POSTGRES_PASSWORD: He11oWorld
     volumes:
-      - pgdata:/var/lib/postgresql/data  # Persist database data
+      - pgdata:/var/lib/postgresql/data
     ports:
       - "5432:5432"
 
