@@ -1,5 +1,5 @@
 """
-ASGI config for firstTry project.
+ASGI config for transcendence project.
 
 It exposes the ASGI callable as a module-level variable named ``application``.
 
@@ -15,7 +15,7 @@ from channels.auth import AuthMiddlewareStack
 from channels.security.websocket import AllowedHostsOriginValidator
 import pong.routing
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'firstTry.settings')
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'transcendence.settings')
 
 application = ProtocolTypeRouter({
     "http": get_asgi_application(),

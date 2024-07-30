@@ -2,8 +2,8 @@ all:
 	docker-compose up --build
 
 run:
-	. myenv/bin/activate && cd dockers/src/firstTry && python3 manage.py collectstatic --noinput
-	. myenv/bin/activate && cd dockers/src/firstTry && python3 manage.py runserver
+	. myenv/bin/activate && cd dockers/src/transcendence && python3 manage.py collectstatic --noinput
+	. myenv/bin/activate && cd dockers/src/transcendence && python3 manage.py runserver
 
 push:
 	git add *

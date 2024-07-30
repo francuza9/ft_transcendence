@@ -18,5 +18,5 @@ EXPOSE 8000
 
 ENTRYPOINT ["sh", "/code/scripts/django_setup.sh" ]
 
-CMD ["python3", "firstTry/manage.py", "runserver", "0.0.0.0:8000"]
+CMD ["python3", "transcendence/manage.py", "runserver", "0.0.0.0:8000"]
 
