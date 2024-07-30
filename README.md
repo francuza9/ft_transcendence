@@ -9,7 +9,7 @@ Set up virtual environment:
 _______________________________________________
 Run Server:  
 1) source venv/bin/activate  
-2) cd firstTry  
+2) cd transcendence  
 3) python3 manage.py runserver
 _______________________________________________
 Managing Staticfiles:  
