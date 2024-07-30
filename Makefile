@@ -24,11 +24,11 @@ clean: down
 	docker volume prune -f
 	docker volume rm $$(docker volume ls -q) || true
 
-	@echo "Removing Docker images..."
-	docker image prune -af
-
 	@echo "Removing unused Docker build cache..."
 	docker builder prune -af
+
+	@echo "Removing cache..."
+	docker system prune -f
 
 	@echo "Cleaning up dangling images..."
 	docker rmi $(docker images -f "dangling=true" -q) || true
@@ -37,6 +37,10 @@ clean: down
 	sudo systemctl stop nginx || true
 
 	@echo "Cleanup completed."
+
+fclean: clean
+	@echo "Removing Docker images..."
+	docker image prune -af
 
 re: clean all
 

@@ -1,9 +1,9 @@
-FROM debian:bullseye
+FROM nginx:1.27.0
 
 # Install OpenSSL
 
 
-RUN apt-get update && apt-get install -y nginx openssl
+RUN apt-get update && apt-get install -y openssl
 
 # Remove the default Nginx configuration	
 RUN rm /etc/nginx/conf.d/default.conf
