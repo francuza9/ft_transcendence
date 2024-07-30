@@ -7,11 +7,10 @@ COPY src/requirements.txt /code/
 RUN pip install --upgrade pip\
 	&& pip install django\
 	&& pip install --no-cache-dir -r requirements.txt
-	
-
-COPY src /code/
 
 RUN apt-get update && apt-get install -y netcat-openbsd
+
+COPY src /code/
 
 RUN chmod +x scripts/django_setup.sh
 
