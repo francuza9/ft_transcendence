@@ -9,6 +9,7 @@ services:
       - "443:443"
     volumes:
       - ./dockers/nginx/ssl:/etc/nginx/ssl
+      - ./dockers/django/src/firstTry/staticfiles:/staticfiles
     depends_on:
       - django
 
