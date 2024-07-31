@@ -17,7 +17,11 @@ export let keys = {
 	"w": false,
 	"s": false,
 	"ArrowUp": false,
-	"ArrowDown": false
+	"ArrowDown": false,
+	"a": false,
+	"d": false,
+	"ArrowLeft": false,
+	"ArrowRight": false,
 };
 let score = [0, 0];
 export let scoremesh = 0;
@@ -68,8 +72,11 @@ export function create2Pgame(mappov)
 	group.add(groupCornerLights);
 
 	window.addEventListener('resize', onWindowResize, false);
-	document.addEventListener('keydown', onKeydown);
-	document.addEventListener('keyup', onKeyup);
+	if (mappov === 0)
+	{
+		document.addEventListener('keydown', onKeydown);
+		document.addEventListener('keyup', onKeyup);
+	}
 
 	// add objects to scene //
 	initText().then(text => {
@@ -89,10 +96,19 @@ export function create2Pgame(mappov)
 		ball.animate();
 		// render
 		
-		checkCollision(ball, players, score, lights, scoremesh);
 		controls.update();
 		renderer.render(scene, camera);
-		updatePlayerPositions(players);
+		if (mappov === 0)
+		{
+			checkCollision(ball, players, score, lights, scoremesh);
+			updatePlayerPositions(players);
+		}
+		else if (mappov === 1)
+		{
+		}
+		else if (mappov === 2)
+		{
+		}
 	}
 
 	function onWindowResize() {

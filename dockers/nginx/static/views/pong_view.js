@@ -13,7 +13,7 @@ export function Pong() {
     `;
 
     // Initialize the Pong game
-    startGame(7, 1, MOUNTAIN_MAP, [0, 0]);
+    startGame(2, 1, MOUNTAIN_MAP, [0, 0]);
 
     return element;
 }
