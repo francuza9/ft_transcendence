@@ -1,5 +1,8 @@
 all:
-	docker-compose up --build
+	docker-compose up --build -d
+
+stop:
+	docker-compose stop
 
 run:
 	. myenv/bin/activate && cd dockers/src/transcendence && python3 manage.py collectstatic --noinput

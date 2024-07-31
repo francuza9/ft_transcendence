@@ -16,5 +16,11 @@ COPY nginx.conf /etc/nginx/nginx.conf
 # Copy SSL certificates
 COPY ssl /etc/nginx/ssl
 
+RUN mkdir -p /nginx
+WORKDIR /nginx
+
+COPY static /nginx/static
+COPY template /nginx/template
+
 # Start Nginx
 CMD ["nginx", "-g", "daemon off;"]
