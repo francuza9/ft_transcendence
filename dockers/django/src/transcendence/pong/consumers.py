@@ -1,19 +1,29 @@
 import json
+import logging
 from channels.generic.websocket import AsyncWebsocketConsumer
+
+logger = logging.getLogger(__name__)
 
 class PongConsumer(AsyncWebsocketConsumer):
     async def connect(self):
         await self.accept()
+        logger.info("WebSocket connection accepted")
 
     async def disconnect(self, close_code):
-        pass
+        logger.info(f"WebSocket connection closed with code: {close_code}")
 
     async def receive(self, text_data):
-        text_data_json = json.loads(text_data)
-        message = text_data_json['message']
+        try:
+            data = json.loads(text_data)
+            logger.info(f"Received data: {data}")
 
-        # Echo the message back to WebSocket
-        await self.send(text_data=json.dumps({
-            'message': message
-        }))
-
+            if data.get('action') == 'R' or data.get('action') == 'r':
+                response_message = {'message': 'I received it'}
+                await self.send(text_data=json.dumps(response_message))
+                logger.info(f"Sent response: {response_message}")
+        except json.JSONDecodeError as e:
+            logger.error(f"JSON decode error: {e}")
+            await self.close()
+        except Exception as e:
+            logger.error(f"Error processing message: {e}")
+            await self.close()

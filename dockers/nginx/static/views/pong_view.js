@@ -9,6 +9,7 @@ const SPACE_MAP = 4;
 export function Pong() {
     const element = document.createElement('div');
     element.innerHTML = `
+		<title>Pong Game!</title>
 		<script type="module" src="{% static 'src/js/3d.js' %}"></script>
     `;
 
