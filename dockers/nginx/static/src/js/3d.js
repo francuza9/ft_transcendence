@@ -1,40 +1,28 @@
 import { create2Pgame } from './2pGame/create2p.js';
 import { createMultigame } from './multigame/createMultigame.js';
 
-
-const NO_MAP = 0;
-const MOUNTAIN_MAP = 1;
-const DESERT_MAP = 2;
-const HELL_MAP = 3;
-const SPACE_MAP = 4;
-
-// js test socket
-// const socket = new WebSocket('ws://' + window.location.host + '/ws/pong/');
-/* const socket = new WebSocket('ws://localhost:8000/ws/pong/');
-
-
-socket.onmessage = function(e) {
-    const data = JSON.parse(e.data);
-    console.log(data.message);
-};
+const socket = new WebSocket('wss://localhost/ws/pong/');
 
 socket.onopen = function(e) {
-    console.log('WebSocket connection opened.');
-	sendMessage('Hello, Pong!');
+	console.log('Connected to WS server');
 };
 
-socket.onclose = function(e) {
-    console.log('WebSocket connection closed.');
+socket.onmessage = function(event) {
+	const data = JSON.parse(event.data);
+	if (data.messageType == 'startGame')
+		startGame(data.playerCount, data.mappov, data.map, data.score);
 };
 
-function sendMessage(message) {
-    socket.send(JSON.stringify({
-        'message': message
-    }));
-} */
+socket.onclose = function(event) {
+	if (event.wasClean)
+		console.log('Connection closed cleanly');
+	else
+		console.log('Connection died');
+};
 
-// js test
-
+socket.onerror = function(error) {
+	console.log('Error: ' + error.message);
+};
 
 // make player names centered
 export function startGame(playerCount, mappov, map, score)

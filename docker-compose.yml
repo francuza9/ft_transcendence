@@ -7,6 +7,8 @@ services:
     ports:
       - "80:80"
       - "443:443"
+    networks:
+      - pong-network
     volumes:
       - ./dockers/nginx/ssl:/etc/nginx/ssl
       - ./dockers/django/src/transcendence/staticfiles:/staticfiles
@@ -24,6 +26,8 @@ services:
       - ./dockers/django/src:/code
     depends_on:
       - db
+    networks:
+      - pong-network
     environment:
       - DB_NAME=transcend_db
       - DB_USER=db_user
@@ -40,10 +44,16 @@ services:
       POSTGRES_DB: transcend_db
       POSTGRES_USER: db_user
       POSTGRES_PASSWORD: He11oWorld
+    networks:
+      - pong-network
     volumes:
       - pgdata:/var/lib/postgresql/data
     ports:
       - "5432:5432"
+
+networks:
+  pong-network:
+    driver: bridge
 
 volumes:
   pgdata:
