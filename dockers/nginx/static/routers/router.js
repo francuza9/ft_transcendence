@@ -39,7 +39,6 @@ window.addEventListener('popstate', handleRouting);
 document.addEventListener('DOMContentLoaded', () => {
     handleRouting();
     // Handle clicks on links
-	console.log("works");
     document.body.addEventListener('click', (e) => {
         if (e.target.tagName === 'A' && e.target.href.startsWith(window.location.origin)) {
             e.preventDefault();

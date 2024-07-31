@@ -3,25 +3,28 @@ import { createMultigame } from './multigame/createMultigame.js';
 
 const socket = new WebSocket('wss://localhost/ws/pong/');
 
-socket.onopen = function(e) {
-	console.log('Connected to WS server');
+socket.onopen = function() {
+	console.log('Connected to server');
 };
 
 socket.onmessage = function(event) {
 	const data = JSON.parse(event.data);
-	if (data.messageType == 'startGame')
-		startGame(data.playerCount, data.mappov, data.map, data.score);
-};
-
-socket.onclose = function(event) {
-	if (event.wasClean)
-		console.log('Connection closed cleanly');
-	else
-		console.log('Connection died');
+	console.log(data.message);
 };
 
 socket.onerror = function(error) {
-	console.log('Error: ' + error.message);
+    console.log("WebSocket error:", error);
+};
+
+document.addEventListener('keypress', function(event) {
+	if (event.key === 'r' || event.key === 'R') {
+		console.log("Sending message: R");
+		socket.send(JSON.stringify({ 'action': 'r' }));
+	}
+});
+
+socket.onclose = function() {
+	console.log('Disconnected from server');
 };
 
 // make player names centered
