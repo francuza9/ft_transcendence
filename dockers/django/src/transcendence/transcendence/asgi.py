@@ -18,13 +18,13 @@ import pong.routing
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'transcendence.settings')
 
 application = ProtocolTypeRouter({
-    "http": get_asgi_application(),
-    "websocket": AllowedHostsOriginValidator(
-        AuthMiddlewareStack(
-            URLRouter(
-                pong.routing.websocket_urlpatterns
-            )
-        )
-    ),
+	"http": get_asgi_application(),
+	"websocket": AllowedHostsOriginValidator(
+		AuthMiddlewareStack(
+			URLRouter(
+				pong.routing.websocket_urlpatterns
+			)
+		)
+	),
 })
 
