@@ -20,8 +20,8 @@ services:
       context: ./dockers/django
       dockerfile: Dockerfile
     container_name: django
-    expose:
-      - "8000"
+    ports:
+      - "8000:8000"
     volumes:
       - ./dockers/django/src:/code
     depends_on:
