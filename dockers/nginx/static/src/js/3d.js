@@ -1,7 +1,7 @@
 import { create2Pgame } from './2pGame/create2p.js';
 import { createMultigame } from './multigame/createMultigame.js';
 
-const socket = new WebSocket('wss://localhost/ws/pong/');
+const socket = new WebSocket('wss://localhost/ws/pong/${roomId}');
 
 socket.onopen = function() {
 	console.log('Connected to server');

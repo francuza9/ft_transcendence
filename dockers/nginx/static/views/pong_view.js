@@ -6,15 +6,16 @@ const DESERT_MAP = 2;
 const HELL_MAP = 3;
 const SPACE_MAP = 4;
 
-export function Pong() {
-    const element = document.createElement('div');
-    element.innerHTML = `
-		<title>Pong Game!</title>
+export function Pong([roomId]) {
+	const element = document.createElement('div');
+	element.innerHTML = `
+		<h1>Pong Game Room: ${roomId}</h1>
+		<!-- Include the script directly or ensure it's loaded via your build system -->
 		<script type="module" src="{% static 'src/js/3d.js' %}"></script>
-    `;
+	`;
 
-    // Initialize the Pong game
-    startGame(2, 1, MOUNTAIN_MAP, [0, 0]);
+	// Initialize the Pong game
+	startGame(2, 1, MOUNTAIN_MAP, [0, 0]);
 
-    return element;
+	return element;
 }
