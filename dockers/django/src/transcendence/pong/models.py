@@ -1,12 +1,10 @@
 import datetime
-
 from django.db import models
-import uuid
 from django.utils import timezone
 
 
 class User(models.Model):
-	id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+	id = models.AutoField(primary_key=True)
 	username = models.CharField(max_length=50, unique=True)
 	email = models.EmailField(unique=True)
 	passwordHash = models.CharField(max_length=255)
@@ -17,7 +15,7 @@ class User(models.Model):
 
 
 class Profile(models.Model):
-	id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+	id = models.AutoField(primary_key=True)
 	user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile')
 	displayName = models.CharField(max_length=50)
 	avatarUrl = models.URLField(blank=True, null=True)
@@ -33,7 +31,7 @@ class Profile(models.Model):
 
 
 class Tournament(models.Model):
-	id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+	id = models.AutoField(primary_key=True)
 	name = models.CharField(max_length=50)
 	startDate = models.DateTimeField()
 	endDate = models.DateTimeField()
@@ -44,22 +42,22 @@ class Tournament(models.Model):
 
 
 class Game(models.Model):
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    player1 = models.ForeignKey(User, on_delete=models.CASCADE, related_name='games_as_player1')
-    player2 = models.ForeignKey(User, on_delete=models.CASCADE, related_name='games_as_player2')
-    winner = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True, related_name='won_games')
-    tournament = models.ForeignKey(Tournament, on_delete=models.CASCADE, related_name='games')
-    player1Score = models.IntegerField(default=0)
-    player2Score = models.IntegerField(default=0)
-    createdAt = models.DateTimeField(auto_now_add=True)
-    updatedAt = models.DateTimeField(auto_now=True)
+	id = models.AutoField(primary_key=True)
+	player1 = models.ForeignKey(User, on_delete=models.CASCADE, related_name='games_as_player1')
+	player2 = models.ForeignKey(User, on_delete=models.CASCADE, related_name='games_as_player2')
+	winner = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True, related_name='won_games')
+	tournament = models.ForeignKey(Tournament, on_delete=models.CASCADE, related_name='games')
+	player1Score = models.IntegerField(default=0)
+	player2Score = models.IntegerField(default=0)
+	createdAt = models.DateTimeField(auto_now_add=True)
+	updatedAt = models.DateTimeField(auto_now=True)
 
-    def __str__(self):
-        return f"Game between {self.player1} and {self.player2} in {self.tournament}"
+	def __str__(self):
+		return f"Game between {self.player1} and {self.player2} in {self.tournament}"
 
 
 class Message(models.Model):
-	id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+	id = models.AutoField(primary_key=True)
 	sender = models.ForeignKey(User, on_delete=models.CASCADE, related_name='sent_messages')
 	recipient = models.ForeignKey(User, on_delete=models.CASCADE, related_name='received_messages')
 	content = models.TextField()
@@ -67,3 +65,4 @@ class Message(models.Model):
 
 	def __str__(self):
 		return f"Message from {self.sender} to {self.recipient} at {self.createdAt}"
+	
