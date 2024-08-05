@@ -1,12 +1,13 @@
 import { Pong } from '../views/pong_view.js';
 import { Home } from '../views/home.js';
+import { Register } from '../views/register.js';
 
 const router = [
 	// { path: undefined, 		component: Error404 },
 	{ path: "/",			component: Home },
 	{ path: "/pong",		component: Pong },
-	//{ path: "/login",		component: Login },
-	//{ path: "/register",	component: Register },
+	// { path: "/login",		component: Login },
+	{ path: "/register",	component: Register },
 ];
 
 // Select the content container
