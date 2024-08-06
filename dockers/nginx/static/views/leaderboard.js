@@ -1,4 +1,4 @@
-import { replaceHTML } from './utils.js';
+import { replaceHTML } from '/static/src/js/utils.js';
 
 export async function Leaderboard()
 {

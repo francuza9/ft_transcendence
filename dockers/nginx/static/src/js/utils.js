@@ -29,3 +29,10 @@ export async function replaceHTML(path, navbar)
 
 	return body;
 }
+
+export function normalizePath(path)
+{
+    path = path.replace(/\/{2,}/g, '/');
+    path = path.replace(/\/+$/, '') || '/';	
+	return path;
+}
