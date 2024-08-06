@@ -2,11 +2,8 @@ export async function Login()
 {
     const body = document.getElementsByTagName('body')[0];
 
-
-	// body.innerHTML = await (await fetch('/path/to/login.html')).text();
-
     try {
-        const response = await fetch('/static/assets/html/login.html');
+        const response = await fetch('/static/src/html/login.html');
         if (!response.ok) {
             throw new Error('Network response was not ok');
         }
