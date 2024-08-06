@@ -1,9 +1,19 @@
-export function Home() {
-    const element = document.createElement('div');
-	element.innerHTML = '<h1>Home</h1>';
-    //element.innerHTML = `
-	//	<script type="module" src="{% static 'src/js/3d.js' %}"></script>
-    //`;
+export async function Home() {
+    const body = document.getElementsByTagName('body')[0];
 
-    return element;
+
+	// body.innerHTML = (await fetch('/path/to/login.html')).text();
+
+    try {
+        const response = await fetch('/static/assets/html/login.html');
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        const htmlContent = await response.text();
+        body.innerHTML = htmlContent;
+    } catch (error) {
+        console.error('There was a problem with the fetch operation:', error);
+    }
+
+	return body;
 }
