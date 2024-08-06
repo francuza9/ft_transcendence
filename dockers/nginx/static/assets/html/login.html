@@ -1,0 +1,80 @@
+<link rel="stylesheet" href="/static/assets/css/style.css">
+<!-- <h1>Hello world!</h1> -->
+<!-- NAVBAR -->
+<nav class="navbar navbar-expand-lg bg-white sticky-top">
+	<div class="container">
+		<a class="navbar-brand" href="#">
+			<!-- <img src="./assets/images/logo.svg" alt=""> -->
+			Transcendence
+		</a>
+		<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="collapse navbar-collapse" id="navbarNav">
+			<ul class="navbar-nav ms-auto">
+				<li class="nav-item">
+					<a class="nav-link" href="index.html">Home</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="leaderboard.html">Leaderboard</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="about.html">About</a>
+				</li>
+			</ul>
+			<a href="login.html" class="btn btn-brand ms-lg-3">
+				<i class="ri-user-line large-icon"></i>
+			</a>
+		</div>
+	</div>
+</nav>
+
+<section id="hero" class="vh-100 gradient-custom">
+	<div class="container py-5 h-100">
+		<div class="row d-flex justify-content-center align-items-center h-100">
+			<div class="col-12 col-md-8 col-lg-6 col-xl-5">
+				<div class="card bg-dark text-white" style="border-radius: 1rem;">
+					<div class="card-body p-5 text-center">
+
+						<div class="mb-md-5 mt-md-4 pb-5">
+
+							<h2 class="text-white fw-bold mb-2 text-uppercase">Login</h2>
+							<p class="text-white-50 mb-5">Please enter your login and password!</p>
+
+							<div data-mdb-input-init class="form-outline mb-4">
+								<input type="email" id="typeEmailX" class="form-control form-control-lg" />
+								<label class="form-label" for="typeEmailX">Username</label>
+							</div>
+
+							<div data-mdb-input-init class="form-outline mb-4">
+								<input type="password" id="typePasswordX" class="form-control form-control-lg" />
+								<label class="form-label" for="typePasswordX">Password</label>
+							</div>
+
+							<p class="small mb-5 pb-lg-2"><a class="text-white-50" href="#!">Forgot password?</a></p>
+
+							<button class="btn btn-primary btn-lg btn-block" type="submit">Login</button>
+
+							<div class="divider">
+								<span>or</span>
+							</div>
+
+							<div class="d-grid gap-2 col-8 mx-auto">
+								<button class="btn btn-primary" type="button">
+									<i class="fab fa-github"></i> Sign in with GitHub
+								</button>
+								<button class="btn btn-primary" type="button">
+									<i class="fab fa-42"></i> Sign in with 42
+								</button>
+							</div>
+
+							<div>
+								<p class="mb-0 mt-4">Don't have an account? <a href="register.html" class="text-muted fw-bold">Sign Up</a></p>
+							</div>
+
+						</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>

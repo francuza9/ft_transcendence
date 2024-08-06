@@ -1,6 +1,8 @@
 import { Pong } from '../views/pong_view.js';
 import { Home } from '../views/home.js';
 import { Register } from '../views/register.js';
+import { Login } from '../views/login.js';
+// import { Leaderboard } from '../views/leaderboard.js';
 
 /* const router = [
 	// { path: undefined, 		component: Error404 },
@@ -14,6 +16,8 @@ const router = [
     { path: /^\/$/, component: Home },
     { path: /^\/pong\/(\d+)$/, component: Pong }, // Match paths like /pong/1, /pong/2, etc.
     { path: /^\/register$/, component: Register },
+	{ path: /^\/login$/, component: Login },
+	// { path: /^\/leaderboard$/, component: Leaderboard },
 ];
 
 // Select the content container
