@@ -1,37 +1,47 @@
 import { create2Pgame } from './2pGame/create2p.js';
 import { createMultigame } from './multigame/createMultigame.js';
 
-const socket = new WebSocket('wss://localhost/ws/pong/${roomId}');
+export function initializeWebSocket(roomId) {
+    const socket = new WebSocket(`wss://localhost/ws/pong/${roomId}`);
 
-socket.onopen = function() {
-	console.log('Connected to server');
-};
+    socket.onopen = function() {
+        console.log('Connected to server');
+    };
 
-socket.onmessage = function(event) {
-	const data = JSON.parse(event.data);
-	console.log(data.message);
-};
+    socket.onmessage = function(event) {
+        const data = JSON.parse(event.data);
+        console.log('Received message:', data.message);
+    };
 
-socket.onerror = function(error) {
-    console.log("WebSocket error:", error);
-};
+    socket.onerror = function(error) {
+        console.log("WebSocket error:", error);
+    };
 
-document.addEventListener('keypress', function(event) {
-	if (event.key === 'r' || event.key === 'R') {
-		console.log("Sending message: R");
-		socket.send(JSON.stringify({ 'action': 'r' }));
-	}
-});
+    // Adding a debug log to ensure event listener is set
+    console.log('Setting up keypress event listener');
 
-socket.onclose = function() {
-	console.log('Disconnected from server');
-};
+    document.addEventListener('keypress', function(event) {
+        console.log('Key pressed:', event.key);
+        if ((event.key === 'r' || event.key === 'R') && socket.readyState === WebSocket.OPEN) {
+            console.log("Sending message: R");
+            socket.send(JSON.stringify({ 'action': 'r' }));
+        } else if (socket.readyState !== WebSocket.OPEN) {
+            console.log('Cannot send message, WebSocket is not open.');
+        }
+    });
 
-// make player names centered
-export function startGame(playerCount, mappov, map, score)
-{
-	if (playerCount == 2 && mappov < 3)
-		create2Pgame(mappov, score);
-	else if (playerCount > 2 && playerCount <= 8)
-		createMultigame(playerCount, mappov, map);
+    socket.onclose = function(event) {
+        console.log('Disconnected from server', event);
+        if (!event.wasClean) {
+            console.log('Connection closed unexpectedly');
+        }
+    };
+}
+
+// Make player names centered
+export function startGame(playerCount, mappov, map, score) {
+    if (playerCount === 2 && mappov < 3)
+        create2Pgame(mappov, score);
+    else if (playerCount > 2 && playerCount <= 8)
+        createMultigame(playerCount, mappov, map);
 }
