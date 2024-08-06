@@ -1,26 +1,17 @@
-export function Register() {
-    const element = document.createElement('div');
-    element.innerHTML = `
-        <div class="register-form">
-            <h2>Register</h2>
-            <form id="register-form">
-                <div class="form-group">
-                    <label for="username">Username:</label>
-                    <input type="text" id="username" name="username" placeholder="Enter your username" required>
-                </div>
-                <div class="form-group">
-                    <label for="email">Email:</label>
-                    <input type="email" id="email" name="email" placeholder="Enter your email" required>
-                </div>
-                <div class="form-group">
-                    <label for="password">Password:</label>
-                    <input type="password" id="password" name="password" placeholder="Enter your password" required>
-                </div>
-                <button type="submit">Register</button>
-            </form>
-            <div id="register-result"></div>
-        </div>
-    `;
+export async function Register()
+{
+    const body = document.getElementsByTagName('body')[0];
+
+    try {
+        const response = await fetch('/static/src/html/register.html');
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        const htmlContent = await response.text();
+        body.innerHTML = htmlContent;
+    } catch (error) {
+        console.error('There was a problem with the fetch operation:', error);
+    }
 
     // WebSocket connection
     const registerWS = new WebSocket('wss://localhost/ws/register/');
@@ -52,5 +43,5 @@ export function Register() {
         resultDiv.textContent = "Error occurred while connecting to WebSocket.";
     };
 
-    return element;
+    return body;
 }
