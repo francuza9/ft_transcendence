@@ -1,18 +1,8 @@
+import { replaceHTML } from '/static/src/js/utils.js';
+
 export async function Register()
 {
-    const body = document.getElementsByTagName('body')[0];
-
-    try {
-        const response = await fetch('/static/src/html/register.html');
-        if (!response.ok) {
-            throw new Error('Network response was not ok');
-        }
-        const htmlContent = await response.text();
-        body.innerHTML = htmlContent;
-    } catch (error) {
-        console.error('There was a problem with the fetch operation:', error);
-    }
-
+	replaceHTML('/static/src/html/login.html', true); 
     // WebSocket connection
     const registerWS = new WebSocket('wss://localhost/ws/register/');
 
@@ -42,6 +32,4 @@ export async function Register()
     registerWS.onerror = function(event) {
         resultDiv.textContent = "Error occurred while connecting to WebSocket.";
     };
-
-    return body;
 }

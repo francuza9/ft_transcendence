@@ -1,37 +1,40 @@
-// Ensure DOM is fully loaded before executing JavaScript
-document.addEventListener('DOMContentLoaded', function() {
-    
-    // Handle form submission
-    const loginForm = document.getElementById('loginForm');
-    if (loginForm) {
-        loginForm.addEventListener('submit', function(event) {
-            event.preventDefault(); // Prevent form submission
+export const loginButton = () => {
+    console.log('yes');
 
-            // Perform AJAX request or other form handling here
-            const formData = new FormData(loginForm);
-            const username = formData.get('username');
-            const password = formData.get('password');
+    const email = document.getElementById('email').value;
+    const password = document.getElementById('password').value;
 
-            // Example: Log the username and password to console
-            console.log('Username:', username);
-            console.log('Password:', password);
-
-            // You can send the form data to your Django backend via fetch or XMLHttpRequest
-            // Example using fetch:
-            /*
-            fetch('/login/', {
-                method: 'POST',
-                body: formData,
-            })
-            .then(response => response.json())
-            .then(data => {
-                // Handle response from server
-                console.log('Server response:', data);
-            })
-            .catch(error => {
-                console.error('Error:', error);
-            });
-            */
+    if (email && password) {
+        fetch('/login', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ email, password })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                console.log('Login successful');
+                window.location.href = '/dashboard';
+            } else {
+                console.error('Login failed:', data.message);
+                alert('Login failed: ' + data.message);
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('An error occurred during login');
         });
+    } else {
+        alert('Please enter both email and password');
     }
-});
+};
+
+export const loginWithGithubButton = () => {
+	console.log('Login with GitHub');
+}
+
+export const loginWith42Button = () =>  {
+	console.log('Login with 42');
+}
