@@ -1,4 +1,5 @@
 import { startGame } from '../src/js/3d.js';
+import { initializeWebSocket } from '../src/js/3d.js';
 
 const NO_MAP = 0;
 const MOUNTAIN_MAP = 1;
@@ -15,6 +16,8 @@ export function Pong([roomId]) {
 	`;
 
 	// Initialize the Pong game
+	
+	initializeWebSocket(roomId);
 	startGame(2, 1, MOUNTAIN_MAP, [0, 0]);
 
 	return element;
