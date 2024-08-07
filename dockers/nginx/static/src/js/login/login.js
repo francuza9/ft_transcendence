@@ -1,3 +1,5 @@
+import { handleRouting } from '/static/routers/router.js';
+
 export const loginButton = () => {
     const email = document.getElementById('email').value;
     const password = document.getElementById('password').value;
@@ -6,6 +8,10 @@ export const loginButton = () => {
 	console.log(password);
 
     if (email && password) {
+
+		//implement logic
+		
+		/*
         fetch('/login', {
             method: 'POST',
             headers: {
@@ -17,7 +23,9 @@ export const loginButton = () => {
         .then(data => {
             if (data.success) {
                 console.log('Login successful');
-                window.location.href = '/profile';
+				//e.preventDefault();
+				history.pushState(null, '', '/');
+				handleRouting();
             } else {
                 console.error('Login failed:', data.message);
                 alert('Login failed: ' + data.message);
@@ -29,6 +37,7 @@ export const loginButton = () => {
         });
     } else {
         alert('Please enter both email and password');
+	*/
     }
 };
 
