@@ -53,7 +53,7 @@ document.addEventListener('DOMContentLoaded', () => {
         } else if (e.target.tagName === 'BUTTON' && e.target.dataset.action) {
             e.preventDefault();
             const action = e.target.dataset.action;
-            handleButtonAction(action);
+            handleButtonAction(e, action);
         }
     });
     handleRouting();
