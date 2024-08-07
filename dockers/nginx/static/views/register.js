@@ -2,7 +2,7 @@ import { replaceHTML } from '/static/src/js/utils.js';
 
 export async function Register()
 {
-	replaceHTML('/static/src/html/login.html', true); 
+	const element = replaceHTML('/static/src/html/register.html', true); 
     // WebSocket connection
     const registerWS = new WebSocket('wss://localhost/ws/register/');
 
