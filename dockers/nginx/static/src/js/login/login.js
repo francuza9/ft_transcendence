@@ -1,8 +1,9 @@
 export const loginButton = () => {
-    console.log('yes');
-
     const email = document.getElementById('email').value;
     const password = document.getElementById('password').value;
+
+	console.log(email);
+	console.log(password);
 
     if (email && password) {
         fetch('/login', {
@@ -16,7 +17,7 @@ export const loginButton = () => {
         .then(data => {
             if (data.success) {
                 console.log('Login successful');
-                window.location.href = '/dashboard';
+                window.location.href = '/profile';
             } else {
                 console.error('Login failed:', data.message);
                 alert('Login failed: ' + data.message);
