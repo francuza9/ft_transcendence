@@ -3,6 +3,7 @@ import { replaceHTML } from '/static/src/js/utils.js';
 export async function Register()
 {
 	const element = replaceHTML('/static/src/html/register.html', true); 
+	/*
     // WebSocket connection
     const registerWS = new WebSocket('wss://localhost/ws/register/');
 
@@ -31,5 +32,5 @@ export async function Register()
 
     registerWS.onerror = function(event) {
         resultDiv.textContent = "Error occurred while connecting to WebSocket.";
-    };
+    };*/
 }
