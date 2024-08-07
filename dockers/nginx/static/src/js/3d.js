@@ -2,23 +2,6 @@ import { create2Pgame } from './2pGame/create2p.js';
 import { createMultigame } from './multigame/createMultigame.js';
 
 export function initializeWebSocket(roomId) {
-
-	/* const testWS = new WebSocket(`wss://localhost/ws/test/`);
-	testWS.onmessage = function(event) {
-		console.log('Message from server ', event.data);
-	};
-
-	testWS.onopen = function(event) {
-		console.log('WebSocket connection opened.');
-		testWS.send('Hello Server!');
-	}
-
-	testWS.onclose = function(event) {
-		console.log('WebSocket connection closed.');
-	} */
-
-
-
     const socket = new WebSocket(`wss://localhost/ws/pong/${roomId}/`);
 	// const socket = new WebSocket(`wss://localhost/ws/pong/1/`);
 
