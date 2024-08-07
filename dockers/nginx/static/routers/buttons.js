@@ -1,7 +1,7 @@
 import {loginButton, loginWithGithubButton, loginWith42Button} from '/static/src/js/login/login.js'
 import {accountButton} from '/static/src/js/account.js'
 
-export const handleButtonAction = (action) => {
+export const handleButtonAction = (e, action) => {
     switch(action) {
 		case 'login':
 			loginButton();
@@ -13,7 +13,7 @@ export const handleButtonAction = (action) => {
 			loginWith42Button();
             break;
 		case 'account':
-			accountButton();
+			accountButton(e);
 			break;
         default:
             console.log('Unknown action');
