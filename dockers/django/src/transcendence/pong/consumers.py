@@ -1,9 +1,16 @@
 import json
 import logging
 from channels.generic.websocket import AsyncWebsocketConsumer
-from .models import User
+from django.contrib.auth.models import User
 
 logger = logging.getLogger(__name__)
+
+class EchoConsumer(AsyncWebsocketConsumer):
+    async def connect(self):
+        await self.accept()
+
+    async def receive(self, text_data):
+        await self.send(text_data=text_data)
 
 class PongConsumer(AsyncWebsocketConsumer):
     async def connect(self):
@@ -70,17 +77,17 @@ class RegisterConsumer(AsyncWebsocketConsumer):
         password = data.get('password')  # Assuming you receive this from the frontend
 
         # Save to database asynchronously
-        await self.create_user(username, email, password_hash)
+        await self.create_user(username, email, password)
 
         # Send a response back
         await self.send(text_data=json.dumps({
             'message': 'User registered successfully'
         }))
 
-    async def create_user(self, username, email, password_hash):
+    async def create_user(self, username, email, password):
         # Save user asynchronously
         await User.objects.acreate(
             username=username,
             email=email,
-            passwordHash=password_hash
+            password=password
         )

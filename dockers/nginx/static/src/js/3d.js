@@ -2,7 +2,25 @@ import { create2Pgame } from './2pGame/create2p.js';
 import { createMultigame } from './multigame/createMultigame.js';
 
 export function initializeWebSocket(roomId) {
-    const socket = new WebSocket(`wss://localhost/ws/pong/${roomId}`);
+
+	/* const testWS = new WebSocket(`wss://localhost/ws/test/`);
+	testWS.onmessage = function(event) {
+		console.log('Message from server ', event.data);
+	};
+
+	testWS.onopen = function(event) {
+		console.log('WebSocket connection opened.');
+		testWS.send('Hello Server!');
+	}
+
+	testWS.onclose = function(event) {
+		console.log('WebSocket connection closed.');
+	} */
+
+
+
+    const socket = new WebSocket(`wss://localhost/ws/pong/${roomId}/`);
+	// const socket = new WebSocket(`wss://localhost/ws/pong/1/`);
 
     socket.onopen = function() {
         console.log('Connected to server');
@@ -13,10 +31,14 @@ export function initializeWebSocket(roomId) {
         console.log('Received message:', data.message);
     };
 
-    socket.onerror = function(error) {
-        console.log("WebSocket error:", error);
-    };
+	socket.onerror = function(error) {
+		console.error('WebSocket error:', error);
+		setTimeout(initializeWebSocket(roomId), 5000); // Retry after 1 second
+	};
 
+	socket.onclose = function() {
+		console.log('WebSocket connection closed.');
+	};
     // Adding a debug log to ensure event listener is set
     console.log('Setting up keypress event listener');
 
@@ -30,12 +52,6 @@ export function initializeWebSocket(roomId) {
         }
     });
 
-    socket.onclose = function(event) {
-        console.log('Disconnected from server', event);
-        if (!event.wasClean) {
-            console.log('Connection closed unexpectedly');
-        }
-    };
 }
 
 // Make player names centered
