@@ -9,9 +9,9 @@ done
 echo "PostgreSQL is up - running migrations."
 
 # Apply database migrations
-rm -rf transcendence/migrations/00*
+rm -rf transcendence/pong/migrations/00*
 python3 transcendence/manage.py makemigrations
 python3 transcendence/manage.py migrate
-python3 transcendence/manage.py populate_data
+python3 transcendence/manage.py populate_initial_data
 # Start the Django development server
 exec "$@"

@@ -3,11 +3,30 @@ import { replaceHTML } from '/static/src/js/utils.js';
 export async function Register()
 {
 	const element = replaceHTML('/static/src/html/register.html', true); 
-	/*
+	
     // WebSocket connection
-    const registerWS = new WebSocket('wss://localhost/ws/register/');
+    const registerWS = new WebSocket('wss://localhost/ws/register/');		
 
-    const form = element.querySelector('#register-form');
+	registerWS.onopen = function(event) {
+		console.log('WebSocket connection opened.');
+		// registerWS.send('Hello Server!');
+	}
+
+	registerWS.onclose = function(event) {
+		console.log('WebSocket connection closed.');
+	}
+
+	registerWS.onerror = function(event) {
+		console.log('WebSocket error occurred.');
+	}
+
+	registerWS.onmessage = function(event) {
+		const data = JSON.parse(event.data);
+		console.log(data);
+	}
+
+
+    /* const form = element.querySelector('#register-form');
     const resultDiv = element.querySelector('#register-result');
 
     form.addEventListener('submit', function(event) {
@@ -32,5 +51,5 @@ export async function Register()
 
     registerWS.onerror = function(event) {
         resultDiv.textContent = "Error occurred while connecting to WebSocket.";
-    };*/
+    }; */
 }
