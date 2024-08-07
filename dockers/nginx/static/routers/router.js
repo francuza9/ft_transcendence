@@ -28,7 +28,7 @@ const findRoute = (path) => {
     return { component: () => document.createTextNode('404 Not Found') };
 };
 
-const handleRouting = () => {
+export const handleRouting = () => {
     const path = normalizePath(window.location.pathname);
 	const { component, params } = findRoute(path);
     component(params);

@@ -1,6 +1,6 @@
-import { Login } from '/static/views/login.js';
+import { handleRouting } from '/static/routers/router.js';
 
 export const accountButton = () => {
-	console.log('Account');
-	Login();
+	window.location.pathname = '/login';
+	handleRouting();
 }
