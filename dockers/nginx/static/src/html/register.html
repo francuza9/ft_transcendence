@@ -1,57 +1,44 @@
-<link rel="stylesheet" href="/static/src/css/style.css">
-
-<section id="hero" class="vh-100 gradient-custom">
-	<div class="container py-5 h-100">
-		<div class="row d-flex justify-content-center align-items-center h-100">
-			<div class="col-12 col-md-8 col-lg-6 col-xl-5">
-				<div class="card bg-dark text-white" style="border-radius: 1rem;">
-					<div class="card-body p-5 text-center">
-
-						<div class="mb-md-5 mt-md-4 pb-5">
-
-							<h2 class="text-white fw-bold mb-2 text-uppercase">Register</h2>
-							<p class="text-white-50 mb-5">Please enter your login and password!</p>
-
-							<div data-mdb-input-init class="form-outline mb-4">
-								<input type="username" id="username" class="form-control form-control-lg" />
-								<label class="form-label" for="username">Username</label>
-							</div>
-							<div data-mdb-input-init class="form-outline mb-4">
-								<input type="email" id="email" class="form-control form-control-lg" />
-								<label class="form-label" for="email">Email</label>
-							</div>
-
-							<div data-mdb-input-init class="form-outline mb-4">
-								<input type="password" id="password" class="form-control form-control-lg" />
-								<label class="form-label" for="password">Password</label>
-							</div>
-							<div data-mdb-input-init class="form-outline mb-4">
-								<input type="passsword-confirmation" id="passsword-confirmation" class="form-control form-control-lg" />
-								<label class="form-label" for="passsword-confirmation">Confirm Password</label>
-							</div>
-
-							<button class="btn btn-primary btn-lg btn-block" type="submit">Register</button>
-
-							<div class="divider">
-								<span>or</span>
-							</div>
-
-							<div class="d-grid gap-2 col-8 mx-auto">
-								<button class="btn btn-primary" type="button" data-action="loginWithGithub">
-									<i class="fab fa-github"></i> Sign in with GitHub
-								</button>
-								<button class="btn btn-primary" type="button" data-action="loginWith42">
-									<i class="fab fa-42"></i> Sign in with 42
-								</button>
-							</div>
-
-							<div>
-								<p class="mb-0 mt-4">Already have an account? <a class="text-muted fw-bold" href="/login">Sign In</a></p>
-							</div>
-
-						</div>
-					</div>
-				</div>
+<link rel="stylesheet" href="/static/src/css/login.css">
+<section>
+	<div class="register-box">
+		<form action="">
+			<h2>Register</h2>
+			<div class="input-box">
+				<input id="username" required>
+				<label>Username</label>
 			</div>
-		</div>
+			<div class="input-box">
+				<input id="email" required>
+				<label>Email</label>
+			</div>
+			<div class="input-box">
+				<!--
+				<span class="icon">
+					<i class="ri-lock-password-line"></i>
+				</span>
+				-->
+				<input id="password" type="password" required>
+				<label>Password</label>
+			</div>
+			<div class="input-box">
+				<input id="password-confirmation" type="password" required>
+				<label>Confirm Password</label>
+			</div>
+			<button type="submit" data-action="register">Register</button>
+			<div class="link">
+				<p>Already have an account? <a href="/login">Login</a></p>
+			</div>
+			<!--
+			<div class="divider">
+			</div>
+			<button type="submit" data-action="loginWith42">
+				<i class="ri-github"></i>Sign in with 42
+			</button>
+			<div class="small-divider"></div>
+			<button type="submit" data-action="loginWithGithub">
+				<i class="42"></i>Sign in with Github
+			</button>
+			-->
+		</form>
+	</div>
 </section>
