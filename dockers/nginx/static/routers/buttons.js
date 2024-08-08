@@ -1,4 +1,5 @@
 import {loginButton, loginWithGithubButton, loginWith42Button} from '/static/src/js/login/login.js';
+import {registerButton} from '/static/src/js/register.js';
 import {accountButton} from '/static/src/js/account.js';
 import {playButton, createRoomButton, joinRoomButton} from '/static/src/js/play.js';
 
@@ -13,6 +14,9 @@ export const handleButtonAction = (e, action) => {
         case 'loginWith42':
 			loginWith42Button();
             break;
+		case 'register':
+			registerButton();
+			break;
 		case 'account':
 			accountButton(e);
 			break;
