@@ -4,18 +4,18 @@ export const loginButton = () => {
     const email = document.getElementById('email').value;
     const password = document.getElementById('password').value;
 
-	console.log(email);
-	console.log(password);
+    console.log(email);
+    console.log(password);
 
     if (email && password) {
+        // Fetch CSRF token from the cookie
+        const csrftoken = getCookie('csrftoken');
 
-		//implement logic
-		
-		/*
-        fetch('/login', {
+        fetch('/api/login/', {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'X-CSRFToken': csrftoken,  // Include CSRF token here
             },
             body: JSON.stringify({ email, password })
         })
@@ -23,9 +23,8 @@ export const loginButton = () => {
         .then(data => {
             if (data.success) {
                 console.log('Login successful');
-				//e.preventDefault();
-				history.pushState(null, '', '/');
-				handleRouting();
+                history.pushState(null, '', '/');
+                handleRouting();
             } else {
                 console.error('Login failed:', data.message);
                 alert('Login failed: ' + data.message);
@@ -37,14 +36,27 @@ export const loginButton = () => {
         });
     } else {
         alert('Please enter both email and password');
-	*/
     }
 };
 
+function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
 export const loginWithGithubButton = () => {
-	console.log('Login with GitHub');
+    console.log('Login with GitHub');
 }
 
 export const loginWith42Button = () =>  {
-	console.log('Login with 42');
+    console.log('Login with 42');
 }
