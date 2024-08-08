@@ -31,6 +31,19 @@ section {
 	backdrop-filter: blur(15px);
 }
 
+.register-box {
+	position: relative;
+	width: 400px;
+	height: 600px;
+	background: transparent;
+	border: 2px solid rgba(255, 255, 255, .5);
+	border-radius: 20px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	backdrop-filter: blur(15px);
+}
+
 h2 {
 	font-size: 2em;
 	color: #fff;
@@ -114,27 +127,27 @@ button {
 	font-weight: 500;
 }
 
-.register-link {
+.link {
 	font-size: .9em;
 	color: #fff;
 	text-align: center;
 	margin: 25px 0 10px;
 }
 
-.register-link p a {
+.link p a {
 	color: #fff;
 	text-decoration: none;
 	font-weight: 600;
 }
 
-.register-link p a:hover {
+.link p a:hover {
 	text-decoration: underline;
 }
 
-.small-separator {
+.small-divider {
 	margin: 0 0 0.75em;
 }
 
-.big-separator {
+.divider {
 	margin: 0 0 1.5em;
 }
