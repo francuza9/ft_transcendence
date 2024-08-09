@@ -1,6 +1,7 @@
 from django.urls import path
-from .views import login_view
+import pong.views as views
 
 urlpatterns = [
-    path('api/login/', login_view, name='login'),
+    path('api/login/', views.login_view, name='login'),
+	path('api/register/', views.register_view, name='register'),
 ]
