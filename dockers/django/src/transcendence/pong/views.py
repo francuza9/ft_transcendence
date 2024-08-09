@@ -66,3 +66,14 @@ def register_view(request):
             return JsonResponse({'success': False, 'message': 'Invalid JSON'})
 
     return JsonResponse({'success': False, 'message': 'Invalid request method'}, status=405)
+
+def user_info(request):
+    if request.user.is_authenticated:
+        user_data = {
+            'username': request.user.username,
+            'email': request.user.email,
+            # Add more fields as needed
+        }
+        return JsonResponse({'success': True, 'user': user_data})
+    else:
+        return JsonResponse({'success': False, 'message': 'User is not authenticated'})
