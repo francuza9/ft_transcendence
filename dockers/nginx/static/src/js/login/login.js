@@ -23,8 +23,15 @@ export const loginButton = () => {
         .then(data => {
             if (data.success) {
                 console.log('Login successful');
-                history.pushState(null, '', '/');
-                handleRouting();
+				if (variables.nextPage == 'room') {
+					history.pushState(null, '', '/');
+					handleRouting();
+					replaceHTML('/static/src/html/room.html', false);
+				} else
+				{
+					history.pushState(null, '', '/');
+					handleRouting();
+				}
             } else {
                 console.error('Login failed:', data.message);
                 alert('Login failed: ' + data.message);

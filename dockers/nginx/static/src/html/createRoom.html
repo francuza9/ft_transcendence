@@ -1,99 +1,95 @@
-<div class="container mt-5">
-    <div class="row">
-        <div class="col-6"></div>
-        <div class="btn-group" role="group">
-            <button id="btnGroupDrop1" type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" data-action='playerCountDropdown' aria-expanded="false">
-                Players
-            </button>
-			<ul class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-				<li><button class="dropdown-item" type="button" data-variable="playerCount" data-value="2">2</button></li>
-				<li><button class="dropdown-item" type="button" data-variable="playerCount" data-value="3">3</button></li>
-				<li><button class="dropdown-item" type="button" data-variable="playerCount" data-value="4">4</button></li>
-				<li><button class="dropdown-item" type="button" data-variable="playerCount" data-value="5">5</button></li>
-				<li><button class="dropdown-item" type="button" data-variable="playerCount" data-value="6">6</button></li>
-				<li><button class="dropdown-item" type="button" data-variable="playerCount" data-value="7">7</button></li>
-				<li><button class="dropdown-item" type="button" data-variable="playerCount" data-value="8">8</button></li>
-			</ul>
-        </div>
-    </div>
-	<button type="button" class="btn btn-primary" data-action="createRoom">Create Room</button>
-</div>
-
-<!--
-<h1>Create Room</h1>
-<div class="container">
+<div class="container md">
+	<h1>Create Room</h1>
 	<div class="row">
-		<div class="col-6"></div>
+		<div class="col">
+			<h3>Mode</h3>
+		</div>
+		<div class="col">
 			<div class="btn-group" role="group" aria-label="Basic radio toggle button group">
 			  <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" checked>
 			  <label class="btn btn-outline-primary" for="btnradio1">Classic</label>
 
 			  <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off">
-			  <label class="btn btn-outline-primary" for="btnradio2">Custom</label>
-
-			  <input type="radio" class="btn-check" name="btnradio" id="btnradio3" autocomplete="off">
-			  <label class="btn btn-outline-primary" for="btnradio3">Other</label>
-			</div>
-		</div>
-		<div class="col-6"></div>
-			<div class="btn-group" role="group">
-				<button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-					Dropdown
-				</button>
-				<ul class="dropdown-menu">
-					<li><a class="dropdown-item" href="#">Dropdown link</a></li>
-					<li><a class="dropdown-item" href="#">Dropdown link</a></li>
-				</ul>
-			</div>
-		</div>
-		<div class="col-6"></div>
-			<div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
-				<div class="carousel-indicators">
-					<button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-					<button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
-					<button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
-					<button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="3" aria-label="Slide 4"></button>
-				</div>
-				<div class="carousel-inner">
-					<div class="carousel-item active">
-						<img src="/static/src/images/maps/classic.png" class="d-block w-60" alt="...">
-						<div class="carousel-caption d-none d-md-block">
-							<h5>Classic</h5>
-							<p>The classic map.</p>
-						</div>
-					</div>
-					<div class="carousel-item">
-						<img src="/static/src/images/maps/mountain.png" class="d-block w-60" alt="...">
-						<div class="carousel-caption d-none d-md-block">
-							<h5>Mountain</h5>
-							<p>Nice view on top of the mountain!</p>
-						</div>
-					</div>
-					<div class="carousel-item">
-						<img src="/static/src/images/maps/desert.png" class="d-block w-60" alt="...">
-						<div class="carousel-caption d-none d-md-block">
-							<h5>Desert</h5>
-							<p>Nice pyramids.</p>
-						</div>
-					</div>
-					<div class="carousel-item">
-						<img src="/static/src/images/maps/hell.png" class="d-block w-60" alt="...">
-						<div class="carousel-caption d-none d-md-block">
-							<h5>Hell</h5>
-							<p>It might look scary but i promise it isn't.</p>
-						</div>
-					</div>
-				</div>
-				<button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
-					<span class="carousel-control-prev-icon" aria-hidden="true"></span>
-					<span class="visually-hidden">Previous</span>
-				</button>
-				<button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
-					<span class="carousel-control-next-icon" aria-hidden="true"></span>
-					<span class="visually-hidden">Next</span>
-				</button>
+			  <label class="btn btn-outline-primary" for="btnradio2">Tournament</label>
 			</div>
 		</div>
 	</div>
+	<div class="row">
+		<div class="col">
+			<h3>Players</h3>
+		</div>
+		<div class="col">
+			<div class="btn-group" role="group">
+				<button id="btnGroupDrop1" type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" data-action='playerCountDropdown' aria-expanded="false">
+					2
+				</button>
+				<ul class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+					<li><button class="dropdown-item" type="button" data-variable="playerCount" data-value="2">2</button></li>
+					<li><button class="dropdown-item" type="button" data-variable="playerCount" data-value="3">3</button></li>
+					<li><button class="dropdown-item" type="button" data-variable="playerCount" data-value="4">4</button></li>
+					<li><button class="dropdown-item" type="button" data-variable="playerCount" data-value="5">5</button></li>
+					<li><button class="dropdown-item" type="button" data-variable="playerCount" data-value="6">6</button></li>
+					<li><button class="dropdown-item" type="button" data-variable="playerCount" data-value="7">7</button></li>
+					<li><button class="dropdown-item" type="button" data-variable="playerCount" data-value="8">8</button></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<div class="col">
+		<div class="col">
+			<h3>Map</h3>
+		</div>
+		<div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
+			<div class="carousel-indicators">
+				<button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+				<button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
+				<button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
+				<button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="3" aria-label="Slide 4"></button>
+			</div>
+			<div class="carousel-inner">
+				<div class="carousel-item active">
+					<img src="/static/src/images/maps/classic.png" class="d-block w-60" alt="...">
+					<div class="carousel-caption d-none d-md-block">
+						<h5>Classic</h5>
+						<p>The classic map.</p>
+					</div>
+				</div>
+				<div class="carousel-item">
+					<img src="/static/src/images/maps/mountain.png" class="d-block w-60" alt="...">
+					<div class="carousel-caption d-none d-md-block">
+						<h5>Mountain</h5>
+						<p>Nice view on top of the mountain!</p>
+					</div>
+				</div>
+				<div class="carousel-item">
+					<img src="/static/src/images/maps/desert.png" class="d-block w-60" alt="...">
+					<div class="carousel-caption d-none d-md-block">
+						<h5>Desert</h5>
+						<p>Nice pyramids.</p>
+					</div>
+				</div>
+				<div class="carousel-item">
+					<img src="/static/src/images/maps/hell.png" class="d-block w-60" alt="...">
+					<div class="carousel-caption d-none d-md-block">
+						<h5>Hell</h5>
+						<p>It might look scary but i promise it isn't.</p>
+					</div>
+				</div>
+			</div>
+			<button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+				<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+				<span class="visually-hidden">Previous</span>
+			</button>
+			<button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+				<span class="carousel-control-next-icon" aria-hidden="true"></span>
+				<span class="visually-hidden">Next</span>
+			</button>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col">
+			<button type="button" class="btn btn-danger" data-action="back">Cancel</button>
+			<button type="button" class="btn btn-success" data-action="createRoom">Create Room</button>
+		</div>
+	</div>
 </div>
--->
