@@ -55,7 +55,7 @@ document.addEventListener('DOMContentLoaded', () => {
             e.preventDefault();
             const action = e.target.dataset.action;
             handleButtonAction(e, action);
-        } else if (e.target.tagName === 'BUTTON' && e.target.dataset.variable) {
+        } else if ((e.target.tagName === 'BUTTON' || e.target.tagName === 'INPUT') && e.target.dataset.variable) {
             e.preventDefault();
             const variable = e.target.dataset.variable;
             const value = e.target.dataset.value;
