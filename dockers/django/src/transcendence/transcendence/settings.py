@@ -43,7 +43,7 @@ INSTALLED_APPS = [
 ] 
 
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
-SECURE_SSL_REDIRECT = True
+SECURE_SSL_REDIRECT = False
 SESSION_COOKIE_SECURE = True
 CSRF_COOKIE_SECURE = True
 SECURE_HSTS_SECONDS = 3600  # Adjust as needed
@@ -154,6 +154,12 @@ DATABASES = {
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
 
 AUTH_USER_MODEL = 'pong.CustomUser'
+
+AUTHENTICATION_BACKENDS = [
+    'pong.backends.EmailBackend',
+    'django.contrib.auth.backends.ModelBackend',
+]
+
 
 AUTH_PASSWORD_VALIDATORS = [
     {
