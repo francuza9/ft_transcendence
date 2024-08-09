@@ -67,9 +67,11 @@ def register_view(request):
 
     return JsonResponse({'success': False, 'message': 'Invalid request method'}, status=405)
 
+@csrf_exempt
 def user_info(request):
     if request.user.is_authenticated:
         user_data = {
+			'id': request.user.id,
             'username': request.user.username,
             'email': request.user.email,
             # Add more fields as needed
