@@ -60,6 +60,21 @@ export const updatePlayerCount = (document, value) => {
 	dropdownButton.textContent = `${variables.playerCount}`;
 }
 
+export const updateIsTournament = (document, value) => {
+	variables.isTournament = value;
+    const radioButtons = document.querySelectorAll('.btn-group .btn-check');
+	const classicButton = radioButtons[0].nextElementSibling;
+	const tournamentButton = radioButtons[1].nextElementSibling;
+
+	if (value) {
+		tournamentButton.classList.add('active');
+		classicButton.classList.remove('active');
+	} else {
+		tournamentButton.classList.remove('active');
+		classicButton.classList.add('active');
+	}
+}
+
 export const joinRoomButton = () => {
 	console.log('joining Room: ');
 	//console.log('id: ', roomId);
@@ -67,5 +82,7 @@ export const joinRoomButton = () => {
 
 export const createRoomButton = () => {
 	console.log('creating Room: ');
+	console.log('tournament: ', variables.isTournament);
 	console.log('player count: ', variables.playerCount);
+	console.log('map: ', variables.map);
 }
