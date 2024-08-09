@@ -1,7 +1,7 @@
 import {loginButton, loginWithGithubButton, loginWith42Button} from '/static/src/js/login/login.js';
 import {registerButton} from '/static/src/js/register.js';
 import {accountButton} from '/static/src/js/account.js';
-import {playButton, createRoomButton, joinRoomButton} from '/static/src/js/play.js';
+import {playButton, createButton, joinButton, createRoomButton, joinRoomButton, playerCountDropdownButton} from '/static/src/js/play.js';
 
 export const handleButtonAction = (e, action) => {
     switch(action) {
@@ -23,11 +23,17 @@ export const handleButtonAction = (e, action) => {
 		case 'play':
 			playButton();
 			break;
-		case 'joinRoom':
-			joinRoomButton();
+		case 'join':
+			joinButton();
+			break;
+		case 'create':
+			createButton();
 			break;
 		case 'createRoom':
 			createRoomButton();
+			break;
+		case 'playerCountDropdown':
+			playerCountDropdownButton();
 			break;
         default:
             console.log('Unknown action');
