@@ -64630,3 +64630,32 @@ INFO 2024-08-09 22:11:00,181 runserver WebSocket DISCONNECT /ws/pong/10/ [172.18
 INFO 2024-08-09 22:11:00,409 runserver WebSocket HANDSHAKING /ws/pong/10/ [172.18.0.4:35496]
 INFO 2024-08-09 22:11:00,416 runserver WebSocket CONNECT /ws/pong/10/ [172.18.0.4:35496]
 INFO 2024-08-09 22:12:10,644 runserver WebSocket DISCONNECT /ws/pong/10/ [172.18.0.4:35496]
+INFO 2024-08-10 00:34:50,863 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 00:40:53,611 autoreload /code/transcendence/transcendence/settings.py changed, reloading.
+INFO 2024-08-10 00:40:54,051 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 00:41:00,215 autoreload /code/transcendence/transcendence/settings.py changed, reloading.
+INFO 2024-08-10 00:41:00,630 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 00:41:36,088 autoreload /code/transcendence/pong/views.py changed, reloading.
+INFO 2024-08-10 00:41:36,554 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 00:41:37,686 autoreload /code/transcendence/pong/views.py changed, reloading.
+INFO 2024-08-10 00:41:38,155 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 00:51:00,765 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 00:53:18,320 autoreload /code/transcendence/pong/urls.py changed, reloading.
+INFO 2024-08-10 00:53:18,790 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 00:53:28,003 autoreload /code/transcendence/pong/views.py changed, reloading.
+INFO 2024-08-10 00:53:28,427 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 00:53:39,934 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 00:54:41,862 runserver HTTP POST /api/login/ 200 [0.31, 172.18.0.4:46890]
+INFO 2024-08-10 00:57:28,507 autoreload /code/transcendence/pong/views.py changed, reloading.
+INFO 2024-08-10 00:57:29,137 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 00:57:32,311 autoreload /code/transcendence/pong/views.py changed, reloading.
+INFO 2024-08-10 00:57:32,808 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 00:57:35,972 autoreload /code/transcendence/pong/views.py changed, reloading.
+INFO 2024-08-10 00:57:36,447 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 00:57:37,605 autoreload /code/transcendence/pong/views.py changed, reloading.
+INFO 2024-08-10 00:57:38,041 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 00:57:41,197 autoreload /code/transcendence/pong/views.py changed, reloading.
+INFO 2024-08-10 00:57:41,712 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 01:22:41,991 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 01:23:29,750 runserver HTTP POST /api/login/ 200 [0.32, 172.18.0.4:56236]
+INFO 2024-08-10 01:24:08,834 runserver HTTP POST /api/login/ 200 [0.29, 172.18.0.4:54614]
