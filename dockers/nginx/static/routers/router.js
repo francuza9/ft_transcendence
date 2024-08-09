@@ -5,6 +5,7 @@ import { Login } from '../views/login.js';
 import { About } from '../views/about.js';
 import { Leaderboard } from '../views/leaderboard.js';
 import { handleButtonAction } from './buttons.js';
+import { updateVariable } from '/static/src/js/variables.js';
 import { normalizePath } from '/static/src/js/utils.js';
 
 const router = [
@@ -54,6 +55,11 @@ document.addEventListener('DOMContentLoaded', () => {
             e.preventDefault();
             const action = e.target.dataset.action;
             handleButtonAction(e, action);
+        } else if ((e.target.tagName === 'BUTTON' || e.target.tagName === 'INPUT') && e.target.dataset.variable) {
+            e.preventDefault();
+            const variable = e.target.dataset.variable;
+            const value = e.target.dataset.value;
+            updateVariable(document, variable, value);
         }
     });
     handleRouting();
