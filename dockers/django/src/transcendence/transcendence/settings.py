@@ -27,9 +27,7 @@ SECRET_KEY = 'django-insecure-pmw=v+l$+vufr@*%&!)*!)6v&e7yg)024^hf5mhrkp-siv&%jd
 DEBUG = False
 
 ALLOWED_HOSTS = [
-	'localhost',
-	'127.0.0.1',
-	'django',]
+	'*',]
 
 
 # Application definition
@@ -102,20 +100,51 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'transcendence.wsgi.application'
 
+from django.conf import settings
+
+import os
+from django.conf import settings
 
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
-    'handlers': {
-        'console': {
-            'class': 'logging.StreamHandler',
+    'formatters': {
+        'verbose': {
+            'format': '{levelname} {asctime} {module} {message}',
+            'style': '{',
+        },
+        'simple': {
+            'format': '{levelname} {message}',
+            'style': '{',
         },
     },
-    'root': {
-        'handlers': ['console'],
-        'level': 'DEBUG',
+    'handlers': {
+        'file': {
+            'level': 'INFO',
+            'class': 'logging.FileHandler',
+            'filename': os.path.join(BASE_DIR, 'django_debug.log'),
+            'formatter': 'verbose',
+        },
+        'console': {
+            'level': 'INFO',
+            'class': 'logging.StreamHandler',
+            'formatter': 'simple',
+        },
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['file', 'console'],
+            'level': 'INFO',
+            'propagate': True,
+        },
+        'your_app': {
+            'handlers': ['file', 'console'],
+            'level': 'INFO',
+            'propagate': True,
+        },
     },
 }
+
 
 DATABASES = {
     'default': {
