@@ -1,3 +1,6 @@
+import random
+import math
+
 def update_ball_position(game_state):
     ball = game_state['ball_position']
     direction = game_state['ball_direction']
@@ -19,14 +22,14 @@ def update_ball_position(game_state):
         direction['y'] = -1 * bounce_angle
         direction['x'] *= -1
         if speed < 0.3:
-            speed += 0.02
+            speed += 0.01
     elif ball['x'] < -5.3 and player_1['y'] - 1 <= ball['y'] <= player_1['y'] + 1:
         relative_intersect = player_1['y'] - ball['y']
         bounce_angle = relative_intersect * (3.14159 / 4)
         direction['y'] = -1 * bounce_angle
         direction['x'] *= -1
         if speed < 0.3:
-            speed += 0.02
+            speed += 0.01
 
     # Scoring
     if ball['x'] > 5.5:  # Player 1 scores
@@ -41,10 +44,16 @@ def update_ball_position(game_state):
     ball['y'] += direction['y'] * speed
 
     # Save the updated state
-    game_state['ball_direction'] = direction
+    # game_state['ball_direction'] = direction
     game_state['ball_speed'] = speed
 
 def reset_ball(game_state):
     game_state['ball_position'] = {'x': 0, 'y': 0}
-    game_state['ball_direction'] = {'x': 1.5 if random.random() < 0.5 else -1.5, 'y': 0}
-    game_state['ball_speed'] = 0.05
+    
+    # Randomly choose the horizontal direction
+    direction_x = 1.5 if random.random() < 0.5 else -1.5
+    
+    # Set the direction to move horizontally
+    game_state['ball_direction'] = {'x': direction_x, 'y': 0}
+    
+    game_state['ball_speed'] = 0.02

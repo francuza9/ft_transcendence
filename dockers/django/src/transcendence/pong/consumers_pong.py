@@ -3,6 +3,7 @@ import logging
 from channels.generic.websocket import AsyncWebsocketConsumer
 import asyncio
 from .backend_pong.collisions import update_ball_position
+import struct
 
 logger = logging.getLogger(__name__)
 
@@ -23,7 +24,6 @@ class PongConsumer(AsyncWebsocketConsumer):
 			self.room_group_name,
 			self.channel_name
 		)
-
 		await self.accept()
 		logger.info(f"WebSocket connection accepted for room {self.room_id}")
 		response_message = {'pov': pov}
@@ -39,50 +39,50 @@ class PongConsumer(AsyncWebsocketConsumer):
 		)
 		logger.info(f"WebSocket connection closed with code: {close_code} for room {self.room_id}")
 
-	async def receive(self, text_data):
-		data = json.loads(text_data)
-		player = data.get('player')
-		position_y = data.get('position')
-	
-		if player == 1:
-			player_key = 'player_1'
-		elif player == 2:
-			player_key = 'player_2'
-		else:
-			return  # Invalid player number
+	async def receive(self, bytes_data):
+		format_str = '<Bff'  # Little-endian: B (unsigned byte), f (float)
 
-		# Update the player's y position in the game state
+		playerID, positionX, positionY = struct.unpack(format_str, bytes_data)
+
+		player_key = 'player_1' if playerID == 0 else 'player_2'
+
 		if player_key in PongConsumer.game_states[self.room_id]['players']:
-			PongConsumer.game_states[self.room_id]['players'][player_key]['y'] = position_y
-
-		# Send updated game state back to all players
-		game_state = self.get_game_state()
-		await self.channel_layer.group_send(
-			self.room_group_name,
-			{
-				'type': 'pong_message',
-				'message': game_state
-			}
-		)
-
+			PongConsumer.game_states[self.room_id]['players'][player_key]['x'] = positionX
+			PongConsumer.game_states[self.room_id]['players'][player_key]['y'] = positionY
 
 	async def game_update_loop(self):
 		while True:
 			game_state = self.get_game_state()
 			update_ball_position(game_state)
-			# Broadcast updated game state
+
+			# Prepare minimal game state data
+			player_1_y = game_state['players']['player_1']['y']
+			player_2_y = game_state['players']['player_2']['y']
+			ball_pos = game_state['ball_position']
+			ball_dir = game_state['ball_direction']
+
+			# Pack minimal game state data into bytes
+			format_str = '<ffffff'  # Little-endian: f (float) for each value
+			packed_data = struct.pack(
+				format_str,
+				ball_pos['x'], ball_pos['y'],  # ball position
+				ball_dir['x'], ball_dir['y'],  # ball direction
+				player_1_y, player_2_y         # player positions
+			)
+
 			await self.channel_layer.group_send(
 				self.room_group_name,
 				{
 					'type': 'pong_message',
-					'message': game_state
+					'message': packed_data
 				}
 			)
-			await asyncio.sleep(1 / 60)  # 60 updates per second
+			await asyncio.sleep(1 / 30)  # 24 updates per second
 
 	async def pong_message(self, event):
-		message = event['message']
-		await self.send(text_data=json.dumps(message))
+		packed_data = event['message']
+		await self.send(bytes_data=packed_data)
+
 
 	def get_game_state(self):
 		return PongConsumer.game_states.get(self.room_id, {})
