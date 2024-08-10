@@ -40,6 +40,7 @@ window.addEventListener('popstate', handleRouting);
 
 document.addEventListener('DOMContentLoaded', () => {
 
+	checkLoginStatus();
     // Handle clicks on links and buttons
     document.body.addEventListener('click', (e) => {
         if (e.target.tagName === 'A' && e.target.href.startsWith(window.location.origin)) {
@@ -64,3 +65,22 @@ document.addEventListener('DOMContentLoaded', () => {
     });
     handleRouting();
 });
+
+function checkLoginStatus() {
+    fetch('/api/check_login_status/', {
+        method: 'GET',
+        credentials: 'include',  // Include cookies in the request
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            const user = data.user;
+            console.log('Logged in as:', user.username);
+        } else {
+            console.log('User is not logged in');
+        }
+    })
+    .catch(error => {
+        console.error('Error fetching user info:', error);
+    });
+}
