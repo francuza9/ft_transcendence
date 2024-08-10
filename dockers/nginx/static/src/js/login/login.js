@@ -1,4 +1,6 @@
 import { handleRouting } from '/static/routers/router.js';
+import { variables } from '/static/src/js/variables.js';
+import { replaceHTML } from '/static/src/js/utils.js';
 
 export const loginButton = () => {
     const email = document.getElementById('email').value;
@@ -23,6 +25,7 @@ export const loginButton = () => {
         .then(data => {
             if (data.success) {
                 console.log('Login successful');
+				variables.loggedIn = true;
 				if (variables.nextPage == 'room') {
 					history.pushState(null, '', '/');
 					handleRouting();
