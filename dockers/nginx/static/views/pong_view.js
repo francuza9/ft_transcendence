@@ -21,7 +21,8 @@ export async function Pong([roomId]) {
         const { pov, socket } = await initializeWebSocket(roomId);
         console.log('Socket:', socket);
         startGame(2, pov, MOUNTAIN_MAP, socket);
-    } catch (error) {
+		// startGame(7, 1, SPACE_MAP, socket);
+	} catch (error) {
         console.error('Failed to initialize WebSocket:', error);
     }
 

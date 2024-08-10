@@ -64630,3 +64630,914 @@ INFO 2024-08-09 22:11:00,181 runserver WebSocket DISCONNECT /ws/pong/10/ [172.18
 INFO 2024-08-09 22:11:00,409 runserver WebSocket HANDSHAKING /ws/pong/10/ [172.18.0.4:35496]
 INFO 2024-08-09 22:11:00,416 runserver WebSocket CONNECT /ws/pong/10/ [172.18.0.4:35496]
 INFO 2024-08-09 22:12:10,644 runserver WebSocket DISCONNECT /ws/pong/10/ [172.18.0.4:35496]
+INFO 2024-08-09 22:28:01,313 autoreload Watching for file changes with StatReloader
+INFO 2024-08-09 22:28:47,035 runserver WebSocket HANDSHAKING /ws/pong/3/ [172.19.0.4:36650]
+INFO 2024-08-09 22:28:47,037 runserver WebSocket CONNECT /ws/pong/3/ [172.19.0.4:36650]
+INFO 2024-08-09 22:29:05,317 autoreload /code/transcendence/transcendence/settings.py changed, reloading.
+INFO 2024-08-09 22:29:05,914 autoreload Watching for file changes with StatReloader
+INFO 2024-08-09 22:29:18,061 autoreload Watching for file changes with StatReloader
+INFO 2024-08-09 22:33:02,692 autoreload Watching for file changes with StatReloader
+INFO 2024-08-09 22:33:15,286 runserver WebSocket HANDSHAKING /ws/pong/1/ [172.21.0.4:35550]
+INFO 2024-08-09 22:33:15,289 runserver WebSocket CONNECT /ws/pong/1/ [172.21.0.4:35550]
+INFO 2024-08-09 22:33:22,000 runserver WebSocket DISCONNECT /ws/pong/1/ [172.21.0.4:35550]
+INFO 2024-08-09 22:33:22,773 runserver WebSocket HANDSHAKING /ws/pong/1/ [172.21.0.4:56380]
+INFO 2024-08-09 22:33:22,774 runserver WebSocket CONNECT /ws/pong/1/ [172.21.0.4:56380]
+INFO 2024-08-09 22:33:25,135 runserver WebSocket DISCONNECT /ws/pong/1/ [172.21.0.4:56380]
+INFO 2024-08-09 22:33:25,608 runserver WebSocket HANDSHAKING /ws/pong/2/ [172.21.0.4:56386]
+INFO 2024-08-09 22:33:25,610 runserver WebSocket CONNECT /ws/pong/2/ [172.21.0.4:56386]
+INFO 2024-08-09 23:08:58,500 runserver WebSocket HANDSHAKING /ws/pong/2/ [172.21.0.4:53316]
+INFO 2024-08-09 23:08:58,501 runserver WebSocket CONNECT /ws/pong/2/ [172.21.0.4:53316]
+INFO 2024-08-09 23:08:59,218 runserver WebSocket DISCONNECT /ws/pong/2/ [172.21.0.4:56386]
+INFO 2024-08-09 23:08:59,683 runserver WebSocket DISCONNECT /ws/pong/2/ [172.21.0.4:53316]
+INFO 2024-08-10 00:07:37,032 autoreload /code/transcendence/pong/consumers_pong.py changed, reloading.
+INFO 2024-08-10 00:07:37,626 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 00:50:41,258 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 00:51:33,465 runserver WebSocket HANDSHAKING /ws/pong/1/ [172.22.0.4:33334]
+INFO 2024-08-10 00:51:33,468 runserver WebSocket CONNECT /ws/pong/1/ [172.22.0.4:33334]
+INFO 2024-08-10 00:51:37,226 runserver WebSocket DISCONNECT /ws/pong/1/ [172.22.0.4:33334]
+INFO 2024-08-10 00:51:37,737 runserver WebSocket HANDSHAKING /ws/pong/2/ [172.22.0.4:33350]
+INFO 2024-08-10 00:51:37,739 runserver WebSocket CONNECT /ws/pong/2/ [172.22.0.4:33350]
+INFO 2024-08-10 00:51:40,440 runserver WebSocket DISCONNECT /ws/pong/2/ [172.22.0.4:33350]
+INFO 2024-08-10 00:51:40,876 runserver WebSocket HANDSHAKING /ws/pong/3/ [172.22.0.4:33356]
+INFO 2024-08-10 00:51:40,878 runserver WebSocket CONNECT /ws/pong/3/ [172.22.0.4:33356]
+INFO 2024-08-10 00:51:44,569 runserver WebSocket DISCONNECT /ws/pong/3/ [172.22.0.4:33356]
+INFO 2024-08-10 00:51:44,807 runserver WebSocket HANDSHAKING /ws/pong/4/ [172.22.0.4:38836]
+INFO 2024-08-10 00:51:44,809 runserver WebSocket CONNECT /ws/pong/4/ [172.22.0.4:38836]
+INFO 2024-08-10 00:51:47,629 runserver WebSocket DISCONNECT /ws/pong/4/ [172.22.0.4:38836]
+INFO 2024-08-10 00:51:47,851 runserver WebSocket HANDSHAKING /ws/pong/6/ [172.22.0.4:38850]
+INFO 2024-08-10 00:51:47,852 runserver WebSocket CONNECT /ws/pong/6/ [172.22.0.4:38850]
+INFO 2024-08-10 00:52:12,911 autoreload /code/transcendence/pong/backend_pong/collisions.py changed, reloading.
+INFO 2024-08-10 00:52:13,471 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 00:52:40,020 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 00:52:42,461 runserver WebSocket HANDSHAKING /ws/pong/6/ [172.22.0.4:42532]
+INFO 2024-08-10 00:52:42,464 runserver WebSocket CONNECT /ws/pong/6/ [172.22.0.4:42532]
+INFO 2024-08-10 00:53:02,873 runserver WebSocket DISCONNECT /ws/pong/6/ [172.22.0.4:42532]
+INFO 2024-08-10 00:53:03,275 runserver WebSocket HANDSHAKING /ws/pong/6/ [172.22.0.4:36066]
+INFO 2024-08-10 00:53:03,276 runserver WebSocket CONNECT /ws/pong/6/ [172.22.0.4:36066]
+INFO 2024-08-10 00:56:30,031 autoreload /code/transcendence/pong/backend_pong/collisions.py changed, reloading.
+INFO 2024-08-10 00:56:30,483 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 00:58:20,737 autoreload /code/transcendence/pong/backend_pong/collisions.py changed, reloading.
+INFO 2024-08-10 00:58:21,199 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 00:58:26,411 autoreload /code/transcendence/pong/backend_pong/collisions.py changed, reloading.
+INFO 2024-08-10 00:58:26,853 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 01:05:59,638 autoreload /code/transcendence/pong/consumers_pong.py changed, reloading.
+INFO 2024-08-10 01:06:00,102 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 01:06:06,393 autoreload /code/transcendence/pong/backend_pong/collisions.py changed, reloading.
+INFO 2024-08-10 01:06:06,841 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 01:06:09,035 autoreload /code/transcendence/pong/backend_pong/collisions.py changed, reloading.
+INFO 2024-08-10 01:06:09,510 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 01:06:15,788 autoreload /code/transcendence/pong/backend_pong/collisions.py changed, reloading.
+INFO 2024-08-10 01:06:16,285 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 01:06:23,490 autoreload /code/transcendence/pong/backend_pong/collisions.py changed, reloading.
+INFO 2024-08-10 01:06:23,972 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 01:06:43,478 autoreload /code/transcendence/pong/backend_pong/collisions.py changed, reloading.
+INFO 2024-08-10 01:06:43,939 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 01:06:55,279 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 01:06:57,978 runserver WebSocket HANDSHAKING /ws/pong/6/ [172.22.0.4:48494]
+INFO 2024-08-10 01:06:57,980 runserver WebSocket CONNECT /ws/pong/6/ [172.22.0.4:48494]
+INFO 2024-08-10 01:07:52,484 runserver WebSocket DISCONNECT /ws/pong/6/ [172.22.0.4:48494]
+INFO 2024-08-10 01:18:01,623 autoreload /code/transcendence/pong/consumers_pong.py changed, reloading.
+INFO 2024-08-10 01:18:02,074 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 01:18:18,474 autoreload /code/transcendence/pong/consumers_pong.py changed, reloading.
+INFO 2024-08-10 01:18:18,919 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 01:27:25,839 autoreload /code/transcendence/transcendence/settings.py changed, reloading.
+INFO 2024-08-10 01:27:26,299 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 01:29:08,559 autoreload /code/transcendence/transcendence/settings.py changed, reloading.
+INFO 2024-08-10 01:29:08,995 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 01:29:21,369 autoreload /code/transcendence/transcendence/settings.py changed, reloading.
+INFO 2024-08-10 01:29:21,811 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 01:52:10,473 autoreload /code/transcendence/pong/consumers_pong.py changed, reloading.
+INFO 2024-08-10 01:52:11,006 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 01:52:14,205 autoreload /code/transcendence/pong/consumers_pong.py changed, reloading.
+INFO 2024-08-10 01:52:14,684 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 01:52:18,888 autoreload /code/transcendence/pong/consumers_pong.py changed, reloading.
+INFO 2024-08-10 01:52:19,321 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 01:52:25,543 autoreload /code/transcendence/pong/consumers_pong.py changed, reloading.
+INFO 2024-08-10 01:52:25,974 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 01:52:43,561 autoreload /code/transcendence/pong/consumers_pong.py changed, reloading.
+INFO 2024-08-10 01:52:44,024 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 01:58:58,913 autoreload /code/transcendence/pong/consumers_pong.py changed, reloading.
+INFO 2024-08-10 01:58:59,419 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 01:59:28,073 autoreload /code/transcendence/pong/backend_pong/collisions.py changed, reloading.
+INFO 2024-08-10 01:59:28,601 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 01:59:32,800 autoreload /code/transcendence/pong/backend_pong/collisions.py changed, reloading.
+INFO 2024-08-10 01:59:33,342 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 02:01:29,338 autoreload /code/transcendence/pong/backend_pong/collisions.py changed, reloading.
+INFO 2024-08-10 02:01:29,786 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 02:01:55,374 autoreload /code/transcendence/pong/backend_pong/collisions.py changed, reloading.
+INFO 2024-08-10 02:01:55,926 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 02:01:58,101 autoreload /code/transcendence/pong/backend_pong/collisions.py changed, reloading.
+INFO 2024-08-10 02:01:58,567 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 02:02:01,735 autoreload /code/transcendence/pong/backend_pong/collisions.py changed, reloading.
+INFO 2024-08-10 02:02:02,180 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 02:02:08,419 autoreload /code/transcendence/pong/backend_pong/collisions.py changed, reloading.
+INFO 2024-08-10 02:02:08,887 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 02:02:12,071 autoreload /code/transcendence/pong/backend_pong/collisions.py changed, reloading.
+INFO 2024-08-10 02:02:12,563 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 02:02:26,573 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 02:02:28,618 runserver WebSocket HANDSHAKING /ws/pong/6/ [172.22.0.4:41870]
+INFO 2024-08-10 02:02:28,620 runserver WebSocket CONNECT /ws/pong/6/ [172.22.0.4:41870]
+INFO 2024-08-10 02:06:48,045 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 02:06:51,107 runserver WebSocket HANDSHAKING /ws/pong/6/ [172.22.0.4:47248]
+INFO 2024-08-10 02:06:51,109 runserver WebSocket CONNECT /ws/pong/6/ [172.22.0.4:47248]
+INFO 2024-08-10 02:09:13,538 autoreload /code/transcendence/pong/consumers_pong.py changed, reloading.
+INFO 2024-08-10 02:09:14,066 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 02:09:17,264 autoreload /code/transcendence/pong/consumers_pong.py changed, reloading.
+INFO 2024-08-10 02:09:17,773 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 02:09:22,962 autoreload /code/transcendence/pong/consumers_pong.py changed, reloading.
+INFO 2024-08-10 02:09:23,470 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 02:09:31,712 autoreload /code/transcendence/pong/consumers_pong.py changed, reloading.
+INFO 2024-08-10 02:09:32,228 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 02:09:56,575 autoreload /code/transcendence/pong/consumers_pong.py changed, reloading.
+INFO 2024-08-10 02:09:57,144 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 02:10:01,327 autoreload /code/transcendence/pong/consumers_pong.py changed, reloading.
+INFO 2024-08-10 02:10:01,827 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 02:10:15,315 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 02:10:17,803 runserver WebSocket HANDSHAKING /ws/pong/6/ [172.22.0.4:36238]
+INFO 2024-08-10 02:10:17,805 runserver WebSocket CONNECT /ws/pong/6/ [172.22.0.4:36238]
+INFO 2024-08-10 02:22:44,027 autoreload /code/transcendence/pong/backend_pong/collisions.py changed, reloading.
+INFO 2024-08-10 02:22:44,534 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 02:22:52,749 autoreload /code/transcendence/pong/backend_pong/collisions.py changed, reloading.
+INFO 2024-08-10 02:22:53,226 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 02:22:59,435 autoreload /code/transcendence/pong/backend_pong/collisions.py changed, reloading.
+INFO 2024-08-10 02:23:00,016 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 02:24:38,826 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 02:24:59,044 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 02:26:10,690 autoreload /code/transcendence/pong/backend_pong/collisions.py changed, reloading.
+INFO 2024-08-10 02:26:11,137 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 02:26:14,317 autoreload /code/transcendence/pong/backend_pong/collisions.py changed, reloading.
+INFO 2024-08-10 02:26:14,854 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 02:26:26,174 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 02:26:27,045 runserver WebSocket HANDSHAKING /ws/pong/6/ [172.22.0.4:36590]
+INFO 2024-08-10 02:26:27,054 runserver WebSocket CONNECT /ws/pong/6/ [172.22.0.4:36590]
+INFO 2024-08-10 02:26:36,789 runserver WebSocket DISCONNECT /ws/pong/6/ [172.22.0.4:36590]
+INFO 2024-08-10 02:26:37,330 runserver WebSocket HANDSHAKING /ws/pong/6/ [172.22.0.4:58492]
+INFO 2024-08-10 02:26:37,331 runserver WebSocket CONNECT /ws/pong/6/ [172.22.0.4:58492]
+INFO 2024-08-10 02:29:42,027 runserver WebSocket DISCONNECT /ws/pong/6/ [172.22.0.4:58492]
+INFO 2024-08-10 02:30:17,051 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 02:30:20,784 runserver WebSocket HANDSHAKING /ws/pong/6/ [172.22.0.4:44604]
+INFO 2024-08-10 02:30:20,786 runserver WebSocket CONNECT /ws/pong/6/ [172.22.0.4:44604]
+INFO 2024-08-10 02:30:56,652 autoreload /code/transcendence/pong/consumers_pong.py changed, reloading.
+INFO 2024-08-10 02:30:57,265 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 02:30:59,424 autoreload /code/transcendence/pong/consumers_pong.py changed, reloading.
+INFO 2024-08-10 02:30:59,980 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 02:31:19,431 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 02:31:55,891 autoreload /code/transcendence/pong/consumers_pong.py changed, reloading.
+INFO 2024-08-10 02:31:56,420 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 02:32:00,603 autoreload /code/transcendence/pong/consumers_pong.py changed, reloading.
+INFO 2024-08-10 02:32:01,119 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 02:32:05,294 autoreload /code/transcendence/pong/consumers_pong.py changed, reloading.
+INFO 2024-08-10 02:32:05,824 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 02:32:11,034 autoreload /code/transcendence/pong/consumers_pong.py changed, reloading.
+INFO 2024-08-10 02:32:11,569 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 02:32:23,531 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 02:32:25,839 runserver WebSocket HANDSHAKING /ws/pong/6/ [172.22.0.4:51422]
+INFO 2024-08-10 02:32:25,841 runserver WebSocket CONNECT /ws/pong/6/ [172.22.0.4:51422]
+INFO 2024-08-10 02:32:26,002 runserver WebSocket DISCONNECT /ws/pong/6/ [172.22.0.4:51422]
+INFO 2024-08-10 02:32:26,605 runserver WebSocket HANDSHAKING /ws/pong/6/ [172.22.0.4:51432]
+INFO 2024-08-10 02:32:26,607 runserver WebSocket CONNECT /ws/pong/6/ [172.22.0.4:51432]
+INFO 2024-08-10 02:33:57,668 autoreload /code/transcendence/pong/consumers_pong.py changed, reloading.
+INFO 2024-08-10 02:33:58,251 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 02:34:26,362 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 02:34:29,099 runserver WebSocket HANDSHAKING /ws/pong/6/ [172.22.0.4:50628]
+INFO 2024-08-10 02:34:29,102 runserver WebSocket CONNECT /ws/pong/6/ [172.22.0.4:50628]
+INFO 2024-08-10 02:34:58,703 runserver WebSocket DISCONNECT /ws/pong/6/ [172.22.0.4:50628]
+INFO 2024-08-10 02:36:02,889 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 02:36:09,094 runserver WebSocket HANDSHAKING /ws/pong/6/ [172.23.0.4:37492]
+INFO 2024-08-10 02:36:09,098 runserver WebSocket CONNECT /ws/pong/6/ [172.23.0.4:37492]
+INFO 2024-08-10 02:36:45,524 autoreload /code/transcendence/pong/consumers_pong.py changed, reloading.
+INFO 2024-08-10 02:36:46,103 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 02:37:18,557 autoreload /code/transcendence/pong/consumers_pong.py changed, reloading.
+INFO 2024-08-10 02:37:19,065 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 02:37:24,298 autoreload /code/transcendence/pong/consumers_pong.py changed, reloading.
+INFO 2024-08-10 02:37:24,931 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 02:37:29,977 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 02:37:31,568 runserver WebSocket HANDSHAKING /ws/pong/6/ [172.23.0.4:51540]
+INFO 2024-08-10 02:37:31,572 runserver WebSocket CONNECT /ws/pong/6/ [172.23.0.4:51540]
+INFO 2024-08-10 02:39:32,362 autoreload /code/transcendence/pong/consumers_pong.py changed, reloading.
+INFO 2024-08-10 02:39:32,884 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 02:39:36,077 autoreload /code/transcendence/pong/consumers_pong.py changed, reloading.
+INFO 2024-08-10 02:39:36,661 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 02:40:18,164 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 02:40:19,220 runserver WebSocket HANDSHAKING /ws/pong/6/ [172.23.0.4:51806]
+INFO 2024-08-10 02:40:19,222 runserver WebSocket CONNECT /ws/pong/6/ [172.23.0.4:51806]
+INFO 2024-08-10 02:40:19,589 runserver WebSocket DISCONNECT /ws/pong/6/ [172.23.0.4:51806]
+INFO 2024-08-10 02:40:20,026 runserver WebSocket HANDSHAKING /ws/pong/6/ [172.23.0.4:51808]
+INFO 2024-08-10 02:40:20,028 runserver WebSocket CONNECT /ws/pong/6/ [172.23.0.4:51808]
+INFO 2024-08-10 02:40:22,142 runserver WebSocket DISCONNECT /ws/pong/6/ [172.23.0.4:51808]
+INFO 2024-08-10 02:40:22,787 runserver WebSocket HANDSHAKING /ws/pong/6/ [172.23.0.4:37600]
+INFO 2024-08-10 02:40:22,789 runserver WebSocket CONNECT /ws/pong/6/ [172.23.0.4:37600]
+INFO 2024-08-10 02:40:26,521 runserver WebSocket DISCONNECT /ws/pong/6/ [172.23.0.4:37600]
+INFO 2024-08-10 02:40:26,950 runserver WebSocket HANDSHAKING /ws/pong/1/ [172.23.0.4:37616]
+INFO 2024-08-10 02:40:26,951 runserver WebSocket CONNECT /ws/pong/1/ [172.23.0.4:37616]
+INFO 2024-08-10 02:40:33,975 runserver WebSocket DISCONNECT /ws/pong/1/ [172.23.0.4:37616]
+INFO 2024-08-10 02:40:34,527 runserver WebSocket HANDSHAKING /ws/pong/1/ [172.23.0.4:39388]
+INFO 2024-08-10 02:40:34,528 runserver WebSocket CONNECT /ws/pong/1/ [172.23.0.4:39388]
+INFO 2024-08-10 02:40:41,546 autoreload /code/transcendence/pong/consumers_pong.py changed, reloading.
+INFO 2024-08-10 02:40:42,146 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 02:40:48,264 runserver WebSocket HANDSHAKING /ws/pong/2/ [172.23.0.4:45586]
+INFO 2024-08-10 02:40:48,267 runserver WebSocket CONNECT /ws/pong/2/ [172.23.0.4:45586]
+INFO 2024-08-10 02:41:34,878 autoreload /code/transcendence/pong/consumers_pong.py changed, reloading.
+INFO 2024-08-10 02:41:35,458 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 02:41:37,650 autoreload /code/transcendence/pong/consumers_pong.py changed, reloading.
+INFO 2024-08-10 02:41:38,174 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 02:41:42,356 autoreload /code/transcendence/pong/consumers_pong.py changed, reloading.
+INFO 2024-08-10 02:41:42,886 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 02:41:48,085 autoreload /code/transcendence/pong/consumers_pong.py changed, reloading.
+INFO 2024-08-10 02:41:48,707 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 02:41:50,909 autoreload /code/transcendence/pong/consumers_pong.py changed, reloading.
+INFO 2024-08-10 02:41:51,522 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 02:42:02,903 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 02:42:05,114 runserver WebSocket HANDSHAKING /ws/pong/2/ [172.23.0.4:33034]
+INFO 2024-08-10 02:42:05,117 runserver WebSocket CONNECT /ws/pong/2/ [172.23.0.4:33034]
+INFO 2024-08-10 02:42:37,452 autoreload /code/transcendence/pong/consumers_pong.py changed, reloading.
+INFO 2024-08-10 02:42:37,960 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 02:42:41,146 autoreload /code/transcendence/pong/consumers_pong.py changed, reloading.
+INFO 2024-08-10 02:42:41,738 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 02:42:44,928 autoreload /code/transcendence/pong/consumers_pong.py changed, reloading.
+INFO 2024-08-10 02:42:45,551 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 02:42:49,764 autoreload /code/transcendence/pong/consumers_pong.py changed, reloading.
+INFO 2024-08-10 02:42:50,303 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 02:43:02,901 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 02:43:16,550 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 02:43:18,270 runserver WebSocket HANDSHAKING /ws/pong/2/ [172.23.0.4:35650]
+INFO 2024-08-10 02:43:18,272 runserver WebSocket CONNECT /ws/pong/2/ [172.23.0.4:35650]
+INFO 2024-08-10 02:43:18,677 runserver WebSocket DISCONNECT /ws/pong/2/ [172.23.0.4:35650]
+INFO 2024-08-10 02:44:05,166 autoreload /code/transcendence/pong/consumers_pong.py changed, reloading.
+INFO 2024-08-10 02:44:05,692 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 02:44:08,883 autoreload /code/transcendence/pong/consumers_pong.py changed, reloading.
+INFO 2024-08-10 02:44:09,426 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 02:44:37,819 autoreload /code/transcendence/pong/consumers_pong.py changed, reloading.
+INFO 2024-08-10 02:44:38,400 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 02:44:42,572 autoreload /code/transcendence/pong/consumers_pong.py changed, reloading.
+INFO 2024-08-10 02:44:43,067 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 02:44:45,233 autoreload /code/transcendence/pong/consumers_pong.py changed, reloading.
+INFO 2024-08-10 02:44:45,740 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 02:44:49,911 autoreload /code/transcendence/pong/consumers_pong.py changed, reloading.
+INFO 2024-08-10 02:44:50,394 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 02:44:56,624 autoreload /code/transcendence/pong/consumers_pong.py changed, reloading.
+INFO 2024-08-10 02:44:57,168 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 02:45:06,391 autoreload /code/transcendence/pong/consumers_pong.py changed, reloading.
+INFO 2024-08-10 02:45:06,885 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 02:46:23,694 autoreload /code/transcendence/pong/consumers_pong.py changed, reloading.
+INFO 2024-08-10 02:46:24,248 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 02:46:40,542 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 02:46:41,068 runserver WebSocket HANDSHAKING /ws/pong/2/ [172.23.0.4:49562]
+INFO 2024-08-10 02:46:41,070 runserver WebSocket CONNECT /ws/pong/2/ [172.23.0.4:49562]
+INFO 2024-08-10 02:46:43,974 runserver WebSocket DISCONNECT /ws/pong/2/ [172.23.0.4:49562]
+INFO 2024-08-10 02:46:44,504 runserver WebSocket HANDSHAKING /ws/pong/2/ [172.23.0.4:41708]
+INFO 2024-08-10 02:46:44,506 runserver WebSocket CONNECT /ws/pong/2/ [172.23.0.4:41708]
+INFO 2024-08-10 02:47:02,943 autoreload /code/transcendence/pong/consumers_pong.py changed, reloading.
+INFO 2024-08-10 02:47:03,525 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 02:47:18,724 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 02:47:21,043 runserver WebSocket HANDSHAKING /ws/pong/2/ [172.23.0.4:42384]
+INFO 2024-08-10 02:47:21,045 runserver WebSocket CONNECT /ws/pong/2/ [172.23.0.4:42384]
+INFO 2024-08-10 02:47:58,317 autoreload /code/transcendence/pong/consumers_pong.py changed, reloading.
+INFO 2024-08-10 02:47:58,820 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 02:48:00,983 autoreload /code/transcendence/pong/consumers_pong.py changed, reloading.
+INFO 2024-08-10 02:48:01,518 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 02:48:36,224 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 02:48:37,330 runserver WebSocket HANDSHAKING /ws/pong/2/ [172.23.0.4:57040]
+INFO 2024-08-10 02:48:37,332 runserver WebSocket CONNECT /ws/pong/2/ [172.23.0.4:57040]
+INFO 2024-08-10 02:53:31,910 autoreload /code/transcendence/pong/consumers_pong.py changed, reloading.
+INFO 2024-08-10 02:53:32,520 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 02:53:51,242 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 02:53:51,661 runserver WebSocket HANDSHAKING /ws/pong/2/ [172.23.0.4:36530]
+INFO 2024-08-10 02:53:51,663 runserver WebSocket CONNECT /ws/pong/2/ [172.23.0.4:36530]
+INFO 2024-08-10 02:53:52,248 runserver WebSocket DISCONNECT /ws/pong/2/ [172.23.0.4:36530]
+INFO 2024-08-10 02:53:52,590 runserver WebSocket HANDSHAKING /ws/pong/2/ [172.23.0.4:32964]
+INFO 2024-08-10 02:53:52,591 runserver WebSocket CONNECT /ws/pong/2/ [172.23.0.4:32964]
+INFO 2024-08-10 02:54:56,519 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 02:54:58,395 runserver WebSocket HANDSHAKING /ws/pong/2/ [172.23.0.4:37384]
+INFO 2024-08-10 02:54:58,397 runserver WebSocket CONNECT /ws/pong/2/ [172.23.0.4:37384]
+INFO 2024-08-10 02:55:01,750 runserver WebSocket DISCONNECT /ws/pong/2/ [172.23.0.4:37384]
+INFO 2024-08-10 02:55:02,317 runserver WebSocket HANDSHAKING /ws/pong/2/ [172.23.0.4:60234]
+INFO 2024-08-10 02:55:02,318 runserver WebSocket CONNECT /ws/pong/2/ [172.23.0.4:60234]
+INFO 2024-08-10 02:55:24,012 autoreload /code/transcendence/pong/backend_pong/collisions.py changed, reloading.
+INFO 2024-08-10 02:55:24,543 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 02:55:26,743 autoreload /code/transcendence/pong/backend_pong/collisions.py changed, reloading.
+INFO 2024-08-10 02:55:27,352 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 02:55:30,546 autoreload /code/transcendence/pong/backend_pong/collisions.py changed, reloading.
+INFO 2024-08-10 02:55:31,231 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 02:55:36,419 autoreload /code/transcendence/pong/backend_pong/collisions.py changed, reloading.
+INFO 2024-08-10 02:55:36,969 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 02:55:52,244 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 02:55:52,520 runserver WebSocket HANDSHAKING /ws/pong/2/ [172.23.0.4:52966]
+INFO 2024-08-10 02:55:52,523 runserver WebSocket CONNECT /ws/pong/2/ [172.23.0.4:52966]
+INFO 2024-08-10 02:56:15,621 autoreload /code/transcendence/pong/consumers_pong.py changed, reloading.
+INFO 2024-08-10 02:56:16,109 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 02:56:29,459 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 02:56:30,815 runserver WebSocket HANDSHAKING /ws/pong/2/ [172.23.0.4:47448]
+INFO 2024-08-10 02:56:30,817 runserver WebSocket CONNECT /ws/pong/2/ [172.23.0.4:47448]
+INFO 2024-08-10 02:56:49,877 runserver WebSocket DISCONNECT /ws/pong/2/ [172.23.0.4:47448]
+INFO 2024-08-10 02:56:50,315 runserver WebSocket HANDSHAKING /ws/pong/2/ [172.23.0.4:54784]
+INFO 2024-08-10 02:56:50,316 runserver WebSocket CONNECT /ws/pong/2/ [172.23.0.4:54784]
+INFO 2024-08-10 02:56:53,100 runserver WebSocket DISCONNECT /ws/pong/2/ [172.23.0.4:54784]
+INFO 2024-08-10 02:57:51,203 autoreload /code/transcendence/pong/backend_pong/collisions.py changed, reloading.
+INFO 2024-08-10 02:57:51,663 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 02:59:07,270 autoreload /code/transcendence/pong/backend_pong/collisions.py changed, reloading.
+INFO 2024-08-10 02:59:07,720 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 02:59:09,914 autoreload /code/transcendence/pong/backend_pong/collisions.py changed, reloading.
+INFO 2024-08-10 02:59:10,441 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 02:59:23,563 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 02:59:37,218 runserver WebSocket HANDSHAKING /ws/pong/2/ [172.23.0.4:46596]
+INFO 2024-08-10 02:59:37,223 runserver WebSocket CONNECT /ws/pong/2/ [172.23.0.4:46596]
+INFO 2024-08-10 02:59:48,663 runserver WebSocket DISCONNECT /ws/pong/2/ [172.23.0.4:46596]
+INFO 2024-08-10 02:59:49,151 runserver WebSocket HANDSHAKING /ws/pong/2/ [172.23.0.4:44952]
+INFO 2024-08-10 02:59:49,152 runserver WebSocket CONNECT /ws/pong/2/ [172.23.0.4:44952]
+INFO 2024-08-10 03:00:26,060 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 03:00:26,711 runserver WebSocket HANDSHAKING /ws/pong/2/ [172.23.0.4:44006]
+INFO 2024-08-10 03:00:26,713 runserver WebSocket CONNECT /ws/pong/2/ [172.23.0.4:44006]
+INFO 2024-08-10 03:02:54,335 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 03:02:54,821 runserver WebSocket HANDSHAKING /ws/pong/2/ [172.23.0.4:35386]
+INFO 2024-08-10 03:02:54,823 runserver WebSocket CONNECT /ws/pong/2/ [172.23.0.4:35386]
+INFO 2024-08-10 03:02:55,333 runserver WebSocket DISCONNECT /ws/pong/2/ [172.23.0.4:35386]
+INFO 2024-08-10 03:02:55,988 runserver WebSocket HANDSHAKING /ws/pong/2/ [172.23.0.4:35394]
+INFO 2024-08-10 03:02:55,990 runserver WebSocket CONNECT /ws/pong/2/ [172.23.0.4:35394]
+INFO 2024-08-10 03:03:57,088 autoreload /code/transcendence/pong/backend_pong/collisions.py changed, reloading.
+INFO 2024-08-10 03:03:57,663 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 03:04:02,875 autoreload /code/transcendence/pong/backend_pong/collisions.py changed, reloading.
+INFO 2024-08-10 03:04:03,374 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 03:04:07,559 autoreload /code/transcendence/pong/backend_pong/collisions.py changed, reloading.
+INFO 2024-08-10 03:04:08,034 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 03:04:11,194 autoreload /code/transcendence/pong/backend_pong/collisions.py changed, reloading.
+INFO 2024-08-10 03:04:11,744 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 03:04:43,139 autoreload /code/transcendence/pong/backend_pong/collisions.py changed, reloading.
+INFO 2024-08-10 03:04:43,697 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 03:04:46,878 autoreload /code/transcendence/pong/backend_pong/collisions.py changed, reloading.
+INFO 2024-08-10 03:04:47,411 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 03:05:00,285 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 03:05:40,193 autoreload /code/transcendence/pong/backend_pong/collisions.py changed, reloading.
+INFO 2024-08-10 03:05:40,621 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 03:05:50,919 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 03:05:51,723 runserver WebSocket HANDSHAKING /ws/pong/2/ [172.23.0.4:52718]
+INFO 2024-08-10 03:05:51,726 runserver WebSocket CONNECT /ws/pong/2/ [172.23.0.4:52718]
+INFO 2024-08-10 03:06:41,507 autoreload /code/transcendence/pong/backend_pong/collisions.py changed, reloading.
+INFO 2024-08-10 03:06:41,997 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 03:06:44,152 autoreload /code/transcendence/pong/backend_pong/collisions.py changed, reloading.
+INFO 2024-08-10 03:06:44,638 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 03:07:48,325 autoreload /code/transcendence/pong/backend_pong/collisions.py changed, reloading.
+INFO 2024-08-10 03:07:48,948 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 03:07:54,139 autoreload /code/transcendence/pong/backend_pong/collisions.py changed, reloading.
+INFO 2024-08-10 03:07:54,677 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 03:07:59,871 autoreload /code/transcendence/pong/backend_pong/collisions.py changed, reloading.
+INFO 2024-08-10 03:08:00,436 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 03:08:12,475 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 03:08:14,495 runserver WebSocket HANDSHAKING /ws/pong/2/ [172.23.0.4:47340]
+INFO 2024-08-10 03:08:14,500 runserver WebSocket CONNECT /ws/pong/2/ [172.23.0.4:47340]
+INFO 2024-08-10 03:08:37,003 autoreload /code/transcendence/pong/backend_pong/collisions.py changed, reloading.
+INFO 2024-08-10 03:08:37,648 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 03:09:06,056 autoreload /code/transcendence/pong/backend_pong/collisions.py changed, reloading.
+INFO 2024-08-10 03:09:06,560 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 03:09:09,746 autoreload /code/transcendence/pong/backend_pong/collisions.py changed, reloading.
+INFO 2024-08-10 03:09:10,267 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 03:09:14,458 autoreload /code/transcendence/pong/backend_pong/collisions.py changed, reloading.
+INFO 2024-08-10 03:09:15,006 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 03:09:17,170 autoreload /code/transcendence/pong/backend_pong/collisions.py changed, reloading.
+INFO 2024-08-10 03:09:17,712 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 03:09:19,892 autoreload /code/transcendence/pong/backend_pong/collisions.py changed, reloading.
+INFO 2024-08-10 03:09:20,480 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 03:09:22,655 autoreload /code/transcendence/pong/backend_pong/collisions.py changed, reloading.
+INFO 2024-08-10 03:09:23,216 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 03:09:34,408 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 03:09:34,930 runserver WebSocket HANDSHAKING /ws/pong/2/ [172.23.0.4:38618]
+INFO 2024-08-10 03:09:34,932 runserver WebSocket CONNECT /ws/pong/2/ [172.23.0.4:38618]
+INFO 2024-08-10 03:10:34,106 autoreload /code/transcendence/pong/backend_pong/collisions.py changed, reloading.
+INFO 2024-08-10 03:10:34,637 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 03:10:48,318 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 03:10:53,390 runserver WebSocket HANDSHAKING /ws/pong/2/ [172.23.0.4:33188]
+INFO 2024-08-10 03:10:53,392 runserver WebSocket CONNECT /ws/pong/2/ [172.23.0.4:33188]
+INFO 2024-08-10 03:11:48,146 autoreload /code/transcendence/pong/backend_pong/collisions.py changed, reloading.
+INFO 2024-08-10 03:11:48,856 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 03:11:56,117 autoreload /code/transcendence/pong/backend_pong/collisions.py changed, reloading.
+INFO 2024-08-10 03:11:56,835 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 03:12:14,778 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 03:12:15,050 runserver WebSocket HANDSHAKING /ws/pong/2/ [172.23.0.4:55570]
+INFO 2024-08-10 03:12:15,053 runserver WebSocket CONNECT /ws/pong/2/ [172.23.0.4:55570]
+INFO 2024-08-10 03:12:32,965 runserver WebSocket DISCONNECT /ws/pong/2/ [172.23.0.4:55570]
+INFO 2024-08-10 03:12:33,486 runserver WebSocket HANDSHAKING /ws/pong/2/ [172.23.0.4:56538]
+INFO 2024-08-10 03:12:33,487 runserver WebSocket CONNECT /ws/pong/2/ [172.23.0.4:56538]
+INFO 2024-08-10 03:12:36,336 runserver WebSocket DISCONNECT /ws/pong/2/ [172.23.0.4:56538]
+INFO 2024-08-10 03:12:36,798 runserver WebSocket HANDSHAKING /ws/pong/2/ [172.23.0.4:56542]
+INFO 2024-08-10 03:12:36,799 runserver WebSocket CONNECT /ws/pong/2/ [172.23.0.4:56542]
+INFO 2024-08-10 03:13:39,998 runserver WebSocket DISCONNECT /ws/pong/2/ [172.23.0.4:56542]
+INFO 2024-08-10 03:13:40,381 runserver WebSocket HANDSHAKING /ws/pong/3/ [172.23.0.4:54366]
+INFO 2024-08-10 03:13:40,382 runserver WebSocket CONNECT /ws/pong/3/ [172.23.0.4:54366]
+INFO 2024-08-10 03:14:17,384 runserver WebSocket DISCONNECT /ws/pong/3/ [172.23.0.4:54366]
+INFO 2024-08-10 03:14:18,026 runserver WebSocket HANDSHAKING /ws/pong/3/ [172.23.0.4:57936]
+INFO 2024-08-10 03:14:18,028 runserver WebSocket CONNECT /ws/pong/3/ [172.23.0.4:57936]
+INFO 2024-08-10 03:14:20,255 runserver WebSocket DISCONNECT /ws/pong/3/ [172.23.0.4:57936]
+INFO 2024-08-10 03:14:20,923 runserver WebSocket HANDSHAKING /ws/pong/3/ [172.23.0.4:57952]
+INFO 2024-08-10 03:14:20,924 runserver WebSocket CONNECT /ws/pong/3/ [172.23.0.4:57952]
+INFO 2024-08-10 03:17:52,388 autoreload /code/transcendence/pong/consumers_pong.py changed, reloading.
+INFO 2024-08-10 03:17:52,936 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 03:18:03,381 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 03:18:06,447 runserver WebSocket HANDSHAKING /ws/pong/3/ [172.23.0.4:56742]
+INFO 2024-08-10 03:18:06,449 runserver WebSocket CONNECT /ws/pong/3/ [172.23.0.4:56742]
+INFO 2024-08-10 03:18:22,798 autoreload /code/transcendence/pong/consumers_pong.py changed, reloading.
+INFO 2024-08-10 03:18:23,354 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 03:18:35,283 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 03:18:37,725 runserver WebSocket HANDSHAKING /ws/pong/3/ [172.23.0.4:45568]
+INFO 2024-08-10 03:18:37,730 runserver WebSocket CONNECT /ws/pong/3/ [172.23.0.4:45568]
+INFO 2024-08-10 03:18:51,658 autoreload /code/transcendence/pong/consumers_pong.py changed, reloading.
+INFO 2024-08-10 03:18:52,177 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 03:19:03,766 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 03:19:04,182 runserver WebSocket HANDSHAKING /ws/pong/3/ [172.23.0.4:37164]
+INFO 2024-08-10 03:19:04,184 runserver WebSocket CONNECT /ws/pong/3/ [172.23.0.4:37164]
+INFO 2024-08-10 03:19:51,332 autoreload /code/transcendence/pong/consumers_pong.py changed, reloading.
+INFO 2024-08-10 03:19:51,859 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 03:19:58,058 autoreload /code/transcendence/pong/consumers_pong.py changed, reloading.
+INFO 2024-08-10 03:19:58,624 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 03:20:57,056 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 03:20:59,528 runserver WebSocket HANDSHAKING /ws/pong/3/ [172.23.0.4:58286]
+INFO 2024-08-10 03:20:59,531 runserver WebSocket CONNECT /ws/pong/3/ [172.23.0.4:58286]
+INFO 2024-08-10 03:38:44,741 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 03:38:48,755 runserver WebSocket HANDSHAKING /ws/pong/3/ [172.23.0.4:54914]
+INFO 2024-08-10 03:38:48,758 runserver WebSocket CONNECT /ws/pong/3/ [172.23.0.4:54914]
+INFO 2024-08-10 03:42:12,306 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 03:42:46,366 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 03:43:55,138 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 03:43:56,155 runserver WebSocket HANDSHAKING /ws/pong/3/ [172.23.0.4:57640]
+INFO 2024-08-10 03:43:56,157 runserver WebSocket CONNECT /ws/pong/3/ [172.23.0.4:57640]
+INFO 2024-08-10 03:45:11,842 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 03:45:13,395 runserver WebSocket HANDSHAKING /ws/pong/3/ [172.23.0.4:53034]
+INFO 2024-08-10 03:45:13,397 runserver WebSocket CONNECT /ws/pong/3/ [172.23.0.4:53034]
+INFO 2024-08-10 03:45:15,983 runserver WebSocket DISCONNECT /ws/pong/3/ [172.23.0.4:53034]
+INFO 2024-08-10 03:45:16,514 runserver WebSocket HANDSHAKING /ws/pong/3/ [172.23.0.4:53044]
+INFO 2024-08-10 03:45:16,515 runserver WebSocket CONNECT /ws/pong/3/ [172.23.0.4:53044]
+INFO 2024-08-10 03:46:35,671 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 03:46:37,019 runserver WebSocket HANDSHAKING /ws/pong/3/ [172.23.0.4:57562]
+INFO 2024-08-10 03:46:37,024 runserver WebSocket CONNECT /ws/pong/3/ [172.23.0.4:57562]
+INFO 2024-08-10 03:46:44,579 runserver WebSocket DISCONNECT /ws/pong/3/ [172.23.0.4:57562]
+INFO 2024-08-10 03:46:45,165 runserver WebSocket HANDSHAKING /ws/pong/3/ [172.23.0.4:43318]
+INFO 2024-08-10 03:46:45,166 runserver WebSocket CONNECT /ws/pong/3/ [172.23.0.4:43318]
+INFO 2024-08-10 03:49:02,675 autoreload /code/transcendence/pong/backend_pong/collisions.py changed, reloading.
+INFO 2024-08-10 03:49:03,162 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 03:49:05,338 autoreload /code/transcendence/pong/backend_pong/collisions.py changed, reloading.
+INFO 2024-08-10 03:49:05,799 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 03:49:26,372 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 03:50:23,062 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 03:50:25,321 runserver WebSocket HANDSHAKING /ws/pong/3/ [172.23.0.4:56028]
+INFO 2024-08-10 03:50:25,323 runserver WebSocket CONNECT /ws/pong/3/ [172.23.0.4:56028]
+INFO 2024-08-10 03:50:52,215 runserver WebSocket DISCONNECT /ws/pong/3/ [172.23.0.4:56028]
+INFO 2024-08-10 03:50:52,731 runserver WebSocket HANDSHAKING /ws/pong/3/ [172.23.0.4:51048]
+INFO 2024-08-10 03:50:52,732 runserver WebSocket CONNECT /ws/pong/3/ [172.23.0.4:51048]
+INFO 2024-08-10 03:51:42,317 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 03:51:42,750 runserver WebSocket HANDSHAKING /ws/pong/3/ [172.23.0.4:55126]
+INFO 2024-08-10 03:51:42,753 runserver WebSocket CONNECT /ws/pong/3/ [172.23.0.4:55126]
+INFO 2024-08-10 03:53:24,935 runserver WebSocket DISCONNECT /ws/pong/3/ [172.23.0.4:55126]
+INFO 2024-08-10 03:54:21,394 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 03:54:22,094 runserver WebSocket HANDSHAKING /ws/pong/3/ [172.24.0.4:49346]
+INFO 2024-08-10 03:54:22,096 runserver WebSocket CONNECT /ws/pong/3/ [172.24.0.4:49346]
+INFO 2024-08-10 03:54:33,852 runserver WebSocket HANDSHAKING /ws/pong/3/ [172.24.0.4:50192]
+INFO 2024-08-10 03:54:33,854 runserver WebSocket CONNECT /ws/pong/3/ [172.24.0.4:50192]
+INFO 2024-08-10 03:54:50,762 runserver WebSocket DISCONNECT /ws/pong/3/ [172.24.0.4:49346]
+INFO 2024-08-10 03:54:52,355 runserver WebSocket HANDSHAKING /ws/pong/3/ [172.24.0.4:45986]
+INFO 2024-08-10 03:54:52,356 runserver WebSocket CONNECT /ws/pong/3/ [172.24.0.4:45986]
+INFO 2024-08-10 03:55:15,477 runserver WebSocket DISCONNECT /ws/pong/3/ [172.24.0.4:45986]
+INFO 2024-08-10 03:55:16,304 runserver WebSocket HANDSHAKING /ws/pong/3/ [172.24.0.4:41832]
+INFO 2024-08-10 03:55:16,306 runserver WebSocket CONNECT /ws/pong/3/ [172.24.0.4:41832]
+INFO 2024-08-10 03:55:20,572 runserver WebSocket DISCONNECT /ws/pong/3/ [172.24.0.4:41832]
+INFO 2024-08-10 03:55:21,277 runserver WebSocket HANDSHAKING /ws/pong/1/ [172.24.0.4:41842]
+INFO 2024-08-10 03:55:21,278 runserver WebSocket CONNECT /ws/pong/1/ [172.24.0.4:41842]
+INFO 2024-08-10 03:55:31,266 runserver WebSocket DISCONNECT /ws/pong/3/ [172.24.0.4:50192]
+INFO 2024-08-10 03:55:31,631 runserver WebSocket HANDSHAKING /ws/pong/2/ [172.24.0.4:54702]
+INFO 2024-08-10 03:55:31,633 runserver WebSocket CONNECT /ws/pong/2/ [172.24.0.4:54702]
+INFO 2024-08-10 03:55:38,905 runserver WebSocket DISCONNECT /ws/pong/2/ [172.24.0.4:54702]
+INFO 2024-08-10 03:55:39,325 runserver WebSocket HANDSHAKING /ws/pong/2/ [172.24.0.4:39452]
+INFO 2024-08-10 03:55:39,326 runserver WebSocket CONNECT /ws/pong/2/ [172.24.0.4:39452]
+INFO 2024-08-10 03:55:44,092 runserver WebSocket DISCONNECT /ws/pong/1/ [172.24.0.4:41842]
+INFO 2024-08-10 03:55:45,926 runserver WebSocket HANDSHAKING /ws/pong/1/ [172.24.0.4:58636]
+INFO 2024-08-10 03:55:45,928 runserver WebSocket CONNECT /ws/pong/1/ [172.24.0.4:58636]
+INFO 2024-08-10 03:55:56,985 runserver WebSocket DISCONNECT /ws/pong/1/ [172.24.0.4:58636]
+INFO 2024-08-10 03:55:58,444 runserver WebSocket HANDSHAKING /ws/pong/1/ [172.24.0.4:58392]
+INFO 2024-08-10 03:55:58,446 runserver WebSocket CONNECT /ws/pong/1/ [172.24.0.4:58392]
+INFO 2024-08-10 03:56:02,946 runserver WebSocket DISCONNECT /ws/pong/2/ [172.24.0.4:39452]
+INFO 2024-08-10 03:56:07,422 runserver WebSocket DISCONNECT /ws/pong/1/ [172.24.0.4:58392]
+INFO 2024-08-10 03:56:07,894 runserver WebSocket HANDSHAKING /ws/pong/4/ [172.24.0.4:37576]
+INFO 2024-08-10 03:56:07,895 runserver WebSocket CONNECT /ws/pong/4/ [172.24.0.4:37576]
+INFO 2024-08-10 04:00:31,683 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 04:00:32,055 runserver WebSocket HANDSHAKING /ws/pong/4/ [172.24.0.4:44078]
+INFO 2024-08-10 04:00:32,058 runserver WebSocket CONNECT /ws/pong/4/ [172.24.0.4:44078]
+INFO 2024-08-10 04:02:54,555 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 04:02:55,778 runserver WebSocket HANDSHAKING /ws/pong/4/ [172.24.0.4:48678]
+INFO 2024-08-10 04:02:55,781 runserver WebSocket CONNECT /ws/pong/4/ [172.24.0.4:48678]
+INFO 2024-08-10 04:03:04,538 runserver WebSocket DISCONNECT /ws/pong/4/ [172.24.0.4:48678]
+INFO 2024-08-10 04:03:05,298 runserver WebSocket HANDSHAKING /ws/pong/4/ [172.24.0.4:38990]
+INFO 2024-08-10 04:03:05,299 runserver WebSocket CONNECT /ws/pong/4/ [172.24.0.4:38990]
+INFO 2024-08-10 04:10:50,027 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 04:10:54,783 runserver WebSocket HANDSHAKING /ws/pong/4/ [172.24.0.4:37986]
+INFO 2024-08-10 04:10:54,789 runserver WebSocket CONNECT /ws/pong/4/ [172.24.0.4:37986]
+INFO 2024-08-10 04:16:04,820 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 04:16:17,627 runserver WebSocket HANDSHAKING /ws/pong/4/ [172.24.0.4:48354]
+INFO 2024-08-10 04:16:17,629 runserver WebSocket CONNECT /ws/pong/4/ [172.24.0.4:48354]
+INFO 2024-08-10 04:19:10,349 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 04:19:14,185 runserver WebSocket HANDSHAKING /ws/pong/4/ [172.24.0.4:56284]
+INFO 2024-08-10 04:19:14,188 runserver WebSocket CONNECT /ws/pong/4/ [172.24.0.4:56284]
+INFO 2024-08-10 04:19:28,118 runserver WebSocket DISCONNECT /ws/pong/4/ [172.24.0.4:56284]
+INFO 2024-08-10 04:19:28,828 runserver WebSocket HANDSHAKING /ws/pong/4/ [172.24.0.4:60184]
+INFO 2024-08-10 04:19:28,829 runserver WebSocket CONNECT /ws/pong/4/ [172.24.0.4:60184]
+INFO 2024-08-10 04:19:33,285 runserver WebSocket DISCONNECT /ws/pong/4/ [172.24.0.4:60184]
+INFO 2024-08-10 04:19:34,033 runserver WebSocket HANDSHAKING /ws/pong/4/ [172.24.0.4:36550]
+INFO 2024-08-10 04:19:34,034 runserver WebSocket CONNECT /ws/pong/4/ [172.24.0.4:36550]
+INFO 2024-08-10 04:19:41,022 runserver WebSocket DISCONNECT /ws/pong/4/ [172.24.0.4:36550]
+INFO 2024-08-10 04:19:41,819 runserver WebSocket HANDSHAKING /ws/pong/4/ [172.24.0.4:53616]
+INFO 2024-08-10 04:19:41,820 runserver WebSocket CONNECT /ws/pong/4/ [172.24.0.4:53616]
+INFO 2024-08-10 04:20:15,259 autoreload /code/transcendence/pong/backend_pong/collisions.py changed, reloading.
+INFO 2024-08-10 04:20:15,797 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 04:55:46,638 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 04:55:47,181 runserver WebSocket HANDSHAKING /ws/pong/4/ [172.24.0.4:53766]
+INFO 2024-08-10 04:55:47,184 runserver WebSocket CONNECT /ws/pong/4/ [172.24.0.4:53766]
+INFO 2024-08-10 05:08:07,348 autoreload /code/transcendence/pong/consumers_pong.py changed, reloading.
+INFO 2024-08-10 05:08:07,859 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 05:08:28,345 autoreload /code/transcendence/pong/consumers_pong.py changed, reloading.
+INFO 2024-08-10 05:08:28,853 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 05:08:44,242 autoreload /code/transcendence/pong/consumers_pong.py changed, reloading.
+INFO 2024-08-10 05:08:44,744 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 05:08:53,026 autoreload /code/transcendence/pong/consumers_pong.py changed, reloading.
+INFO 2024-08-10 05:08:53,522 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 05:08:56,722 autoreload /code/transcendence/pong/consumers_pong.py changed, reloading.
+INFO 2024-08-10 05:08:57,164 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 05:09:00,382 autoreload /code/transcendence/pong/consumers_pong.py changed, reloading.
+INFO 2024-08-10 05:09:00,851 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 05:09:03,026 autoreload /code/transcendence/pong/consumers_pong.py changed, reloading.
+INFO 2024-08-10 05:09:03,443 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 05:09:05,617 autoreload /code/transcendence/pong/consumers_pong.py changed, reloading.
+INFO 2024-08-10 05:09:06,093 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 05:09:09,314 autoreload /code/transcendence/pong/consumers_pong.py changed, reloading.
+INFO 2024-08-10 05:09:09,779 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 05:09:12,952 autoreload /code/transcendence/pong/consumers_pong.py changed, reloading.
+INFO 2024-08-10 05:09:13,426 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 05:09:16,600 autoreload /code/transcendence/pong/consumers_pong.py changed, reloading.
+INFO 2024-08-10 05:09:17,055 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 05:16:30,672 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 05:16:34,069 runserver WebSocket HANDSHAKING /ws/pong/4/ [172.24.0.4:58218]
+INFO 2024-08-10 05:16:34,753 runserver WebSocket DISCONNECT /ws/pong/4/ [172.24.0.4:58218]
+INFO 2024-08-10 05:16:38,050 runserver WebSocket HANDSHAKING /ws/pong/4/ [172.24.0.4:58226]
+INFO 2024-08-10 05:16:38,051 runserver WebSocket CONNECT /ws/pong/4/ [172.24.0.4:58226]
+INFO 2024-08-10 05:18:01,849 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 05:18:02,344 runserver WebSocket HANDSHAKING /ws/pong/4/ [172.24.0.4:35678]
+INFO 2024-08-10 05:18:02,923 runserver WebSocket DISCONNECT /ws/pong/4/ [172.24.0.4:35678]
+INFO 2024-08-10 05:18:04,091 runserver WebSocket HANDSHAKING /ws/pong/4/ [172.24.0.4:35684]
+INFO 2024-08-10 05:18:04,092 runserver WebSocket CONNECT /ws/pong/4/ [172.24.0.4:35684]
+INFO 2024-08-10 05:18:06,011 runserver WebSocket DISCONNECT /ws/pong/4/ [172.24.0.4:35684]
+INFO 2024-08-10 05:18:06,582 runserver WebSocket HANDSHAKING /ws/pong/4/ [172.24.0.4:35692]
+INFO 2024-08-10 05:18:06,584 runserver WebSocket CONNECT /ws/pong/4/ [172.24.0.4:35692]
+INFO 2024-08-10 05:19:11,063 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 05:19:12,169 runserver WebSocket HANDSHAKING /ws/pong/4/ [172.24.0.4:33710]
+INFO 2024-08-10 05:19:13,140 runserver WebSocket DISCONNECT /ws/pong/4/ [172.24.0.4:33710]
+INFO 2024-08-10 05:19:14,252 runserver WebSocket HANDSHAKING /ws/pong/4/ [172.24.0.4:33714]
+INFO 2024-08-10 05:19:14,253 runserver WebSocket CONNECT /ws/pong/4/ [172.24.0.4:33714]
+INFO 2024-08-10 05:19:43,560 autoreload /code/transcendence/pong/consumers_pong.py changed, reloading.
+INFO 2024-08-10 05:19:44,072 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 05:20:09,433 autoreload /code/transcendence/pong/consumers_pong.py changed, reloading.
+INFO 2024-08-10 05:20:10,027 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 05:20:21,404 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 05:20:22,540 runserver WebSocket HANDSHAKING /ws/pong/4/ [172.24.0.4:57186]
+INFO 2024-08-10 05:20:22,543 runserver WebSocket CONNECT /ws/pong/4/ [172.24.0.4:57186]
+INFO 2024-08-10 05:20:23,009 runserver WebSocket DISCONNECT /ws/pong/4/ [172.24.0.4:57186]
+INFO 2024-08-10 05:20:23,756 runserver WebSocket HANDSHAKING /ws/pong/4/ [172.24.0.4:57198]
+INFO 2024-08-10 05:20:23,757 runserver WebSocket CONNECT /ws/pong/4/ [172.24.0.4:57198]
+INFO 2024-08-10 05:20:24,550 runserver WebSocket DISCONNECT /ws/pong/4/ [172.24.0.4:57198]
+INFO 2024-08-10 05:20:26,363 runserver WebSocket HANDSHAKING /ws/pong/4/ [172.24.0.4:57210]
+INFO 2024-08-10 05:20:26,364 runserver WebSocket CONNECT /ws/pong/4/ [172.24.0.4:57210]
+INFO 2024-08-10 05:20:40,500 runserver WebSocket DISCONNECT /ws/pong/4/ [172.24.0.4:57210]
+INFO 2024-08-10 05:20:41,050 runserver WebSocket HANDSHAKING /ws/pong/3/ [172.24.0.4:47162]
+INFO 2024-08-10 05:20:41,051 runserver WebSocket CONNECT /ws/pong/3/ [172.24.0.4:47162]
+INFO 2024-08-10 05:20:41,534 runserver WebSocket DISCONNECT /ws/pong/3/ [172.24.0.4:47162]
+INFO 2024-08-10 05:20:49,905 runserver WebSocket HANDSHAKING /ws/pong/2/ [172.24.0.4:53632]
+INFO 2024-08-10 05:20:49,906 runserver WebSocket CONNECT /ws/pong/2/ [172.24.0.4:53632]
+INFO 2024-08-10 05:20:50,627 runserver WebSocket DISCONNECT /ws/pong/2/ [172.24.0.4:53632]
+INFO 2024-08-10 05:20:55,481 runserver WebSocket HANDSHAKING /ws/pong/2/ [172.24.0.4:60296]
+INFO 2024-08-10 05:20:55,482 runserver WebSocket CONNECT /ws/pong/2/ [172.24.0.4:60296]
+INFO 2024-08-10 05:20:56,557 runserver WebSocket DISCONNECT /ws/pong/2/ [172.24.0.4:60296]
+INFO 2024-08-10 05:21:16,118 autoreload /code/transcendence/pong/consumers_pong.py changed, reloading.
+INFO 2024-08-10 05:21:16,663 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 05:21:28,616 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 05:21:30,099 runserver WebSocket HANDSHAKING /ws/pong/2/ [172.24.0.4:54048]
+INFO 2024-08-10 05:21:30,102 runserver WebSocket CONNECT /ws/pong/2/ [172.24.0.4:54048]
+INFO 2024-08-10 05:21:30,720 runserver WebSocket DISCONNECT /ws/pong/2/ [172.24.0.4:54048]
+INFO 2024-08-10 05:21:40,963 autoreload /code/transcendence/pong/consumers_pong.py changed, reloading.
+INFO 2024-08-10 05:21:41,587 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 05:21:47,941 runserver WebSocket HANDSHAKING /ws/pong/2/ [172.24.0.4:45046]
+INFO 2024-08-10 05:21:47,943 runserver WebSocket CONNECT /ws/pong/2/ [172.24.0.4:45046]
+INFO 2024-08-10 05:21:48,821 runserver WebSocket DISCONNECT /ws/pong/2/ [172.24.0.4:45046]
+INFO 2024-08-10 05:22:00,468 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 05:22:01,130 runserver WebSocket HANDSHAKING /ws/pong/2/ [172.24.0.4:57744]
+INFO 2024-08-10 05:22:01,132 runserver WebSocket CONNECT /ws/pong/2/ [172.24.0.4:57744]
+INFO 2024-08-10 05:22:01,558 runserver WebSocket DISCONNECT /ws/pong/2/ [172.24.0.4:57744]
+INFO 2024-08-10 05:22:05,660 autoreload /code/transcendence/pong/consumers_pong.py changed, reloading.
+INFO 2024-08-10 05:22:06,203 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 05:22:19,259 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 05:22:21,037 runserver WebSocket HANDSHAKING /ws/pong/2/ [172.24.0.4:50716]
+INFO 2024-08-10 05:22:21,040 runserver WebSocket CONNECT /ws/pong/2/ [172.24.0.4:50716]
+INFO 2024-08-10 05:25:37,768 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 05:25:40,132 runserver WebSocket HANDSHAKING /ws/pong/2/ [172.24.0.4:56114]
+INFO 2024-08-10 05:25:40,134 runserver WebSocket CONNECT /ws/pong/2/ [172.24.0.4:56114]
+INFO 2024-08-10 05:25:41,001 runserver WebSocket DISCONNECT /ws/pong/2/ [172.24.0.4:56114]
+INFO 2024-08-10 05:25:44,265 runserver WebSocket HANDSHAKING /ws/pong/2/ [172.24.0.4:33678]
+INFO 2024-08-10 05:25:44,266 runserver WebSocket CONNECT /ws/pong/2/ [172.24.0.4:33678]
+INFO 2024-08-10 05:25:44,991 runserver WebSocket DISCONNECT /ws/pong/2/ [172.24.0.4:33678]
+INFO 2024-08-10 05:26:10,291 autoreload /code/transcendence/pong/consumers_pong.py changed, reloading.
+INFO 2024-08-10 05:26:10,805 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 05:26:13,989 autoreload /code/transcendence/pong/consumers_pong.py changed, reloading.
+INFO 2024-08-10 05:26:14,635 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 05:26:20,854 autoreload /code/transcendence/pong/consumers_pong.py changed, reloading.
+INFO 2024-08-10 05:26:21,373 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 05:26:23,533 autoreload /code/transcendence/pong/consumers_pong.py changed, reloading.
+INFO 2024-08-10 05:26:24,061 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 05:26:27,243 autoreload /code/transcendence/pong/consumers_pong.py changed, reloading.
+INFO 2024-08-10 05:26:27,721 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 05:26:41,994 autoreload /code/transcendence/pong/consumers_pong.py changed, reloading.
+INFO 2024-08-10 05:26:42,514 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 05:27:09,882 autoreload /code/transcendence/pong/consumers_pong.py changed, reloading.
+INFO 2024-08-10 05:27:10,382 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 05:27:13,559 autoreload /code/transcendence/pong/consumers_pong.py changed, reloading.
+INFO 2024-08-10 05:27:14,064 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 05:27:17,273 autoreload /code/transcendence/pong/consumers_pong.py changed, reloading.
+INFO 2024-08-10 05:27:17,759 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 05:27:32,056 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 05:27:33,107 runserver WebSocket HANDSHAKING /ws/pong/2/ [172.24.0.4:50556]
+INFO 2024-08-10 05:27:33,111 runserver WebSocket CONNECT /ws/pong/2/ [172.24.0.4:50556]
+INFO 2024-08-10 05:27:34,223 runserver WebSocket DISCONNECT /ws/pong/2/ [172.24.0.4:50556]
+INFO 2024-08-10 05:28:34,906 autoreload /code/transcendence/pong/consumers_pong.py changed, reloading.
+INFO 2024-08-10 05:28:35,391 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 05:28:46,261 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 05:28:47,291 runserver WebSocket HANDSHAKING /ws/pong/2/ [172.24.0.4:38900]
+INFO 2024-08-10 05:28:47,294 runserver WebSocket CONNECT /ws/pong/2/ [172.24.0.4:38900]
+INFO 2024-08-10 05:29:53,578 autoreload /code/transcendence/pong/consumers_pong.py changed, reloading.
+INFO 2024-08-10 05:29:54,113 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 05:29:57,320 autoreload /code/transcendence/pong/consumers_pong.py changed, reloading.
+INFO 2024-08-10 05:29:57,797 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 05:30:02,008 autoreload /code/transcendence/pong/consumers_pong.py changed, reloading.
+INFO 2024-08-10 05:30:02,528 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 05:30:13,002 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 05:30:15,895 runserver WebSocket HANDSHAKING /ws/pong/2/ [172.24.0.4:39864]
+INFO 2024-08-10 05:30:15,897 runserver WebSocket CONNECT /ws/pong/2/ [172.24.0.4:39864]
+INFO 2024-08-10 05:31:21,941 runserver WebSocket DISCONNECT /ws/pong/2/ [172.24.0.4:39864]
+INFO 2024-08-10 05:31:22,494 runserver WebSocket HANDSHAKING /ws/pong/2/ [172.24.0.4:50462]
+INFO 2024-08-10 05:31:22,495 runserver WebSocket CONNECT /ws/pong/2/ [172.24.0.4:50462]
+INFO 2024-08-10 05:32:44,113 autoreload /code/transcendence/pong/consumers_pong.py changed, reloading.
+INFO 2024-08-10 05:32:44,615 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 05:32:48,803 autoreload /code/transcendence/pong/consumers_pong.py changed, reloading.
+INFO 2024-08-10 05:32:49,255 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 05:32:52,423 autoreload /code/transcendence/pong/consumers_pong.py changed, reloading.
+INFO 2024-08-10 05:32:52,894 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 05:32:55,088 autoreload /code/transcendence/pong/consumers_pong.py changed, reloading.
+INFO 2024-08-10 05:32:55,605 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 05:33:09,951 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 05:33:16,050 runserver WebSocket HANDSHAKING /ws/pong/2/ [172.24.0.4:41212]
+INFO 2024-08-10 05:33:16,053 runserver WebSocket CONNECT /ws/pong/2/ [172.24.0.4:41212]
+INFO 2024-08-10 05:34:47,221 autoreload /code/transcendence/pong/consumers_pong.py changed, reloading.
+INFO 2024-08-10 05:34:47,740 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 05:35:36,637 autoreload /code/transcendence/pong/consumers_pong.py changed, reloading.
+INFO 2024-08-10 05:35:37,107 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 05:35:47,038 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 05:35:47,990 runserver WebSocket HANDSHAKING /ws/pong/2/ [172.24.0.4:48074]
+INFO 2024-08-10 05:35:47,993 runserver WebSocket CONNECT /ws/pong/2/ [172.24.0.4:48074]
+INFO 2024-08-10 05:36:39,123 autoreload /code/transcendence/pong/consumers_pong.py changed, reloading.
+INFO 2024-08-10 05:36:39,639 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 05:37:38,058 autoreload /code/transcendence/pong/consumers_pong.py changed, reloading.
+INFO 2024-08-10 05:37:38,545 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 05:37:43,736 autoreload /code/transcendence/pong/consumers_pong.py changed, reloading.
+INFO 2024-08-10 05:37:44,228 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 05:37:48,399 autoreload /code/transcendence/pong/consumers_pong.py changed, reloading.
+INFO 2024-08-10 05:37:48,931 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 05:38:00,685 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 05:38:18,489 runserver WebSocket HANDSHAKING /ws/pong/2/ [172.24.0.4:41914]
+INFO 2024-08-10 05:38:18,492 runserver WebSocket CONNECT /ws/pong/2/ [172.24.0.4:41914]
+INFO 2024-08-10 05:38:51,421 autoreload /code/transcendence/pong/consumers_pong.py changed, reloading.
+INFO 2024-08-10 05:38:52,023 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 05:38:57,214 autoreload /code/transcendence/pong/consumers_pong.py changed, reloading.
+INFO 2024-08-10 05:38:57,807 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 05:39:08,220 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 05:39:08,767 runserver WebSocket HANDSHAKING /ws/pong/2/ [172.24.0.4:54806]
+INFO 2024-08-10 05:39:08,770 runserver WebSocket CONNECT /ws/pong/2/ [172.24.0.4:54806]
+INFO 2024-08-10 05:39:53,740 autoreload /code/transcendence/pong/consumers_pong.py changed, reloading.
+INFO 2024-08-10 05:39:54,323 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 05:40:44,295 autoreload /code/transcendence/pong/consumers_pong.py changed, reloading.
+INFO 2024-08-10 05:40:44,766 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 05:40:47,953 autoreload /code/transcendence/pong/consumers_pong.py changed, reloading.
+INFO 2024-08-10 05:40:48,524 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 05:40:50,704 autoreload /code/transcendence/pong/consumers_pong.py changed, reloading.
+INFO 2024-08-10 05:40:51,230 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 05:40:59,508 autoreload /code/transcendence/pong/consumers_pong.py changed, reloading.
+INFO 2024-08-10 05:40:59,934 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 05:41:18,523 autoreload /code/transcendence/pong/consumers_pong.py changed, reloading.
+INFO 2024-08-10 05:41:18,976 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 05:41:24,181 autoreload /code/transcendence/pong/consumers_pong.py changed, reloading.
+INFO 2024-08-10 05:41:24,643 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 05:41:26,809 autoreload /code/transcendence/pong/consumers_pong.py changed, reloading.
+INFO 2024-08-10 05:41:27,295 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 05:41:30,494 autoreload /code/transcendence/pong/consumers_pong.py changed, reloading.
+INFO 2024-08-10 05:41:30,938 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 05:41:33,113 autoreload /code/transcendence/pong/consumers_pong.py changed, reloading.
+INFO 2024-08-10 05:41:33,562 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 05:41:36,754 autoreload /code/transcendence/pong/consumers_pong.py changed, reloading.
+INFO 2024-08-10 05:41:37,229 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 05:41:41,435 autoreload /code/transcendence/pong/consumers_pong.py changed, reloading.
+INFO 2024-08-10 05:41:41,890 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 05:41:44,056 autoreload /code/transcendence/pong/consumers_pong.py changed, reloading.
+INFO 2024-08-10 05:41:44,511 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 05:41:46,665 autoreload /code/transcendence/pong/consumers_pong.py changed, reloading.
+INFO 2024-08-10 05:41:47,128 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 05:41:52,377 autoreload /code/transcendence/pong/consumers_pong.py changed, reloading.
+INFO 2024-08-10 05:41:52,842 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 05:41:55,043 autoreload /code/transcendence/pong/consumers_pong.py changed, reloading.
+INFO 2024-08-10 05:41:55,499 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 05:41:57,654 autoreload /code/transcendence/pong/consumers_pong.py changed, reloading.
+INFO 2024-08-10 05:41:58,136 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 05:42:02,378 autoreload /code/transcendence/pong/consumers_pong.py changed, reloading.
+INFO 2024-08-10 05:42:02,962 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 05:42:12,741 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 05:42:20,751 runserver WebSocket HANDSHAKING /ws/pong/2/ [172.24.0.4:57204]
+INFO 2024-08-10 05:42:20,754 runserver WebSocket CONNECT /ws/pong/2/ [172.24.0.4:57204]
+INFO 2024-08-10 05:46:49,142 autoreload /code/transcendence/pong/consumers_pong.py changed, reloading.
+INFO 2024-08-10 05:46:49,641 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 05:46:56,894 autoreload /code/transcendence/pong/consumers_pong.py changed, reloading.
+INFO 2024-08-10 05:46:57,318 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 05:47:15,740 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 05:47:18,125 runserver WebSocket HANDSHAKING /ws/pong/2/ [172.24.0.4:36584]
+INFO 2024-08-10 05:47:18,127 runserver WebSocket CONNECT /ws/pong/2/ [172.24.0.4:36584]
+INFO 2024-08-10 05:47:29,280 runserver WebSocket DISCONNECT /ws/pong/2/ [172.24.0.4:36584]
+INFO 2024-08-10 05:47:29,740 runserver WebSocket HANDSHAKING /ws/pong/2/ [172.24.0.4:55924]
+INFO 2024-08-10 05:47:29,741 runserver WebSocket CONNECT /ws/pong/2/ [172.24.0.4:55924]
+INFO 2024-08-10 05:47:33,533 runserver WebSocket DISCONNECT /ws/pong/2/ [172.24.0.4:55924]
+INFO 2024-08-10 05:47:34,067 runserver WebSocket HANDSHAKING /ws/pong/2/ [172.24.0.4:36514]
+INFO 2024-08-10 05:47:34,068 runserver WebSocket CONNECT /ws/pong/2/ [172.24.0.4:36514]
+INFO 2024-08-10 05:48:45,135 autoreload /code/transcendence/pong/consumers_pong.py changed, reloading.
+INFO 2024-08-10 05:48:45,645 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 05:48:52,876 autoreload /code/transcendence/pong/consumers_pong.py changed, reloading.
+INFO 2024-08-10 05:48:53,369 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 05:48:55,544 autoreload /code/transcendence/pong/consumers_pong.py changed, reloading.
+INFO 2024-08-10 05:48:56,088 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 05:48:59,299 autoreload /code/transcendence/pong/consumers_pong.py changed, reloading.
+INFO 2024-08-10 05:48:59,839 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 05:49:02,006 autoreload /code/transcendence/pong/consumers_pong.py changed, reloading.
+INFO 2024-08-10 05:49:02,503 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 05:49:05,683 autoreload /code/transcendence/pong/consumers_pong.py changed, reloading.
+INFO 2024-08-10 05:49:06,172 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 05:49:08,342 autoreload /code/transcendence/pong/consumers_pong.py changed, reloading.
+INFO 2024-08-10 05:49:08,844 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 05:49:16,111 autoreload /code/transcendence/pong/consumers_pong.py changed, reloading.
+INFO 2024-08-10 05:49:16,609 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 05:49:34,448 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 05:49:36,576 runserver WebSocket HANDSHAKING /ws/pong/2/ [172.24.0.4:59770]
+INFO 2024-08-10 05:49:36,578 runserver WebSocket CONNECT /ws/pong/2/ [172.24.0.4:59770]
+INFO 2024-08-10 05:51:30,537 autoreload /code/transcendence/pong/consumers_pong.py changed, reloading.
+INFO 2024-08-10 05:51:31,071 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 05:51:36,301 autoreload /code/transcendence/pong/consumers_pong.py changed, reloading.
+INFO 2024-08-10 05:51:36,835 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 05:51:40,060 autoreload /code/transcendence/pong/consumers_pong.py changed, reloading.
+INFO 2024-08-10 05:51:40,615 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 05:51:42,816 autoreload /code/transcendence/pong/consumers_pong.py changed, reloading.
+INFO 2024-08-10 05:51:43,361 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 05:51:55,501 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 05:51:56,788 runserver WebSocket HANDSHAKING /ws/pong/2/ [172.24.0.4:60446]
+INFO 2024-08-10 05:51:56,790 runserver WebSocket CONNECT /ws/pong/2/ [172.24.0.4:60446]
+INFO 2024-08-10 05:52:16,942 autoreload /code/transcendence/pong/consumers_pong.py changed, reloading.
+INFO 2024-08-10 05:52:17,532 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 05:59:11,246 autoreload /code/transcendence/pong/consumers_pong.py changed, reloading.
+INFO 2024-08-10 05:59:11,829 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 06:03:53,596 autoreload /code/transcendence/pong/consumers_pong.py changed, reloading.
+INFO 2024-08-10 06:03:54,106 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 06:03:58,295 autoreload /code/transcendence/pong/consumers_pong.py changed, reloading.
+INFO 2024-08-10 06:03:58,787 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 06:04:00,952 autoreload /code/transcendence/pong/consumers_pong.py changed, reloading.
+INFO 2024-08-10 06:04:01,485 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 06:04:07,710 autoreload /code/transcendence/pong/consumers_pong.py changed, reloading.
+INFO 2024-08-10 06:04:08,214 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 06:04:12,447 autoreload /code/transcendence/pong/consumers_pong.py changed, reloading.
+INFO 2024-08-10 06:04:12,932 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 06:04:16,111 autoreload /code/transcendence/pong/consumers_pong.py changed, reloading.
+INFO 2024-08-10 06:04:16,616 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 06:04:21,827 autoreload /code/transcendence/pong/consumers_pong.py changed, reloading.
+INFO 2024-08-10 06:04:22,331 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 06:04:27,528 autoreload /code/transcendence/pong/consumers_pong.py changed, reloading.
+INFO 2024-08-10 06:04:28,020 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 06:04:31,226 autoreload /code/transcendence/pong/consumers_pong.py changed, reloading.
+INFO 2024-08-10 06:04:31,736 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 06:04:33,931 autoreload /code/transcendence/pong/consumers_pong.py changed, reloading.
+INFO 2024-08-10 06:04:34,437 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 06:07:41,328 autoreload /code/transcendence/pong/consumers_pong.py changed, reloading.
+INFO 2024-08-10 06:07:41,952 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 06:07:44,118 autoreload /code/transcendence/pong/consumers_pong.py changed, reloading.
+INFO 2024-08-10 06:07:44,608 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 06:07:47,821 autoreload /code/transcendence/pong/consumers_pong.py changed, reloading.
+INFO 2024-08-10 06:07:48,339 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 06:07:50,508 autoreload /code/transcendence/pong/consumers_pong.py changed, reloading.
+INFO 2024-08-10 06:07:50,984 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 06:07:55,204 autoreload /code/transcendence/pong/consumers_pong.py changed, reloading.
+INFO 2024-08-10 06:07:55,653 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 06:09:02,297 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 06:09:04,216 runserver WebSocket HANDSHAKING /ws/pong/2/ [172.24.0.4:38380]
+INFO 2024-08-10 06:09:04,219 runserver WebSocket CONNECT /ws/pong/2/ [172.24.0.4:38380]
+INFO 2024-08-10 06:09:04,415 runserver WebSocket DISCONNECT /ws/pong/2/ [172.24.0.4:38380]
+INFO 2024-08-10 06:09:06,917 runserver WebSocket HANDSHAKING /ws/pong/2/ [172.24.0.4:38388]
+INFO 2024-08-10 06:09:06,919 runserver WebSocket CONNECT /ws/pong/2/ [172.24.0.4:38388]
+INFO 2024-08-10 06:09:07,524 runserver WebSocket DISCONNECT /ws/pong/2/ [172.24.0.4:38388]
+INFO 2024-08-10 06:09:41,449 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 06:09:44,159 runserver WebSocket HANDSHAKING /ws/pong/2/ [172.24.0.4:42622]
+INFO 2024-08-10 06:09:44,161 runserver WebSocket CONNECT /ws/pong/2/ [172.24.0.4:42622]
+INFO 2024-08-10 06:09:44,675 runserver WebSocket DISCONNECT /ws/pong/2/ [172.24.0.4:42622]
+INFO 2024-08-10 06:09:50,659 runserver WebSocket HANDSHAKING /ws/pong/2/ [172.24.0.4:42634]
+INFO 2024-08-10 06:09:50,660 runserver WebSocket CONNECT /ws/pong/2/ [172.24.0.4:42634]
+INFO 2024-08-10 06:09:51,647 runserver WebSocket DISCONNECT /ws/pong/2/ [172.24.0.4:42634]
+INFO 2024-08-10 06:12:16,938 autoreload /code/transcendence/pong/consumers_pong.py changed, reloading.
+INFO 2024-08-10 06:12:17,493 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 06:12:21,673 autoreload /code/transcendence/pong/consumers_pong.py changed, reloading.
+INFO 2024-08-10 06:12:22,166 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 06:12:29,397 autoreload /code/transcendence/pong/consumers_pong.py changed, reloading.
+INFO 2024-08-10 06:12:29,963 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 06:12:35,171 autoreload /code/transcendence/pong/consumers_pong.py changed, reloading.
+INFO 2024-08-10 06:12:35,652 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 06:12:37,830 autoreload /code/transcendence/pong/consumers_pong.py changed, reloading.
+INFO 2024-08-10 06:12:38,305 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 06:12:43,505 autoreload /code/transcendence/pong/consumers_pong.py changed, reloading.
+INFO 2024-08-10 06:12:44,011 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 06:12:47,183 autoreload /code/transcendence/pong/consumers_pong.py changed, reloading.
+INFO 2024-08-10 06:12:47,692 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 06:12:51,931 autoreload /code/transcendence/pong/consumers_pong.py changed, reloading.
+INFO 2024-08-10 06:12:52,459 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 06:13:04,205 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 06:13:10,082 runserver WebSocket HANDSHAKING /ws/pong/2/ [172.24.0.4:49324]
+INFO 2024-08-10 06:13:10,088 runserver WebSocket CONNECT /ws/pong/2/ [172.24.0.4:49324]
+INFO 2024-08-10 06:13:10,365 runserver WebSocket DISCONNECT /ws/pong/2/ [172.24.0.4:49324]
+INFO 2024-08-10 06:13:18,590 autoreload /code/transcendence/pong/consumers_pong.py changed, reloading.
+INFO 2024-08-10 06:13:19,079 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 06:13:21,277 autoreload /code/transcendence/pong/consumers_pong.py changed, reloading.
+INFO 2024-08-10 06:13:21,819 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 06:13:28,028 autoreload /code/transcendence/pong/consumers_pong.py changed, reloading.
+INFO 2024-08-10 06:13:28,596 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 06:13:37,844 autoreload /code/transcendence/pong/consumers_pong.py changed, reloading.
+INFO 2024-08-10 06:13:38,432 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 06:13:41,639 autoreload /code/transcendence/pong/consumers_pong.py changed, reloading.
+INFO 2024-08-10 06:13:42,206 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 06:13:45,377 autoreload /code/transcendence/pong/consumers_pong.py changed, reloading.
+INFO 2024-08-10 06:13:45,950 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 06:13:57,810 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 06:13:59,732 runserver WebSocket HANDSHAKING /ws/pong/2/ [172.24.0.4:38860]
+INFO 2024-08-10 06:13:59,737 runserver WebSocket CONNECT /ws/pong/2/ [172.24.0.4:38860]
+INFO 2024-08-10 06:14:00,000 runserver WebSocket DISCONNECT /ws/pong/2/ [172.24.0.4:38860]
+INFO 2024-08-10 06:14:13,400 runserver WebSocket HANDSHAKING /ws/pong/2/ [172.24.0.4:39920]
+INFO 2024-08-10 06:14:13,401 runserver WebSocket CONNECT /ws/pong/2/ [172.24.0.4:39920]
+INFO 2024-08-10 06:14:13,953 runserver WebSocket DISCONNECT /ws/pong/2/ [172.24.0.4:39920]
+INFO 2024-08-10 06:14:46,550 autoreload /code/transcendence/pong/consumers_pong.py changed, reloading.
+INFO 2024-08-10 06:14:47,050 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 06:14:50,248 autoreload /code/transcendence/pong/consumers_pong.py changed, reloading.
+INFO 2024-08-10 06:14:50,727 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 06:15:03,550 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 06:15:07,008 runserver WebSocket HANDSHAKING /ws/pong/2/ [172.24.0.4:59400]
+INFO 2024-08-10 06:15:07,011 runserver WebSocket CONNECT /ws/pong/2/ [172.24.0.4:59400]
+INFO 2024-08-10 06:15:12,469 runserver WebSocket DISCONNECT /ws/pong/2/ [172.24.0.4:59400]
+INFO 2024-08-10 06:15:13,144 runserver WebSocket HANDSHAKING /ws/pong/2/ [172.24.0.4:36438]
+INFO 2024-08-10 06:15:13,145 runserver WebSocket CONNECT /ws/pong/2/ [172.24.0.4:36438]
+INFO 2024-08-10 06:17:06,532 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 06:18:13,074 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 06:18:16,160 runserver WebSocket HANDSHAKING /ws/pong/2/ [172.24.0.4:56610]
+INFO 2024-08-10 06:18:16,162 runserver WebSocket CONNECT /ws/pong/2/ [172.24.0.4:56610]
+INFO 2024-08-10 06:18:22,680 runserver WebSocket DISCONNECT /ws/pong/2/ [172.24.0.4:56610]
+INFO 2024-08-10 06:18:23,639 runserver WebSocket HANDSHAKING /ws/pong/2/ [172.24.0.4:44808]
+INFO 2024-08-10 06:18:23,640 runserver WebSocket CONNECT /ws/pong/2/ [172.24.0.4:44808]
+INFO 2024-08-10 06:19:30,318 autoreload /code/transcendence/pong/consumers_pong.py changed, reloading.
+INFO 2024-08-10 06:19:30,874 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 06:19:35,065 autoreload /code/transcendence/pong/consumers_pong.py changed, reloading.
+INFO 2024-08-10 06:19:35,547 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 06:19:41,840 autoreload /code/transcendence/pong/consumers_pong.py changed, reloading.
+INFO 2024-08-10 06:19:42,418 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 06:20:57,602 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 06:20:58,454 runserver WebSocket HANDSHAKING /ws/pong/2/ [172.24.0.4:55434]
+INFO 2024-08-10 06:20:58,457 runserver WebSocket CONNECT /ws/pong/2/ [172.24.0.4:55434]
+INFO 2024-08-10 06:21:02,622 runserver WebSocket DISCONNECT /ws/pong/2/ [172.24.0.4:55434]
+INFO 2024-08-10 06:21:03,341 runserver WebSocket HANDSHAKING /ws/pong/2/ [172.24.0.4:49332]
+INFO 2024-08-10 06:21:03,343 runserver WebSocket CONNECT /ws/pong/2/ [172.24.0.4:49332]
+INFO 2024-08-10 06:23:00,881 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 06:23:03,131 runserver WebSocket HANDSHAKING /ws/pong/2/ [172.24.0.4:46666]
+INFO 2024-08-10 06:23:03,135 runserver WebSocket CONNECT /ws/pong/2/ [172.24.0.4:46666]
+INFO 2024-08-10 06:23:07,607 runserver WebSocket DISCONNECT /ws/pong/2/ [172.24.0.4:46666]
+INFO 2024-08-10 06:23:08,750 runserver WebSocket HANDSHAKING /ws/pong/2/ [172.24.0.4:46678]
+INFO 2024-08-10 06:23:08,752 runserver WebSocket CONNECT /ws/pong/2/ [172.24.0.4:46678]
+INFO 2024-08-10 06:23:09,954 runserver WebSocket DISCONNECT /ws/pong/2/ [172.24.0.4:46678]
+INFO 2024-08-10 06:23:10,821 runserver WebSocket HANDSHAKING /ws/pong/2/ [172.24.0.4:46682]
+INFO 2024-08-10 06:23:10,822 runserver WebSocket CONNECT /ws/pong/2/ [172.24.0.4:46682]
+INFO 2024-08-10 06:23:14,765 runserver WebSocket DISCONNECT /ws/pong/2/ [172.24.0.4:46682]
+INFO 2024-08-10 06:23:15,647 runserver WebSocket HANDSHAKING /ws/pong/2/ [172.24.0.4:58726]
+INFO 2024-08-10 06:23:15,648 runserver WebSocket CONNECT /ws/pong/2/ [172.24.0.4:58726]
+INFO 2024-08-10 06:24:58,753 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 06:25:12,153 runserver WebSocket HANDSHAKING /ws/pong/2/ [172.24.0.4:50672]
+INFO 2024-08-10 06:25:12,156 runserver WebSocket CONNECT /ws/pong/2/ [172.24.0.4:50672]
+INFO 2024-08-10 06:31:54,959 autoreload /code/transcendence/pong/consumers_pong.py changed, reloading.
+INFO 2024-08-10 06:31:55,483 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 06:32:01,767 runserver WebSocket HANDSHAKING /ws/pong/2/ [172.24.0.4:59236]
+INFO 2024-08-10 06:32:01,769 runserver WebSocket CONNECT /ws/pong/2/ [172.24.0.4:59236]
+INFO 2024-08-10 06:32:06,758 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 06:32:07,836 runserver WebSocket HANDSHAKING /ws/pong/2/ [172.24.0.4:46700]
+INFO 2024-08-10 06:32:07,838 runserver WebSocket CONNECT /ws/pong/2/ [172.24.0.4:46700]
+INFO 2024-08-10 06:32:23,064 autoreload /code/transcendence/pong/consumers_pong.py changed, reloading.
+INFO 2024-08-10 06:32:23,662 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 06:32:31,081 runserver WebSocket HANDSHAKING /ws/pong/2/ [172.24.0.4:33986]
+INFO 2024-08-10 06:32:31,083 runserver WebSocket CONNECT /ws/pong/2/ [172.24.0.4:33986]
+INFO 2024-08-10 06:32:36,274 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 06:32:36,874 runserver WebSocket HANDSHAKING /ws/pong/2/ [172.24.0.4:50924]
+INFO 2024-08-10 06:32:36,876 runserver WebSocket CONNECT /ws/pong/2/ [172.24.0.4:50924]
+INFO 2024-08-10 06:34:31,530 runserver WebSocket DISCONNECT /ws/pong/2/ [172.24.0.4:50924]
