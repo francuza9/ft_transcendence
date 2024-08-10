@@ -64659,3 +64659,69 @@ INFO 2024-08-10 00:57:41,712 autoreload Watching for file changes with StatReloa
 INFO 2024-08-10 01:22:41,991 autoreload Watching for file changes with StatReloader
 INFO 2024-08-10 01:23:29,750 runserver HTTP POST /api/login/ 200 [0.32, 172.18.0.4:56236]
 INFO 2024-08-10 01:24:08,834 runserver HTTP POST /api/login/ 200 [0.29, 172.18.0.4:54614]
+INFO 2024-08-10 02:02:20,780 autoreload /code/transcendence/transcendence/settings.py changed, reloading.
+INFO 2024-08-10 02:02:21,299 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 02:02:26,466 autoreload /code/transcendence/transcendence/settings.py changed, reloading.
+INFO 2024-08-10 02:02:26,889 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 02:02:29,035 autoreload /code/transcendence/transcendence/settings.py changed, reloading.
+INFO 2024-08-10 02:02:29,466 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 02:02:32,630 autoreload /code/transcendence/transcendence/settings.py changed, reloading.
+INFO 2024-08-10 02:02:33,066 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 02:02:37,242 autoreload /code/transcendence/transcendence/settings.py changed, reloading.
+INFO 2024-08-10 02:02:37,671 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 02:03:36,372 autoreload /code/transcendence/pong/urls.py changed, reloading.
+INFO 2024-08-10 02:03:36,804 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 02:05:24,859 autoreload /code/transcendence/pong/views.py changed, reloading.
+INFO 2024-08-10 02:05:25,340 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 02:05:27,479 autoreload /code/transcendence/pong/views.py changed, reloading.
+INFO 2024-08-10 02:05:27,932 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 02:05:30,074 autoreload /code/transcendence/pong/views.py changed, reloading.
+INFO 2024-08-10 02:05:30,495 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 02:05:32,646 autoreload /code/transcendence/pong/views.py changed, reloading.
+INFO 2024-08-10 02:05:33,095 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 02:05:57,185 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 02:06:09,302 runserver HTTP GET /api/check_login_status/ 200 [0.05, 172.18.0.4:56956]
+INFO 2024-08-10 02:06:21,258 runserver HTTP GET /api/check_login_status/ 200 [0.00, 172.18.0.4:58860]
+INFO 2024-08-10 02:06:30,611 runserver HTTP GET /api/check_login_status/ 200 [0.00, 172.18.0.4:37674]
+INFO 2024-08-10 02:06:42,946 runserver HTTP GET /api/check_login_status/ 200 [0.00, 172.18.0.4:33672]
+INFO 2024-08-10 02:07:11,551 runserver HTTP POST /api/register/ 200 [0.31, 172.18.0.4:42322]
+INFO 2024-08-10 02:07:24,607 runserver HTTP POST /api/login/ 200 [0.29, 172.18.0.4:46764]
+INFO 2024-08-10 02:09:07,088 runserver HTTP GET /api/check_login_status/ 200 [0.03, 172.18.0.4:54264]
+INFO 2024-08-10 02:09:10,240 runserver HTTP GET /api/check_login_status/ 200 [0.04, 172.18.0.4:34166]
+INFO 2024-08-10 02:09:34,137 runserver HTTP POST /api/login/ 200 [0.29, 172.18.0.4:54894]
+INFO 2024-08-10 02:11:09,500 runserver HTTP GET /api/check_login_status/ 200 [0.03, 172.18.0.4:45114]
+INFO 2024-08-10 02:11:21,546 runserver HTTP GET /api/check_login_status/ 200 [0.00, 172.18.0.4:37346]
+INFO 2024-08-10 02:11:30,412 runserver HTTP POST /api/login/ 200 [0.29, 172.18.0.4:43672]
+INFO 2024-08-10 02:11:46,388 runserver HTTP GET /api/check_login_status/ 200 [0.02, 172.18.0.4:42620]
+INFO 2024-08-10 02:11:51,115 runserver HTTP GET /api/check_login_status/ 200 [0.02, 172.18.0.4:57614]
+INFO 2024-08-10 02:11:52,444 runserver HTTP GET /api/check_login_status/ 200 [0.03, 172.18.0.4:57630]
+INFO 2024-08-10 02:11:53,740 runserver HTTP GET /api/check_login_status/ 200 [0.02, 172.18.0.4:57640]
+INFO 2024-08-10 02:12:06,214 autoreload /code/transcendence/transcendence/settings.py changed, reloading.
+INFO 2024-08-10 02:12:07,263 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 02:12:26,432 autoreload Watching for file changes with StatReloader
+INFO 2024-08-10 02:12:26,927 runserver HTTP GET /api/check_login_status/ 200 [0.03, 172.18.0.4:41644]
+INFO 2024-08-10 02:12:43,548 runserver HTTP GET /api/check_login_status/ 200 [0.00, 172.18.0.4:52246]
+INFO 2024-08-10 02:12:57,458 runserver HTTP POST /api/login/ 200 [0.31, 172.18.0.4:58262]
+INFO 2024-08-10 02:13:04,356 runserver HTTP GET /api/check_login_status/ 200 [0.03, 172.18.0.4:53070]
+INFO 2024-08-10 02:13:09,728 runserver WebSocket HANDSHAKING /ws/pong/1/ [172.18.0.4:45992]
+INFO 2024-08-10 02:13:09,739 runserver HTTP GET /api/check_login_status/ 200 [0.03, 172.18.0.4:45978]
+INFO 2024-08-10 02:13:09,743 runserver WebSocket CONNECT /ws/pong/1/ [172.18.0.4:45992]
+INFO 2024-08-10 02:13:13,108 runserver WebSocket DISCONNECT /ws/pong/1/ [172.18.0.4:45992]
+INFO 2024-08-10 02:13:13,178 runserver WebSocket HANDSHAKING /ws/pong/1/ [172.18.0.4:45998]
+INFO 2024-08-10 02:13:13,190 runserver WebSocket CONNECT /ws/pong/1/ [172.18.0.4:45998]
+INFO 2024-08-10 02:13:13,201 runserver HTTP GET /api/check_login_status/ 200 [0.04, 172.18.0.4:45996]
+INFO 2024-08-10 02:13:17,705 runserver WebSocket DISCONNECT /ws/pong/1/ [172.18.0.4:45998]
+INFO 2024-08-10 02:13:17,762 runserver WebSocket HANDSHAKING /ws/pong/1/ [172.18.0.4:46014]
+INFO 2024-08-10 02:13:17,770 runserver WebSocket CONNECT /ws/pong/1/ [172.18.0.4:46014]
+INFO 2024-08-10 02:13:17,775 runserver HTTP GET /api/check_login_status/ 200 [0.03, 172.18.0.4:46010]
+INFO 2024-08-10 02:13:22,096 runserver HTTP GET /api/check_login_status/ 200 [0.03, 172.18.0.4:59208]
+INFO 2024-08-10 02:13:22,106 runserver WebSocket HANDSHAKING /ws/pong/1/ [172.18.0.4:59210]
+INFO 2024-08-10 02:13:22,118 runserver WebSocket CONNECT /ws/pong/1/ [172.18.0.4:59210]
+INFO 2024-08-10 02:13:33,133 runserver WebSocket DISCONNECT /ws/pong/1/ [172.18.0.4:59210]
+INFO 2024-08-10 02:13:33,372 runserver HTTP GET /api/check_login_status/ 200 [0.05, 172.18.0.4:47308]
+INFO 2024-08-10 02:14:02,463 runserver HTTP GET /api/check_login_status/ 200 [0.01, 172.18.0.4:54640]
+INFO 2024-08-10 02:14:22,615 runserver HTTP GET /api/check_login_status/ 200 [0.00, 172.18.0.4:34728]
+INFO 2024-08-10 02:14:29,763 runserver HTTP POST /api/login/ 200 [0.37, 172.18.0.4:54654]
+INFO 2024-08-10 02:14:34,610 runserver HTTP GET /api/check_login_status/ 200 [0.02, 172.18.0.4:54660]
+INFO 2024-08-10 02:14:42,411 runserver HTTP POST /api/login/ 200 [0.33, 172.18.0.4:38956]
+INFO 2024-08-10 02:14:47,445 runserver HTTP GET /api/check_login_status/ 200 [0.03, 172.18.0.4:38962]
