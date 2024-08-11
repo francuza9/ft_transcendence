@@ -95,4 +95,6 @@ export const createRoomButton = () => {
 	console.log('player count: ', variables.playerCount);
 	console.log('map: ', variables.map);
 	console.log('admin: ', )
+	console.log('name: ', )
+	replaceHTML('/static/src/html/lobby.html', false);
 }
