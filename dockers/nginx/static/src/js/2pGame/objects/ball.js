@@ -95,6 +95,8 @@ export class Ball {
 		this.ball.rotation.y -= this.direction.x / 15;
 		this.ball2.rotation.y = this.ball.rotation.y + 0.1;
 
+		// console.log("speed:", this.speed, "direction:", this.direction.x, "ball_position_x:", this.ball.position.x);
+
 		let x = 0;
 		if (this.speed > 0.25)
 			x = 1;

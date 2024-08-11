@@ -5,7 +5,8 @@ export const variables = {
     playerCount: 2,
 	map: 'classic',
 	pageHistory: [],
-	nextPage: 'profile'
+	nextPage: 'profile',
+	loggedIn: false
 };
 
 export function updateVariable(document, variableName, value) {

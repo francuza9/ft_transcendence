@@ -22,6 +22,7 @@ export const loginButton = () => {
         .then(data => {
             if (data.success) {
                 console.log('Login successful');
+				variables.loggedIn = true;
 				if (variables.nextPage == 'room') {
 					history.pushState(null, '', '/');
 					handleRouting();

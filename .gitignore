@@ -4,3 +4,4 @@ dockers/django/src/transcendence/pong/__pycache__/*.cpython-39.pyc
 dockers/django/src/transcendence/pong/migrations/__pycache__/*.cpython-39.pyc
 dockers/django/src/transcendence/transcendence/__pycache__/*.cpython-39.pyc
 dockers/django/src/transcendence/pong/management/commands/__pycache__
+dockers/django/src/transcendence/pong/backend_pong/__pycache__
