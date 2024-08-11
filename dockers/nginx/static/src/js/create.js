@@ -45,7 +45,7 @@ export const createRoomButton = () => {
 	console.log('player count: ', variables.playerCount);
 	console.log('map: ', variables.map);
 	console.log('name: ', variables.roomName);
-	fetch('/api/create_room/', {
+	fetch('/api/create_lobby/', {
 		method: 'POST',
 		headers: {
 			'Content-Type': 'application/json'

@@ -30,18 +30,5 @@
 	<div class="text-center mt-4">
 		<button class="btn btn-danger" data-action="cancel">Leave Room</button>
 	</div>
-	<script>
-		document.getElementById('playerList').addEventListener('click', function(event) {
-			const row = event.target.closest('tr');
-			if (row) {
-				const playerId = row.getAttribute('data-player-id');
-				viewProfile(playerId);
-			}
-		});
-
-		function viewProfile(playerId) {
-			console.log('Viewing profile of:', playerId);
-			alert('Viewing profile of: ' + playerId);
-		}
-	</script>
+	<script src="/static/src/js/lobby.js"></script>
 </div>
