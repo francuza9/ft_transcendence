@@ -51,3 +51,25 @@ export function normalizePath(path)
     path = path.replace(/\/+$/, '') || '/';	
 	return path;
 }
+
+export function checkLoginStatus() {
+    return fetch('/api/check_login_status/', {
+        method: 'GET',
+        credentials: 'include',  // Include cookies in the request
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            const user = data.user;
+            console.log('Logged in as:', user.username);
+			return true;
+        } else {
+            console.log('User is not logged in');
+			return false;
+        }
+    })
+    .catch(error => {
+        console.error('Error fetching user info:', error);
+		return false;
+    });
+}

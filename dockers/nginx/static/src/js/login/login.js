@@ -22,8 +22,9 @@ export const loginButton = () => {
         .then(data => {
             if (data.success) {
                 console.log('Login successful');
-				variables.loggedIn = true;
 				if (variables.nextPage == 'room') {
+					if (variables.pageHistory.length > 0)
+						variables.pageHistory.pop();
 					history.pushState(null, '', '/');
 					handleRouting();
 					replaceHTML('/static/src/html/room.html', false);
