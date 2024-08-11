@@ -1,4 +1,4 @@
-import { updatePlayerCount, updateIsTournament } from '/static/src/js/play.js';
+import { updatePlayerCount, updateIsTournament } from '/static/src/js/create.js';
 
 export const variables = {
 	isTournament: false,
@@ -6,7 +6,7 @@ export const variables = {
 	map: 'classic',
 	pageHistory: [],
 	nextPage: 'profile',
-	loggedIn: false
+	username: ''
 };
 
 export function updateVariable(document, variableName, value) {
