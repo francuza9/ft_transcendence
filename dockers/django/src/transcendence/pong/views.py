@@ -13,26 +13,26 @@ from django.views.decorators.csrf import csrf_exempt
 
 logger = logging.getLogger(__name__)
 
-rooms = {}
+lobbies = {}
 
 @csrf_exempt
 @login_required
-def create_room(request):
+def create_lobby(request):
     if request.method == 'POST':
         try:
             data = json.loads(request.body)
             is_tournament = data.get('isTournament')
             player_count = data.get('playerCount')
             map_name = data.get('map')
-            room_name = data.get('roomName')
+            lobby_name = data.get('lobbyName')
 
             # Generate a unique join code
             join_code = ''.join(random.choices(string.ascii_letters + string.digits, k=8))
-            rooms[join_code] = {
+            lobbies[join_code] = {
                 'is_tournament': is_tournament,
                 'player_count': player_count,
                 'map_name': map_name,
-                'room_name': room_name,
+                'lobby_name': lobby_name,
                 'admin': request.user,
                 'players': []
             }
@@ -48,19 +48,26 @@ def create_room(request):
 
 
 @login_required
-def join_room(request, join_code):
-    room = rooms.get(join_code)
+def join_lobby(request, join_code):
+    lobby = lobbies.get(join_code)
 
-    if not room:
-        return JsonResponse({'success': False, 'message': 'Room does not exist'})
+    if not lobby:
+        return JsonResponse({'success': False, 'message': 'Lobby does not exist'})
 
-    if len(room['players']) >= room['player_count']:
-        return JsonResponse({'success': False, 'message': 'Room is full'})
+    if len(lobby['players']) >= lobby['player_count']:
+        return JsonResponse({'success': False, 'message': 'Lobby is full'})
 
-    # Add the user to the room
-    room['players'].append(request.user)
+    lobby['players'].append(request.user)
+    lobby_info = {
+        'is_tournament': lobby['is_tournament'],
+        'player_count': lobby['player_count'],
+        'map_name': lobby['map_name'],
+        'lobby_name': lobby['lobby_name'],
+        'players': [player.username for player in lobby['players']],
+        'admin': lobby['admin'].username
+    }
 
-    return JsonResponse({'success': True, 'message': 'Joined the room successfully'})
+    return JsonResponse({'success': True, 'lobby_info': lobby_info})
 
 @csrf_exempt
 def login_view(request):

@@ -6,7 +6,6 @@ export const variables = {
 	map: 'classic',
 	pageHistory: [],
 	nextPage: 'profile',
-	username: ''
 };
 
 export function updateVariable(document, variableName, value) {
