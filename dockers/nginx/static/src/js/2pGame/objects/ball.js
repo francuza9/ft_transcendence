@@ -89,7 +89,7 @@ export class Ball {
 
     animate() {
     // Move ball in direction
-    	// this.ball.position.add(this.direction.clone().multiplyScalar(this.speed));
+    	this.ball.position.add(this.direction.clone().multiplyScalar(this.speed));
 		this.ball2.position.set(this.ball.position.x, this.ball.position.y, this.ball.position.z);
 
 		this.ball.rotation.y -= this.direction.x / 15;
@@ -107,17 +107,17 @@ export class Ball {
 
 		if (this.frameCounter % x === 0) {
 			for (let i = 0; i < this.trail.length; i++) {
-            	if (i === 0) {
+				if (i === 0) {
             	    // The first (largest) sphere directly follows the ball
-            	    this.trail[i].position.set(this.ball.position.x, this.ball.position.y, this.ball.position.z);
-            	} else {
+					this.trail[i].position.set(this.ball.position.x, this.ball.position.y, this.ball.position.z);
+				} else {
             	    // Subsequent spheres follow the one before them, creating a trailing effect
-            	    this.trail[i].position.lerp(this.trail[i - 1].position, 0.5);
-            	}
-        	}
+					this.trail[i].position.lerp(this.trail[i - 1].position, 0.5);
+				}
+			}
 		}
 		this.frameCounter++;
-    	this.adjustColorTowardsWhite();
+		this.adjustColorTowardsWhite();
 	}
 
 	adjustColorTowardsWhite() {
