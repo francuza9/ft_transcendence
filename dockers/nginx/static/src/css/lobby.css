@@ -1,0 +1,14 @@
+.player-row:hover {
+	background-color: #f8f9fa;
+	cursor: pointer;
+}
+.player-img {
+	width: 40px;
+	height: 40px;
+	border-radius: 50%;
+	object-fit: cover;
+}
+.table-centered {
+	margin: 0 auto;
+	max-width: 800px;
+}

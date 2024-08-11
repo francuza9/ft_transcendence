@@ -4,16 +4,23 @@ import { Register } from '../views/register.js';
 import { Login } from '../views/login.js';
 import { About } from '../views/about.js';
 import { Leaderboard } from '../views/leaderboard.js';
+import { Create } from '../views/create.js';
+import { Join } from '../views/join.js';
+import { Lobby } from '../views/lobby.js';
 import { handleButtonAction } from './buttons.js';
 import { updateVariable } from '/static/src/js/variables.js';
 import { normalizePath } from '/static/src/js/utils.js';
+import { viewProfile } from '/static/src/js/lobby.js';
 
 const router = [
     { path: /^\/$/, component: Home },
-    { path: /^\/pong\/(\d+)$/, component: Pong }, // Match paths like /pong/1, /pong/2, etc.
+	{ path: /^\/(\w{8})$/, component: Lobby },
+    { path: /^\/pong\/(\d+)$/, component: Pong },
     { path: /^\/register$/, component: Register },
 	{ path: /^\/login$/, component: Login },
 	{ path: /^\/about$/, component: About },
+	{ path: /^\/create$/, component: Create },
+	{ path: /^\/join$/, component: Join },
 	{ path: /^\/leaderboard$/, component: Leaderboard },
 ];
 
@@ -40,47 +47,38 @@ window.addEventListener('popstate', handleRouting);
 
 document.addEventListener('DOMContentLoaded', () => {
 
-	checkLoginStatus();
-    // Handle clicks on links and buttons
     document.body.addEventListener('click', (e) => {
         if (e.target.tagName === 'A' && e.target.href.startsWith(window.location.origin)) {
             e.preventDefault();
             history.pushState(null, '', e.target.href);
             handleRouting();
-        } else if (e.target.tagName === 'BUTTON' && e.target.dataset.path) {
+        } 
+        else if (e.target.closest('button[data-path]')) {
             e.preventDefault();
-            const path = e.target.dataset.path;
+            const path = e.target.closest('button').dataset.path;
             history.pushState(null, '', path);
             handleRouting();
-        } else if (e.target.tagName === 'BUTTON' && e.target.dataset.action) {
+        } 
+        else if (e.target.closest('button[data-action]')) {
             e.preventDefault();
-            const action = e.target.dataset.action;
+            const action = e.target.closest('button').dataset.action;
             handleButtonAction(e, action);
-        } else if ((e.target.tagName === 'BUTTON' || e.target.tagName === 'INPUT') && e.target.dataset.variable) {
+        } 
+        else if (e.target.closest('[data-variable]')) {
             e.preventDefault();
-            const variable = e.target.dataset.variable;
-            const value = e.target.dataset.value;
+            const element = e.target.closest('[data-variable]');
+            const variable = element.dataset.variable;
+            const value = element.dataset.value;
             updateVariable(document, variable, value);
         }
+
+        const targetRow = e.target.closest('tr[data-player-id]');
+        if (targetRow) {
+            const playerId = targetRow.dataset.playerId;
+            viewProfile(playerId);
+        }
+
     });
+
     handleRouting();
 });
-
-function checkLoginStatus() {
-    fetch('/api/check_login_status/', {
-        method: 'GET',
-        credentials: 'include',  // Include cookies in the request
-    })
-    .then(response => response.json())
-    .then(data => {
-        if (data.success) {
-            const user = data.user;
-            console.log('Logged in as:', user.username);
-        } else {
-            console.log('User is not logged in');
-        }
-    })
-    .catch(error => {
-        console.error('Error fetching user info:', error);
-    });
-}

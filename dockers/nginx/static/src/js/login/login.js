@@ -6,9 +6,6 @@ export const loginButton = () => {
     const email = document.getElementById('email').value;
     const password = document.getElementById('password').value;
 
-    console.log(email);
-    console.log(password);
-
     if (email && password) {
         // Fetch CSRF token from the cookie
         const csrftoken = getCookie('csrftoken');
@@ -25,8 +22,9 @@ export const loginButton = () => {
         .then(data => {
             if (data.success) {
                 console.log('Login successful');
-				variables.loggedIn = true;
 				if (variables.nextPage == 'room') {
+					if (variables.pageHistory.length > 0)
+						variables.pageHistory.pop();
 					history.pushState(null, '', '/');
 					handleRouting();
 					replaceHTML('/static/src/html/room.html', false);
