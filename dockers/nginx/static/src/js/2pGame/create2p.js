@@ -20,6 +20,7 @@ export let keys = {
 	"ArrowRight": false,
 };
 let score = [0, 0];
+let flag = false;
 export let scoremesh = 0;
 
 
@@ -90,21 +91,28 @@ export function create2Pgame(mappov, socket) {
 		if (event.data instanceof ArrayBuffer) {
 			const bytes = new Float32Array(event.data);
 
-	        if (bytes.length >= 6) { // Ensure there are enough bytes
-				const ballPosX = bytes[0];
-				const ballPosY = bytes[1];
-				const ballDirX = bytes[2];
-				const ballDirY = bytes[3];
-				const player1Y = bytes[4];
-				const player2Y = bytes[5];
-
-	            // Update game state with received data
-				ball.ball.position.x = ballPosX;
-				ball.ball.position.z = ballPosY;
-				ball.direction.x = ballDirX;
-				ball.direction.z = ballDirY;
-				players.children[0].position.z = player1Y;
-				players.children[1].position.z = player2Y;
+			if (bytes.length >= 9) {
+				ball.direction.x = bytes[0];
+				ball.direction.z = bytes[1];
+				ball.ball.position.x = bytes[2];
+				ball.ball.position.z = bytes[3];
+				players.children[0].position.z = bytes[4];
+				players.children[1].position.z = bytes[5];
+				ball.speed = bytes[6];
+				score[0] = bytes[7];
+				score[1] = bytes[8];
+			} else if (bytes.length >= 4) {
+				ball.ball.position.x = bytes[0];
+				ball.ball.position.z = bytes[1];
+				if (mappov - 1 != 0) {
+					players.children[0].position.z = bytes[2];
+				} else if (mappov - 1 != 1) {
+					players.children[1].position.z = bytes[3];
+				}
+			} else if (bytes.length >= 3) {
+				ball.direction.x = bytes[0];
+				ball.direction.z = bytes[1];
+				ball.speed = bytes[2];
 			} else {
 				console.error('Unexpected data length received:', bytes.length);
 			}
@@ -128,16 +136,33 @@ export function create2Pgame(mappov, socket) {
         console.error('Failed to load text:', error);
     });
 
+	let lastUpdateTime = performance.now();
+	const updateInterval = 1000 / 30; // For example, 30 updates per second
 	socket.binaryType = 'arraybuffer';
 
+	
     function animate() {
 		
-		if (mappov > 0)
+		if (mappov > 0 && flag === true)
 		{
 			const buffer = serializeData(mappov - 1, players.children[mappov - 1].position.x, players.children[mappov - 1].position.z);
 			socket.send(buffer);
 		}
-		// checkCollision(ball, players, score, lights, scoremesh);
+		flag = false;
+		// Interpolation
+		const now = performance.now();
+		const delta = now - lastUpdateTime;
+    	const t = Math.min(1, delta / updateInterval); // Ensure t is between 0 and 1
+
+    	// Interpolate ball and player positions
+		/* if (lastServerState) {
+			// ball.ball.position.x = interpolate(ball.ball.position.x, lastServerState.ballPosX, t);
+			// ball.ball.position.z = interpolate(ball.ball.position.z, lastServerState.ballPosZ, t);
+			ball.direction.x = interpolate(ball.direction.x, lastServerState.ballDirX, t);
+			ball.direction.z = interpolate(ball.direction.z, lastServerState.ballDirZ, t);
+			// players.children[0].position.z = interpolate(players.children[0].position.z, lastServerState.player1Z, t);
+			// players.children[1].position.z = interpolate(players.children[1].position.z, lastServerState.player2Z, t);
+		} */
         ball.animate();
         // render
 
@@ -147,7 +172,12 @@ export function create2Pgame(mappov, socket) {
 
         controls.update();
         renderer.render(scene, camera);
+		lastUpdateTime = now;
     }
+
+	function interpolate(start, end, t) {
+	    return start * (1 - t) + end * t;
+	}
 
     function onWindowResize() {
         camera.aspect = window.innerWidth / window.innerHeight;
@@ -206,6 +236,7 @@ function updatePlayerPosition(player)
 function onKeydown(event) {
 	if (event.key in keys) {
 		keys[event.key] = true;
+		flag = true;
 	}
 }
 

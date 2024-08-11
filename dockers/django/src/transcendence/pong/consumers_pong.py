@@ -7,6 +7,10 @@ import struct
 
 logger = logging.getLogger(__name__)
 
+NOTHING = 0
+COLLISION = 1
+SCORE = 2
+
 class PongConsumer(AsyncWebsocketConsumer):
 	room_counters = {}
 	game_states = {}
@@ -53,22 +57,44 @@ class PongConsumer(AsyncWebsocketConsumer):
 	async def game_update_loop(self):
 		while True:
 			game_state = self.get_game_state()
-			update_ball_position(game_state)
+			result = update_ball_position(game_state)
 
 			# Prepare minimal game state data
 			player_1_y = game_state['players']['player_1']['y']
 			player_2_y = game_state['players']['player_2']['y']
-			ball_pos = game_state['ball_position']
-			ball_dir = game_state['ball_direction']
+			ball_position = game_state['ball_position']
+			ball_direction = game_state['ball_direction']
+			ball_speed = game_state['ball_speed']
+			score = game_state['score']
+
+			if result == NOTHING:
+				format_str = '<ffff'
+				packed_data = struct.pack(
+					format_str,
+					ball_position['x'], ball_position['y'],  # ball direction
+					player_1_y, player_2_y,        # player positions
+				)	
+			elif result == COLLISION:
+				format_str = '<fff'
+				packed_data = struct.pack(
+					format_str,
+					ball_direction['x'], ball_direction['y'],  # ball direction
+					ball_speed,
+				)
+			elif result == SCORE:
+				format_str = '<fffffffii'
+				packed_data = struct.pack(
+					format_str,
+					ball_direction['x'], ball_direction['y'],
+					ball_position['x'], ball_position['y'],
+					player_1_y, player_2_y,
+					ball_speed,
+					score[0], score[1] 
+				)
 
 			# Pack minimal game state data into bytes
-			format_str = '<ffffff'  # Little-endian: f (float) for each value
-			packed_data = struct.pack(
-				format_str,
-				ball_pos['x'], ball_pos['y'],  # ball position
-				ball_dir['x'], ball_dir['y'],  # ball direction
-				player_1_y, player_2_y         # player positions
-			)
+			format_str = '<ffff'  # Little-endian: f (float) for each value
+			
 
 			await self.channel_layer.group_send(
 				self.room_group_name,
@@ -82,7 +108,6 @@ class PongConsumer(AsyncWebsocketConsumer):
 	async def pong_message(self, event):
 		packed_data = event['message']
 		await self.send(bytes_data=packed_data)
-
 
 	def get_game_state(self):
 		return PongConsumer.game_states.get(self.room_id, {})
