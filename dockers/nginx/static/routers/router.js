@@ -4,8 +4,9 @@ import { Register } from '../views/register.js';
 import { Login } from '../views/login.js';
 import { About } from '../views/about.js';
 import { Leaderboard } from '../views/leaderboard.js';
-import { Create } from '../views/create.js'
-import { Join } from '../views/join.js'
+import { Create } from '../views/create.js';
+import { Join } from '../views/join.js';
+import { Lobby } from '../views/lobby.js';
 import { handleButtonAction } from './buttons.js';
 import { updateVariable } from '/static/src/js/variables.js';
 import { normalizePath } from '/static/src/js/utils.js';
@@ -13,7 +14,8 @@ import { viewProfile } from '/static/src/js/lobby.js';
 
 const router = [
     { path: /^\/$/, component: Home },
-    { path: /^\/pong\/(\d+)$/, component: Pong }, // Match paths like /pong/1, /pong/2, etc.
+	{ path: /^\/(\w{8})$/, component: Lobby },
+    { path: /^\/pong\/(\d+)$/, component: Pong },
     { path: /^\/register$/, component: Register },
 	{ path: /^\/login$/, component: Login },
 	{ path: /^\/about$/, component: About },

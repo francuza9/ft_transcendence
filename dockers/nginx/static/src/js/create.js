@@ -44,7 +44,29 @@ export const createRoomButton = () => {
 	console.log('tournament: ', variables.isTournament);
 	console.log('player count: ', variables.playerCount);
 	console.log('map: ', variables.map);
-	console.log('admin: ', )
-	console.log('name: ', )
+	console.log('name: ', variables.roomName);
+	fetch('/api/create_room/', {
+		method: 'POST',
+		headers: {
+			'Content-Type': 'application/json'
+		},
+		credentials: 'include', // Include session cookie for authentication
+		body: JSON.stringify({
+			isTournament: variables.isTournament,
+			playerCount: variables.playerCount,
+			map: variables.map,
+			roomName: variables.roomName
+		})
+	})
+	.then(response => response.json())
+	.then(data => {
+		if (data.success) {
+			console.log('Room created successfully:', data.join_code);
+			history.pushState(null, '', `/${data.join_code}`);
+			replaceHTML('/static/src/html/lobby.html', false);
+		} else {
+			console.error('Failed to create room:', data.message);
+		}
+	})
 	replaceHTML('/static/src/html/lobby.html', false);
 }
