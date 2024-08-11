@@ -20,7 +20,7 @@ export class Ball {
 
         // Animation parameters
         this.speed = 0.05; // Adjust speed as needed
-        this.direction = new THREE.Vector3(Math.random() < 0.5 ? -1.5: 1.5, 0, 0); // Movement direction
+        this.direction = new THREE.Vector3(1.5, 0, 0); // Movement direction
 
 		this.trail = [];
 		const trailGeometries = [
@@ -96,6 +96,11 @@ export class Ball {
 		this.ball2.rotation.y = this.ball.rotation.y + 0.1;
 
 		// console.log("speed:", this.speed, "direction:", this.direction.x, "ball_position_x:", this.ball.position.x);
+
+		if (this.direction.x > 0)
+			this.color = 0xff0000;
+		else
+			this.color = 0x0000ff;
 
 		let x = 0;
 		if (this.speed > 0.25)

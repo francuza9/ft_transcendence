@@ -20,7 +20,6 @@ export let keys = {
 	"ArrowRight": false,
 };
 let score = [0, 0];
-let flag = false;
 export let scoremesh = 0;
 
 
@@ -143,26 +142,18 @@ export function create2Pgame(mappov, socket) {
 	
     function animate() {
 		
-		if (mappov > 0 && flag === true)
+		if (mappov > 0)
 		{
+			// console.log(players.children[0].position.z);
 			const buffer = serializeData(mappov - 1, players.children[mappov - 1].position.x, players.children[mappov - 1].position.z);
 			socket.send(buffer);
 		}
-		flag = false;
-		// Interpolation
-		const now = performance.now();
-		const delta = now - lastUpdateTime;
-    	const t = Math.min(1, delta / updateInterval); // Ensure t is between 0 and 1
 
-    	// Interpolate ball and player positions
-		/* if (lastServerState) {
-			// ball.ball.position.x = interpolate(ball.ball.position.x, lastServerState.ballPosX, t);
-			// ball.ball.position.z = interpolate(ball.ball.position.z, lastServerState.ballPosZ, t);
-			ball.direction.x = interpolate(ball.direction.x, lastServerState.ballDirX, t);
-			ball.direction.z = interpolate(ball.direction.z, lastServerState.ballDirZ, t);
-			// players.children[0].position.z = interpolate(players.children[0].position.z, lastServerState.player1Z, t);
-			// players.children[1].position.z = interpolate(players.children[1].position.z, lastServerState.player2Z, t);
-		} */
+		groupCornerLights.children[10].color.setHex(ball.color);
+		groupCornerLights.children[11].color.setHex(ball.color);
+		groupCornerLights.children[12].color.setHex(ball.color);
+		groupCornerLights.children[9].color.setHex(ball.color);
+
         ball.animate();
         // render
 
@@ -172,12 +163,7 @@ export function create2Pgame(mappov, socket) {
 
         controls.update();
         renderer.render(scene, camera);
-		lastUpdateTime = now;
     }
-
-	function interpolate(start, end, t) {
-	    return start * (1 - t) + end * t;
-	}
 
     function onWindowResize() {
         camera.aspect = window.innerWidth / window.innerHeight;
@@ -188,7 +174,7 @@ export function create2Pgame(mappov, socket) {
 	// Function to serialize player data into a binary format
 	function serializeData(playerID, positionX, positionY) {
 	    const buffer = new ArrayBuffer(9); // 1 byte (playerID) + 4 bytes (positionX) + 4 bytes (positionY)
-	    const view = new DataView(buffer);
+		const view = new DataView(buffer);
 
 	    // Write playerID as a boolean (0 or 1) into the first byte
 	    view.setUint8(0, playerID ? 1 : 0); // 1 byte
@@ -236,7 +222,6 @@ function updatePlayerPosition(player)
 function onKeydown(event) {
 	if (event.key in keys) {
 		keys[event.key] = true;
-		flag = true;
 	}
 }
 
