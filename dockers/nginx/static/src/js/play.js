@@ -16,6 +16,10 @@ export const backButton = () => {
     }
 }
 
+export const cancelButton = () => {
+	history.pushState(null, '', '/');
+	replaceHTML('/static/src/html/room.html', false);
+}
 
 export const localButton = () => {
 	replaceHTML('/static/src/html/local.html', false);
@@ -42,11 +46,6 @@ export const goToLoginButton = () => {
 export const joinButton = () => {
 	replaceHTML('/static/src/html/joinRoom.html', false);
     variables.pageHistory.push('room');
-}
-
-export const createButton = () => {
-    variables.pageHistory.push('room');
-	replaceHTML('/static/src/html/createRoom.html', false);
 }
 
 export const playerCountDropdownButton = () => {

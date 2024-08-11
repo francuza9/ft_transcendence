@@ -4,6 +4,8 @@ import { Register } from '../views/register.js';
 import { Login } from '../views/login.js';
 import { About } from '../views/about.js';
 import { Leaderboard } from '../views/leaderboard.js';
+import { Create } from '../views/create.js'
+import { Join } from '../views/join.js'
 import { handleButtonAction } from './buttons.js';
 import { updateVariable } from '/static/src/js/variables.js';
 import { normalizePath } from '/static/src/js/utils.js';
@@ -14,6 +16,8 @@ const router = [
     { path: /^\/register$/, component: Register },
 	{ path: /^\/login$/, component: Login },
 	{ path: /^\/about$/, component: About },
+	{ path: /^\/create$/, component: Create },
+	{ path: /^\/join$/, component: Join },
 	{ path: /^\/leaderboard$/, component: Leaderboard },
 ];
 
