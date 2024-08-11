@@ -1,3 +1,5 @@
+import {variables} from '/static/src/js/variables.js';
+
 export async function replaceHTML(path, navbar)
 {
 	const body = document.getElementsByTagName('body')[0];
@@ -61,6 +63,7 @@ export function checkLoginStatus() {
     .then(data => {
         if (data.success) {
             const user = data.user;
+			variables.username = user.username;
             console.log('Logged in as:', user.username);
 			return true;
         } else {
