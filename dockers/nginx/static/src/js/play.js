@@ -27,6 +27,10 @@ export const localButton = () => {
 }
 
 export const onlineButton = () => {
+	if (variables.loggedIn) {
+		replaceHTML('/static/src/html/room.html', false);
+		variables.pageHistory.push('play');
+	}
 	replaceHTML('/static/src/html/online.html', false);
     variables.pageHistory.push('play');
 }
@@ -84,4 +88,5 @@ export const createRoomButton = () => {
 	console.log('tournament: ', variables.isTournament);
 	console.log('player count: ', variables.playerCount);
 	console.log('map: ', variables.map);
+	console.log('admin: ', )
 }

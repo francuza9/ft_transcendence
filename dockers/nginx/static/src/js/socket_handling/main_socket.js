@@ -9,12 +9,22 @@ export async function initializeWebSocket(roomId) {
         };
 
         socket.onmessage = function(event) {
-            const data = JSON.parse(event.data);
-            pov = data.pov;
-            if (pov !== undefined) {
-                resolve({ pov, socket });
-            }
-        };
+	    // Handle binary data
+		if (event.data instanceof ArrayBuffer) {
+			return;
+		}
+
+	    // Handle JSON data
+		try {
+			const data = JSON.parse(event.data);
+			pov = data.pov;
+			if (pov !== undefined) {
+				resolve({ pov, socket });
+			}
+		} catch (e) {
+			console.error('Failed to parse JSON:', e);
+		}
+	};
 
         socket.onerror = function(error) {
             console.error('WebSocket error:', error);
