@@ -5,8 +5,69 @@ from django.views.decorators.csrf import csrf_exempt
 from django.db.utils import IntegrityError
 import json
 import logging
+import random
+import string
+from django.http import JsonResponse
+from django.contrib.auth.decorators import login_required
+from django.views.decorators.csrf import csrf_exempt
 
 logger = logging.getLogger(__name__)
+
+lobbies = {}
+
+@csrf_exempt
+@login_required
+def create_lobby(request):
+    if request.method == 'POST':
+        try:
+            data = json.loads(request.body)
+            is_tournament = data.get('isTournament')
+            player_count = data.get('playerCount')
+            map_name = data.get('map')
+            lobby_name = data.get('lobbyName')
+
+            # Generate a unique join code
+            join_code = ''.join(random.choices(string.ascii_letters + string.digits, k=8))
+            lobbies[join_code] = {
+                'is_tournament': is_tournament,
+                'player_count': player_count,
+                'map_name': map_name,
+                'lobby_name': lobby_name,
+                'admin': request.user,
+                'players': []
+            }
+
+            return JsonResponse({'success': True, 'join_code': join_code})
+
+        except json.JSONDecodeError:
+            return JsonResponse({'success': False, 'message': 'Invalid JSON'})
+        except Exception as e:
+            return JsonResponse({'success': False, 'message': str(e)})
+
+    return JsonResponse({'success': False, 'message': 'Invalid request method'}, status=405)
+
+
+@login_required
+def join_lobby(request, join_code):
+    lobby = lobbies.get(join_code)
+
+    if not lobby:
+        return JsonResponse({'success': False, 'message': 'Lobby does not exist'})
+
+    if len(lobby['players']) >= lobby['player_count']:
+        return JsonResponse({'success': False, 'message': 'Lobby is full'})
+
+    lobby['players'].append(request.user)
+    lobby_info = {
+        'is_tournament': lobby['is_tournament'],
+        'player_count': lobby['player_count'],
+        'map_name': lobby['map_name'],
+        'lobby_name': lobby['lobby_name'],
+        'players': [player.username for player in lobby['players']],
+        'admin': lobby['admin'].username
+    }
+
+    return JsonResponse({'success': True, 'lobby_info': lobby_info})
 
 @csrf_exempt
 def login_view(request):
@@ -66,19 +127,6 @@ def register_view(request):
             return JsonResponse({'success': False, 'message': 'Invalid JSON'})
 
     return JsonResponse({'success': False, 'message': 'Invalid request method'}, status=405)
-
-# @csrf_exempt
-# def user_info(request):
-#     if request.user.is_authenticated:
-#         user_data = {
-# 			'id': request.user.id,
-#             'username': request.user.username,
-#             'email': request.user.email,
-#             # Add more fields as needed
-#         }
-#         return JsonResponse({'success': True, 'user': user_data})
-#     else:
-#         return JsonResponse({'success': False, 'message': 'User is not authenticated'})
 
 @csrf_exempt
 def check_login_status(request):

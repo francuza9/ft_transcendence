@@ -1,3 +1,5 @@
+import {variables} from '/static/src/js/variables.js';
+
 export async function replaceHTML(path, navbar)
 {
 	const body = document.getElementsByTagName('body')[0];
@@ -50,4 +52,27 @@ export function normalizePath(path)
     path = path.replace(/\/{2,}/g, '/');
     path = path.replace(/\/+$/, '') || '/';	
 	return path;
+}
+
+export function checkLoginStatus() {
+    return fetch('/api/check_login_status/', {
+        method: 'GET',
+        credentials: 'include',  // Include cookies in the request
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            const user = data.user;
+			variables.username = user.username;
+            console.log('Logged in as:', user.username);
+			return true;
+        } else {
+            console.log('User is not logged in');
+			return false;
+        }
+    })
+    .catch(error => {
+        console.error('Error fetching user info:', error);
+		return false;
+    });
 }

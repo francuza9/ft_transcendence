@@ -2,6 +2,7 @@ import datetime
 from django.utils import timezone
 from django.contrib.auth.models import AbstractUser
 from django.db import models
+from django.conf import settings
 
 class CustomUser(AbstractUser):
     # Add custom fields if needed
@@ -70,3 +71,20 @@ class Message(models.Model):
 
     def __str__(self):
         return f"Message from {self.sender} to {self.recipient} at {self.createdAt}"
+
+class Room(models.Model):
+	is_tournament = models.BooleanField(default=False)
+	player_count = models.IntegerField(default=0)
+	map_name = models.CharField(max_length=100)  # Adjust the max_length as needed
+	room_name = models.CharField(max_length=100)
+	admin = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='admin_rooms')
+	join_code = models.CharField(max_length=10, unique=True)  # Unique join code or link
+
+	def generate_join_code(self):
+		# You can use any method to generate a unique join code, e.g., random string
+		import random, string
+		self.join_code = ''.join(random.choices(string.ascii_letters + string.digits, k=8))
+		self.save()
+
+	def __str__(self):
+		return f"{self.room_name} - {('Tournament' if self.is_tournament else 'Regular')}"
