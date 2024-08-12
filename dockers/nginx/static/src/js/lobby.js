@@ -13,16 +13,14 @@ export function viewProfile(playerId) {
 export function initLobby() {
 	console.log('Initializing lobby...');
 	fetchLobbyInfo();
-	// console.log('LobbyID: ', lobbyId);
+	//hide start button if user is not admin
+
 	//show loading screen
 	//connect to websocket
 }
 
 export async function fetchLobbyInfo() {
-	// Create a new URL object using the current window location
 	const currentUrl = new URL(window.location.href);
-
-	// Extract the lobbyId from the pathname
 	const lobbyId = currentUrl.pathname.split('/')[1];
 
 	console.log('Lobby ID:', lobbyId);
@@ -40,12 +38,8 @@ export async function fetchLobbyInfo() {
         if (result.success) {
             const lobbyInfo = result.lobby_info;
 			console.log('Lobby Info: ', lobbyInfo);
-
             updateLobbyDetails(document, lobbyInfo.lobby_name, `${lobbyInfo.players.length} / ${lobbyInfo.player_count}`, lobbyInfo.map_name, lobbyInfo.mode);
-
-            // Render the list of players
             renderPlayerList(lobbyInfo.players);
-
             console.log('admin: ', lobbyInfo.admin);
         } else {
             alert(result.message);
@@ -57,24 +51,25 @@ export async function fetchLobbyInfo() {
 }
 
 function renderPlayerList(players) {
-    // Get the tbody element for the player list
     const playerListElement = document.getElementById('playerList');
-    playerListElement.innerHTML = ''; // Clear any existing rows
+    playerListElement.innerHTML = '';
 
-    // Iterate over the players and create a table row for each
     players.forEach((player, index) => {
         const row = document.createElement('tr');
         row.classList.add('player-row');
         row.setAttribute('data-player-id', `player${index + 1}`);
 
-        // Assuming the player object has properties `profile_picture`, `username`, and `level`
         row.innerHTML = `
             <td><img src="${player.profile_picture || 'https://via.placeholder.com/40'}" alt="${player.username}" class="player-img"></td>
             <td>${player.username}</td>
             <td>${player.level}</td>
         `;
 
-        // Append the row to the player list
         playerListElement.appendChild(row);
     });
+}
+
+export const startButton = () => {
+	console.log('starting game...');
+	//start game
 }
