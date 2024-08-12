@@ -1,0 +1,20 @@
+translations
+room name transmission
+lobby websocket
+real time player updates in lobby
+hardcode back button logic
+
+play button on admin view of lobby
+when admin disconnects from lobby give admin to oldest in the lobby
+
+
+Visuals:
+Lobby page
+Create page
+Lobby name edit popup
+Fix mode button group animations
+Fade in animation for smooth transition between pages
+
+Navbar rework
+Profile page
+Leaderboard

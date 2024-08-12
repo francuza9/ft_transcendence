@@ -9,3 +9,9 @@
 #title-input {
     font-size: 16px;
 }
+
+.carousel-item img {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+}
