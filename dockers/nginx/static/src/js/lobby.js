@@ -43,4 +43,4 @@ async function fetchLobbyInfo(lobbyId) {
     }
 }
 
-window.addEventListener('load', initLobby);
+// window.addEventListener('load', initLobby);

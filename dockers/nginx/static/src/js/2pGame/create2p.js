@@ -9,7 +9,7 @@ import { initPlane, initEdges, initWalls } from './objects/plane.js';
 import { initPlayers } from './objects/players.js';
 import { Ball } from './objects/ball.js';
 import { playerNames } from './objects/playerNames.js';
-import { initScore } from './objects/score.js';
+import { initScore, updateScore } from './objects/score.js';
 // import { checkCollision } from './local.js';
 
 const group = new THREE.Group();
@@ -98,8 +98,10 @@ export function create2Pgame(mappov, socket) {
 				players.children[0].position.z = bytes[4];
 				players.children[1].position.z = bytes[5];
 				ball.speed = bytes[6];
-				score[0] = bytes[7];
-				score[1] = bytes[8];
+				const scoremeshIndex = group.children.findIndex(child => child === scoremesh);
+				const score1 = new DataView(event.data).getInt32(28, true);  // Correctly reading the integer
+    			const score2 = new DataView(event.data).getInt32(32, true);  // Correctly reading the integer
+				updateScore([score1, score2], group.children[scoremeshIndex]);
 			} else if (bytes.length >= 4) {
 				ball.ball.position.x = bytes[0];
 				ball.ball.position.z = bytes[1];
@@ -120,8 +122,6 @@ export function create2Pgame(mappov, socket) {
 		}
 	});
 
-
-
     // add objects to scene
     initText().then(text => {
         playerNames(mappov, "player 1", "player 2").then(names => {
@@ -135,11 +135,7 @@ export function create2Pgame(mappov, socket) {
         console.error('Failed to load text:', error);
     });
 
-	let lastUpdateTime = performance.now();
-	const updateInterval = 1000 / 30; // For example, 30 updates per second
 	socket.binaryType = 'arraybuffer';
-
-	
     function animate() {
 		
 		if (mappov > 0)

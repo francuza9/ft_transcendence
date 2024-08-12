@@ -1,5 +1,4 @@
 import random
-import math
 
 NOTHING = 0
 COLLISION = 1
@@ -44,12 +43,14 @@ def update_ball_position(game_state):
 
     # Scoring
     if ball['x'] > 5.7:  # Player 1 scores
-        score[0] += 1
+        # score[0] = int(score[0]) + 1
+        score[0] += 1;
         speed = 0.05
         reset_ball(game_state)
         result = SCORE
     elif ball['x'] < -5.7:  # Player 2 scores
-        score[1] += 1
+        # score[1] = int(score[1]) + 1
+        score[1] += 1;
         speed = 0.05
         reset_ball(game_state)
         result = SCORE
