@@ -3,7 +3,7 @@ import {registerButton} from '/static/src/js/register.js';
 import {accountButton} from '/static/src/js/account.js';
 import {playButton, backButton, cancelButton, localButton, onlineButton, skipLoginButton, goToLoginButton} from '/static/src/js/play.js';
 import {joinRoomButton} from '/static/src/js/join.js';
-import {createRoomButton, playerCountDropdownButton, editNameButton, saveNameEditButton, cancelNameEditButton} from '/static/src/js/create.js';
+import {createRoomButton, playerCountDropdownButton, editNameButton, saveNameEditButton, cancelNameEditButton, selectMapButton} from '/static/src/js/create.js';
 
 const actionsMap = {
     login: loginButton,
@@ -24,6 +24,7 @@ const actionsMap = {
 	editName: editNameButton,
 	saveNameEdit: saveNameEditButton,
 	cancelNameEdit: cancelNameEditButton,
+	selectMap: selectMapButton,
 };
 
 export const handleButtonAction = (e, action) => {

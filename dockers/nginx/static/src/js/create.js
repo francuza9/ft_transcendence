@@ -3,6 +3,31 @@ import {variables} from '/static/src/js/variables.js';
 import {checkLoginStatus} from '/static/src/js/utils.js';
 import {fetchLobbyInfo} from '/static/src/js/lobby.js';
 
+export const setDefaultRoomName = () => {
+    const displayTitle = document.getElementById('display-title');
+
+    const ensureUsername = () => {
+        if (variables.username) {
+            return Promise.resolve();
+        } else {
+            return checkLoginStatus().then(loggedIn => {
+                if (!loggedIn) {
+                    variables.username = 'Guest';
+                }
+                return;
+            }).catch(error => {
+                console.error('Error checking login status:', error);
+                variables.username = 'Guest';
+            });
+        }
+    };
+
+    ensureUsername().then(() => {
+        variables.roomName = `${variables.username}'s room`;
+        displayTitle.textContent = variables.roomName;
+    });
+};
+
 export const updatePlayerCount = (document, value) => {
 	variables.playerCount = parseInt(value, 10);
 	const dropdownButton = document.getElementById('btnGroupDrop1');
@@ -62,6 +87,14 @@ export const playerCountDropdownButton = () => {
 	dropdown.toggle();
 }
 
+export const selectMapButton = () => {
+	const activeSlide = document.querySelector('#carouselExampleCaptions .carousel-item.active');
+	const mapName = activeSlide.querySelector('h5').textContent;
+
+	variables.map = mapName;
+	document.getElementById('display-map').innerText = mapName;
+}
+
 export const createRoomButton = () => {
 	if (!variables.username)
 	{
@@ -79,6 +112,13 @@ export const createRoomButton = () => {
 	console.log('player count: ', variables.playerCount);
 	console.log('map: ', variables.map);
 	console.log('name: ', variables.roomName);
+
+	//DEBUG
+	if (variables.roomName == null || variables.roomName.trim() === '') {
+        console.error('Room name is missing');
+        return;
+    }
+
 	fetch('/api/create_lobby/', {
 		method: 'POST',
 		headers: {
