@@ -11,12 +11,21 @@ export function viewProfile(playerId) {
 }
 
 export function initLobby() {
-	fetchLobbyInfo(variables.lobbyId);
+	console.log('Initializing lobby...');
+	fetchLobbyInfo();
+	// console.log('LobbyID: ', lobbyId);
 	//show loading screen
 	//connect to websocket
 }
 
-export async function fetchLobbyInfo(lobbyId) {
+export async function fetchLobbyInfo() {
+	// Create a new URL object using the current window location
+	const currentUrl = new URL(window.location.href);
+
+	// Extract the lobbyId from the pathname
+	const lobbyId = currentUrl.pathname.split('/')[1];
+
+	console.log('Lobby ID:', lobbyId);
     try {
         const response = await fetch(`/api/lobby/${lobbyId}/`, {
             method: 'GET',

@@ -12,6 +12,6 @@ fclean: clean
 	@echo "Removing Docker images and cache..."
 	docker system prune
 
-re: clean all
+re: fclean all
 
 .PHONY: all languages clean down re

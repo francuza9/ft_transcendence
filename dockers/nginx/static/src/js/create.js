@@ -138,10 +138,6 @@ export const createRoomButton = () => {
 			console.log('Room created successfully:', data.join_code);
 			history.pushState(null, '', `/${data.join_code}`);
 			replaceHTML('/static/src/html/lobby.html', false).then(() => {
-				// Initialize the lobby after the HTML has been replaced
-				//initLobby();
-
-				// Fetch the lobby info now that it has been created
 				fetchLobbyInfo(data.join_code);
 			});
 
