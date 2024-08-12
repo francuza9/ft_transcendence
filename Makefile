@@ -1,4 +1,4 @@
-all: down
+all:
 	docker-compose up --build -d
 
 stop:
@@ -12,6 +12,11 @@ push:
 	git add *
 	git commit -m "$(msg)"
 	git push
+
+first:
+	sudo apt install docker
+	sudo apt install docker-compose
+	make
 
 down:
 	docker-compose down
