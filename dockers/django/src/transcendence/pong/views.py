@@ -22,7 +22,7 @@ def create_lobby(request):
             is_tournament = data.get('isTournament')
             player_count = data.get('playerCount')
             map_name = data.get('map')
-            lobby_name = data.get('lobbyName')
+            lobby_name = data.get('roomName')
 
             join_code = ''.join(random.choices(string.ascii_letters + string.digits, k=8))
             lobbies[join_code] = {
@@ -59,7 +59,7 @@ def join_lobby(request, join_code):
         return JsonResponse({'success': False, 'message': 'Lobby does not exist'})
 
     # Check if the user is already in the lobby
-    if request.user in lobby['players'] or request.user == lobby['admin']:
+    if request.user in lobby['players']:
         logger.info(f"User {request.user.username} is already in lobby {join_code}")
         lobby_info = {
             'is_tournament': lobby['is_tournament'],
