@@ -14,7 +14,6 @@ import { viewProfile } from '/static/src/js/lobby.js';
 
 const router = [
     { path: /^\/$/, component: Home },
-	{ path: /^\/(\w{8})$/, component: Lobby },
     { path: /^\/pong\/(\d+)$/, component: Pong },
     { path: /^\/register$/, component: Register },
 	{ path: /^\/login$/, component: Login },
@@ -22,6 +21,7 @@ const router = [
 	{ path: /^\/create$/, component: Create },
 	{ path: /^\/join$/, component: Join },
 	{ path: /^\/leaderboard$/, component: Leaderboard },
+	{ path: /^\/(\w{8})$/, component: Lobby },
 ];
 
 const content = document.getElementById("body-content");

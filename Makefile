@@ -1,4 +1,4 @@
-all:
+all: down
 	docker-compose up --build -d
 
 stop:

@@ -11,9 +11,9 @@ from django.http import JsonResponse
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_exempt
 
-logger = logging.getLogger(__name__)
-
 lobbies = {}
+
+logger = logging.getLogger(__name__)
 
 @csrf_exempt
 @login_required
@@ -26,7 +26,6 @@ def create_lobby(request):
             map_name = data.get('map')
             lobby_name = data.get('lobbyName')
 
-            # Generate a unique join code
             join_code = ''.join(random.choices(string.ascii_letters + string.digits, k=8))
             lobbies[join_code] = {
                 'is_tournament': is_tournament,
@@ -37,11 +36,14 @@ def create_lobby(request):
                 'players': []
             }
 
+            logger.info(f"Lobby created: {join_code} with details {lobbies[join_code]}")
             return JsonResponse({'success': True, 'join_code': join_code})
 
         except json.JSONDecodeError:
+            logger.error("Invalid JSON received in create_lobby")
             return JsonResponse({'success': False, 'message': 'Invalid JSON'})
         except Exception as e:
+            logger.error(f"Error creating lobby: {str(e)}")
             return JsonResponse({'success': False, 'message': str(e)})
 
     return JsonResponse({'success': False, 'message': 'Invalid request method'}, status=405)
@@ -52,9 +54,11 @@ def join_lobby(request, join_code):
     lobby = lobbies.get(join_code)
 
     if not lobby:
+        logger.warning(f"Lobby with join_code {join_code} does not exist")
         return JsonResponse({'success': False, 'message': 'Lobby does not exist'})
 
     if len(lobby['players']) >= lobby['player_count']:
+        logger.warning(f"Lobby {join_code} is full")
         return JsonResponse({'success': False, 'message': 'Lobby is full'})
 
     lobby['players'].append(request.user)
@@ -67,6 +71,7 @@ def join_lobby(request, join_code):
         'admin': lobby['admin'].username
     }
 
+    logger.info(f"User {request.user.username} joined lobby {join_code}")
     return JsonResponse({'success': True, 'lobby_info': lobby_info})
 
 @csrf_exempt
