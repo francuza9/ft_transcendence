@@ -4,6 +4,7 @@ export const variables = {
 	isTournament: false,
     playerCount: 2,
 	map: 'classic',
+	roomName: '',
 	pageHistory: [],
 	nextPage: 'profile',
 };

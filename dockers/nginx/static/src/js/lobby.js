@@ -1,6 +1,7 @@
 import { variables } from '/static/src/js/variables.js';
 
 function updateLobbyDetails(document, title, Players, map, mode) {
+	console.log('title: ', title);
 	document.getElementById('lobbyTitle').innerText = title;
 	document.getElementById('lobbyDetails').innerText = `Players: ${Players} | Map: ${map} | Mode: ${mode}`;
 }
@@ -10,7 +11,6 @@ export function viewProfile(playerId) {
 }
 
 export function initLobby() {
-	console.log('script initialized');
 	fetchLobbyInfo(variables.lobbyId);
 	//show loading screen
 	//connect to websocket
@@ -25,12 +25,11 @@ export async function fetchLobbyInfo(lobbyId) {
             }
         });
 		
-		console.log('waiting');
         const result = await response.json();
-		console.log('done waiting');
 
         if (result.success) {
             const lobbyInfo = result.lobby_info;
+			console.log('Lobby Info: ', lobbyInfo);
 
 			updateLobbyDetails(document, lobbyInfo.lobby_name, `${lobbyInfo.players.length} / ${lobbyInfo.player_count}` , lobbyInfo.map_name, lobbyInfo.mode);
             //document.getElementById('admin').innerText = lobbyInfo.admin;
