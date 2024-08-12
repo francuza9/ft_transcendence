@@ -1,0 +1,9 @@
+msgid "Welcome to "
+msgstr "Bienvenue sur "
+
+msgid "Get ready to play!"
+msgstr "Préparez-vous à jouer !"
+
+msgid "Play"
+msgstr "Jouer"
+
