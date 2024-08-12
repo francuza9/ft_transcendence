@@ -29,3 +29,36 @@ export function initScore(score) {
         }, undefined, reject);
     });
 }
+
+export function updateScore(newScore, scoremesh) {
+    let score = newScore;
+    const loader = new FontLoader();
+    loader.load('/static/src/fonts/Roboto_Regular.json', function (font) {
+        const geometry = new TextGeometry(`${score[0]} : ${score[1]}`, {
+            font: font,
+            size: 2,
+            height: 0.05,
+            curveSegments: 12,
+            bevelEnabled: true,
+            bevelThickness: 0.01,
+            bevelSize: 0.01,
+            bevelOffset: 0,
+            bevelSegments: 5
+        });
+
+		let color;
+        if (score[0] > score[1]) {
+            color = 0xff0000; // Red
+        } else if (score[0] < score[1]) {
+            color = 0x0000ff; // Blue
+        } else {
+            color = 0xffffff; // White
+        }
+
+        // Update the material color
+        scoremesh.material.color.setHex(color);
+
+        scoremesh.geometry.dispose(); // Dispose of the old geometry
+        scoremesh.geometry = geometry; // Set the new geometry
+    });
+}
