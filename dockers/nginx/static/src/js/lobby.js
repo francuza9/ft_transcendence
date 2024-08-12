@@ -1,6 +1,6 @@
 import { variables } from '/static/src/js/variables.js';
 
-function updateLobbyDetails(title, Players, map, mode) {
+function updateLobbyDetails(document, title, Players, map, mode) {
 	document.getElementById('lobbyTitle').innerText = title;
 	document.getElementById('lobbyDetails').innerText = `Players: ${Players} | Map: ${map} | Mode: ${mode}`;
 }
@@ -9,13 +9,14 @@ export function viewProfile(playerId) {
 	console.log('Viewing profile of:', playerId);
 }
 
-function initLobby() {
+export function initLobby() {
+	console.log('script initialized');
 	fetchLobbyInfo(variables.lobbyId);
 	//show loading screen
 	//connect to websocket
 }
 
-async function fetchLobbyInfo(lobbyId) {
+export async function fetchLobbyInfo(lobbyId) {
     try {
         const response = await fetch(`/api/lobby/${lobbyId}/`, {
             method: 'GET',
@@ -23,13 +24,15 @@ async function fetchLobbyInfo(lobbyId) {
                 'Content-Type': 'application/json'
             }
         });
-
+		
+		console.log('waiting');
         const result = await response.json();
+		console.log('done waiting');
 
         if (result.success) {
             const lobbyInfo = result.lobby_info;
 
-			updateLobbyDetails(lobbyInfo.lobby_name, `${lobbyInfo.players.length} / ${lobbyInfo.player_count}` , lobbyInfo.map_name, lobbyInfo.mode);
+			updateLobbyDetails(document, lobbyInfo.lobby_name, `${lobbyInfo.players.length} / ${lobbyInfo.player_count}` , lobbyInfo.map_name, lobbyInfo.mode);
             //document.getElementById('admin').innerText = lobbyInfo.admin;
 			console.log('admin: ', lobbyInfo.admin);
 
@@ -42,5 +45,3 @@ async function fetchLobbyInfo(lobbyId) {
         alert('An error occurred while fetching lobby information.');
     }
 }
-
-// window.addEventListener('load', initLobby);

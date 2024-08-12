@@ -1,11 +1,24 @@
+<link rel="stylesheet" href="/static/src/css/create.css">
 <div class="container md">
 	<h1>Create Room</h1>
 	<div class="row">
 		<div class="col">
 			<h3>Name</h3>
 		</div>
-		<div class="col">
-			<input type="text" maxlenght="32" id="name" />
+		<div class="col editable-container">
+			<div class="display-mode d-flex align-items-center">
+                <h4 id="display-title" class="me-3">My Title</h4>
+                <button data-action="editName" class="btn btn-outline-primary btn-sm">
+                    ✏️ Edit
+                </button>
+            </div>
+            <form id="edit-form" class="edit-mode mt-3">
+                <div class="input-group">
+                    <input type="text" id="title-input" class="form-control" value="My Title">
+                    <button type="button" data-action="saveNameEdit" class="btn btn-success">Save</button>
+                    <button type="button" data-action="cancelNameEdit" class="btn btn-danger ms-2">Cancel</button>
+                </div>
+            </form>
 		</div>
 	</div>
 	<div class="row">
