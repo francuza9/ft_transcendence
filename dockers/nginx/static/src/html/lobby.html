@@ -14,7 +14,7 @@
 				</tr>
 			</thead>
 			<tbody id="playerList">
-				<tr class="player-row" data-player-id="player1">
+				<!-- <tr class="player-row" data-player-id="player1">
 					<td><img src="https://via.placeholder.com/40" alt="Player 1" class="player-img"></td>
 					<td>Player 1</td>
 					<td>25</td>
@@ -23,12 +23,16 @@
 					<td><img src="https://via.placeholder.com/40" alt="Player 2" class="player-img"></td>
 					<td>Player 2</td>
 					<td>18</td>
-				</tr>
+				</tr> -->
 			</tbody>
 		</table>
 	</div>
 	<div class="text-center mt-4">
 		<button class="btn btn-danger" data-action="cancel">Leave Room</button>
 	</div>
-	<script src="/static/src/js/lobby.js"></script>
 </div>
+<script type="module" src="/static/src/js/lobby.js"></script>
+<script type="module">
+	import { initLobby } from '/static/src/js/lobby.js';
+	initLobby(); // Initialize the lobby when the script loads
+</script>

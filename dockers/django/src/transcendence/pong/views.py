@@ -1,5 +1,6 @@
 from .models import CustomUser, Profile
 from django.contrib.auth import authenticate, login
+from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.db.utils import IntegrityError
@@ -7,9 +8,6 @@ import json
 import logging
 import random
 import string
-from django.http import JsonResponse
-from django.contrib.auth.decorators import login_required
-from django.views.decorators.csrf import csrf_exempt
 
 lobbies = {}
 
@@ -35,6 +33,7 @@ def create_lobby(request):
                 'admin': request.user,
                 'players': []
             }
+            lobbies[join_code]['players'].append(request.user)
 
             logger.info(f"Lobby created: {join_code} with details {lobbies[join_code]}")
             return JsonResponse({'success': True, 'join_code': join_code})
@@ -51,17 +50,36 @@ def create_lobby(request):
 
 @login_required
 def join_lobby(request, join_code):
+    # Retrieve the lobby using the join_code
     lobby = lobbies.get(join_code)
 
+    # Check if the lobby exists
     if not lobby:
         logger.warning(f"Lobby with join_code {join_code} does not exist")
         return JsonResponse({'success': False, 'message': 'Lobby does not exist'})
 
+    # Check if the user is already in the lobby
+    if request.user in lobby['players'] or request.user == lobby['admin']:
+        logger.info(f"User {request.user.username} is already in lobby {join_code}")
+        lobby_info = {
+            'is_tournament': lobby['is_tournament'],
+            'player_count': lobby['player_count'],
+            'map_name': lobby['map_name'],
+            'lobby_name': lobby['lobby_name'],
+            'players': [player.username for player in lobby['players']],
+            'admin': lobby['admin'].username
+        }
+        return JsonResponse({'success': True, 'lobby_info': lobby_info})
+
+    # Check if the lobby is full
     if len(lobby['players']) >= lobby['player_count']:
         logger.warning(f"Lobby {join_code} is full")
         return JsonResponse({'success': False, 'message': 'Lobby is full'})
 
+    # Add the user to the lobby
     lobby['players'].append(request.user)
+
+    # Prepare the lobby information to be returned
     lobby_info = {
         'is_tournament': lobby['is_tournament'],
         'player_count': lobby['player_count'],

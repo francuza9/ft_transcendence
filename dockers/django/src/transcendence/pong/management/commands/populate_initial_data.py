@@ -16,7 +16,7 @@ class Command(BaseCommand):
 		user2 = CustomUser.objects.create_user(
 			username='marde-vr',
 			email='marde-vr@student.42angouleme.fr',
-			password='marde-vr132'  # Automatically hashed
+			password='marde-vr123'  # Automatically hashed
 		)
 		user3 = CustomUser.objects.create_user(
 			username='jwadie-a',

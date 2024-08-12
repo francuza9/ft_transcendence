@@ -24,19 +24,20 @@ export async function fetchLobbyInfo(lobbyId) {
                 'Content-Type': 'application/json'
             }
         });
-		
-		console.log('waiting');
+
+        console.log('waiting');
         const result = await response.json();
-		console.log('done waiting');
+        console.log('done waiting');
 
         if (result.success) {
             const lobbyInfo = result.lobby_info;
 
-			updateLobbyDetails(document, lobbyInfo.lobby_name, `${lobbyInfo.players.length} / ${lobbyInfo.player_count}` , lobbyInfo.map_name, lobbyInfo.mode);
-            //document.getElementById('admin').innerText = lobbyInfo.admin;
-			console.log('admin: ', lobbyInfo.admin);
+            updateLobbyDetails(document, lobbyInfo.lobby_name, `${lobbyInfo.players.length} / ${lobbyInfo.player_count}`, lobbyInfo.map_name, lobbyInfo.mode);
 
-            // Todo: Render the list of players
+            // Render the list of players
+            renderPlayerList(lobbyInfo.players);
+
+            console.log('admin: ', lobbyInfo.admin);
         } else {
             alert(result.message);
         }
@@ -44,4 +45,27 @@ export async function fetchLobbyInfo(lobbyId) {
         console.error('Error fetching lobby info:', error);
         alert('An error occurred while fetching lobby information.');
     }
+}
+
+function renderPlayerList(players) {
+    // Get the tbody element for the player list
+    const playerListElement = document.getElementById('playerList');
+    playerListElement.innerHTML = ''; // Clear any existing rows
+
+    // Iterate over the players and create a table row for each
+    players.forEach((player, index) => {
+        const row = document.createElement('tr');
+        row.classList.add('player-row');
+        row.setAttribute('data-player-id', `player${index + 1}`);
+
+        // Assuming the player object has properties `profile_picture`, `username`, and `level`
+        row.innerHTML = `
+            <td><img src="${player.profile_picture || 'https://via.placeholder.com/40'}" alt="${player.username}" class="player-img"></td>
+            <td>${player.username}</td>
+            <td>${player.level}</td>
+        `;
+
+        // Append the row to the player list
+        playerListElement.appendChild(row);
+    });
 }
