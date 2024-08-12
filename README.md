@@ -1,2 +1,2 @@
-use 'make first' for installing docker && docker-compose and executing program after.   
-use 'make' if docker's already installed
+make first --> installs dependencies for project and runs it   
+make --> runs project (do only 'make' if dockers are installed on your machine)
