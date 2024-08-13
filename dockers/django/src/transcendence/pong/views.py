@@ -50,15 +50,12 @@ def create_lobby(request):
 
 @login_required
 def join_lobby(request, join_code):
-    # Retrieve the lobby using the join_code
     lobby = lobbies.get(join_code)
 
-    # Check if the lobby exists
     if not lobby:
         logger.warning(f"Lobby with join_code {join_code} does not exist")
         return JsonResponse({'success': False, 'message': 'Lobby does not exist'})
 
-    # Check if the user is already in the lobby
     if request.user in lobby['players']:
         logger.info(f"User {request.user.username} is already in lobby {join_code}")
         lobby_info = {
@@ -66,31 +63,60 @@ def join_lobby(request, join_code):
             'player_count': lobby['player_count'],
             'map_name': lobby['map_name'],
             'lobby_name': lobby['lobby_name'],
-            'players': [player.username for player in lobby['players']],
+            'players': [
+                {
+                    'username': player.username,
+                    'totalScore': player.profile.totalScore if hasattr(player, 'profile') else 0,
+                    'profile_picture': player.profile.avatarUrl if hasattr(player, 'profile') else None
+                }
+                for player in lobby['players']
+            ],
             'admin': lobby['admin'].username
         }
         return JsonResponse({'success': True, 'lobby_info': lobby_info})
 
-    # Check if the lobby is full
     if len(lobby['players']) >= lobby['player_count']:
         logger.warning(f"Lobby {join_code} is full")
         return JsonResponse({'success': False, 'message': 'Lobby is full'})
 
-    # Add the user to the lobby
     lobby['players'].append(request.user)
 
-    # Prepare the lobby information to be returned
     lobby_info = {
         'is_tournament': lobby['is_tournament'],
         'player_count': lobby['player_count'],
         'map_name': lobby['map_name'],
         'lobby_name': lobby['lobby_name'],
-        'players': [player.username for player in lobby['players']],
+        'players': [
+            {
+                'username': player.username,
+                'totalScore': player.profile.totalScore if hasattr(player, 'profile') else 0,
+                'profile_picture': player.profile.avatarUrl if hasattr(player, 'profile') else None
+            }
+            for player in lobby['players']
+        ],
         'admin': lobby['admin'].username
     }
 
     logger.info(f"User {request.user.username} joined lobby {join_code}")
     return JsonResponse({'success': True, 'lobby_info': lobby_info})
+
+@login_required
+def get_lobbies(request):
+	# Prepare the list of lobbies to be returned    
+	lobbies_list = []
+	for join_code, lobby in lobbies.items():
+		lobby_info = {
+			'join_code': join_code,
+			'is_tournament': lobby['is_tournament'],
+			'player_count': lobby['player_count'],
+			'map_name': lobby['map_name'],
+			'lobby_name': lobby['lobby_name'],
+			'players': [player.username for player in lobby['players']],
+			'admin': lobby['admin'].username
+		}
+		lobbies_list.append(lobby_info)
+
+	return JsonResponse({'success': True, 'lobbies': lobbies_list})
 
 @csrf_exempt
 def login_view(request):

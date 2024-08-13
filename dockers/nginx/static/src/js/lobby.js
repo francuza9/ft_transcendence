@@ -67,11 +67,11 @@ function renderPlayerList(players) {
         row.classList.add('player-row');
         row.setAttribute('data-player-id', `player${index + 1}`);
 
-        // Assuming the player object has properties `profile_picture`, `username`, and `level`
+        // Assuming the player object has properties `profile_picture`, `username`, and `totalScore`
         row.innerHTML = `
             <td><img src="${player.profile_picture || 'https://via.placeholder.com/40'}" alt="${player.username}" class="player-img"></td>
             <td>${player.username}</td>
-            <td>${player.level}</td>
+            <td>${player.totalScore}</td>
         `;
 
         // Append the row to the player list

@@ -25,9 +25,9 @@ class Command(BaseCommand):
 		)
 
 		# Create profiles
-		Profile.objects.create(user=user1, displayName='George', avatarUrl='http://example.com/avatar1.jpg')
-		Profile.objects.create(user=user2, displayName='Marijn', avatarUrl='http://example.com/avatar2.jpg')
-		Profile.objects.create(user=user3, displayName='Youssef', avatarUrl='http://example.com/avatar3.jpg')
+		Profile.objects.create(user=user1, displayName='George', avatarUrl='http://example.com/avatar1.jpg', totalScore=15)
+		Profile.objects.create(user=user2, displayName='Marijn', avatarUrl='http://example.com/avatar2.jpg', totalScore=10)
+		Profile.objects.create(user=user3, displayName='Youssef', avatarUrl='http://example.com/avatar3.jpg', totalScore=5)
 
 		# Create a tournament
 		tournament = Tournament.objects.create(
