@@ -1,31 +1,40 @@
-[TODO] translations
+[Together] {
+lobby websocket
+	real time player updates in lobby
+	when admin disconnects from lobby give admin to oldest in the lobby
 
-[TODO] separate views.py into multiple views
 
-[TODO] lobby websocket
-	[TODO] real time player updates in lobby
-	[TODO] when admin disconnects from lobby give admin to oldest in the lobby
+support guest requests to the backend
+}
 
-[TODO] Add backbutton on login page (handle playing redirection) ???
+
+[Youssef] {
+Account settings page (edit personal data, upload profile picture, ect...)
+Profile pictures
+Leaderboard
+separate views.py into multiple views
+Profile page (show all data of a user)
+Add kick button to kick players on lobby page (for admin only)
+}
+
+
+[Marijn] {
+
+translations
 
 Visuals:
-Lobby page
-Create page
 Fix mode button group animations
 Fade in animation for smooth transition between pages
-
 
 Navbar rework
 Background rework
 
 
-Account settings page
-Profile pictures
 Profile modal (for leaderboard, lobby and endscreen)
-Leaderboard
 Endscreen leaderboard
-Profile page???
 
 
 Extra:
 Lobby name edit popup?
+Add backbutton on login page (and handle playing redirection)
+}
