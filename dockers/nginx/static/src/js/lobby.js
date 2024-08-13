@@ -1,8 +1,13 @@
-import { variables } from '/static/src/js/variables.js';
+import {variables} from '/static/src/js/variables.js';
+import {getCookie} from '/static/src/js/utils.js';
+import {handleRouting} from '/static/routers/router.js';
 
 function updateLobbyDetails(document, title, Players, map, mode) {
-	console.log('title: ', title);
 	document.getElementById('lobbyTitle').innerText = title;
+	if (mode)
+		mode = 'Tournament';
+	else
+		mode = 'Classic';
 	document.getElementById('lobbyDetails').innerText = `Players: ${Players} | Map: ${map} | Mode: ${mode}`;
 }
 
@@ -11,11 +16,8 @@ export function viewProfile(playerId) {
 }
 
 export function initLobby() {
-	console.log('Initializing lobby...');
+	//show loading transition screen
 	fetchLobbyInfo();
-	//hide start button if user is not admin
-
-	//show loading screen
 	//connect to websocket
 }
 
@@ -23,7 +25,6 @@ export async function fetchLobbyInfo() {
 	const currentUrl = new URL(window.location.href);
 	const lobbyId = currentUrl.pathname.split('/')[1];
 
-	console.log('Lobby ID:', lobbyId);
     try {
         const response = await fetch(`/api/lobby/${lobbyId}/`, {
             method: 'GET',
@@ -31,17 +32,23 @@ export async function fetchLobbyInfo() {
                 'Content-Type': 'application/json'
             }
         });
-
 		
         const result = await response.json();
 
         if (result.success) {
             const lobbyInfo = result.lobby_info;
-			console.log('Lobby Info: ', lobbyInfo);
-            updateLobbyDetails(document, lobbyInfo.lobby_name, `${lobbyInfo.players.length} / ${lobbyInfo.player_count}`, lobbyInfo.map_name, lobbyInfo.mode);
-            renderPlayerList(lobbyInfo.players);
-            console.log('admin: ', lobbyInfo.admin);
+            updateLobbyDetails(document, lobbyInfo.lobby_name, `${lobbyInfo.players.length} / ${lobbyInfo.player_count}`, lobbyInfo.map_name, lobbyInfo.is_tournament);
+            renderPlayerList(lobbyInfo.players, lobbyInfo.admin);
+
+			const currentUser = result.current_user;
+			const startButton = document.querySelector('button[data-action="start"]');
+			//console.log(currentUser, ' === ', lobbyInfo.admin, currentUser === lobbyInfo.admin);
+			if (currentUser !== lobbyInfo.admin) {
+				startButton.style.display = 'none';
+			}
         } else {
+			history.pushState(null, '', '/join');
+			handleRouting();
             alert(result.message);
         }
     } catch (error) {
@@ -50,7 +57,7 @@ export async function fetchLobbyInfo() {
     }
 }
 
-function renderPlayerList(players) {
+function renderPlayerList(players, admin) {
     const playerListElement = document.getElementById('playerList');
     playerListElement.innerHTML = '';
 
@@ -59,14 +66,40 @@ function renderPlayerList(players) {
         row.classList.add('player-row');
         row.setAttribute('data-player-id', `player${index + 1}`);
 
+		if (player.username === admin) {
+            row.classList.add('admin-row');
+        }
+
         row.innerHTML = `
             <td><img src="${player.profile_picture || 'https://via.placeholder.com/40'}" alt="${player.username}" class="player-img"></td>
-            <td>${player.username}</td>
+            <td>${player.username}${player.username === admin ? '<span class="admin-badge">Room Admin</span>' : ''}</td>
             <td>${player.totalScore}</td>
         `;
 
         playerListElement.appendChild(row);
     });
+}
+
+export const leaveRoom = () => {
+    const csrftoken = getCookie('csrftoken');
+	const currentUrl = new URL(window.location.href);
+	const lobbyId = currentUrl.pathname.split('/')[1];
+
+	fetch(`/api/lobby/leave/${lobbyId}/`, {
+		method: 'POST',
+		headers: {
+			'X-CSRFToken': csrftoken,
+		}
+	})
+		.then(response => response.json())
+		.then(data => {
+			if (data.success) {
+				history.pushState(null, '', '/join');
+				handleRouting();
+			} else {
+				console.error('Error leaving the lobby: ' + data.message);
+			}
+		});
 }
 
 export const startButton = () => {

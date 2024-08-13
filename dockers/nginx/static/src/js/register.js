@@ -1,4 +1,5 @@
-import { handleRouting } from '/static/routers/router.js';
+import {handleRouting} from '/static/routers/router.js';
+import {getCookie} from '/static/src/js/utils.js';
 
 export const registerButton = () => {
     const username = document.getElementById('username').value;
@@ -48,22 +49,6 @@ export const registerButton = () => {
         alert('An error occurred during registration');
     });
 };
-
-// Function to get the CSRF token from cookies
-function getCookie(name) {
-    let cookieValue = null;
-    if (document.cookie && document.cookie !== '') {
-        const cookies = document.cookie.split(';');
-        for (let i = 0; i < cookies.length; i++) {
-            const cookie = cookies[i].trim();
-            if (cookie.substring(0, name.length + 1) === (name + '=')) {
-                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                break;
-            }
-        }
-    }
-    return cookieValue;
-}
 
 export const loginWithGithubButton = () => {
     console.log('Register with GitHub');

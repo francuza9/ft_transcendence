@@ -15,9 +15,6 @@ COPY src /code/
 
 RUN chmod +x scripts/django_setup.sh
 
-RUN python3 transcendence/manage.py makemessages -all \
-    && python3 transcendence/manage.py compilemessages
-
 EXPOSE 8000
 
 ENTRYPOINT ["sh", "/code/scripts/django_setup.sh" ]

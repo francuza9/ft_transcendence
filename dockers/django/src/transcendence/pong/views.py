@@ -27,7 +27,7 @@ def create_lobby(request):
             join_code = ''.join(random.choices(string.ascii_letters + string.digits, k=8))
             lobbies[join_code] = {
                 'is_tournament': is_tournament,
-                'player_count': player_count,
+                'player_count': int(player_count),
                 'map_name': map_name,
                 'lobby_name': lobby_name,
                 'admin': request.user,
@@ -48,6 +48,7 @@ def create_lobby(request):
     return JsonResponse({'success': False, 'message': 'Invalid request method'}, status=405)
 
 
+@csrf_exempt
 @login_required
 def join_lobby(request, join_code):
     lobby = lobbies.get(join_code)
@@ -56,30 +57,15 @@ def join_lobby(request, join_code):
         logger.warning(f"Lobby with join_code {join_code} does not exist")
         return JsonResponse({'success': False, 'message': 'Lobby does not exist'})
 
-    if request.user in lobby['players']:
-        logger.info(f"User {request.user.username} is already in lobby {join_code}")
-        lobby_info = {
-            'is_tournament': lobby['is_tournament'],
-            'player_count': lobby['player_count'],
-            'map_name': lobby['map_name'],
-            'lobby_name': lobby['lobby_name'],
-            'players': [
-                {
-                    'username': player.username,
-                    'totalScore': player.profile.totalScore if hasattr(player, 'profile') else 0,
-                    'profile_picture': player.profile.avatarUrl if hasattr(player, 'profile') else None
-                }
-                for player in lobby['players']
-            ],
-            'admin': lobby['admin'].username
-        }
-        return JsonResponse({'success': True, 'lobby_info': lobby_info})
-
     if len(lobby['players']) >= lobby['player_count']:
         logger.warning(f"Lobby {join_code} is full")
         return JsonResponse({'success': False, 'message': 'Lobby is full'})
 
-    lobby['players'].append(request.user)
+    if request.user in lobby['players']:
+        logger.info(f"User {request.user.username} is already in lobby {join_code}")
+    else:
+        lobby['players'].append(request.user)
+        logger.info(f"User {request.user.username} joined lobby {join_code}")
 
     lobby_info = {
         'is_tournament': lobby['is_tournament'],
@@ -97,12 +83,37 @@ def join_lobby(request, join_code):
         'admin': lobby['admin'].username
     }
 
-    logger.info(f"User {request.user.username} joined lobby {join_code}")
-    return JsonResponse({'success': True, 'lobby_info': lobby_info})
+    return JsonResponse({'success': True, 'lobby_info': lobby_info, 'current_user': request.user.username})
+
+@csrf_exempt
+@login_required
+def leave_lobby(request, join_code):
+    lobby = lobbies.get(join_code)
+
+    if not lobby:
+        logger.warning(f"Attempted to leave a non-existent lobby with join_code {join_code}")
+        return JsonResponse({'success': False, 'message': 'Lobby does not exist'})
+
+    if request.user not in lobby['players']:
+        logger.warning(f"User {request.user.username} attempted to leave lobby {join_code} they are not part of")
+        return JsonResponse({'success': False, 'message': 'You are not in this lobby'})
+
+    lobby['players'].remove(request.user)
+    logger.info(f"User {request.user.username} left lobby {join_code}")
+
+    if request.user == lobby['admin'] and lobby['players']:
+        new_admin = lobby['players'][0]
+        lobby['admin'] = new_admin
+        logger.info(f"Admin role in lobby {join_code} transferred to {new_admin.username}")
+
+    if not lobby['players']:
+        logger.info(f"No players left in lobby {join_code}, deleting lobby")
+        del lobbies[join_code]
+
+    return JsonResponse({'success': True, 'message': 'Left the lobby successfully'})
 
 @login_required
 def get_lobbies(request):
-	# Prepare the list of lobbies to be returned    
 	lobbies_list = []
 	for join_code, lobby in lobbies.items():
 		lobby_info = {
@@ -149,26 +160,21 @@ def register_view(request):
             email = data.get('email')
             password = data.get('password')
 
-            # Check if all required fields are provided
             if not username or not email or not password:
                 return JsonResponse({'success': False, 'message': 'All fields are required'})
 
-            # Check for duplicate username
             if CustomUser.objects.filter(username=username).exists():
                 return JsonResponse({'success': False, 'message': 'Username already exists'})
 
-            # Check for duplicate email
             if CustomUser.objects.filter(email=email).exists():
                 return JsonResponse({'success': False, 'message': 'Email already exists'})
 
-            # Attempt to create a new user
             user = CustomUser.objects.create_user(username=username, email=email, password=password)
             user.save()
 
             return JsonResponse({'success': True, 'message': 'User registered successfully'})
 
         except IntegrityError as e:
-            # Log error message and handle any unexpected integrity issues
             logging.error("IntegrityError during user registration: %s", e)
             return JsonResponse({'success': False, 'message': 'An unexpected database error occurred. Please try again.'})
         
@@ -180,13 +186,10 @@ def register_view(request):
 @csrf_exempt
 def check_login_status(request):
     if request.user.is_authenticated:
-        # User is authenticated, send back user data
         user_data = {
             'username': request.user.username,
             'email': request.user.email,
-            # Add more user data if needed
         }
         return JsonResponse({'success': True, 'user': user_data})
     else:
-        # User is not authenticated
         return JsonResponse({'success': False, 'message': 'User is not logged in'})

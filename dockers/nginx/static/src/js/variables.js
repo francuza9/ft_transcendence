@@ -7,6 +7,7 @@ export const variables = {
 	roomName: '',
 	pageHistory: [],
 	nextPage: 'profile',
+	selectedRoom: '',
 };
 
 export function updateVariable(document, variableName, value) {
