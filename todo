@@ -1,20 +1,31 @@
-translations
+[TODO] translations
 
-lobby websocket
-real time player updates in lobby
-hardcode back button logic
+[TODO] separate views.py into multiple views
 
-play button on admin view of lobby
-when admin disconnects from lobby give admin to oldest in the lobby
+[TODO] lobby websocket
+	[TODO] real time player updates in lobby
+	[TODO] when admin disconnects from lobby give admin to oldest in the lobby
 
+[TODO] Add backbutton on login page (handle playing redirection) ???
 
 Visuals:
 Lobby page
 Create page
-Lobby name edit popup
 Fix mode button group animations
 Fade in animation for smooth transition between pages
 
+
 Navbar rework
-Profile page
+Background rework
+
+
+Account settings page
+Profile pictures
+Profile modal (for leaderboard, lobby and endscreen)
 Leaderboard
+Endscreen leaderboard
+Profile page???
+
+
+Extra:
+Lobby name edit popup?

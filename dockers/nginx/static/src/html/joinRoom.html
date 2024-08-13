@@ -1,2 +1,28 @@
-<h1>Join Room</h1>
-<button type="button" class="btn btn-secondary" data-action="cancel">back</button>
+<link rel="stylesheet" href="/static/src/css/join.css"
+<div class="container my-5">
+	<div class="text-center mb-4">
+		<h1>Join Room</h1>
+		<button data-action="loadRooms" class="btn btn-outline-primary">
+			<i class="ri-loop-right-line large-icon refresh-icon"></i> Refresh
+		</button>
+	</div>
+	<div class="table-responsive table-centered">
+		<table class="table table-hover text-center">
+			<thead>
+				<tr>
+					<th>Room Name</th>
+					<th>Players</th>
+					<th>Map</th>
+					<th>Mode</th>
+					<th>Join</th>
+				</tr>
+			</thead>
+			<tbody id="lobbyList">
+				<!-- Dynamic lobby rows will be added here -->
+			</tbody>
+		</table>
+	</div>
+	<div class="text-center mt-4">
+		<button type="button" class="btn btn-secondary" data-action="cancel">back</button>
+	</div>
+</div>

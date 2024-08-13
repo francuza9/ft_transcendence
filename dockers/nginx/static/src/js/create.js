@@ -72,6 +72,7 @@ export const saveNameEditButton = (event) => {
 	}
 	editForm.style.display = 'none';
 	displayMode.style.display = 'flex';
+	variables.roomName = newTitle;
 }
 
 export const cancelNameEditButton = () => {
@@ -107,18 +108,6 @@ export const createRoomButton = () => {
 		});
 	}
 
-	console.log('creating Room: ');
-	console.log('tournament: ', variables.isTournament);
-	console.log('player count: ', variables.playerCount);
-	console.log('map: ', variables.map);
-	console.log('name: ', variables.roomName);
-
-	//DEBUG
-	if (variables.roomName == null || variables.roomName.trim() === '') {
-        console.error('Room name is missing');
-        return;
-    }
-
 	fetch('/api/create_lobby/', {
 		method: 'POST',
 		headers: {
@@ -135,7 +124,6 @@ export const createRoomButton = () => {
 	.then(response => response.json())
 	.then(data => {
 		if (data.success) {
-			console.log('Room created successfully:', data.join_code);
 			history.pushState(null, '', `/${data.join_code}`);
 			replaceHTML('/static/src/html/lobby.html', false).then(() => {
 				fetchLobbyInfo(data.join_code);

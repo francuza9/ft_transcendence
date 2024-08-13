@@ -1,10 +1,10 @@
 import {loginButton, loginWithGithubButton, loginWith42Button} from '/static/src/js/login/login.js';
 import {registerButton} from '/static/src/js/register.js';
 import {accountButton} from '/static/src/js/account.js';
-import {playButton, backButton, cancelButton, localButton, onlineButton, skipLoginButton, goToLoginButton} from '/static/src/js/play.js';
-import {joinRoomButton} from '/static/src/js/join.js';
+import {playButton, cancelButton, localButton, onlineButton, backFromOnlineButton, skipLoginButton, goToLoginButton} from '/static/src/js/play.js';
 import {createRoomButton, playerCountDropdownButton, editNameButton, saveNameEditButton, cancelNameEditButton, selectMapButton} from '/static/src/js/create.js';
-import {startButton} from '/static/src/js/lobby.js';
+import {loadRooms} from '/static/src/js/join.js';
+import {startButton, leaveRoom} from '/static/src/js/lobby.js';
 
 const actionsMap = {
     login: loginButton,
@@ -13,12 +13,11 @@ const actionsMap = {
     register: registerButton,
     account: accountButton,
     play: playButton,
-    back: backButton,
     local: localButton,
     online: onlineButton,
+	backFromOnline: backFromOnlineButton,
     skipLogin: skipLoginButton,
     goToLogin: goToLoginButton,
-    join: joinRoomButton,
     createRoom: createRoomButton,
     playerCountDropdown: playerCountDropdownButton,
     cancel: cancelButton,
@@ -26,6 +25,8 @@ const actionsMap = {
 	saveNameEdit: saveNameEditButton,
 	cancelNameEdit: cancelNameEditButton,
 	selectMap: selectMapButton,
+	loadRooms: loadRooms,
+	leave: leaveRoom,
 	start: startButton,
 };
 
