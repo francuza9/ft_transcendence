@@ -4,7 +4,6 @@ import {playButton, cancelButton, localButton, onlineButton, backFromOnlineButto
 import {createRoomButton, playerCountDropdownButton, editNameButton, saveNameEditButton, cancelNameEditButton, selectMapButton} from '/static/src/js/create.js';
 import {loadRooms} from '/static/src/js/join.js';
 import {startButton, leaveRoom} from '/static/src/js/lobby.js';
-import {setLanguage} from '/static/src/js/lang.js';
 import {settingsButton, closeButton, langButton, backButton} from '/static/src/js/settings.js';
 
 const actionsMap = {
@@ -28,7 +27,10 @@ const actionsMap = {
 	loadRooms: loadRooms,
 	leave: leaveRoom,
 	start: startButton,
-	setLang: setLanguage,
+	settings: settingsButton,
+	close: closeButton,
+	langButton: langButton,
+	back: backButton,
 };
 
 export const handleButtonAction = (e, action) => {
