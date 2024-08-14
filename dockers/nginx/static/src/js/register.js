@@ -1,5 +1,5 @@
 import {handleRouting} from '/static/routers/router.js';
-import {getCookie} from '/static/src/js/utils.js';
+import {getCookie} from '/static/src/js/cookies.js';
 
 export const registerButton = () => {
     const username = document.getElementById('username').value;
