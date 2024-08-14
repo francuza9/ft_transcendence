@@ -15,7 +15,7 @@ class Profile(models.Model):
     id = models.AutoField(primary_key=True)
     user = models.OneToOneField('CustomUser', on_delete=models.CASCADE, related_name='profile')
     displayName = models.CharField(max_length=50)
-    avatarUrl = models.URLField(blank=True, null=True)
+    avatarUrl = models.ImageField(upload_to='profile_pictures/', blank=True, null=True)
     totalScore = models.IntegerField(default=0)
     gamesPlayed = models.IntegerField(default=0)
     gamesWon = models.IntegerField(default=0)

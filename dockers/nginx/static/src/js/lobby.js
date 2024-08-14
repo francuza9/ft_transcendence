@@ -1,4 +1,3 @@
-import {variables} from '/static/src/js/variables.js';
 import {getCookie} from '/static/src/js/utils.js';
 import {handleRouting} from '/static/routers/router.js';
 
