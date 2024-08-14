@@ -1,28 +1,28 @@
-<link rel="stylesheet" href="/static/src/css/join.css"
+<link rel="stylesheet" href="/static/src/css/join.css">
 <div class="container my-5">
-	<div class="text-center mb-4">
-		<h1>Join Room</h1>
-		<button data-action="loadRooms" class="btn btn-outline-primary">
-			<i class="ri-refresh-line large-icon refresh-icon"></i> Refresh
-		</button>
-	</div>
-	<div class="table-responsive table-centered">
-		<table class="table table-hover text-center">
-			<thead>
-				<tr>
-					<th>Room Name</th>
-					<th>Players</th>
-					<th>Map</th>
-					<th>Mode</th>
-					<th>Join</th>
-				</tr>
-			</thead>
-			<tbody id="lobbyList">
-				<!-- Dynamic lobby rows will be added here -->
-			</tbody>
-		</table>
-	</div>
-	<div class="text-center mt-4">
-		<button type="button" class="btn btn-secondary" data-action="cancel">back</button>
-	</div>
+    <div class="text-center mb-4">
+        <h1 data-text="pages.joinRoom.pageTitle">Join Room</h1>
+        <button data-action="loadRooms" class="btn btn-outline-primary" data-text="pages.joinRoom.refreshButton">
+            <i class="ri-refresh-line large-icon refresh-icon"></i> Refresh
+        </button>
+    </div>
+    <div class="table-responsive table-centered">
+        <table class="table table-hover text-center">
+            <thead>
+                <tr>
+                    <th data-text="pages.joinRoom.roomName">Room Name</th>
+                    <th data-text="pages.joinRoom.players">Players</th>
+                    <th data-text="pages.joinRoom.map">Map</th>
+                    <th data-text="pages.joinRoom.mode">Mode</th>
+                    <th data-text="pages.joinRoom.join">Join</th>
+                </tr>
+            </thead>
+            <tbody id="lobbyList">
+                <!-- Dynamic lobby rows will be added here -->
+            </tbody>
+        </table>
+    </div>
+    <div class="text-center mt-4">
+        <button type="button" class="btn btn-secondary" data-action="cancel" data-text="pages.joinRoom.backButton">Back</button>
+    </div>
 </div>

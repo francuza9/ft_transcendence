@@ -1,44 +1,28 @@
 <link rel="stylesheet" href="/static/src/css/login.css">
 <section>
-	<div class="register-box">
-		<form action="">
-			<h2>Register</h2>
-			<div class="input-box">
-				<input id="username" required>
-				<label>Username</label>
-			</div>
-			<div class="input-box">
-				<input id="email" required>
-				<label>Email</label>
-			</div>
-			<div class="input-box">
-				<!--
-				<span class="icon">
-					<i class="ri-lock-password-line"></i>
-				</span>
-				-->
-				<input id="password" type="password" required>
-				<label>Password</label>
-			</div>
-			<div class="input-box">
-				<input id="password-confirmation" type="password" required>
-				<label>Confirm Password</label>
-			</div>
-			<button type="submit" data-action="register">Register</button>
-			<div class="link">
-				<p>Already have an account? <a href="/login">Login</a></p>
-			</div>
-			<!--
-			<div class="divider">
-			</div>
-			<button type="submit" data-action="loginWith42">
-				<i class="ri-github"></i>Sign in with 42
-			</button>
-			<div class="small-divider"></div>
-			<button type="submit" data-action="loginWithGithub">
-				<i class="42"></i>Sign in with Github
-			</button>
-			-->
-		</form>
-	</div>
+    <div class="register-box">
+        <form action="">
+            <h2 data-text="pages.register.pageTitle">Register</h2>
+            <div class="input-box">
+                <input id="username" required>
+                <label data-text="pages.register.usernameLabel">Username</label>
+            </div>
+            <div class="input-box">
+                <input id="email" required>
+                <label data-text="pages.register.emailLabel">Email</label>
+            </div>
+            <div class="input-box">
+                <input id="password" type="password" required>
+                <label data-text="pages.register.passwordLabel">Password</label>
+            </div>
+            <div class="input-box">
+                <input id="password-confirmation" type="password" required>
+                <label data-text="pages.register.confirmPasswordLabel">Confirm Password</label>
+            </div>
+            <button type="submit" data-action="register" data-text="pages.register.submitButton">Register</button>
+            <div class="link">
+                <p data-text="pages.register.loginPrompt">Already have an account? <a href="/login" data-text="pages.register.loginLink">Login</a></p>
+            </div>
+        </form>
+    </div>
 </section>

@@ -4,6 +4,103 @@
             "title": "Welcome to Transcendence",
             "intro": "Get ready to play!",
             "playButton": "Play"
-        }
+        },
+        "createRoom": {
+            "pageTitle": "Create Room",
+            "nameLabel": "Name",
+            "myTitle": "My Title",
+            "editButton": "✏️ Edit",
+            "saveButton": "Save",
+            "cancelButton": "Cancel",
+            "modeLabel": "Mode",
+            "classicMode": "Classic",
+            "tournamentMode": "Tournament",
+            "playersLabel": "Players",
+            "mapLabel": "Map",
+            "currentMap": "Classic",
+            "chooseMapButton": "Choose Map",
+            "selectMapTitle": "Select Your Map",
+            "classicMapTitle": "Classic",
+            "classicMapDescription": "The classic map.",
+            "mountainMapTitle": "Mountain",
+            "mountainMapDescription": "Nice view on top of the mountain!",
+            "desertMapTitle": "Desert",
+            "desertMapDescription": "Nice pyramids.",
+            "hellMapTitle": "Hell",
+            "hellMapDescription": "It might look scary but I promise it isn't.",
+            "previousSlide": "Previous",
+            "nextSlide": "Next",
+            "selectButton": "Select",
+            "createRoomButton": "Create Room",
+            "cancelButton": "Cancel"
+        },
+        "joinRoom": {
+            "pageTitle": "Join Room",
+            "refreshButton": "Refresh",
+            "roomName": "Room Name",
+            "players": "Players",
+            "map": "Map",
+            "mode": "Mode",
+            "join": "Join",
+            "backButton": "Back"
+        },
+        "register": {
+            "pageTitle": "Register",
+            "usernameLabel": "Username",
+            "emailLabel": "Email",
+            "passwordLabel": "Password",
+            "confirmPasswordLabel": "Confirm Password",
+            "submitButton": "Register",
+            "loginPrompt": "Already have an account?",
+            "loginLink": "Login"
+        },
+        "account": {
+            "pageTitle": "Account Settings",
+            "uploadAvatarButton": "Upload Avatar",
+            "usernameLabel": "Username",
+            "displayNameLabel": "Display Name",
+            "emailLabel": "Email",
+            "bioLabel": "Bio",
+            "updateProfileButton": "Update Profile",
+            "totalScoreLabel": "Total Score",
+            "gamesPlayedLabel": "Games Played",
+            "gamesWonLabel": "Games Won",
+            "gamesLostLabel": "Games Lost"
+        },
+        "play": {
+            "continueAsGuest": "Continue as guest",
+            "login": "Login",
+            "back": "Back",
+            "localButton": "Local",
+            "onlineButton": "Online",
+            "backButton": "Back",
+            "joinRoomButton": "Join Room",
+            "createRoomButton": "Create Room"
+        },
+        "login": {
+            "title": "Login",
+            "emailLabel": "Email",
+            "passwordLabel": "Password",
+            "loginButton": "Login",
+            "noAccount": "Don't have an account?",
+            "registerLink": "Register",
+            "loginWith42": "Sign in with 42",
+            "loginWithGithub": "Sign in with Github"
+        },
+        "lobby": {
+            "title": "Room Name",
+            "details": "Details about the room",
+            "profilePicture": "Profile Picture",
+            "username": "Username",
+            "level": "Level",
+            "leaveButton": "Leave Room",
+            "startButton": "Start game"
+        },
+		"settings":{
+			"loginButton": "Login",
+            "registerButton": "Register",
+            "languageButton": "Language",
+            "backButton": "Back"
+		}
     }
 }

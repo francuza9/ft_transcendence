@@ -143,21 +143,26 @@ section {
 }
 
 #sidebar-content button {
-    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 10px;
     padding: 10px;
-    margin-bottom: 10px;
-    border: 2px solid rgba(255, 255, 255, 0.5);
-    border-radius: 20px;
-    background: transparent;
-    color: #fff;
-    cursor: pointer;
-    text-align: center;
-    backdrop-filter: blur(15px);
-    transition: background 0.3s ease, color 0.3s ease;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    border: none;
+    transition: background 0.3s ease;
+    width: 100%;
+    margin-bottom: 20px;
 }
 
 #sidebar-content .back-btn {
     margin-bottom: 40px;
+}
+
+#sidebar-content button i {
+    font-size: 1.2em;
 }
 
 #language-menu {
@@ -186,7 +191,7 @@ button img {
 }
 
 #sidebar-content button:hover {
-    background: rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.4);
     color: #000;
 }
 
