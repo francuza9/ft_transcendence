@@ -8,37 +8,57 @@
 			<i class="ri-close-fill"></i>
 		</button>
 		<div id="sidebar-content">
-           <div id="main-menu">
-                <button data-path="/login">Login</button>
-                <button data-path="/register">Register</button>
-                <button data-action="langButton">Language</button>
-            </div>
-            <div id="language-menu" class="hidden">
-                <button data-action="back" class="back-btn">← Back</button>
-                <button data-variable="lang" data-value="en"><img src="flags/en.svg" alt="EN"> English</button>
-                <button data-variable="lang" data-value="ar"><img src="flags/ar.svg" alt="AR"> العربية</button>
-                <button data-variable="lang" data-value="es"><img src="flags/es.svg" alt="ES"> Español</button>
-                <button data-variable="lang" data-value="fr"><img src="flags/fr.svg" alt="FR"> Français</button>
-                <button data-variable="lang" data-value="de"><img src="flags/de.svg" alt="DE"> Deutsch</button>
-                <button data-variable="lang" data-value="nl"><img src="flags/nl.svg" alt="NL"> Nederlands</button>
-                <button data-variable="lang" data-value="ka"><img src="flags/ka.svg" alt="KA"> ქართული</button>
-            </div>
-		</div>
-	</div>
-	<div class="container">
-		<div class="row">
-			<div class="col-12">
-				<h1 class="text-uppercase text-white fw-semibold display-1" data-text="pages.home.title"></h1>
-				<h5 class="text-white mt-3 mb-4" data-text="pages.home.intro"></h5>
-				<div>
-					<div class="container mt-5">
-						<button class="btn btn-primary btn-play" type="button" data-action="play">
-							<span class="text-white" data-text="pages.home.playButton"></span>
-							<i class="ri-play-fill"></i>
-						</button>
-					</div>
-				</div>
+			<div id="main-menu">
+				<button data-path="/login">
+					<i class="ri-user-fill" data-text="pages.settings.loginButton"></i>
+				</button>
+				<button data-path="/register">
+					<i class="ri-user-add-fill" data-text="pages.settings.registerButton"></i>
+				</button>
+				<button data-action="langButton">
+					<i class="ri-flag-fill" data-text="pages.settings.languageButton"></i>
+				</button>
 			</div>
-		</div>
-	</div>
+			<div id="language-menu" class="hidden">
+				<button data-action="back" class="back-btn" data-text="pages.settings.backButton">←	Back</button>
+				<button data-variable="lang" data-value="en">
+					<span class="fi fi-us"></span> English
+				</button>
+				<button data-variable="lang" data-value="fr">
+					<span class="fi fi-fr"></span> Français
+				</button>
+				<button data-variable="lang" data-value="ar">
+					<span class="fi fi-eg"></span> العربية
+				</button>
+				<button data-variable="lang" data-value="es">
+					<span class="fi fi-es"></span> Español
+				</button>
+				<button data-variable="lang" data-value="de">
+					<span class="fi fi-de"></span> Deutsch
+				</button>
+				<button data-variable="lang" data-value="nl">
+					<span class="fi fi-nl"></span> Nederlands
+				</button>
+				<button data-variable="lang" data-value="ka">
+					<span class="fi fi-ge"></span> ქართული
+				</button>
+			</div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <h1 class="text-uppercase text-white fw-semibold display-1" data-text="pages.home.title">Welcome to Transcendence</h1>
+                <h5 class="text-white mt-3 mb-4" data-text="pages.home.intro">Get ready to play!</h5>
+                <div>
+                    <div class="container mt-5">
+                        <button class="btn btn-primary btn-play" type="button" data-action="play">
+                            <span class="text-white" data-text="pages.home.playButton">Play</span>
+                            <i class="ri-play-fill"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </section>
