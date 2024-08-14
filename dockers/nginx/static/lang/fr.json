@@ -1,0 +1,9 @@
+{
+    "pages": {
+        "home": {
+            "title": "Bienvenue sur Transcendence",
+            "intro": "Préparez-vous à jouer !",
+            "playButton": "Jouer"
+        }
+    }
+}

@@ -1,9 +1,12 @@
 import {variables} from '/static/src/js/variables.js';
+import {getCookie, setCookie} from '/static/src/js/cookies.js';
+import {translateContent} from '/static/src/js/lang.js';
 
 export async function replaceHTML(path, navbar)
 {
 	const body = document.getElementsByTagName('body')[0];
     const navbarSelector = '.navbar';
+	const userLang = getCookie('userLang') || 'en';
 
     try {
         // Handle the navbar
@@ -12,9 +15,7 @@ export async function replaceHTML(path, navbar)
         if (navbar) {
             if (!existingNavbar) {
                 const navbarResponse = await fetch('/static/src/html/navbar.html');
-                if (!navbarResponse.ok) {
-                    throw new Error('Network response was not ok');
-                }
+                if (!navbarResponse.ok) throw new Error('Network response was not ok');
                 const navbarContent = await navbarResponse.text();
                 body.insertAdjacentHTML('afterbegin', navbarContent);
                 existingNavbar = document.querySelector(navbarSelector);
@@ -25,9 +26,7 @@ export async function replaceHTML(path, navbar)
 
         // Fetch the new content
         const response = await fetch(path);
-        if (!response.ok) {
-            throw new Error('Network response was not ok');
-        }
+        if (!response.ok) throw new Error('Network response was not ok');
         const htmlContent = await response.text();
 
         // Clear existing content except the navbar if needed
@@ -39,6 +38,12 @@ export async function replaceHTML(path, navbar)
 
         // Append new content
         body.insertAdjacentHTML('beforeend', htmlContent);
+
+		// Translate content
+        const translationsResponse = await fetch(`/static/lang/${userLang}.json`);
+        if (!translationsResponse.ok) throw new Error('Network response was not ok');
+        const translations = await translationsResponse.json();
+        translateContent(translations);
 
     } catch (error) {
         console.error('There was a problem with the fetch operation:', error);
@@ -75,19 +80,4 @@ export function checkLoginStatus() {
         console.error('Error fetching user info:', error);
 		return false;
     });
-}
-
-export function getCookie(name) {
-    let cookieValue = null;
-    if (document.cookie && document.cookie !== '') {
-        const cookies = document.cookie.split(';');
-        for (let i = 0; i < cookies.length; i++) {
-            const cookie = cookies[i].trim();
-            if (cookie.substring(0, name.length + 1) === (name + '=')) {
-                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                break;
-            }
-        }
-    }
-    return cookieValue;
 }

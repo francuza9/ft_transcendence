@@ -1,17 +1,16 @@
 import { handleRouting } from '/static/routers/router.js';
 
-export const accountButton = (e) => {
-	e.preventDefault();
-	history.pushState(null, '', '/login');
-	handleRouting();
-}
-
+/*
 document.addEventListener('DOMContentLoaded', () => {
-    fetchAccountInfo();
 
-    document.getElementById('updateProfileBtn').addEventListener('click', updateProfile);
-    document.getElementById('avatarUploadForm').addEventListener('submit', uploadAvatar);
-});
+	//This should be called when loading page through button
+    //fetchAccountInfo();
+
+	//These buttons should be passed through the router.js event listener and added to the buttons.js
+
+    //document.getElementById('updateProfileBtn').addEventListener('click', updateProfile);
+    //document.getElementById('avatarUploadForm').addEventListener('submit', uploadAvatar);
+});*/
 
 async function fetchAccountInfo() {
     try {
