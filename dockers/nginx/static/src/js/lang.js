@@ -1,9 +1,11 @@
-import {getCookie} from '/static/src/js/cookies.js';
+import {setCookie, getCookie} from '/static/src/js/cookies.js';
+import {highlightCurrentLanguage} from '/static/src/js/settings.js';
 
 export async function setLanguage(lang) {
     setCookie('userLang', lang, 365);
     const translations = await fetch(`/static/lang/${lang}.json`).then(response => response.json());
     translateContent(translations);
+	highlightCurrentLanguage(lang);
 }
 
 export function translateContent(translations) {

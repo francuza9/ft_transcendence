@@ -61,7 +61,7 @@ section {
 	padding: 0 1rem;
 }
 
-#settings-btn {
+.settings-btn {
     position: fixed;
     top: 20px;
     right: 20px;
@@ -78,35 +78,35 @@ section {
     z-index: 1000;
 }
 
-#settings-btn i {
+#settings-btn.hidden {
+    display: none;
+}
+
+.settings-btn i {
     font-size: 24px;
     color: white;
 }
 
 #sidebar {
     position: fixed;
-    top: 0;
-    right: 0;
+    top: 20px;
+    right: 20px;
     width: 300px;
-    height: 100%;
-    background: rgba(255, 255, 255, 0.8);
+    height: calc(100% - 40px);
+    background: transparent;
+    border: 2px solid rgba(255, 255, 255, 0.5);
+    border-radius: 20px;
     backdrop-filter: blur(15px);
-    border-left: 2px solid rgba(255, 255, 255, 0.5);
-    box-shadow: var(--box-shadow);
-    transform: translateX(100%);
-    transition: transform var(--transition);
-    z-index: 1000;
     padding: 20px;
-}
-
-#sidebar-content {
     display: flex;
     flex-direction: column;
-    height: 100%;
+    justify-content: flex-start;
+    align-items: center;
+    z-index: 9999;
 }
 
 #sidebar.hidden {
-    transform: translateX(100%);
+    transform: translateX(110%);
 }
 
 #sidebar:not(.hidden) {
@@ -114,23 +114,50 @@ section {
 }
 
 .close-btn {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    width: 40px;
+    height: 40px;
+    border: 2px solid rgba(255, 255, 255, 0.5);
+    border-radius: 50%;
     background: transparent;
-    border: none;
-    font-size: 24px;
-    color: var(--c-dark);
+    color: #fff;
     cursor: pointer;
-    align-self: flex-end;
-    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(15px);
+    transition: background 0.3s ease, color 0.3s ease;
+    z-index: 10000;
 }
 
-#main-menu button, #language-menu button {
-    background: transparent;
-    border: none;
-    color: var(--c-dark);
-    font-size: 16px;
+.close-btn:hover {
+    background: rgba(255, 255, 255, 0.2);
+    color: #000;
+}
+
+#sidebar-content {
+    width: 100%;
+	margin-top: 80px;
+}
+
+#sidebar-content button {
+    width: 100%;
     padding: 10px;
+    margin-bottom: 10px;
+    border: 2px solid rgba(255, 255, 255, 0.5);
+    border-radius: 20px;
+    background: transparent;
+    color: #fff;
     cursor: pointer;
-    text-align: left;
+    text-align: center;
+    backdrop-filter: blur(15px);
+    transition: background 0.3s ease, color 0.3s ease;
+}
+
+#sidebar-content .back-btn {
+    margin-bottom: 40px;
 }
 
 #language-menu {
@@ -143,10 +170,30 @@ section {
 }
 
 .back-btn {
-    background: transparent;
-    border: none;
-    font-size: 18px;
-    color: var(--c-dark);
-    cursor: pointer;
-    margin-bottom: 10px;
+    font-size: 20px;
+    align-self: flex-start;
+}
+
+button img {
+    width: 24px;
+    height: 24px;
+    margin-right: 10px;
+}
+
+#sidebar-content button.active {
+    background-color: rgba(78, 87, 212, 0.5);
+    color: white;
+}
+
+#sidebar-content button:hover {
+    background: rgba(255, 255, 255, 0.2);
+    color: #000;
+}
+
+#sidebar-content.hidden {
+    display: none;
+}
+
+.hidden {
+    display: none;
 }
