@@ -1,6 +1,6 @@
-import { handleRouting } from '/static/routers/router.js';
-import { variables } from '/static/src/js/variables.js';
-import { replaceHTML } from '/static/src/js/utils.js';
+import {handleRouting} from '/static/routers/router.js';
+import {variables} from '/static/src/js/variables.js';
+import {replaceHTML} from '/static/src/js/utils.js';
 
 export const loginButton = () => {
     const email = document.getElementById('email').value;

@@ -1,34 +1,24 @@
 <link rel="stylesheet" href="/static/src/css/lobby.css">
 <div class="container my-5">
-	<div class="text-center mb-4">
-		<h1 id="roomTitle">Room Name</h1>
-		<p class="text-muted" id="roomDetails">Max Players: 10 | Map: Desert | Mode: Capture the Flag</p>
-	</div>
-	<div class="table-responsive table-centered">
-		<table class="table table-hover text-center">
-			<thead>
-				<tr>
-					<th>Profile Picture</th>
-					<th>Username</th>
-					<th>Level</th>
-				</tr>
-			</thead>
-			<tbody id="playerList">
-				<tr class="player-row" data-player-id="player1">
-					<td><img src="https://via.placeholder.com/40" alt="Player 1" class="player-img"></td>
-					<td>Player 1</td>
-					<td>25</td>
-				</tr>
-				<tr class="player-row" data-player-id="player2">
-					<td><img src="https://via.placeholder.com/40" alt="Player 2" class="player-img"></td>
-					<td>Player 2</td>
-					<td>18</td>
-				</tr>
-			</tbody>
-		</table>
-	</div>
-	<div class="text-center mt-4">
-		<button class="btn btn-danger" data-action="cancel">Leave Room</button>
-	</div>
-	<script src="/static/src/js/lobby.js"></script>
+    <div class="text-center mb-4">
+        <h1 id="lobbyTitle" data-text="pages.lobby.title">Room Name</h1>
+        <p class="text-muted" id="lobbyDetails" data-text="pages.lobby.details"></p>
+    </div>
+    <div class="table-responsive table-centered">
+        <table class="table table-hover text-center">
+            <thead>
+                <tr>
+                    <th data-text="pages.lobby.profilePicture">Profile Picture</th>
+                    <th data-text="pages.lobby.username">Username</th>
+                    <th data-text="pages.lobby.level">Level</th>
+                </tr>
+            </thead>
+            <tbody id="playerList">
+            </tbody>
+        </table>
+    </div>
+    <div class="text-center mt-4">
+        <button class="btn btn-danger" data-action="leave" data-text="pages.lobby.leaveButton">Leave Room</button>
+        <button class="btn btn-success" data-action="start" data-text="pages.lobby.startButton">Start game</button>
+    </div>
 </div>

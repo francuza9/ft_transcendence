@@ -1,0 +1,29 @@
+<link rel="stylesheet" href="/static/src/css/account.css">
+<div class="container my-5">
+    <div class="text-center mb-4">
+        <h1 data-text="pages.account.pageTitle">Account Settings</h1>
+        <div class="profile-info">
+            <img id="avatar" src="/static/default-avatar.png" alt="Avatar" class="avatar-img">
+            <form id="avatarUploadForm" enctype="multipart/form-data">
+                <input type="file" id="avatarInput" name="avatar">
+                <button type="submit" data-text="pages.account.uploadAvatarButton">Upload Avatar</button>
+            </form>
+            <div class="details">
+                <p><strong data-text="pages.account.usernameLabel">Username:</strong> <span id="username"></span></p>
+                <label for="displayName" data-text="pages.account.displayNameLabel">Display Name:</label>
+                <input type="text" id="displayName">
+                <label for="email" data-text="pages.account.emailLabel">Email:</label>
+                <input type="email" id="email">
+                <label for="bio" data-text="pages.account.bioLabel">Bio:</label>
+                <textarea id="bio"></textarea>
+                <button id="updateProfileBtn" data-text="pages.account.updateProfileButton">Update Profile</button>
+            </div>
+        </div>
+        <div class="stats">
+            <p><strong data-text="pages.account.totalScoreLabel">Total Score:</strong> <span id="totalScore"></span></p>
+            <p><strong data-text="pages.account.gamesPlayedLabel">Games Played:</strong> <span id="gamesPlayed"></span></p>
+            <p><strong data-text="pages.account.gamesWonLabel">Games Won:</strong> <span id="gamesWon"></span></p>
+            <p><strong data-text="pages.account.gamesLostLabel">Games Lost:</strong> <span id="gamesLost"></span></p>
+        </div>
+    </div>
+</div>

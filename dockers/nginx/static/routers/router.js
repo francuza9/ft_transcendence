@@ -7,6 +7,7 @@ import { Leaderboard } from '../views/leaderboard.js';
 import { Create } from '../views/create.js';
 import { Join } from '../views/join.js';
 import { Lobby } from '../views/lobby.js';
+import { Account } from '../views/account.js';
 import { handleButtonAction } from './buttons.js';
 import { updateVariable } from '/static/src/js/variables.js';
 import { normalizePath } from '/static/src/js/utils.js';
@@ -14,7 +15,6 @@ import { viewProfile } from '/static/src/js/lobby.js';
 
 const router = [
     { path: /^\/$/, component: Home },
-	{ path: /^\/(\w{8})$/, component: Lobby },
     { path: /^\/pong\/(\d+)$/, component: Pong },
     { path: /^\/register$/, component: Register },
 	{ path: /^\/login$/, component: Login },
@@ -22,6 +22,8 @@ const router = [
 	{ path: /^\/create$/, component: Create },
 	{ path: /^\/join$/, component: Join },
 	{ path: /^\/leaderboard$/, component: Leaderboard },
+	{ path: /^\/(\w{8})$/, component: Lobby },
+	{ path: /^\/account$/, component: Account },
 ];
 
 const content = document.getElementById("body-content");
