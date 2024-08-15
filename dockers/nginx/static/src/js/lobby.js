@@ -1,5 +1,6 @@
 import {getCookie} from '/static/src/js/cookies.js';
 import {handleRouting} from '/static/routers/router.js';
+import { getSocket } from '/static/views/lobby.js';
 
 function updateLobbyDetails(document, title, Players, map, mode) {
 	document.getElementById('lobbyTitle').innerText = title;
@@ -102,6 +103,17 @@ export const leaveRoom = () => {
 }
 
 export const startButton = () => {
-	console.log('starting game...');
-	//start game
-}
+    const socket = getSocket();  // Get the most recent socket value
+
+    if (!socket) {
+        console.error('WebSocket is not initialized yet.');
+        return;
+    }
+
+    if (socket.readyState === WebSocket.OPEN) {
+        console.log('starting game...');
+        socket.send(JSON.stringify({ type: 'start' }));
+    } else {
+        console.error('WebSocket is not open.');
+    }
+};

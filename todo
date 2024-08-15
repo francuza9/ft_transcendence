@@ -26,6 +26,7 @@ Add kick button to kick players on lobby page (for admin only)
 Today:
 Background rework
 Add css to all pages
+Fix login <--> register buttons broken on translations 
 
 
 

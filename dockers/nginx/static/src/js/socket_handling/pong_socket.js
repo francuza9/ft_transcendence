@@ -1,6 +1,6 @@
-export async function initializeWebSocket(roomId, room_size) {
+export async function initPongSocket(roomId, room_size) {
     return new Promise((resolve, reject) => {
-        const socket = new WebSocket(`wss://${window.location.host}/ws/pong/${roomId}/`);
+        const socket = new WebSocket(`wss://${window.location.host}/ws/pong/${roomId}`);
 		let pov;
 
         socket.onopen = function() {
