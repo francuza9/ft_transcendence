@@ -15,12 +15,17 @@ export async function Pong([roomId]) {
 		<script type="module" src="{% static 'src/js/3d.js' %}"></script>
 	`;
 
-	// Initialize the Pong game
 
+	// Get room_size somehow, possibly from API
+	const room_size = 2;
+
+	// Initialize the Pong game
 	try {
-        const { pov, socket } = await initializeWebSocket(roomId);
-        startGame(2, pov, MOUNTAIN_MAP, socket);
-		// startGame(7, 1, SPACE_MAP, socket);
+        const { pov, socket } = await initializeWebSocket(roomId, room_size);
+		if (room_size < 2 || room_size > 8 || room_size < pov) {
+			throw new Error('Invalid room size');
+		}
+        startGame(room_size, pov, MOUNTAIN_MAP, socket);
 	} catch (error) {
         console.error('Failed to initialize WebSocket:', error);
     }

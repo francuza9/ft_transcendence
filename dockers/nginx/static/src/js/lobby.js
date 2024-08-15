@@ -1,4 +1,4 @@
-import {getCookie} from '/static/src/js/utils.js';
+import {getCookie} from '/static/src/js/cookies.js';
 import {handleRouting} from '/static/routers/router.js';
 
 function updateLobbyDetails(document, title, Players, map, mode) {

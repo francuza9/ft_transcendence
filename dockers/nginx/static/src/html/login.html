@@ -1,40 +1,27 @@
 <link rel="stylesheet" href="/static/src/css/login.css">
-<section>
-	<div class="login-box">
-		<form action="">
-			<h2>Login</h2>
-			<div class="input-box">
-				<input id="email" required>
-				<label>Email</label>
-			</div>
-			<div class="input-box">
-				<!--
-				<span class="icon">
-					<i class="ri-lock-password-line"></i>
-				</span>
-				-->
-				<input id="password" type="password" required>
-				<label>Password</label>
-			</div>
-			<!--
-			<div class="remember-forgot">
-				<label input type="checkbox">Remember me</label>
-				<a href="#">Forgot Password?</a>
-			</div>
-			-->
-			<button type="submit" data-action="login">Login</button>
-			<div class="link">
-				<p>Don't have an account? <a href="/register">Register</a></p>
-			</div>
-			<div class="divider">
-			</div>
-			<button type="submit" data-action="loginWith42">
-				<i class="ri-github"></i>Sign in with 42
-			</button>
-			<div class="small-divider"></div>
-			<button type="submit" data-action="loginWithGithub">
-				<i class="42"></i>Sign in with Github
-			</button>
-		</form>
-	</div>
-</section>
+<div class="login-box">
+	<form action="">
+		<h2 data-text="pages.login.title">Login</h2>
+		<div class="input-box">
+			<input id="email" required>
+			<label data-text="pages.login.emailLabel">Email</label>
+		</div>
+		<div class="input-box">
+			<input id="password" type="password" required>
+			<label data-text="pages.login.passwordLabel">Password</label>
+		</div>
+		<button type="submit" data-action="login" data-text="pages.login.loginButton">Login</button>
+		<div class="link">
+			<p data-text="pages.login.noAccount">Don't have an account? <a href="/register" data-text="pages.login.registerLink">Register</a></p>
+		</div>
+		<div class="divider">
+		</div>
+		<button type="submit" data-action="loginWith42" data-text="pages.login.loginWith42">
+			<i class="ri-github"></i> Sign in with 42
+		</button>
+		<div class="small-divider"></div>
+		<button type="submit" data-action="loginWithGithub" data-text="pages.login.loginWithGithub">
+			<i class="42"></i> Sign in with Github
+		</button>
+	</form>
+</div>
