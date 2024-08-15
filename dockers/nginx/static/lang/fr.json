@@ -1,0 +1,106 @@
+{
+    "pages": {
+        "home": {
+            "title": "Bienvenue dans Transcendence",
+            "intro": "Préparez-vous à jouer !",
+            "playButton": "Jouer"
+        },
+        "createRoom": {
+            "pageTitle": "Créer une Salle",
+            "nameLabel": "Nom",
+            "myTitle": "Mon Titre",
+            "editButton": "✏️ Modifier",
+            "saveButton": "Enregistrer",
+            "cancelButton": "Annuler",
+            "modeLabel": "Mode",
+            "classicMode": "Classique",
+            "tournamentMode": "Tournoi",
+            "playersLabel": "Joueurs",
+            "mapLabel": "Carte",
+            "currentMap": "Classique",
+            "chooseMapButton": "Choisir la Carte",
+            "selectMapTitle": "Sélectionnez Votre Carte",
+            "classicMapTitle": "Classique",
+            "classicMapDescription": "La carte classique.",
+            "mountainMapTitle": "Montagne",
+            "mountainMapDescription": "Belle vue au sommet de la montagne !",
+            "desertMapTitle": "Désert",
+            "desertMapDescription": "Beaux pyramides.",
+            "hellMapTitle": "Enfer",
+            "hellMapDescription": "Ça peut avoir l'air effrayant mais je vous promets que ce n'est pas le cas.",
+            "previousSlide": "Précédent",
+            "nextSlide": "Suivant",
+            "selectButton": "Sélectionner",
+            "createRoomButton": "Créer une Salle",
+            "cancelButton": "Annuler"
+        },
+        "joinRoom": {
+            "pageTitle": "Rejoindre une Salle",
+            "refreshButton": "Actualiser",
+            "roomName": "Nom de la Salle",
+            "players": "Joueurs",
+            "map": "Carte",
+            "mode": "Mode",
+            "join": "Rejoindre",
+            "backButton": "Retour"
+        },
+        "register": {
+            "pageTitle": "S'inscrire",
+            "usernameLabel": "Nom d'utilisateur",
+            "emailLabel": "Email",
+            "passwordLabel": "Mot de passe",
+            "confirmPasswordLabel": "Confirmer le Mot de Passe",
+            "submitButton": "S'inscrire",
+            "loginPrompt": "Vous avez déjà un compte ?",
+            "loginLink": "Se connecter"
+        },
+        "account": {
+            "pageTitle": "Paramètres du Compte",
+            "uploadAvatarButton": "Télécharger Avatar",
+            "usernameLabel": "Nom d'utilisateur",
+            "displayNameLabel": "Nom Affiché",
+            "emailLabel": "Email",
+            "bioLabel": "Bio",
+            "updateProfileButton": "Mettre à Jour le Profil",
+            "totalScoreLabel": "Score Total",
+            "gamesPlayedLabel": "Jeux Joués",
+            "gamesWonLabel": "Jeux Gagnés",
+            "gamesLostLabel": "Jeux Perdus"
+        },
+        "play": {
+            "continueAsGuest": "Continuer en tant qu'invité",
+            "login": "Se Connecter",
+            "back": "Retour",
+            "localButton": "Local",
+            "onlineButton": "En Ligne",
+            "backButton": "Retour",
+            "joinRoomButton": "Rejoindre une Salle",
+            "createRoomButton": "Créer une Salle"
+        },
+        "login": {
+            "title": "Se Connecter",
+            "emailLabel": "Email",
+            "passwordLabel": "Mot de Passe",
+            "loginButton": "Se Connecter",
+            "noAccount": "Pas de compte ?",
+            "registerLink": "S'inscrire",
+            "loginWith42": "Se connecter avec 42",
+            "loginWithGithub": "Se connecter avec Github"
+        },
+        "lobby": {
+            "title": "Nom de la Salle",
+            "details": "Détails sur la salle",
+            "profilePicture": "Photo de Profil",
+            "username": "Nom d'utilisateur",
+            "level": "Niveau",
+            "leaveButton": "Quitter la Salle",
+            "startButton": "Démarrer le Jeu"
+        },
+        "settings": {
+            "loginButton": "Se Connecter",
+            "registerButton": "S'inscrire",
+            "languageButton": "Langue",
+            "backButton": "Retour"
+        }
+    }
+}

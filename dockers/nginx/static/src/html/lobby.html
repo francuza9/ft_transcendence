@@ -1,24 +1,24 @@
 <link rel="stylesheet" href="/static/src/css/lobby.css">
 <div class="container my-5">
-	<div class="text-center mb-4">
-		<h1 id="lobbyTitle">Room Name</h1>
-		<p class="text-muted" id="lobbyDetails"></p>
-	</div>
-	<div class="table-responsive table-centered">
-		<table class="table table-hover text-center">
-			<thead>
-				<tr>
-					<th>Profile Picture</th>
-					<th>Username</th>
-					<th>Level</th>
-				</tr>
-			</thead>
-			<tbody id="playerList">
-			</tbody>
-		</table>
-	</div>
-	<div class="text-center mt-4">
-		<button class="btn btn-danger" data-action="leave">Leave Room</button>
-		<button class="btn btn-success" data-action="start">Start game</button>
-	</div>
+    <div class="text-center mb-4">
+        <h1 id="lobbyTitle" data-text="pages.lobby.title">Room Name</h1>
+        <p class="text-muted" id="lobbyDetails" data-text="pages.lobby.details"></p>
+    </div>
+    <div class="table-responsive table-centered">
+        <table class="table table-hover text-center">
+            <thead>
+                <tr>
+                    <th data-text="pages.lobby.profilePicture">Profile Picture</th>
+                    <th data-text="pages.lobby.username">Username</th>
+                    <th data-text="pages.lobby.level">Level</th>
+                </tr>
+            </thead>
+            <tbody id="playerList">
+            </tbody>
+        </table>
+    </div>
+    <div class="text-center mt-4">
+        <button class="btn btn-danger" data-action="leave" data-text="pages.lobby.leaveButton">Leave Room</button>
+        <button class="btn btn-success" data-action="start" data-text="pages.lobby.startButton">Start game</button>
+    </div>
 </div>
