@@ -34,6 +34,11 @@ services:
       - DB_PASSWORD=He11oWorld
       - DB_HOST=db
       - DB_PORT=5432
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "200k"
+        max-file: "10"
 
   db:
     build:
