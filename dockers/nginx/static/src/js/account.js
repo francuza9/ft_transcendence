@@ -3,15 +3,9 @@ import { handleRouting } from '/static/routers/router.js';
 export const accountButton = (e) => {
 	e.preventDefault();
 	history.pushState(null, '', '/login');
+	fetchAccountInfo();
 	handleRouting();
 }
-
-document.addEventListener('DOMContentLoaded', () => {
-    fetchAccountInfo();
-
-    document.getElementById('updateProfileBtn').addEventListener('click', updateProfile);
-    document.getElementById('avatarUploadForm').addEventListener('submit', uploadAvatar);
-});
 
 async function fetchAccountInfo() {
     try {

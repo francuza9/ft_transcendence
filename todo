@@ -12,7 +12,7 @@ support guest requests to the backend
 Account settings page (edit personal data, upload profile picture, ect...)
 Profile pictures
 Leaderboard
-separate views.py into multiple views
+separate views.py into multiple views - DONE
 Profile page (show all data of a user)
 Add kick button to kick players on lobby page (for admin only)
 }
