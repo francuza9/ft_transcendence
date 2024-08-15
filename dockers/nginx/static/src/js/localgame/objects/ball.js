@@ -89,7 +89,7 @@ export class Ball {
 
     animate() {
     // Move ball in direction
-    	// this.ball.position.add(this.direction.clone().multiplyScalar(this.speed));
+    	this.ball.position.add(this.direction.clone().multiplyScalar(this.speed));
 		this.ball2.position.set(this.ball.position.x, this.ball.position.y, this.ball.position.z);
 
 		this.ball.rotation.y -= this.direction.x / 15;

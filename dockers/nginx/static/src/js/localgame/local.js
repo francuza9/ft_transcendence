@@ -2,7 +2,7 @@ import * as THREE from 'three';
 
 import { TextGeometry } from 'https://cdn.jsdelivr.net/npm/three@0.161.0/examples/jsm/geometries/TextGeometry.js';
 import { FontLoader } from 'https://cdn.jsdelivr.net/npm/three@0.161.0/examples/jsm/loaders/FontLoader.js';
-import { keys, scoremesh } from './create2p.js';
+import { keys, scoremesh } from './localgame.js';
 
 export function updatePlayerPositions(players) {
     const p1 = players.children[0];

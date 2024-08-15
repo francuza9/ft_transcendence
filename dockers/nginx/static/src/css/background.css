@@ -11,12 +11,6 @@
 	--transition: all 0.5s ease;
 }
 
-#hero {
-	background: linear-gradient(rgba(var(--c-brand-rgb), 0.507), rgba(var(--c-brand-rgb), 0.438)), url(/static/src/images/dark-background.jpg);
-	background-position: center;
-	background-size: cover;
-}
-
 section {
 	display: flex;
 	justify-content: center;
