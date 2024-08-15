@@ -12,3 +12,22 @@
 	margin: 0 auto;
 	max-width: 800px;
 }
+
+.admin-row {
+    background-color: #ffeb3b;
+    font-weight: bold;
+}
+
+.admin-badge {
+    background-color: #ff5722;
+    color: white;
+    padding: 2px 8px;
+    margin-left: 10px;
+    border-radius: 5px;
+    font-size: 12px;
+}
+
+.admin-row:hover {
+    background-color: #ffe082;
+    cursor: pointer;
+}

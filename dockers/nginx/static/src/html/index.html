@@ -1,19 +1,68 @@
 <link rel="stylesheet" href="/static/src/css/home.css">
-<section id="hero" class="min-vh-100 d-flex align-items-center text-center">
-	<div class="container">
-		<div class="row">
-			<div class="col-12">
-				<h1 class="text-uppercase text-white fw-semibold display-1">Welcome to Transcendence</h1>
-				<h5 class="text-white mt-3 mb-4">Get ready to play!</h5>
-				<div>
-					<div class="container mt-5">
-						<button class="btn btn-primary btn-play" type="button" data-action="play">
-							<span class="text-white">Play</span>
-							<i class="ri-play-fill"></i>
-						</button>
-					</div>
+<button id="settings-btn" class="settings-btn" data-action="settings">
+	<i class="ri-settings-2-fill"></i>
+</button>
+<div id="sidebar" class="hidden">
+	<button data-action="close" class="close-btn">
+		<i class="ri-close-fill"></i>
+	</button>
+	<div id="sidebar-content">
+		<div id="main-menu">
+			<button data-path="/login">
+				<i class="ri-user-fill" ></i>
+				<div data-text="pages.settings.loginButton">Login</div>
+			</button>
+			<button data-path="/register" >
+				<i class="ri-user-add-fill"></i>
+				<div data-text="pages.settings.registerButton">Register</div>
+			</button>
+			<button data-action="langButton">
+				<i class="ri-flag-fill" ></i>
+				<div data-text="pages.settings.languageButton">Language</div>
+			</button>
+		</div>
+		<div id="language-menu" class="hidden">
+			<button data-action="back" class="back-btn">
+				<i class="ri-arrow-left-line"></i>
+				<div data-text="pages.settings.backButton"></div>
+			</button>
+			<button data-variable="lang" data-value="en">
+				<span class="fi fi-us"></span> English
+			</button>
+			<button data-variable="lang" data-value="fr">
+				<span class="fi fi-fr"></span> Français
+			</button>
+			<button data-variable="lang" data-value="ar">
+				<span class="fi fi-eg"></span> العربية
+			</button>
+			<button data-variable="lang" data-value="es">
+				<span class="fi fi-es"></span> Español
+			</button>
+			<button data-variable="lang" data-value="de">
+				<span class="fi fi-de"></span> Deutsch
+			</button>
+			<button data-variable="lang" data-value="nl">
+				<span class="fi fi-nl"></span> Nederlands
+			</button>
+			<button data-variable="lang" data-value="ka">
+				<span class="fi fi-ge"></span> ქართული
+			</button>
+		</div>
+	</div>
+</div>
+<div class="container">
+	<div class="row">
+		<div class="col-12">
+			<h1 class="text-uppercase text-white fw-semibold display-1" data-text="pages.home.title">Welcome to Transcendence</h1>
+			<h5 class="text-white mt-3 mb-4" data-text="pages.home.intro">Get ready to play!</h5>
+			<div>
+				<div class="container mt-5">
+					<button class="btn btn-primary btn-play" type="button" data-action="play">
+						<span class="text-white" data-text="pages.home.playButton">Play</span>
+						<i class="ri-play-fill"></i>
+					</button>
 				</div>
 			</div>
 		</div>
 	</div>
-</section>
+</div>

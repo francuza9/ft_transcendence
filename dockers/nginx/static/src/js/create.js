@@ -1,6 +1,32 @@
 import {replaceHTML} from '/static/src/js/utils.js';
 import {variables} from '/static/src/js/variables.js';
 import {checkLoginStatus} from '/static/src/js/utils.js';
+import {fetchLobbyInfo} from '/static/src/js/lobby.js';
+
+export const setDefaultRoomName = () => {
+    const displayTitle = document.getElementById('display-title');
+
+    const ensureUsername = () => {
+        if (variables.username) {
+            return Promise.resolve();
+        } else {
+            return checkLoginStatus().then(loggedIn => {
+                if (!loggedIn) {
+                    variables.username = 'Guest';
+                }
+                return;
+            }).catch(error => {
+                console.error('Error checking login status:', error);
+                variables.username = 'Guest';
+            });
+        }
+    };
+
+    ensureUsername().then(() => {
+        variables.roomName = `${variables.username}'s room`;
+        displayTitle.textContent = variables.roomName;
+    });
+};
 
 export const updatePlayerCount = (document, value) => {
 	variables.playerCount = parseInt(value, 10);
@@ -23,9 +49,51 @@ export const updateIsTournament = (document, value) => {
 	}
 }
 
+export const editNameButton = () => {
+    const displayMode = document.querySelector('.display-mode');
+    const editForm = document.getElementById('edit-form');
+    const titleInput = document.getElementById('title-input');
+
+	displayMode.style.display = 'none';
+	editForm.style.display = 'block';
+	titleInput.focus();
+}
+
+export const saveNameEditButton = (event) => {
+    const displayMode = document.querySelector('.display-mode');
+    const editForm = document.getElementById('edit-form');
+    const titleInput = document.getElementById('title-input');
+    const displayTitle = document.getElementById('display-title');
+
+	event.preventDefault();
+	const newTitle = titleInput.value.trim();
+	if (newTitle) {
+		displayTitle.textContent = newTitle;
+	}
+	editForm.style.display = 'none';
+	displayMode.style.display = 'flex';
+	variables.roomName = newTitle;
+}
+
+export const cancelNameEditButton = () => {
+    const displayMode = document.querySelector('.display-mode');
+    const editForm = document.getElementById('edit-form');
+
+	editForm.style.display = 'none';
+	displayMode.style.display = 'flex';
+}
+
 export const playerCountDropdownButton = () => {
 	var dropdown = new bootstrap.Dropdown(document.getElementById('btnGroupDrop1'));
 	dropdown.toggle();
+}
+
+export const selectMapButton = () => {
+	const activeSlide = document.querySelector('#carouselExampleCaptions .carousel-item.active');
+	const mapName = activeSlide.querySelector('h5').textContent;
+
+	variables.map = mapName;
+	document.getElementById('display-map').innerText = mapName;
 }
 
 export const createRoomButton = () => {
@@ -40,11 +108,6 @@ export const createRoomButton = () => {
 		});
 	}
 
-	console.log('creating Room: ');
-	console.log('tournament: ', variables.isTournament);
-	console.log('player count: ', variables.playerCount);
-	console.log('map: ', variables.map);
-	console.log('name: ', variables.roomName);
 	fetch('/api/create_lobby/', {
 		method: 'POST',
 		headers: {
@@ -61,12 +124,13 @@ export const createRoomButton = () => {
 	.then(response => response.json())
 	.then(data => {
 		if (data.success) {
-			console.log('Room created successfully:', data.join_code);
 			history.pushState(null, '', `/${data.join_code}`);
-			replaceHTML('/static/src/html/lobby.html', false);
+			replaceHTML('/static/src/html/lobby.html', false).then(() => {
+				fetchLobbyInfo(data.join_code);
+			});
+
 		} else {
 			console.error('Failed to create room:', data.message);
 		}
 	})
-	replaceHTML('/static/src/html/lobby.html', false);
 }

@@ -1,11 +1,14 @@
-import { updatePlayerCount, updateIsTournament } from '/static/src/js/create.js';
+import {updatePlayerCount, updateIsTournament} from '/static/src/js/create.js';
+import {setLanguage} from '/static/src/js/lang.js';
 
 export const variables = {
 	isTournament: false,
     playerCount: 2,
 	map: 'classic',
+	roomName: '',
 	pageHistory: [],
 	nextPage: 'profile',
+	selectedRoom: '',
 };
 
 export function updateVariable(document, variableName, value) {
@@ -15,6 +18,9 @@ export function updateVariable(document, variableName, value) {
 			break;
 		case 'tournament':
 			updateIsTournament(document, value);
+			break;
+		case 'lang':
+			setLanguage(value);
 			break;
 		default:
 			console.warn(`Unknown variable: ${variableName}`);
