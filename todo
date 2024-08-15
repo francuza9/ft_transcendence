@@ -23,14 +23,13 @@ Add kick button to kick players on lobby page (for admin only)
 [Marijn] {
 
 Today:
-Add en and fr
 Background rework
 Add css to all pages
 
 
 
-
 Visuals:
+Play button on home page rework
 Fix mode button group animations
 Fade in animation for smooth transition between pages
 
@@ -41,7 +40,7 @@ Endscreen leaderboard
 
 
 Low priority:
-Add all languages in translations
+Add all languages in translations (only at end)
 
 
 Extra:
