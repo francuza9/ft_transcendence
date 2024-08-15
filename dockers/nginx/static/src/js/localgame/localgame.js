@@ -27,22 +27,22 @@ initScore(score).then(scorea => {
 	group.add(scoremesh);
 }).catch(error => {console.error('Failed to load score:', error);})
 
-export function create2Pgame(mappov)
+export function startLocal()
 {
 	const scene = initScene();
-	const camera = initCamera(mappov);
+	const camera = initCamera(0);
 	const renderer = initRenderer();
 	renderer.setAnimationLoop( animate );
 
 		// create plane and edges
 	const plane = new initPlane();
-	const planeEdges = new initEdges(mappov + 1);
+	const planeEdges = new initEdges(1);
 
 	// create walls
-	const walls = new initWalls(mappov + 1);
+	const walls = new initWalls(1);
 
 	// create players
-	const players = new initPlayers(mappov + 1);
+	const players = new initPlayers(1);
 
 	// create ball
 	let ball = new Ball(scene);
@@ -73,7 +73,7 @@ export function create2Pgame(mappov)
 
 	// add objects to scene //
 	initText().then(text => {
-		playerNames(mappov, "player 1", "player 2").then(names => {
+		playerNames(0, "player 1", "player 2").then(names => {
 			group.add(text); // Add text mesh to the group
 	    	group.add(names);
 			scene.add(light);

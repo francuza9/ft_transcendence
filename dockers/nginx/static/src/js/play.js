@@ -2,6 +2,7 @@ import {replaceHTML} from '/static/src/js/utils.js';
 import {variables} from '/static/src/js/variables.js';
 import {handleRouting} from '/static/routers/router.js';
 import {checkLoginStatus} from '/static/src/js/utils.js';
+import { startLocal } from '/static/src/js/localgame/localgame.js';
 
 export const playButton = () => {
 	replaceHTML('/static/src/html/play.html', false);
@@ -13,7 +14,14 @@ export const cancelButton = () => {
 }
 
 export const localButton = () => {
-	replaceHTML('/static/src/html/local.html', false);
+	const section = document.getElementsByTagName('section')[0];
+	section.remove();
+	const element = document.createElement('div');
+	element.innerHTML = `
+		<h1>Pong Local Game !/h1>
+		<script type="module" src="{% static 'src/js/localgame/localgame.js' %}"></script>
+	`;
+	startLocal();
 }
 
 export const onlineButton = () => {

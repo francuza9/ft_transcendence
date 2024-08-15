@@ -1,9 +1,22 @@
 import { replaceHTML } from '/static/src/js/utils.js';
 import { variables } from '/static/src/js/variables.js';
-import { initLobby } from '/static/src/js/lobby.js';
+import { initLobbySocket } from '/static/src/js/socket_handling/lobby_socket.js';
 
-export async function Lobby([roomId]) {
-	variables.roomId = roomId;
+let socket;
+
+export async function Lobby([lobbyId]) {
+	variables.roomId = lobbyId;
 	replaceHTML('/static/src/html/lobby.html', false);
-	initLobby();
+	
+	
+	try {
+        socket = await initLobbySocket(lobbyId);
+	} catch (error) {
+        console.error('Failed to initialize WebSocket:', error);
+    }
+}
+
+export function getSocket()
+{
+	return socket;
 }

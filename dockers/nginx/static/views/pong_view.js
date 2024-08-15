@@ -1,5 +1,5 @@
-import { startGame } from '../src/js/3d.js';
-import { initializeWebSocket } from '../src/js/socket_handling/main_socket.js';
+import { startGame } from '/static/src/js/3d.js';
+import { initPongSocket } from '/static/src/js/socket_handling/pong_socket.js';
 
 const NO_MAP = 0;
 const MOUNTAIN_MAP = 1;
@@ -8,6 +8,8 @@ const HELL_MAP = 3;
 const SPACE_MAP = 4;
 
 export async function Pong([roomId]) {
+	const section = document.getElementsByTagName('section')[0];
+	section.remove();
 	const element = document.createElement('div');
 	element.innerHTML = `
 		<h1>Pong Game Room: ${roomId}</h1>
@@ -21,7 +23,7 @@ export async function Pong([roomId]) {
 
 	// Initialize the Pong game
 	try {
-        const { pov, socket } = await initializeWebSocket(roomId, room_size);
+        const { pov, socket } = await initPongSocket(roomId, room_size);
 		if (room_size < 2 || room_size > 8 || room_size < pov) {
 			throw new Error('Invalid room size');
 		}
@@ -29,9 +31,6 @@ export async function Pong([roomId]) {
 	} catch (error) {
         console.error('Failed to initialize WebSocket:', error);
     }
-
-	// pov = initializeWebSocket(roomId);
-	// startGame(2, pov, MOUNTAIN_MAP, [0, 0]);
 
 	return element;
 }
