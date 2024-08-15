@@ -89,7 +89,6 @@ export function create2Pgame(mappov, socket) {
 	socket.addEventListener('message', event => {
 		if (event.data instanceof ArrayBuffer) {
 			const bytes = new Float32Array(event.data);
-
 			if (bytes.length >= 9) {
 				ball.direction.x = bytes[0];
 				ball.direction.z = bytes[1];
@@ -100,27 +99,30 @@ export function create2Pgame(mappov, socket) {
 				ball.speed = bytes[6];
 				const scoremeshIndex = group.children.findIndex(child => child === scoremesh);
 				const score1 = new DataView(event.data).getInt32(28, true);  // Correctly reading the integer
-    			const score2 = new DataView(event.data).getInt32(32, true);  // Correctly reading the integer
+				const score2 = new DataView(event.data).getInt32(32, true);  // Correctly reading the integer
 				updateScore([score1, score2], group.children[scoremeshIndex]);
+			} else if (bytes.length >= 5) {
+				ball.direction.x = bytes[0];
+				ball.direction.z = bytes[1];
+				ball.ball.position.x = bytes[2];
+				ball.ball.position.z = bytes[3];
+				ball.speed = bytes[4];
 			} else if (bytes.length >= 4) {
 				ball.ball.position.x = bytes[0];
 				ball.ball.position.z = bytes[1];
-				if (mappov - 1 != 0) {
+				if (mappov - 1 !== 0) {
 					players.children[0].position.z = bytes[2];
-				} else if (mappov - 1 != 1) {
+				} else if (mappov - 1 !== 1) {
 					players.children[1].position.z = bytes[3];
 				}
-			} else if (bytes.length >= 3) {
-				ball.direction.x = bytes[0];
-				ball.direction.z = bytes[1];
-				ball.speed = bytes[2];
-			} else {
-				console.error('Unexpected data length received:', bytes.length);
+			}  else {
+				console.error(`Unexpected data length received: ${bytes.length}. Data:`, bytes);
 			}
 		} else {
-			console.error('Received unexpected data type:', typeof event.data);
+			console.error(`Received unexpected data type: ${typeof event.data}. Data:`, event.data);
 		}
 	});
+
 
     // add objects to scene
     initText().then(text => {
