@@ -2,44 +2,39 @@ import {variables} from '/static/src/js/variables.js';
 import {getCookie, setCookie} from '/static/src/js/cookies.js';
 import {translateContent} from '/static/src/js/lang.js';
 
-export async function replaceHTML(path, navbar)
+export async function replaceHTML(path)
 {
 	const body = document.getElementsByTagName('body')[0];
-    const navbarSelector = '.navbar';
+	const section = document.getElementsByTagName('section')[0];
 	const userLang = getCookie('userLang') || 'en';
 
     try {
-        // Handle the navbar
-        let existingNavbar = document.querySelector(navbarSelector);
+		/*
+        let background = document.querySelector('.background');
 
-        if (navbar) {
-            if (!existingNavbar) {
-                const navbarResponse = await fetch('/static/src/html/navbar.html');
-                if (!navbarResponse.ok) throw new Error('Network response was not ok');
-                const navbarContent = await navbarResponse.text();
-                body.insertAdjacentHTML('afterbegin', navbarContent);
-                existingNavbar = document.querySelector(navbarSelector);
-            }
-        } else if (existingNavbar) {
-            existingNavbar.remove();
-        }
+		if (!background) {
+			const backgroundResponse = await fetch('/static/src/html/background.html');
+			if (!backgroundResponse.ok) throw new Error('Network response was not ok');
+			const backgroundContent = await backgroundResponse.text();
+			body.insertAdjacentHTML('afterbegin', backgroundContent);
+			background = document.querySelector('.background');
+		}*/
 
-        // Fetch the new content
         const response = await fetch(path);
         if (!response.ok) throw new Error('Network response was not ok');
         const htmlContent = await response.text();
 
-        // Clear existing content except the navbar if needed
-        if (navbar && existingNavbar) {
-            body.innerHTML = existingNavbar.outerHTML;
+		/*
+        if (!contentSection) {
+            contentSection = document.createElement('div');
+            contentSection.className = 'content-section';
+            background.appendChild(contentSection);
         } else {
-            body.innerHTML = '';
-        }
+            contentSection.innerHTML = '';
+        }*/
 
-        // Append new content
-        body.insertAdjacentHTML('beforeend', htmlContent);
+        section.innerHTML = htmlContent;
 
-		// Translate content
         const translationsResponse = await fetch(`/static/lang/${userLang}.json`);
         if (!translationsResponse.ok) throw new Error('Network response was not ok');
         const translations = await translationsResponse.json();
