@@ -6,8 +6,6 @@ from .views_auth import (
 
 from .views_lobby import (
     create_lobby,
-    join_lobby,
-    leave_lobby,
     get_lobbies,
 )
 	

@@ -3,7 +3,7 @@ import {handleRouting} from '/static/routers/router.js';
 import { getSocket } from '/static/views/lobby.js';
 
 function updateLobbyDetails(variables) {
-	document.getElementById('lobbyTitle').innerText = variables.title;
+	document.getElementById('lobbyTitle').innerText = variables.roomName;
 	const mode = variables.isTournament ? 'Tournament' : 'Classic';
 	document.getElementById('lobbyDetails').innerText = `Players: ${variables.players.length} / ${variables.maxPlayerCount} | Map: ${variables.map} | Mode: ${mode}`;
 }

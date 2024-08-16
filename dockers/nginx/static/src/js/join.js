@@ -1,4 +1,5 @@
 import {replaceHTML} from '/static/src/js/utils.js';
+import {handleRouting} from '/static/routers/router.js';
 
 export const loadRooms = () => {
 	fetch('/api/lobbies/')
@@ -27,7 +28,7 @@ function renderLobbies(lobbies) {
 
 		row.innerHTML = `
 					<td>${lobby.lobby_name}</td>
-					<td>${lobby.players.length} / ${lobby.player_count}</td>
+					<td>${lobby.players.length} / ${lobby.max_player_count}</td>
 					<td>${lobby.map_name}</td>
 					<td>${lobby.is_tournament ? 'Tournament' : 'Classic'}</td>
 					<td><button class="btn btn-primary btn-sm join-btn">Join</button></td>
@@ -41,25 +42,6 @@ function renderLobbies(lobbies) {
 }
 
 function joinLobby(joinCode) {
-	fetch(`/api/lobby/${joinCode}/`, {
-		method: 'POST',
-		headers: {
-			'Content-Type': 'application/json'
-		}
-	})
-		.then(response => response.json())
-		.then(data => {
-			if (data.success) {
-				history.pushState(null, '', `/${joinCode}`);
-				replaceHTML('/static/src/html/lobby.html', false).then(() => {
-					fetchLobbyInfo(joinCode);
-				});
-			} else {
-				alert(data.message);
-			}
-		})
-		.catch(error => {
-			console.error('Error joining lobby:', error);
-			alert('An error occurred while joining the lobby.');
-		});
+	history.pushState(null, '', `/${joinCode}`);
+	handleRouting();
 }
