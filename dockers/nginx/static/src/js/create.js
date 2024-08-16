@@ -2,6 +2,7 @@ import {replaceHTML} from '/static/src/js/utils.js';
 import {variables} from '/static/src/js/variables.js';
 import {checkLoginStatus} from '/static/src/js/utils.js';
 import {fetchLobbyInfo} from '/static/src/js/lobby.js';
+import { refreshLobbyDetails } from './lobby';
 
 export const setDefaultRoomName = () => {
     const displayTitle = document.getElementById('display-title');
@@ -29,9 +30,9 @@ export const setDefaultRoomName = () => {
 };
 
 export const updatePlayerCount = (document, value) => {
-	variables.playerCount = parseInt(value, 10);
+	variables.maxPlayerCount = parseInt(value, 10);
 	const dropdownButton = document.getElementById('btnGroupDrop1');
-	dropdownButton.textContent = `${variables.playerCount}`;
+	dropdownButton.textContent = `${variables.maxPlayerCount}`;
 }
 
 export const updateIsTournament = (document, value) => {
@@ -96,7 +97,7 @@ export const selectMapButton = () => {
 	document.getElementById('display-map').innerText = mapName;
 }
 
-export const createRoomButton = () => {
+export async function createRoomButton() {
 	if (!variables.username)
 	{
 		checkLoginStatus().then(loggedIn => {
@@ -108,26 +109,14 @@ export const createRoomButton = () => {
 		});
 	}
 
-	fetch('/api/create_lobby/', {
-		method: 'POST',
-		headers: {
-			'Content-Type': 'application/json'
-		},
-		credentials: 'include', // Include session cookie for authentication
-		body: JSON.stringify({
-			isTournament: variables.isTournament,
-			playerCount: variables.playerCount,
-			map: variables.map,
-			roomName: variables.roomName
-		})
-	})
-	.then(response => response.json())
-	.then(data => {
-		if (data.success) {
-			history.pushState(null, '', `/${data.join_code}`);
-			handleRouting();
-		} else {
-			console.error('Failed to create room:', data.message);
-		}
-	})
+	try {
+        const socket = await initLobbySocket(lobbyId, variables);
+	} catch (error) {
+        console.error('Failed to initialize WebSocket:', error);
+    }
+
+	history.pushState(null, '', `/${data.join_code}`);
+	replaceHTML('/static/src/html/lobby.html');
+	refreshLobbyDetails(variables.roomName, [variables.username], variables.maxPlayerCount, variables.map, variables.isTournament);
+
 }

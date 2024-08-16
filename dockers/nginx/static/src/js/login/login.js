@@ -23,8 +23,6 @@ export const loginButton = () => {
             if (data.success) {
                 console.log('Login successful');
 				if (variables.nextPage == 'room') {
-					if (variables.pageHistory.length > 0)
-						variables.pageHistory.pop();
 					history.pushState(null, '', '/');
 					handleRouting();
 					replaceHTML('/static/src/html/room.html', false);
