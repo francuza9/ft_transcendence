@@ -18,22 +18,24 @@ export const refreshLobbyDetails = (variables) => {
 }
 
 function renderPlayerList(players, admin) {
-    const playerListElement = document.getElementById('playerList');
-    playerListElement.innerHTML = '';
+    const playerListElement = document.getElementsByClassName('playerList')[0];
+	playerListElement.innerHTML = '';
 
     players.forEach((player, index) => {
         const row = document.createElement('tr');
         row.classList.add('player-row');
         row.setAttribute('data-player-id', `player${index + 1}`);
 
-		if (player.username === admin) {
+		if (player === admin) {
             row.classList.add('admin-row');
         }
 
         row.innerHTML = `
-            <td><img src="${player.profile_picture || 'https://via.placeholder.com/40'}" alt="${player.username}" class="player-img"></td>
-            <td>${player.username}${player.username === admin ? '<span class="admin-badge">Room Admin</span>' : ''}</td>
+			<!-- 
+            <td><img src="${player.profile_picture || 'https://via.placeholder.com/40'}" alt="${player}" class="player-img"></td>
             <td>${player.totalScore}</td>
+			-->
+            <td>${player}${player === admin ? '<span class="admin-badge">Room Admin</span>' : ''}</td>
         `;
 
         playerListElement.appendChild(row);

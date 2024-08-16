@@ -2,6 +2,7 @@ import {replaceHTML} from '/static/src/js/utils.js';
 import {variables} from '/static/src/js/variables.js';
 import {checkLoginStatus} from '/static/src/js/utils.js';
 import {refreshLobbyDetails} from '/static/src/js/lobby.js';
+import {initLobbySocket} from '/static/src/js/socket_handling/lobby_socket.js';
 
 export const setDefaultRoomName = () => {
     const displayTitle = document.getElementById('display-title');
@@ -108,14 +109,32 @@ export async function createRoomButton() {
 		});
 	}
 
+	await fetch('/api/create_lobby/', {
+		method: 'POST',
+		headers: {
+			'Content-Type': 'application/json'
+		},
+		credentials: 'include',
+	})
+	.then(response => response.json())
+	.then(data => {
+		if (data.success) {
+			variables.lobbyId = data.join_code;
+			history.pushState(null, '', `/${data.join_code}`);
+			replaceHTML('/static/src/html/lobby.html').then(() => {
+				variables.players = [variables.username];
+				refreshLobbyDetails(variables);
+			});
+
+		} else {
+			console.error('Failed to create room:', data.message);	
+		}
+		
+	})
+
 	try {
-        const socket = await initLobbySocket(lobbyId, variables);
+        const socket = await initLobbySocket(variables);
 	} catch (error) {
         console.error('Failed to initialize WebSocket:', error);
     }
-
-	history.pushState(null, '', `/${data.join_code}`);
-	replaceHTML('/static/src/html/lobby.html');
-	refreshLobbyDetails(variables.roomName, [variables.username], variables.maxPlayerCount, variables.map, variables.isTournament);
-
 }
