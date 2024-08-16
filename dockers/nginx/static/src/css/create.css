@@ -16,23 +16,28 @@
     object-fit: contain;
 }
 
-.container.sm {
-    background: transparent;
-    border: 2px solid rgba(255, 255, 255, 0.5); /* Semi-transparent border */
-    border-radius: 20px; /* Rounded corners */
-    padding: 20px; /* Padding inside the container */
-    backdrop-filter: blur(15px); /* Blurred background effect */
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
-    color: white; /* Ensure text is readable on the light background */
-}
-
-h1, h3, h4, h5, p {
-    color: #fff; /* Make sure the text color contrasts with the background */
-}
-
 .btn-outline-primary {
     color: white;
     border-color: rgba(255, 255, 255, 0.5);
+}
+
+.back-btn {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    border: none;
+}
+
+.edit-btn {
+	border: none;
+    background: transparent;
+	color: white;
 }
 
 .btn-outline-primary:hover {
@@ -42,4 +47,65 @@ h1, h3, h4, h5, p {
 
 .btn-primary, .btn-success, .btn-danger {
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+.container.sm {
+    background: transparent;
+    border: 2px solid rgba(255, 255, 255, 0.5);
+    border-radius: 20px;
+	width: 400px;
+	height: 600px;
+    justify-content: center;
+    align-items: center;
+    backdrop-filter: blur(15px);
+    padding: 20px;
+    max-width: 500px;
+    margin: auto;
+}
+
+h1, h3 {
+    color: #ffffff;
+}
+
+h1 {
+    margin-bottom: 30px;
+}
+
+.text-start {
+    text-align: left;
+}
+
+.btn-primary, .btn-outline-primary {
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.btn-success {
+    font-weight: bold;
+    height: 50px;
+    width: auto;
+}
+
+.position-absolute i {
+    font-size: 24px;
+    color: #fff;
+}
+
+.btn-outline-light {
+    border: 2px solid #fff;
+    color: #fff;
+}
+
+.btn-outline-light.rounded-circle {
+    border-radius: 50%;
+    padding: 5px;
+}
+
+.modal-content {
+    background-color: rgba(0, 0, 0, 0.9);
+    border-radius: 20px;
+}
+
+.modal-header, .modal-body, .modal-footer {
+    color: #ffffff;
 }

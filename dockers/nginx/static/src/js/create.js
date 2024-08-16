@@ -31,7 +31,7 @@ export const setDefaultRoomName = () => {
 export const updatePlayerCount = (document, value) => {
 	variables.maxPlayerCount = parseInt(value, 10);
 	const dropdownButton = document.getElementById('btnGroupDrop1');
-	dropdownButton.textContent = `${variables.maxPlayerCount}`;
+	dropdownButton.textContent = `${variables.maxPlayerCount} Players`;
 }
 
 export const updateIsTournament = (document, value) => {

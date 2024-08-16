@@ -8,6 +8,7 @@ lobby websocket
 
 support guest requests to the backend
 fix clipboard-write feature policy warning (clipboard.writeText and clipboard.readText in ArcballControls.js)
+404 error
 }
 
 
