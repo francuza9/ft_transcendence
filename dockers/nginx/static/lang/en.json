@@ -31,8 +31,7 @@
             "previousSlide": "Previous",
             "nextSlide": "Next",
             "selectButton": "Select",
-            "createRoomButton": "Create Room",
-            "cancelButton": "Cancel"
+            "createRoomButton": "Create Room"
         },
         "joinRoom": {
             "pageTitle": "Join Room",
