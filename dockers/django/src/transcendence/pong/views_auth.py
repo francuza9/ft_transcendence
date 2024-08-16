@@ -49,7 +49,8 @@ def register_view(request):
                 return JsonResponse({'success': False, 'message': 'Email already exists'})
 
             user = CustomUser.objects.create_user(username=username, email=email, password=password)
-            user.save()
+        
+            Profile.objects.create(user=user)
 
             return JsonResponse({'success': True, 'message': 'User registered successfully'})
 
