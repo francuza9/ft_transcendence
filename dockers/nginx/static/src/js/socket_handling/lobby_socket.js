@@ -1,4 +1,4 @@
-import {initLobby, refreshLobbyDetails} from '/static/src/js/lobby.js';
+import {refreshLobbyDetails} from '/static/src/js/lobby.js';
 
 export async function initLobbySocket(lobbyId) {
     return new Promise((resolve, reject) => {

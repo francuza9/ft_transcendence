@@ -15,3 +15,19 @@
     height: auto;
     object-fit: contain;
 }
+
+.container {
+	position: relative;
+	background: transparent;
+	border: 2px solid rgba(255, 255, 255, .5);
+	border-radius: 20px;
+	justify-content: center;
+	align-items: center;
+	backdrop-filter: blur(15px);
+}
+
+
+h1, h2, h3, h4, h5, h6 {
+	font-weight: 600;
+	color: #fff;
+}
