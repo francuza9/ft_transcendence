@@ -1,8 +1,7 @@
 import {replaceHTML} from '/static/src/js/utils.js';
 import {variables} from '/static/src/js/variables.js';
 import {checkLoginStatus} from '/static/src/js/utils.js';
-import {fetchLobbyInfo} from '/static/src/js/lobby.js';
-import { refreshLobbyDetails } from './lobby';
+import {refreshLobbyDetails} from './lobby';
 
 export const setDefaultRoomName = () => {
     const displayTitle = document.getElementById('display-title');

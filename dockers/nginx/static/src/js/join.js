@@ -1,5 +1,4 @@
 import {replaceHTML} from '/static/src/js/utils.js';
-import {fetchLobbyInfo} from '/static/src/js/lobby.js';
 
 export const loadRooms = () => {
 	fetch('/api/lobbies/')
