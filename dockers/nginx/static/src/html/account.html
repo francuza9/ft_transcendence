@@ -1,29 +1,40 @@
 <link rel="stylesheet" href="/static/src/css/account.css">
-<div class="container my-5">
-    <div class="text-center mb-4">
-        <h1 data-text="pages.account.pageTitle">Account Settings</h1>
-        <div class="profile-info">
-            <img id="avatar" src="/static/default-avatar.png" alt="Avatar" class="avatar-img">
-            <form id="avatarUploadForm" enctype="multipart/form-data">
-                <input type="file" id="avatarInput" name="avatar">
-                <button type="submit" data-text="pages.account.uploadAvatarButton">Upload Avatar</button>
-            </form>
-            <div class="details">
-                <p><strong data-text="pages.account.usernameLabel">Username:</strong> <span id="username"></span></p>
-                <label for="displayName" data-text="pages.account.displayNameLabel">Display Name:</label>
-                <input type="text" id="displayName">
-                <label for="email" data-text="pages.account.emailLabel">Email:</label>
-                <input type="email" id="email">
-                <label for="bio" data-text="pages.account.bioLabel">Bio:</label>
-                <textarea id="bio"></textarea>
-                <button id="updateProfileBtn" data-text="pages.account.updateProfileButton">Update Profile</button>
-            </div>
-        </div>
-        <div class="stats">
-            <p><strong data-text="pages.account.totalScoreLabel">Total Score:</strong> <span id="totalScore"></span></p>
-            <p><strong data-text="pages.account.gamesPlayedLabel">Games Played:</strong> <span id="gamesPlayed"></span></p>
-            <p><strong data-text="pages.account.gamesWonLabel">Games Won:</strong> <span id="gamesWon"></span></p>
-            <p><strong data-text="pages.account.gamesLostLabel">Games Lost:</strong> <span id="gamesLost"></span></p>
-        </div>
-    </div>
+<div class="account-box">
+	<form action="" method="post" enctype="multipart/form-data">
+		<h2 data-text="pages.account.pageTitle">Account Settings</h2>
+
+		<!-- Avatar Upload Section -->
+		<div class="avatar-box">
+			<img id="avatarPreview" src="/static/default-avatar.png" alt="Avatar" class="avatar">
+			<div class="upload-box">
+				<label for="avatar" class="avatar-upload-label" data-text="pages.account.avatarLabel">Upload Avatar</label>
+				<input type="file" id="avatar" name="avatar" accept="image/*">
+			</div>
+		</div>
+
+		<!-- Username -->
+		<div class="input-box">
+			<input id="username" name="username" required>
+			<label data-text="pages.account.usernameLabel">Username</label>
+		</div>
+
+		<!-- Email -->
+		<div class="input-box">
+			<input id="email" name="email" required>
+			<label data-text="pages.account.emailLabel">Email</label>
+		</div>
+
+		<!-- Bio -->
+		<div class="input-box">
+			<textarea id="bio" name="bio" rows="3" maxlength="250"></textarea>
+			<label data-text="pages.account.bioLabel">Bio</label>
+		</div>
+
+		<!-- Submit Button -->
+		<button type="submit" data-action="update" data-text="pages.account.submitButton">Update Profile</button>
+		
+		<div class="link">
+			<p data-text="pages.account.logoutPrompt"><a href="/logout" data-text="pages.account.logoutLink">Logout</a></p>
+		</div>
+	</form>
 </div>
