@@ -125,10 +125,7 @@ export const createRoomButton = () => {
 	.then(data => {
 		if (data.success) {
 			history.pushState(null, '', `/${data.join_code}`);
-			replaceHTML('/static/src/html/lobby.html', false).then(() => {
-				fetchLobbyInfo(data.join_code);
-			});
-
+			handleRouting();
 		} else {
 			console.error('Failed to create room:', data.message);
 		}
