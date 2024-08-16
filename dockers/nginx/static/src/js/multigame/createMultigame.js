@@ -14,7 +14,7 @@ import { buildMap } from './scene/maps/chooseMap.js';
 
 import { GLTFLoader } from 'https://cdn.jsdelivr.net/npm/three@0.153.0/examples/jsm/loaders/GLTFLoader.js';
 
-export function createMultigame(pcount, pov, map)
+export function createMultigame(pcount, pov, map, socket)
 {
 	const scene = initScene();
 	const camera = initCamera(0);
@@ -32,7 +32,7 @@ export function createMultigame(pcount, pov, map)
 
 	const vectorObjects = [];
 	for (let i = 0; i < planeVectors.length; i += 3) {
-	    vectorObjects.push(new THREE.Vector3(planeVectors[i], planeVectors[i + 1], planeVectors[i + 2]));
+		vectorObjects.push(new THREE.Vector3(planeVectors[i], planeVectors[i + 1], planeVectors[i + 2]));
 	}
 
 	const light = new THREE.AmbientLight( 0xffffff, 1 );
@@ -77,8 +77,8 @@ export function createMultigame(pcount, pov, map)
 	}
 
 	function onWindowResize() {
-    	camera.aspect = window.innerWidth / window.innerHeight;
-    	camera.updateProjectionMatrix();
-    	renderer.setSize(window.innerWidth, window.innerHeight);
+		camera.aspect = window.innerWidth / window.innerHeight;
+		camera.updateProjectionMatrix();
+		renderer.setSize(window.innerWidth, window.innerHeight);
 	}
 }

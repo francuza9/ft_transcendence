@@ -19,7 +19,7 @@ export async function Pong([roomId]) {
 
 
 	// Get room_size somehow, possibly from API
-	const room_size = 2;
+	const room_size = 3;
 
 	// Initialize the Pong game
 	try {
