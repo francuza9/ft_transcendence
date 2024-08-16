@@ -14,14 +14,26 @@ class LobbyConsumer(AsyncWebsocketConsumer):
 			self.lobby_id = self.scope['url_route']['kwargs']['lobbyId']
 			self.lobby_group_name = f"lobby_{self.lobby_id}"
 
+			# Initialize lobby-specific attributes
 			if self.lobby_id not in LobbyConsumer.lobby_counters:
 				LobbyConsumer.lobby_counters[self.lobby_id] = 1
 				LobbyConsumer.connected_clients[self.lobby_id] = set()
+
+				# Additional attributes
+				self.admin = None
+				self.users_list = []
+				self.map = "default_map"
+				self.max_users = 10  # Default max users
+
 			else:
 				LobbyConsumer.lobby_counters[self.lobby_id] += 1
 
 			# Add the new client to the lobby's connected clients
 			LobbyConsumer.connected_clients[self.lobby_id].add(self.channel_name)
+
+			# Add user to users_list if needed
+			if self.channel_name not in self.users_list:
+				self.users_list.append(self.channel_name)
 
 			await self.channel_layer.group_add(
 				self.lobby_group_name,
@@ -43,6 +55,10 @@ class LobbyConsumer(AsyncWebsocketConsumer):
 		if self.lobby_id in LobbyConsumer.connected_clients:
 			LobbyConsumer.connected_clients[self.lobby_id].discard(self.channel_name)
 
+			# Remove user from users_list
+			if self.channel_name in self.users_list:
+				self.users_list.remove(self.channel_name)
+
 			if not LobbyConsumer.connected_clients[self.lobby_id]:
 				# Schedule lobby removal after 10 seconds if no one joins
 				await asyncio.sleep(10)
@@ -63,15 +79,10 @@ class LobbyConsumer(AsyncWebsocketConsumer):
 			data = json.loads(text_data)
 			message_type = data.get('type')
 
-			# Handle different types of messages here
-			if message_type == 'example_message':
-				# Example of processing a generic message
-				response = {'status': 'received', 'data': data}
-				await self.send(text_data=json.dumps(response))
-				
-			elif message_type == 'reload':
-				# Handle the reload message type
-				await self.send_message('reload')
+			if message_type == 'init':
+				if self.admin is None:
+					self.admin = data.get('username')
+					logger.info(self.admin)
 
 			elif message_type == 'start':
 				# Handle the start message type
