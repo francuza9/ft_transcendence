@@ -1,138 +1,157 @@
 <link rel="stylesheet" href="/static/src/css/create.css">
-<div class="container md">
-    <h1 data-text="pages.createRoom.pageTitle">Create Room</h1>
-    <div class="row">
-        <div class="col">
-            <h3 data-text="pages.createRoom.nameLabel">Name</h3>
-        </div>
-        <div class="col editable-container">
-            <div class="display-mode d-flex align-items-center">
-                <h4 id="display-title" class="me-3" data-text="pages.createRoom.myTitle">My Title</h4>
-                <button data-action="editName" class="btn btn-outline-primary btn-sm" data-text="pages.createRoom.editButton">
-                    ✏️ Edit
-                </button>
-            </div>
-            <form id="edit-form" class="edit-mode mt-3">
-                <div class="input-group">
-                    <input type="text" id="title-input" class="form-control" value="My Title">
-                    <button type="button" data-action="saveNameEdit" class="btn btn-success" data-text="pages.createRoom.saveButton">Save</button>
-                    <button type="button" data-action="cancelNameEdit" class="btn btn-danger ms-2" data-text="pages.createRoom.cancelButton">Cancel</button>
-                </div>
-            </form>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col">
-            <h3 data-text="pages.createRoom.modeLabel">Mode</h3>
-        </div>
-        <div class="col">
-            <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
-                <input type="radio" data-variable="tournament" data-value="false" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" checked>
-                <label class="btn btn-outline-primary" for="btnradio1" data-text="pages.createRoom.classicMode">Classic</label>
+<div class="container sm position-relative">
+	<button class="back-btn position-absolute top-0 start-0 m-3" data-action="cancel">
+        <i class="ri-arrow-left-line text-white"></i>
+    </button>
+    <h1 data-text="pages.createRoom.pageTitle" class="text-center mb-4">Create Room</h1>
+	<div class="row">
+		<div class="col">
+			<div class="mb-3 d-flex justify-content-between">
+				<div></div>
+				<h4 id="display-title" class="text-white">Guest's room</h4>
+				<button data-bs-toggle="modal" data-bs-target="#editNameModal" class="edit-btn">
+					<i class="ri-pencil-line"></i>
+				</button>
+			</div>
+			<div class="mb-3">
+				<div class="btn-group w-100" role="group" aria-label="Mode selection">
+					<input type="radio" data-variable="tournament" data-value="false" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" checked>
+					<label class="btn btn-outline-primary" for="btnradio1" data-text="pages.createRoom.classicMode">Classic</label>
 
-                <input type="radio" data-variable="tournament" data-value="true" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off">
-                <label class="btn btn-outline-primary" for="btnradio2" data-text="pages.createRoom.tournamentMode">Tournament</label>
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col">
-            <h3 data-text="pages.createRoom.playersLabel">Players</h3>
-        </div>
-        <div class="col">
-            <div class="btn-group" role="group">
-                <button id="btnGroupDrop1" type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" data-action='playerCountDropdown' aria-expanded="false">
-                    2
-                </button>
-                <ul class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-                    <li><button class="dropdown-item" type="button" data-variable="playerCount" data-value="2">2</button></li>
-                    <li><button class="dropdown-item" type="button" data-variable="playerCount" data-value="3">3</button></li>
-                    <li><button class="dropdown-item" type="button" data-variable="playerCount" data-value="4">4</button></li>
-                    <li><button class="dropdown-item" type="button" data-variable="playerCount" data-value="5">5</button></li>
-                    <li><button class="dropdown-item" type="button" data-variable="playerCount" data-value="6">6</button></li>
-                    <li><button class="dropdown-item" type="button" data-variable="playerCount" data-value="7">7</button></li>
-                    <li><button class="dropdown-item" type="button" data-variable="playerCount" data-value="8">8</button></li>
-                </ul>
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col">
-            <h3 data-text="pages.createRoom.mapLabel">Map</h3>
-        </div>
-        <div class="col">
-            <h4 id="display-map" data-text="pages.createRoom.currentMap">Classic</h4>
-            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#mapSelectionModal" data-text="pages.createRoom.chooseMapButton">
-                Choose Map
-            </button>
-        </div>
-        <div class="modal fade" id="mapSelectionModal" tabindex="-1" aria-labelledby="mapSelectionModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-lg">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="mapSelectionModalLabel" data-text="pages.createRoom.selectMapTitle">Select Your Map</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="false">
-                            <div class="carousel-indicators">
-                                <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-                                <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
-                                <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
-                                <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="3" aria-label="Slide 4"></button>
-                            </div>
-                            <div class="carousel-inner">
-                                <div class="carousel-item active">
-                                    <img src="/static/src/images/maps/classic.png" class="d-block w-60 mx-auto" alt="Classic Map">
-                                    <div class="carousel-caption d-none d-md-block">
-                                        <h5 data-text="pages.createRoom.classicMapTitle">Classic</h5>
-                                        <p data-text="pages.createRoom.classicMapDescription">The classic map.</p>
-                                    </div>
-                                </div>
-                                <div class="carousel-item">
-                                    <img src="/static/src/images/maps/mountain.png" class="d-block w-60 mx-auto" alt="Mountain Map">
-                                    <div class="carousel-caption d-none d-md-block">
-                                        <h5 data-text="pages.createRoom.mountainMapTitle">Mountain</h5>
-                                        <p data-text="pages.createRoom.mountainMapDescription">Nice view on top of the mountain!</p>
-                                    </div>
-                                </div>
-                                <div class="carousel-item">
-                                    <img src="/static/src/images/maps/desert.png" class="d-block w-60 mx-auto" alt="Desert Map">
-                                    <div class="carousel-caption d-none d-md-block">
-                                        <h5 data-text="pages.createRoom.desertMapTitle">Desert</h5>
-                                        <p data-text="pages.createRoom.desertMapDescription">Nice pyramids.</p>
-                                    </div>
-                                </div>
-                                <div class="carousel-item">
-                                    <img src="/static/src/images/maps/hell.png" class="d-block w-60 mx-auto" alt="Hell Map">
-                                    <div class="carousel-caption d-none d-md-block">
-                                        <h5 data-text="pages.createRoom.hellMapTitle">Hell</h5>
-                                        <p data-text="pages.createRoom.hellMapDescription">It might look scary but I promise it isn't.</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
-                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                <span class="visually-hidden" data-text="pages.createRoom.previousSlide">Previous</span>
-                            </button>
-                            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
-                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                <span class="visually-hidden" data-text="pages.createRoom.nextSlide">Next</span>
-                            </button>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal" data-text="pages.createRoom.cancelButton">Cancel</button>
-                        <button type="button" class="btn btn-success" data-action="selectMap" data-bs-dismiss="modal" data-text="pages.createRoom.selectButton">Select</button>
-                    </div>
+					<input type="radio" data-variable="tournament" data-value="true" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off">
+					<label class="btn btn-outline-primary" for="btnradio2" data-text="pages.createRoom.tournamentMode">Tournament</label>
+				</div>
+			</div>
+
+			<!-- Players Section -->
+			<div class="mb-3">
+				<div class="btn-group w-100">
+					<button id="btnGroupDrop1" type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" data-action='playerCountDropdown' aria-expanded="false">
+						2 Players
+					</button>
+					<ul class="dropdown-menu w-100" aria-labelledby="btnGroupDrop1">
+						<li><button class="dropdown-item" type="button" data-variable="playerCount" data-value="2">2</button></li>
+						<li><button class="dropdown-item" type="button" data-variable="playerCount" data-value="3">3</button></li>
+						<li><button class="dropdown-item" type="button" data-variable="playerCount" data-value="4">4</button></li>
+						<li><button class="dropdown-item" type="button" data-variable="playerCount" data-value="5">5</button></li>
+						<li><button class="dropdown-item" type="button" data-variable="playerCount" data-value="6">6</button></li>
+						<li><button class="dropdown-item" type="button" data-variable="playerCount" data-value="7">7</button></li>
+						<li><button class="dropdown-item" type="button" data-variable="playerCount" data-value="8">8</button></li>
+					  </ul>
                 </div>
             </div>
+
+            <!-- Map Section -->
+            <div class="mb-3">
+                <h4 id="display-map" class="text-white">Classic</h4>
+                <button type="button" class="btn btn-primary w-100" data-bs-toggle="modal" data-bs-target="#mapSelectionModal" data-text="pages.createRoom.chooseMapButton">
+                    Choose Map
+                </button>
+            </div>
+
+            <!-- Create Room Button -->
+            <div class="text-center">
+                <button type="button" class="btn btn-success px-5 py-2 fw-bold" data-action="createRoom" data-text="pages.createRoom.createRoomButton">Create Room</button>
+            </div>
         </div>
     </div>
-    <div class="row">
-        <div class="col">
-            <button type="button" class="btn btn-danger" data-action="cancel" data-text="pages.createRoom.cancelButton">Cancel</button>
-            <button type="button" class="btn btn-success" data-action="createRoom" data-text="pages.createRoom.createRoomButton">Create Room</button>
+</div>
+    
+<div class="modal fade" id="editNameModal" tabindex="-1" aria-labelledby="editNameModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editNameModalLabel" data-text="pages.createRoom.editRoomNameTitle">Edit Room Name</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <input type="text" id="title-input" class="form-control" value="Guest's room">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal" data-text="pages.createRoom.cancelButton">Cancel</button>
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal" data-text="pages.createRoom.saveButton" data-action="saveNameEdit">Save</button>
+            </div>
         </div>
     </div>
+</div>
+
+<div class="modal fade" id="editNameModal" tabindex="-1" aria-labelledby="editNameModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editNameModalLabel" data-text="pages.createRoom.editRoomNameTitle">Edit Room Name</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <input type="text" id="title-input" class="form-control" value="Guest's room">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" data-text="pages.createRoom.cancelButton">Cancel</button>
+                <button type="button" class="btn btn-primary" data-text="pages.createRoom.saveButton" data-action="saveNameEdit">Save</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="mapSelectionModal" tabindex="-1" aria-labelledby="mapSelectionModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="mapSelectionModalLabel" data-text="pages.createRoom.selectMapTitle">Select Your Map</h5>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body">
+				<div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="false">
+					<div class="carousel-indicators">
+						<button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+						<button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
+						<button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
+						<button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="3" aria-label="Slide 4"></button>
+					</div>
+					<div class="carousel-inner">
+						<div class="carousel-item active">
+							<img src="/static/src/images/maps/classic.png" class="d-block w-60 mx-auto" alt="Classic Map">
+							<div class="carousel-caption d-none d-md-block">
+								<h5 data-text="pages.createRoom.classicMapTitle">Classic</h5>
+								<p data-text="pages.createRoom.classicMapDescription">The classic map.</p>
+							</div>
+						</div>
+						<div class="carousel-item">
+							<img src="/static/src/images/maps/mountain.png" class="d-block w-60 mx-auto" alt="Mountain Map">
+							<div class="carousel-caption d-none d-md-block">
+								<h5 data-text="pages.createRoom.mountainMapTitle">Mountain</h5>
+								<p data-text="pages.createRoom.mountainMapDescription">Nice view on top of the mountain!</p>
+							</div>
+						</div>
+						<div class="carousel-item">
+							<img src="/static/src/images/maps/desert.png" class="d-block w-60 mx-auto" alt="Desert Map">
+							<div class="carousel-caption d-none d-md-block">
+								<h5 data-text="pages.createRoom.desertMapTitle">Desert</h5>
+								<p data-text="pages.createRoom.desertMapDescription">Nice pyramids.</p>
+							</div>
+						</div>
+						<div class="carousel-item">
+							<img src="/static/src/images/maps/hell.png" class="d-block w-60 mx-auto" alt="Hell Map">
+							<div class="carousel-caption d-none d-md-block">
+								<h5 data-text="pages.createRoom.hellMapTitle">Hell</h5>
+								<p data-text="pages.createRoom.hellMapDescription">It might look scary but I promise it isn't.</p>
+							</div>
+						</div>
+					</div>
+					<button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+						<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+						<span class="visually-hidden" data-text="pages.createRoom.previousSlide">Previous</span>
+					</button>
+					<button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+						<span class="carousel-control-next-icon" aria-hidden="true"></span>
+						<span class="visually-hidden" data-text="pages.createRoom.nextSlide">Next</span>
+					</button>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-danger" data-bs-dismiss="modal" data-text="pages.createRoom.cancelButton">Cancel</button>
+				<button type="button" class="btn btn-success" data-action="selectMap" data-bs-dismiss="modal" data-text="pages.createRoom.selectButton">Select</button>
+			</div>
+		</div>
+	</div>
 </div>
