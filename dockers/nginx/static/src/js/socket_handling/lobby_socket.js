@@ -1,4 +1,4 @@
-import { initLobby } from '/static/src/js/lobby.js';
+import {initLobby, refreshLobbyDetails} from '/static/src/js/lobby.js';
 
 export async function initLobbySocket(lobbyId) {
     return new Promise((resolve, reject) => {
@@ -14,7 +14,7 @@ export async function initLobbySocket(lobbyId) {
 		console.log('Received message:', message);
 		if (message.type === 'refresh') {
 			console.log('refreshing lobby');
-			initLobby();
+			//refreshLobbyDetails(title, players, maxPlayerCount, map, mode);
 		}
 	};
 
