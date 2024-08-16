@@ -8,6 +8,7 @@ export const variables = {
 	roomName: '',
 	nextPage: 'profile',
 	admin: '',
+	players: [],
 };
 
 export function updateVariable(document, variableName, value) {

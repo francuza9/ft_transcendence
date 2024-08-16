@@ -6,34 +6,26 @@ import asyncio
 logger = logging.getLogger(__name__)
 
 class LobbyConsumer(AsyncWebsocketConsumer):
-	lobby_counters = {}
-	connected_clients = {}  # Dictionary to track connected clients by lobby
+	lobby_data = {}  # Dictionary to track lobby data
 
 	async def connect(self):
 		try:
 			self.lobby_id = self.scope['url_route']['kwargs']['lobbyId']
 			self.lobby_group_name = f"lobby_{self.lobby_id}"
 
-			# Initialize lobby-specific attributes
-			if self.lobby_id not in LobbyConsumer.lobby_counters:
-				LobbyConsumer.lobby_counters[self.lobby_id] = 1
-				LobbyConsumer.connected_clients[self.lobby_id] = set()
-
-				# Additional attributes
-				self.admin = None
-				self.users_list = []
-				self.map = "default_map"
-				self.max_users = 10  # Default max users
-
-			else:
-				LobbyConsumer.lobby_counters[self.lobby_id] += 1
+			if self.lobby_id not in LobbyConsumer.lobby_data:
+				LobbyConsumer.lobby_data[self.lobby_id] = {
+					'admin': None,
+					'map': "default_map",
+					'max_users': 10,
+					'players': [],
+					'is_tournament': False,
+					'room_name': "default_room_name",
+					'connected_clients': set(),
+				}
 
 			# Add the new client to the lobby's connected clients
-			LobbyConsumer.connected_clients[self.lobby_id].add(self.channel_name)
-
-			# Add user to users_list if needed
-			if self.channel_name not in self.users_list:
-				self.users_list.append(self.channel_name)
+			LobbyConsumer.lobby_data[self.lobby_id]['connected_clients'].add(self.channel_name)
 
 			await self.channel_layer.group_add(
 				self.lobby_group_name,
@@ -42,30 +34,20 @@ class LobbyConsumer(AsyncWebsocketConsumer):
 			await self.accept()
 			logger.info(f"WebSocket connection accepted for lobby {self.lobby_id}")
 
-			# Notify other clients in the lobby to refresh
-			await self.send_refresh_message()
-
 		except Exception as e:
-			logger.info(f"Error during connection setup: {e}")
+			logger.error(f"Error during connection setup: {e}")
 			await self.close()
 
 	async def disconnect(self, close_code):
 		logger.info(f"Disconnect called with code: {close_code}")
 
-		if self.lobby_id in LobbyConsumer.connected_clients:
-			LobbyConsumer.connected_clients[self.lobby_id].discard(self.channel_name)
+		if self.lobby_id in LobbyConsumer.lobby_data:
+			LobbyConsumer.lobby_data[self.lobby_id]['connected_clients'].discard(self.channel_name)
 
-			# Remove user from users_list
-			if self.channel_name in self.users_list:
-				self.users_list.remove(self.channel_name)
-
-			if not LobbyConsumer.connected_clients[self.lobby_id]:
-				# Schedule lobby removal after 10 seconds if no one joins
+			if not LobbyConsumer.lobby_data[self.lobby_id]['connected_clients']:
 				await asyncio.sleep(10)
-
-				# Double-check if the lobby is still empty after the delay
-				if not LobbyConsumer.connected_clients[self.lobby_id]:
-					del LobbyConsumer.connected_clients[self.lobby_id]
+				if not LobbyConsumer.lobby_data[self.lobby_id]['connected_clients']:
+					del LobbyConsumer.lobby_data[self.lobby_id]
 					logger.info(f"Lobby {self.lobby_id} removed due to inactivity.")
 
 		await self.channel_layer.group_discard(
@@ -78,44 +60,68 @@ class LobbyConsumer(AsyncWebsocketConsumer):
 		if text_data:
 			data = json.loads(text_data)
 			message_type = data.get('type')
+			content = data.get('content')
 
 			if message_type == 'init':
-				if self.admin is None:
-					self.admin = data.get('username')
-					logger.info(self.admin)
+				if LobbyConsumer.lobby_data[self.lobby_id]['admin'] is None:
+					LobbyConsumer.lobby_data[self.lobby_id]['admin'] = content.get('username')
+				if content.get('username') not in LobbyConsumer.lobby_data[self.lobby_id]['players'] and len(LobbyConsumer.lobby_data[self.lobby_id]['players']) < LobbyConsumer.lobby_data[self.lobby_id]['max_users']:
+					LobbyConsumer.lobby_data[self.lobby_id]['players'].append(content.get('username'))
+				else:
+					self.redirect_message()
+
+				if LobbyConsumer.lobby_data[self.lobby_id]['admin'] == content.get('username'):
+					LobbyConsumer.lobby_data[self.lobby_id]['map'] = content.get('map')
+					LobbyConsumer.lobby_data[self.lobby_id]['max_users'] = content.get('maxPlayerCount')
+					LobbyConsumer.lobby_data[self.lobby_id]['room_name'] = content.get('roomName')
+					LobbyConsumer.lobby_data[self.lobby_id]['is_tournament'] = content.get('isTournament')
+
+				await self.send_refresh_message()
 
 			elif message_type == 'start':
-				# Handle the start message type
 				await self.send_start_message()
 
-	async def send_message(self, message_type):
-		# Prepare the message structure
-		message = {
-			'type': message_type
-		}
-		await self.send(text_data=json.dumps(message))
-
 	async def send_refresh_message(self):
-		# Notify all clients in the group
+		# Convert set to list for JSON serialization
+		connected_clients = list(LobbyConsumer.lobby_data[self.lobby_id]['connected_clients'])
+
 		await self.channel_layer.group_send(
 			self.lobby_group_name,
 			{
-				'type': 'send_message',
-				'message': 'refresh'
+				'type': 'refresh_message',
+				'message': {
+					'admin': LobbyConsumer.lobby_data[self.lobby_id]['admin'],
+					'players': LobbyConsumer.lobby_data[self.lobby_id]['players'],
+					'map': LobbyConsumer.lobby_data[self.lobby_id]['map'],
+					'maxPlayerCount': LobbyConsumer.lobby_data[self.lobby_id]['max_users'],
+					'roomName': LobbyConsumer.lobby_data[self.lobby_id]['room_name'],
+					'isTournament': LobbyConsumer.lobby_data[self.lobby_id]['is_tournament'],
+					'connected_clients': connected_clients
+				},
 			}
 		)
 
+	async def refresh_message(self, event):
+		message = event['message']
+		await self.send(text_data=json.dumps({
+			'type': 'refresh',
+			'content': message
+		}))
+
+	async def redirect_message(self):
+		await self.send(text_data=json.dumps({
+			'type': 'redirect',
+		}))
+
 	async def send_start_message(self):
-		# Notify all clients in the group
 		await self.channel_layer.group_send(
 			self.lobby_group_name,
 			{
-				'type': 'send_message',
+				'type': 'start_message',
 				'message': 'start'
 			}
 		)
 
-	async def send_message(self, event):
-		# Send message to WebSocket
+	async def start_message(self, event):
 		message = event['message']
 		await self.send(text_data=json.dumps({'type': message}))

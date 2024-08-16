@@ -15,24 +15,9 @@ logger = logging.getLogger(__name__)
 def create_lobby(request):
     if request.method == 'POST':
         try:
-            data = json.loads(request.body)
-            is_tournament = data.get('isTournament')
-            player_count = data.get('playerCount')
-            map_name = data.get('map')
-            lobby_name = data.get('roomName')
-
             join_code = ''.join(random.choices(string.ascii_letters + string.digits, k=8))
-            lobbies[join_code] = {
-                'is_tournament': is_tournament,
-                'player_count': int(player_count),
-                'map_name': map_name,
-                'lobby_name': lobby_name,
-                'admin': request.user,
-                'players': []
-            }
-            lobbies[join_code]['players'].append(request.user)
 
-            logger.info(f"Lobby created: {join_code} with details {lobbies[join_code]}")
+            logger.info(f"Lobby created: {join_code}")
             return JsonResponse({'success': True, 'join_code': join_code})
 
         except json.JSONDecodeError:
