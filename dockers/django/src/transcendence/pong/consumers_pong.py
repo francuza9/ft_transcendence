@@ -1,8 +1,8 @@
+from channels.generic.websocket import AsyncWebsocketConsumer
+from .backend_pong.collisions import update_ball_position
 import json
 import logging
-from channels.generic.websocket import AsyncWebsocketConsumer
 import asyncio
-from .backend_pong.collisions import update_ball_position
 import struct
 
 logger = logging.getLogger(__name__)
@@ -79,6 +79,7 @@ class PongConsumer(AsyncWebsocketConsumer):
 				room_size = data.get('room_size')
 				if room_size is not None and 2 <= room_size <= 8:
 					PongConsumer.game_states[self.room_id]['room_size'] = room_size
+					logger.info(f"Room size set to {PongConsumer.game_states[self.room_id]['room_size']}")
 					self.room_size_event.set()
 				else:
 					await self.send(text_data=json.dumps({'error': 'Invalid room size'}))
@@ -161,5 +162,5 @@ class PongConsumer(AsyncWebsocketConsumer):
 			},
 			'multi': {
 			},
-			'room_size': 2,
+			'room_size': 0,
 		}

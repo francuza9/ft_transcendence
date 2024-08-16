@@ -13,12 +13,15 @@ export async function initPongSocket(roomId, room_size) {
 			console.log('Connected to server');
         };
 
-        socket.onmessage = function(event) {
-	    	// Handle binary data
-			if (event.data instanceof ArrayBuffer) {
-				return;
-			}
-	    	// Handle JSON data
+	socket.onmessage = function(event) {
+		// Handle binary data
+		if (event.data instanceof ArrayBuffer) {
+			// Process the binary data as needed
+			return;
+		}
+		
+		// Handle JSON data
+		if (typeof event.data === "string") {
 			try {
 				const data = JSON.parse(event.data);
 				pov = data.pov;
@@ -26,9 +29,13 @@ export async function initPongSocket(roomId, room_size) {
 					resolve({ pov, socket });
 				}
 			} catch (e) {
-				console.error('Failed to parse JSON:', e);
+				console.error('Failed to parse JSON:', e, 'Received data:', event.data);
 			}
+		} else {
+			console.error('Unexpected non-JSON message:', event.data);
+		}
 	};
+
 
         socket.onerror = function(error) {
             console.error('WebSocket error:', error);
