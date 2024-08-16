@@ -3,17 +3,16 @@ import {setLanguage} from '/static/src/js/lang.js';
 
 export const variables = {
 	isTournament: false,
-    playerCount: 2,
+    maxPlayerCount: 2,
 	map: 'classic',
 	roomName: '',
-	pageHistory: [],
 	nextPage: 'profile',
-	selectedRoom: '',
+	admin: '',
 };
 
 export function updateVariable(document, variableName, value) {
 	switch (variableName) {
-		case 'playerCount':
+		case 'maxPlayerCount':
 			updatePlayerCount(document, value);
 			break;
 		case 'tournament':

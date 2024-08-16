@@ -8,9 +8,8 @@ export async function Lobby([lobbyId]) {
 	variables.roomId = lobbyId;
 	replaceHTML('/static/src/html/lobby.html', false);
 	
-	
 	try {
-        socket = await initLobbySocket(lobbyId);
+        socket = await initLobbySocket(lobbyId, variables);
 	} catch (error) {
         console.error('Failed to initialize WebSocket:', error);
     }

@@ -2,22 +2,19 @@ import {getCookie} from '/static/src/js/cookies.js';
 import {handleRouting} from '/static/routers/router.js';
 import { getSocket } from '/static/views/lobby.js';
 
-function updateLobbyDetails(title, players, maxPlayerCount, map, mode) {
-	document.getElementById('lobbyTitle').innerText = title;
-	if (mode)
-		mode = 'Tournament';
-	else
-		mode = 'Classic';
-	document.getElementById('lobbyDetails').innerText = `Players: ${Players} | Map: ${map} | Mode: ${mode}`;
+function updateLobbyDetails(variables) {
+	document.getElementById('lobbyTitle').innerText = variables.title;
+	const mode = variables.isTournament ? 'Tournament' : 'Classic';
+	document.getElementById('lobbyDetails').innerText = `Players: ${variables.players.length} / ${variables.maxPlayerCount} | Map: ${variables.map} | Mode: ${mode}`;
 }
 
 export function viewProfile(playerId) {
 	console.log('Viewing profile of:', playerId);
 }
 
-export const refreshLobbyDetails = (title, players, maxPlayerCount, map, mode) => {
-	renderPlayerList(title, `${players.length} / maxPlayerCount`, map, mode);
-	updateLobbyDetails(title, );
+export const refreshLobbyDetails = (variables) => {
+	renderPlayerList(variables.players, variables.admin);
+	updateLobbyDetails(variables);
 }
 
 function renderPlayerList(players, admin) {
