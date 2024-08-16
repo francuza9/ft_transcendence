@@ -5,23 +5,30 @@ import asyncio
 
 logger = logging.getLogger(__name__)
 
+lobby_data = {}
+
 class LobbyConsumer(AsyncWebsocketConsumer):
-	lobby_counters = {}
-	connected_clients = {}  # Dictionary to track connected clients by lobby
 
 	async def connect(self):
 		try:
 			self.lobby_id = self.scope['url_route']['kwargs']['lobbyId']
 			self.lobby_group_name = f"lobby_{self.lobby_id}"
 
-			if self.lobby_id not in LobbyConsumer.lobby_counters:
-				LobbyConsumer.lobby_counters[self.lobby_id] = 1
-				LobbyConsumer.connected_clients[self.lobby_id] = set()
-			else:
-				LobbyConsumer.lobby_counters[self.lobby_id] += 1
+			if self.lobby_id not in lobby_data:
+				logger.info(f"lobby_data: {lobby_data}")
+				lobby_data[self.lobby_id] = {
+					'admin': None,
+					'map': "default_map",
+					'max_users': 10,
+					'players': [],
+					'is_tournament': False,
+					'room_name': "default_room_name",
+					'connected_clients': set(),
+				}
+			logger.info(lobby_data)
 
 			# Add the new client to the lobby's connected clients
-			LobbyConsumer.connected_clients[self.lobby_id].add(self.channel_name)
+			lobby_data[self.lobby_id]['connected_clients'].add(self.channel_name)
 
 			await self.channel_layer.group_add(
 				self.lobby_group_name,
@@ -30,26 +37,20 @@ class LobbyConsumer(AsyncWebsocketConsumer):
 			await self.accept()
 			logger.info(f"WebSocket connection accepted for lobby {self.lobby_id}")
 
-			# Notify other clients in the lobby to refresh
-			await self.send_refresh_message()
-
 		except Exception as e:
-			logger.info(f"Error during connection setup: {e}")
+			logger.error(f"Error during connection setup: {e}")
 			await self.close()
 
 	async def disconnect(self, close_code):
 		logger.info(f"Disconnect called with code: {close_code}")
 
-		if self.lobby_id in LobbyConsumer.connected_clients:
-			LobbyConsumer.connected_clients[self.lobby_id].discard(self.channel_name)
+		if self.lobby_id in lobby_data:
+			lobby_data[self.lobby_id]['connected_clients'].discard(self.channel_name)
 
-			if not LobbyConsumer.connected_clients[self.lobby_id]:
-				# Schedule lobby removal after 10 seconds if no one joins
+			if not lobby_data[self.lobby_id]['connected_clients']:
 				await asyncio.sleep(10)
-
-				# Double-check if the lobby is still empty after the delay
-				if not LobbyConsumer.connected_clients[self.lobby_id]:
-					del LobbyConsumer.connected_clients[self.lobby_id]
+				if not lobby_data[self.lobby_id]['connected_clients']:
+					del lobby_data[self.lobby_id]
 					logger.info(f"Lobby {self.lobby_id} removed due to inactivity.")
 
 		await self.channel_layer.group_discard(
@@ -62,49 +63,69 @@ class LobbyConsumer(AsyncWebsocketConsumer):
 		if text_data:
 			data = json.loads(text_data)
 			message_type = data.get('type')
+			content = data.get('content')
 
-			# Handle different types of messages here
-			if message_type == 'example_message':
-				# Example of processing a generic message
-				response = {'status': 'received', 'data': data}
-				await self.send(text_data=json.dumps(response))
-				
-			elif message_type == 'reload':
-				# Handle the reload message type
-				await self.send_message('reload')
+			if message_type == 'init':
+				if lobby_data[self.lobby_id]['admin'] is None:
+					lobby_data[self.lobby_id]['admin'] = content.get('username')
+				if content.get('username') not in lobby_data[self.lobby_id]['players'] and len(lobby_data[self.lobby_id]['players']) < lobby_data[self.lobby_id]['max_users']:
+					lobby_data[self.lobby_id]['players'].append(content.get('username'))
+				else:
+					self.redirect_message()
+
+				if lobby_data[self.lobby_id]['admin'] == content.get('username'):
+					lobby_data[self.lobby_id]['map'] = content.get('map')
+					lobby_data[self.lobby_id]['max_users'] = content.get('maxPlayerCount')
+					lobby_data[self.lobby_id]['room_name'] = content.get('roomName')
+					lobby_data[self.lobby_id]['is_tournament'] = content.get('isTournament')
+					# logger.info(lobbies)
+
+				await self.send_refresh_message()
 
 			elif message_type == 'start':
-				# Handle the start message type
 				await self.send_start_message()
 
-	async def send_message(self, message_type):
-		# Prepare the message structure
-		message = {
-			'type': message_type
-		}
-		await self.send(text_data=json.dumps(message))
-
 	async def send_refresh_message(self):
-		# Notify all clients in the group
+		# Convert set to list for JSON serialization
+		connected_clients = list(lobby_data[self.lobby_id]['connected_clients'])
+
 		await self.channel_layer.group_send(
 			self.lobby_group_name,
 			{
-				'type': 'send_message',
-				'message': 'refresh'
+				'type': 'refresh_message',
+				'message': {
+					'admin': lobby_data[self.lobby_id]['admin'],
+					'players': lobby_data[self.lobby_id]['players'],
+					'map': lobby_data[self.lobby_id]['map'],
+					'maxPlayerCount': lobby_data[self.lobby_id]['max_users'],
+					'roomName': lobby_data[self.lobby_id]['room_name'],
+					'isTournament': lobby_data[self.lobby_id]['is_tournament'],
+					'connected_clients': connected_clients
+				},
 			}
 		)
 
+	async def refresh_message(self, event):
+		message = event['message']
+		await self.send(text_data=json.dumps({
+			'type': 'refresh',
+			'content': message
+		}))
+
+	async def redirect_message(self):
+		await self.send(text_data=json.dumps({
+			'type': 'redirect',
+		}))
+
 	async def send_start_message(self):
-		# Notify all clients in the group
 		await self.channel_layer.group_send(
 			self.lobby_group_name,
 			{
-				'type': 'send_message',
+				'type': 'start_message',
 				'message': 'start'
 			}
 		)
 
-	async def send_message(self, event):
-		# Send message to WebSocket
+	async def start_message(self, event):
 		message = event['message']
 		await self.send(text_data=json.dumps({'type': message}))

@@ -4,12 +4,12 @@ import {editField, saveField, cancelField} from '/static/src/js/account.js';
 
 export const variables = {
 	isTournament: false,
-    playerCount: 2,
+    maxPlayerCount: 2,
 	map: 'classic',
 	roomName: '',
-	pageHistory: [],
 	nextPage: 'profile',
-	selectedRoom: '',
+	admin: '',
+	players: [],
 };
 
 export function updateVariable(document, variableName, value) {
