@@ -1,25 +1,119 @@
 <link rel="stylesheet" href="/static/src/css/account.css">
 <div class="container md">
-	<h1 data-text="pages.account.pageTitle">Account Settings</h1>
-	<div class="row">
-		<div class="col">
-			<h3 data-text="pages.account.usernameLabel">Username</h3>
-		</div>
-		<div class="col editable-container">
-			<div class="display-mode d-flex align-items-center">
-				<h4 id="display-title" class="me-3" data-text="pages.account.myUsername">My Username</h4>
-				<button data-action="editName" class="btn btn-outline-primary btn-sm" data-text="pages.account.editButton">
-					✏️ Edit
-				</button>
-			</div>
-			<form id="edit-form" class="edit-mode mt-3">
-				<div class="input-group">
-					<input type="text" id="title-input" class="form-control" value="My Username">
-					<button type="button" data-action="saveNameEdit" class="btn btn-success" data-text="pages.account.saveButton">Save</button>
-					<button type="button" data-action="cancelNameEdit" class="btn btn-danger ms-2" data-text="pages.account.cancelButton">Cancel</button>
-				</div>
-			</form>
-		</div>
-	</div>
+    <h1 data-text="pages.account.pageTitle">Account Settings</h1>
+    <!-- Username -->
+    <div class="row">
+        <div class="col">
+            <h3 data-text="pages.account.usernameLabel">Username</h3>
+        </div>
+        <div class="col">
+            <h4 id="username" class="me-3">My Username</h4>
+        </div>
+    </div>
+
+    <!-- Display Name -->
+    <div class="row">
+        <div class="col">
+            <h3 data-text="pages.account.displayNameLabel">Display Name</h3>
+        </div>
+        <div class="col editable-container">
+            <div class="display-mode d-flex align-items-center">
+                <h4 id="displayName" class="me-3">My Display Name</h4>
+                <button data-variable="editField" data-value="displayName" class="btn btn-outline-primary btn-sm">
+                    Edit
+                </button>
+            </div>
+            <form id="edit-form-displayName" class="edit-mode mt-3" style="display: none;">
+                <div class="input-group">
+                    <input type="text" id="title-input-displayName" class="form-control">
+                    <button type="button" data-variable="saveField" data-value="displayName" class="btn btn-success">Save</button>
+                    <button type="button" data-variable="cancelField" data-value="displayName" class="btn btn-danger ms-2">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Email -->
+    <div class="row">
+        <div class="col">
+            <h3 data-text="pages.account.emailLabel">Email</h3>
+        </div>
+        <div class="col editable-container">
+            <div class="display-mode d-flex align-items-center">
+                <h4 id="email" class="me-3">My Email</h4>
+                <button data-variable="editField" data-value="email" class="btn btn-outline-primary btn-sm">
+                    Edit
+                </button>
+            </div>
+            <form id="edit-form-email" class="edit-mode mt-3" style="display: none;">
+                <div class="input-group">
+                    <input type="text" id="title-input-email" class="form-control">
+                    <button type="button" data-variable="saveField" data-value="email" class="btn btn-success">Save</button>
+                    <button type="button" data-variable="cancelField" data-value="email" class="btn btn-danger ms-2">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Bio -->
+    <div class="row">
+        <div class="col">
+            <h3 data-text="pages.account.bioLabel">Bio</h3>
+        </div>
+        <div class="col editable-container">
+            <div class="display-mode d-flex align-items-center">
+                <h4 id="bio" class="me-3">Bio</h4>
+                <button data-variable="editField" data-value="bio" class="btn btn-outline-primary btn-sm">
+                    Edit
+                </button>
+            </div>
+            <form id="edit-form-bio" class="edit-mode mt-3" style="display: none;">
+                <div class="input-group">
+                    <input type="text" id="title-input-bio" class="form-control">
+                    <button type="button" data-variable="saveField" data-value="bio" class="btn btn-success">Save</button>
+                    <button type="button" data-variable="cancelField" data-value="bio" class="btn btn-danger ms-2">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+	<!-- Total Score -->
+    <div class="row">
+        <div class="col">
+            <h3 data-text="pages.account.totalScoreLabel">Total Score</h3>
+        </div>
+        <div class="col">
+            <h4 id="totalScore" class="me-3"></h4>
+        </div>
+    </div>
+
+	<!-- Games Played -->
+    <div class="row">
+        <div class="col">
+            <h3 data-text="pages.account.gamesPlayedLabel">Games Played</h3>
+        </div>
+        <div class="col">
+            <h4 id="gamesPlayed" class="me-3"></h4>
+        </div>
+    </div>
+
+	<!-- Games Won -->
+    <div class="row">
+        <div class="col">
+            <h3 data-text="pages.account.gamesWonLabel">Games Won</h3>
+        </div>
+        <div class="col">
+            <h4 id="gamesWon" class="me-3"></h4>
+        </div>
+    </div>
+
+	<!-- Games Lost -->
+    <div class="row">
+        <div class="col">
+            <h3 data-text="pages.account.gamesLostLabel">Games Lost</h3>
+        </div>
+        <div class="col">
+            <h4 id="gamesLost" class="me-3"></h4>
+        </div>
+    </div>
 </div>
-	
