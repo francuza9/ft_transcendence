@@ -31,6 +31,8 @@ const actionsMap = {
 	close: closeButton,
 	langButton: langButton,
 	back: backButton,
+
+	
 };
 
 export const handleButtonAction = (e, action) => {
