@@ -16,18 +16,30 @@
     object-fit: contain;
 }
 
-.container {
-	position: relative;
-	background: transparent;
-	border: 2px solid rgba(255, 255, 255, .5);
-	border-radius: 20px;
-	justify-content: center;
-	align-items: center;
-	backdrop-filter: blur(15px);
+.container.sm {
+    background: transparent;
+    border: 2px solid rgba(255, 255, 255, 0.5); /* Semi-transparent border */
+    border-radius: 20px; /* Rounded corners */
+    padding: 20px; /* Padding inside the container */
+    backdrop-filter: blur(15px); /* Blurred background effect */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
+    color: white; /* Ensure text is readable on the light background */
 }
 
+h1, h3, h4, h5, p {
+    color: #fff; /* Make sure the text color contrasts with the background */
+}
 
-h1, h2, h3, h4, h5, h6 {
-	font-weight: 600;
-	color: #fff;
+.btn-outline-primary {
+    color: white;
+    border-color: rgba(255, 255, 255, 0.5);
+}
+
+.btn-outline-primary:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+    color: white;
+}
+
+.btn-primary, .btn-success, .btn-danger {
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
 }
