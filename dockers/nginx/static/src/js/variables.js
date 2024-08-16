@@ -12,7 +12,7 @@ export const variables = {
 
 export function updateVariable(document, variableName, value) {
 	switch (variableName) {
-		case 'maxPlayerCount':
+		case 'playerCount':
 			updatePlayerCount(document, value);
 			break;
 		case 'tournament':
