@@ -1,6 +1,7 @@
 import {handleRouting} from '/static/routers/router.js';
 import {variables} from '/static/src/js/variables.js';
 import {replaceHTML} from '/static/src/js/utils.js';
+import {getCookie} from '/static/src/js/cookies.js';
 
 export const loginButton = () => {
     const email = document.getElementById('email').value;
@@ -45,6 +46,7 @@ export const loginButton = () => {
     }
 };
 
+/*
 function getCookie(name) {
     let cookieValue = null;
     if (document.cookie && document.cookie !== '') {
@@ -58,7 +60,8 @@ function getCookie(name) {
         }
     }
     return cookieValue;
-}
+}*/
+
 export const loginWithGithubButton = () => {
     console.log('Login with GitHub');
 }

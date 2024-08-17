@@ -31,3 +31,21 @@
     background-color: #ffe082;
     cursor: pointer;
 }
+
+.lobby-box {
+    background: transparent;
+    border: 2px solid rgba(255, 255, 255, 0.5);
+    border-radius: 20px;
+    justify-content: center;
+    align-items: center;
+    backdrop-filter: blur(15px);
+    padding: 20px;
+    margin: auto;
+	max-width: 900px;
+	height: 450px;
+	color: white;
+}
+
+#lobbyDetails {
+	color: lightgray;
+}

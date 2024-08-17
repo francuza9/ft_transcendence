@@ -1,12 +1,16 @@
-[Together] {
-
 when admin disconnects from lobby give admin to oldest in the lobby
 clean up old views
+get correct lobby data to backend
+when lobby doesnt exist, redirect to join page and show error popup to client
 
-support guest requests to the backend
+
+support guest requests to the backend (give them a sessionid)
 fix clipboard-write feature policy warning (clipboard.writeText and clipboard.readText in ArcballControls.js)
 404 error
-}
+
+42 login
+Github login
+
 
 
 [Youssef] {
@@ -20,7 +24,6 @@ Add kick button to kick players on lobby page (for admin only)
 
 [Marijn] {
 
-Today:
 Background rework
 Add css to all pages
 Add back button on login and register pages

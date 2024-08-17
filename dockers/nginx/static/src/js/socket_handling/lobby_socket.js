@@ -34,13 +34,11 @@ export async function initLobbySocket(variables) {
 	socket.onmessage = function(event) {
 		const message = JSON.parse(event.data);
 
-		console.log(message.type);
+		//console.log(message.type);
 
-		// Handle 'refresh' message type
 		if (message.type === 'refresh') {
 			const content = message.content;
 
-			// Make sure content and players are defined
 			if (content && content.players) {
 				variables.players = content.players;
 				variables.admin = content.admin;
@@ -48,9 +46,8 @@ export async function initLobbySocket(variables) {
 				variables.maxPlayerCount = content.maxPlayerCount;
 				variables.roomName = content.roomName;
 				variables.isTournament = content.isTournament;
-				console.log(variables);
+				//console.log(variables);
 
-				// Call the function to update the UI
 				refreshLobbyDetails(variables);
 			} else {
 				console.error('Content or players undefined!', content);
