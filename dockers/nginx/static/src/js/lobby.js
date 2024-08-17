@@ -1,3 +1,4 @@
+import {cleanupBackground} from '/static/src/js/background/background.js';
 import {getCookie} from '/static/src/js/cookies.js';
 import {handleRouting} from '/static/routers/router.js';
 import {getSocket} from '/static/views/lobby.js';
@@ -64,4 +65,16 @@ export const startButton = () => {
     } else {
         console.error('WebSocket is not open.');
     }
+	const section = document.getElementsByTagName('section')[0];
+	section.remove();
+	cleanupBackground();
+
+	/*//the following has to be adjusted to multiplayer pong game:
+	const element = document.createElement('div');
+	element.innerHTML = `
+		<h1>Pong Local Game !/h1>
+		<script type="module" src="{% static 'src/js/localgame/localgame.js' %}"></script>
+	`;
+	startLocal();
+	*/
 };

@@ -16,11 +16,12 @@ h1 {
 	padding-right: 15px;
 }
 
+/*
 #hero {
 	background: linear-gradient(rgba(var(--c-brand-rgb), 0.507), rgba(var(--c-brand-rgb), 0.438)), url(/static/src/images/dark-background.jpg);
 	background-position: center;
 	background-size: cover;
-}
+}*/
 
 .btn-play {
 	display: flex;
