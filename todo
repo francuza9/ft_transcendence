@@ -45,3 +45,7 @@ Extra:
 Lobby name edit popup?
 Add backbutton on login page (and handle playing redirection)
 }
+
+george:
+leave room button (disc socket too)
+disconnect socket when room is full

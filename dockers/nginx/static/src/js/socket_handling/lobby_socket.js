@@ -33,19 +33,12 @@ export async function initLobbySocket(variables) {
 
 	socket.onmessage = function(event) {
 		const message = JSON.parse(event.data);
-		console.log('Received message:', message);  // Check the entire message structure
 
-		// Check the actual type of the message
-		if (message.type) {
-			console.log('Message type:', message.type);
-		} else {
-			console.error('No type found in the message!');
-		}
+		console.log(message.type);
 
 		// Handle 'refresh' message type
 		if (message.type === 'refresh') {
 			const content = message.content;
-			console.log('Refreshing lobby:', content);
 
 			// Make sure content and players are defined
 			if (content && content.players) {

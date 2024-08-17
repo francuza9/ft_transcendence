@@ -5,29 +5,28 @@ from django.db import models
 from django.conf import settings
 
 class CustomUser(AbstractUser):
-    # Add custom fields if needed
-    bio = models.TextField(blank=True, null=True)
 
     class Meta:
         db_table = 'pong_user'  # Set a custom table name
 
 class Profile(models.Model):
-    id = models.AutoField(primary_key=True)
-    user = models.OneToOneField('CustomUser', on_delete=models.CASCADE, related_name='profile')
-    displayName = models.CharField(max_length=50)
-    avatarUrl = models.ImageField(upload_to='profile_pictures/', blank=True, null=True)
-    totalScore = models.IntegerField(default=0)
-    gamesPlayed = models.IntegerField(default=0)
-    gamesWon = models.IntegerField(default=0)
-    gamesLost = models.IntegerField(default=0)
-    createdAt = models.DateTimeField(auto_now_add=True)
-    updatedAt = models.DateTimeField(auto_now=True)
+	id = models.AutoField(primary_key=True)
+	user = models.OneToOneField('CustomUser', on_delete=models.CASCADE, related_name='profile')
+	displayName = models.CharField(max_length=50, default='displayName')
+	avatarUrl = models.ImageField(upload_to='profile_pictures/', blank=True, null=True)
+	bio = models.TextField(blank=True, default='')
+	totalScore = models.IntegerField(default=0)
+	gamesPlayed = models.IntegerField(default=0)
+	gamesWon = models.IntegerField(default=0)
+	gamesLost = models.IntegerField(default=0)
+	createdAt = models.DateTimeField(auto_now_add=True)
+	updatedAt = models.DateTimeField(auto_now=True)
 
-    class Meta:
-        db_table = 'pong_profile'  # Set a custom table name
+	class Meta:
+		db_table = 'pong_profile'  # Set a custom table name
 
-    def __str__(self):
-        return self.displayName
+	def __str__(self):
+		return self.displayName
 
 class Tournament(models.Model):
     id = models.AutoField(primary_key=True)
