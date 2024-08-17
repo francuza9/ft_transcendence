@@ -5,16 +5,18 @@ import asyncio
 
 logger = logging.getLogger(__name__)
 
+lobby_data = {}
+
 class LobbyConsumer(AsyncWebsocketConsumer):
-	lobby_data = {}  # Dictionary to track lobby data
 
 	async def connect(self):
 		try:
 			self.lobby_id = self.scope['url_route']['kwargs']['lobbyId']
 			self.lobby_group_name = f"lobby_{self.lobby_id}"
 
-			if self.lobby_id not in LobbyConsumer.lobby_data:
-				LobbyConsumer.lobby_data[self.lobby_id] = {
+			if self.lobby_id not in lobby_data:
+				logger.info(f"lobby_data: {lobby_data}")
+				lobby_data[self.lobby_id] = {
 					'admin': None,
 					'map': "default_map",
 					'max_users': 10,
@@ -23,9 +25,10 @@ class LobbyConsumer(AsyncWebsocketConsumer):
 					'room_name': "default_room_name",
 					'connected_clients': set(),
 				}
+			logger.info(lobby_data)
 
 			# Add the new client to the lobby's connected clients
-			LobbyConsumer.lobby_data[self.lobby_id]['connected_clients'].add(self.channel_name)
+			lobby_data[self.lobby_id]['connected_clients'].add(self.channel_name)
 
 			await self.channel_layer.group_add(
 				self.lobby_group_name,
@@ -41,13 +44,13 @@ class LobbyConsumer(AsyncWebsocketConsumer):
 	async def disconnect(self, close_code):
 		logger.info(f"Disconnect called with code: {close_code}")
 
-		if self.lobby_id in LobbyConsumer.lobby_data:
-			LobbyConsumer.lobby_data[self.lobby_id]['connected_clients'].discard(self.channel_name)
+		if self.lobby_id in lobby_data:
+			lobby_data[self.lobby_id]['connected_clients'].discard(self.channel_name)
 
-			if not LobbyConsumer.lobby_data[self.lobby_id]['connected_clients']:
+			if not lobby_data[self.lobby_id]['connected_clients']:
 				await asyncio.sleep(10)
-				if not LobbyConsumer.lobby_data[self.lobby_id]['connected_clients']:
-					del LobbyConsumer.lobby_data[self.lobby_id]
+				if not lobby_data[self.lobby_id]['connected_clients']:
+					del lobby_data[self.lobby_id]
 					logger.info(f"Lobby {self.lobby_id} removed due to inactivity.")
 
 		await self.channel_layer.group_discard(
@@ -63,18 +66,19 @@ class LobbyConsumer(AsyncWebsocketConsumer):
 			content = data.get('content')
 
 			if message_type == 'init':
-				if LobbyConsumer.lobby_data[self.lobby_id]['admin'] is None:
-					LobbyConsumer.lobby_data[self.lobby_id]['admin'] = content.get('username')
-				if content.get('username') not in LobbyConsumer.lobby_data[self.lobby_id]['players'] and len(LobbyConsumer.lobby_data[self.lobby_id]['players']) < LobbyConsumer.lobby_data[self.lobby_id]['max_users']:
-					LobbyConsumer.lobby_data[self.lobby_id]['players'].append(content.get('username'))
+				if lobby_data[self.lobby_id]['admin'] is None:
+					lobby_data[self.lobby_id]['admin'] = content.get('username')
+				if content.get('username') not in lobby_data[self.lobby_id]['players'] and len(lobby_data[self.lobby_id]['players']) < lobby_data[self.lobby_id]['max_users']:
+					lobby_data[self.lobby_id]['players'].append(content.get('username'))
 				else:
 					self.redirect_message()
 
-				if LobbyConsumer.lobby_data[self.lobby_id]['admin'] == content.get('username'):
-					LobbyConsumer.lobby_data[self.lobby_id]['map'] = content.get('map')
-					LobbyConsumer.lobby_data[self.lobby_id]['max_users'] = content.get('maxPlayerCount')
-					LobbyConsumer.lobby_data[self.lobby_id]['room_name'] = content.get('roomName')
-					LobbyConsumer.lobby_data[self.lobby_id]['is_tournament'] = content.get('isTournament')
+				if lobby_data[self.lobby_id]['admin'] == content.get('username'):
+					lobby_data[self.lobby_id]['map'] = content.get('map')
+					lobby_data[self.lobby_id]['max_users'] = content.get('maxPlayerCount')
+					lobby_data[self.lobby_id]['room_name'] = content.get('roomName')
+					lobby_data[self.lobby_id]['is_tournament'] = content.get('isTournament')
+					# logger.info(lobbies)
 
 				await self.send_refresh_message()
 
@@ -83,19 +87,19 @@ class LobbyConsumer(AsyncWebsocketConsumer):
 
 	async def send_refresh_message(self):
 		# Convert set to list for JSON serialization
-		connected_clients = list(LobbyConsumer.lobby_data[self.lobby_id]['connected_clients'])
+		connected_clients = list(lobby_data[self.lobby_id]['connected_clients'])
 
 		await self.channel_layer.group_send(
 			self.lobby_group_name,
 			{
 				'type': 'refresh_message',
 				'message': {
-					'admin': LobbyConsumer.lobby_data[self.lobby_id]['admin'],
-					'players': LobbyConsumer.lobby_data[self.lobby_id]['players'],
-					'map': LobbyConsumer.lobby_data[self.lobby_id]['map'],
-					'maxPlayerCount': LobbyConsumer.lobby_data[self.lobby_id]['max_users'],
-					'roomName': LobbyConsumer.lobby_data[self.lobby_id]['room_name'],
-					'isTournament': LobbyConsumer.lobby_data[self.lobby_id]['is_tournament'],
+					'admin': lobby_data[self.lobby_id]['admin'],
+					'players': lobby_data[self.lobby_id]['players'],
+					'map': lobby_data[self.lobby_id]['map'],
+					'maxPlayerCount': lobby_data[self.lobby_id]['max_users'],
+					'roomName': lobby_data[self.lobby_id]['room_name'],
+					'isTournament': lobby_data[self.lobby_id]['is_tournament'],
 					'connected_clients': connected_clients
 				},
 			}

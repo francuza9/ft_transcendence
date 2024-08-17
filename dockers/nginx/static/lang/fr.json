@@ -31,8 +31,7 @@
             "previousSlide": "Précédent",
             "nextSlide": "Suivant",
             "selectButton": "Sélectionner",
-            "createRoomButton": "Créer une Salle",
-            "cancelButton": "Annuler"
+            "createRoomButton": "Créer une Salle"
         },
         "joinRoom": {
             "pageTitle": "Rejoindre une Salle",
@@ -56,6 +55,9 @@
         },
         "account": {
             "pageTitle": "Paramètres du Compte",
+			"editButton": "Modifier",
+			"saveButton": "Enregistrer",
+            "cancelButton": "Annuler",
             "uploadAvatarButton": "Télécharger Avatar",
             "usernameLabel": "Nom d'utilisateur",
             "displayNameLabel": "Nom Affiché",
