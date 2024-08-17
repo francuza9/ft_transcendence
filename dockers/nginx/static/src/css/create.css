@@ -96,7 +96,7 @@ h1 {
     color: #fff;
 }
 
-.btn-outline-light.rounded-circle {
+.rounded-circle {
     border-radius: 50%;
     padding: 5px;
 }

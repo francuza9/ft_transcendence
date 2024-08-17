@@ -10,7 +10,6 @@ import string
 logger = logging.getLogger(__name__)
 
 @csrf_exempt
-@login_required
 def create_lobby(request):
     if request.method == 'POST':
         try:
@@ -29,7 +28,6 @@ def create_lobby(request):
     return JsonResponse({'success': False, 'message': 'Invalid request method'}, status=405)
 
 
-@login_required
 def get_lobbies(request):
 	lobbies_list = []
 	for join_code, lobby in lobby_data.items():

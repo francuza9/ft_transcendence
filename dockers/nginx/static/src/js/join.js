@@ -18,15 +18,24 @@ export const loadRooms = () => {
 }
 
 function renderLobbies(lobbies) {
-	const lobbyListElement = document.getElementById('lobbyList');
-	lobbyListElement.innerHTML = '';
+	const lobbyTable = document.getElementById('lobbyTable');
+	const noLobbyMessage = document.getElementById('noLobbyMessage');
 
-	lobbies.forEach(lobby => {
-		const row = document.createElement('tr');
-		row.classList.add('lobby-row');
-		row.dataset.joinCode = lobby.join_code;
+	if (!lobbies.length) {
+		lobbyTable.classList.add('hidden');
+		noLobbyMessage.classList.remove('hidden');
+	} else {
+		const lobbyListElement = document.getElementById('lobbyList');
+		noLobbyMessage.classList.add('hidden');
+		lobbyTable.classList.remove('hidden');
+		lobbyListElement.innerHTML = '';
 
-		row.innerHTML = `
+		lobbies.forEach(lobby => {
+			const row = document.createElement('tr');
+			row.classList.add('lobby-row');
+			row.dataset.joinCode = lobby.join_code;
+
+			row.innerHTML = `
 					<td>${lobby.lobby_name}</td>
 					<td>${lobby.players.length} / ${lobby.max_player_count}</td>
 					<td>${lobby.map_name}</td>
@@ -34,11 +43,12 @@ function renderLobbies(lobbies) {
 					<td><button class="btn btn-primary btn-sm join-btn">Join</button></td>
 				`;
 
-		row.addEventListener('dblclick', () => joinLobby(lobby.join_code));
-		row.querySelector('.join-btn').addEventListener('click', () => joinLobby(lobby.join_code));
+			row.addEventListener('dblclick', () => joinLobby(lobby.join_code));
+			row.querySelector('.join-btn').addEventListener('click', () => joinLobby(lobby.join_code));
 
-		lobbyListElement.appendChild(row);
-	});
+			lobbyListElement.appendChild(row);
+		});
+	}
 }
 
 function joinLobby(joinCode) {

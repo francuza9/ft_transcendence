@@ -7,16 +7,11 @@
         },
         "createRoom": {
             "pageTitle": "Create Room",
-            "nameLabel": "Name",
-            "myTitle": "My Title",
-            "editButton": "✏️ Edit",
             "saveButton": "Save",
             "cancelButton": "Cancel",
-            "modeLabel": "Mode",
+			"editRoomName": "Edit Room Name",
             "classicMode": "Classic",
             "tournamentMode": "Tournament",
-            "playersLabel": "Players",
-            "mapLabel": "Map",
             "currentMap": "Classic",
             "chooseMapButton": "Choose Map",
             "selectMapTitle": "Select Your Map",
@@ -35,13 +30,11 @@
         },
         "joinRoom": {
             "pageTitle": "Join Room",
-            "refreshButton": "Refresh",
             "roomName": "Room Name",
             "players": "Players",
             "map": "Map",
             "mode": "Mode",
-            "join": "Join",
-            "backButton": "Back"
+            "join": "Join"
         },
         "register": {
             "pageTitle": "Register",
@@ -91,7 +84,7 @@
         },
         "lobby": {
             "title": "Room Name",
-            "details": "Details about the room",
+            "details": "Room details",
             "profilePicture": "Profile Picture",
             "username": "Username",
             "level": "Level",

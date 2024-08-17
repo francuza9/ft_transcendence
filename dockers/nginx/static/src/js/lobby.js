@@ -1,9 +1,11 @@
 import {getCookie} from '/static/src/js/cookies.js';
 import {handleRouting} from '/static/routers/router.js';
-import { getSocket } from '/static/views/lobby.js';
+import {getSocket} from '/static/views/lobby.js';
+import {replaceHTML} from '/static/src/js/utils.js';
 
 function updateLobbyDetails(variables) {
-	document.getElementById('lobbyTitle').innerText = variables.roomName;
+	if (variables.roomName)
+		document.getElementById('lobbyTitle').innerText = variables.roomName;
 	const mode = variables.isTournament ? 'Tournament' : 'Classic';
 	document.getElementById('lobbyDetails').innerText = `Players: ${variables.players.length} / ${variables.maxPlayerCount} | Map: ${variables.map} | Mode: ${mode}`;
 }
@@ -43,7 +45,9 @@ function renderPlayerList(players, admin) {
 }
 
 export const leaveRoom = () => {
-
+	history.pushState(null, '', `/`);
+	replaceHTML('/static/src/html/room.html');
+	//todo: close websocket connection and remove player from backend
 }
 
 export const startButton = () => {

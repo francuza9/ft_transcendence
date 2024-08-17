@@ -62,7 +62,6 @@ export const editNameButton = () => {
 
 export const saveNameEditButton = (event) => {
     const displayMode = document.querySelector('.display-mode');
-    const editForm = document.getElementById('edit-form');
     const titleInput = document.getElementById('title-input');
     const displayTitle = document.getElementById('display-title');
 
@@ -71,8 +70,6 @@ export const saveNameEditButton = (event) => {
 	if (newTitle) {
 		displayTitle.textContent = newTitle;
 	}
-	editForm.style.display = 'none';
-	displayMode.style.display = 'flex';
 	variables.roomName = newTitle;
 }
 
