@@ -1,6 +1,6 @@
 import * as THREE from "three";
 
-const objCount = 5000;
+const objCount = 2000;
 function getMeshProps() {
   const arr = [];
   for (let i = 0; i < objCount; i += 1) {
@@ -25,7 +25,7 @@ function getMeshProps() {
 
 const dummyProps = getMeshProps();
 function getMesh(material, needsAnimatedColor = false) {
-  const size = 0.25;
+  const size = 0.5;
   const geometry = new THREE.IcosahedronGeometry(size, 1);
   const mesh = new THREE.InstancedMesh(geometry, material, objCount);
 
@@ -69,7 +69,7 @@ export function getFXScene({ renderer, material, clearColor, needsAnimatedColor 
 
   const fbo = new THREE.WebGLRenderTarget(w, h);
 
-  const rotationSpeed = new THREE.Vector3(0.1, -0.2, 0.15);
+  const rotationSpeed = new THREE.Vector3(0.01, -0.02, 0.015);
   const update = (delta) => {
     mesh.rotation.x += delta * rotationSpeed.x;
     mesh.rotation.y += delta * rotationSpeed.y;
