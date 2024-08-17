@@ -1,10 +1,7 @@
 [Together] {
 
-lobby websocket
-	real time player updates in lobby
-	when admin disconnects from lobby give admin to oldest in the lobby
-	clean up views.py and separate views.py into multiple views
-
+when admin disconnects from lobby give admin to oldest in the lobby
+clean up old views
 
 support guest requests to the backend
 fix clipboard-write feature policy warning (clipboard.writeText and clipboard.readText in ArcballControls.js)
@@ -16,7 +13,6 @@ fix clipboard-write feature policy warning (clipboard.writeText and clipboard.re
 Account settings page (edit personal data, upload profile picture, ect...)
 Profile pictures
 Leaderboard
-separate views.py into multiple views - DONE
 Profile page (show all data of a user)
 Add kick button to kick players on lobby page (for admin only)
 }
@@ -27,6 +23,7 @@ Add kick button to kick players on lobby page (for admin only)
 Today:
 Background rework
 Add css to all pages
+Add back button on login and register pages
 Fix login <--> register buttons broken on translations 
 
 
@@ -38,8 +35,6 @@ Fade in animation for smooth transition between pages
 
 Profile modal (for leaderboard, lobby and endscreen)
 Endscreen leaderboard
-
-
 
 
 Low priority:
