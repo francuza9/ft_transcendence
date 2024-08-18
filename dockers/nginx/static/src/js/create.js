@@ -45,19 +45,8 @@ export const updatePointsToWin = (document, value) => {
 }
 
 export const updateIsTournament = (document, value) => {
-	variables.isTournament = value;
-    const radioButtons = document.querySelectorAll('.btn-group .btn-check');
-	const classicButton = radioButtons[0].nextElementSibling;
-	const tournamentButton = radioButtons[1].nextElementSibling;
-
-	if (value) {
-		tournamentButton.classList.add('active');
-		classicButton.classList.remove('active');
-	} else {
-		tournamentButton.classList.remove('active');
-		classicButton.classList.add('active');
-	}
-}
+    variables.isTournament = value;
+};
 
 export const editNameButton = () => {
     const displayMode = document.querySelector('.display-mode');
