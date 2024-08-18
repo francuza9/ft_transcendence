@@ -1,8 +1,17 @@
 <link rel="stylesheet" href="/static/src/css/play.css">
 <div class="container">
 	<div class="row">
-		<button type="button" class="btn btn-primary" data-action="skipLogin" data-text="pages.play.continueAsGuest">Continue as guest</button>
-		<button type="button" class="btn btn-primary" data-action="goToLogin" data-text="pages.play.login">Login</button>
-		<button type="button" class="btn btn-secondary" data-action="play" data-text="pages.play.back">Back</button>
+		<button class="back-btn position-absolute top-0 start-0 m-3" data-action="play">
+			<i class="ri-arrow-left-line text-white"></i>
+		</button>
+		<h1 data-text="pages.play.online" class="text-white">Online</h1>
+	</div>
+	<div class="row">
+		<div class="col">
+			<button type="button" class="btn btn-primary" data-action="skipLogin" data-text="pages.play.continueAsGuest">Continue as guest</button>
+		</div>
+		<div class="col">
+			<button type="button" class="btn btn-primary" data-action="goToLogin" data-text="pages.play.login">Login</button>
+		</div>
 	</div>
 </div>
