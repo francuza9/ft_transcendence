@@ -1,8 +1,17 @@
 <link rel="stylesheet" href="/static/src/css/play.css">
 <div class="container">
 	<div class="row">
-		<button type="button" class="btn btn-primary" data-path="/join" data-text="pages.play.joinRoomButton">Join Room</button>
-		<button type="button" class="btn btn-primary" data-path="/create" data-text="pages.play.createRoomButton">Create Room</button>
-		<button type="button" class="btn btn-secondary" data-action="backFromOnline" data-text="pages.play.backButton">Back</button>
+		<button class="back-btn position-absolute top-0 start-0 m-3" data-action="backFromOnline">
+			<i class="ri-arrow-left-line text-white"></i>
+		</button>
+		<h1 data-text="pages.play.online" class="text-white">Online</h1>
+	</div>
+	<div class="row">
+		<div class="col">
+			<button type="button" class="btn btn-primary" data-path="/join" data-text="pages.play.joinRoomButton">Join Room</button>
+		</div>
+		<div class="col">
+			<button type="button" class="btn btn-primary" data-path="/create" data-text="pages.play.createRoomButton">Create Room</button>
+		</div>
 	</div>
 </div>

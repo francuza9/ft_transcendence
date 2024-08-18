@@ -1,8 +1,17 @@
 <link rel="stylesheet" href="/static/src/css/play.css">
 <div class="container">
 	<div class="row">
-		<button type="button" class="btn btn-primary" data-action="local" data-text="pages.play.localButton">Local</button>
-		<button type="button" class="btn btn-primary" data-action="online" data-text="pages.play.onlineButton">Online</button>
-		<button type="button" class="btn btn-secondary" data-path="/" data-text="pages.play.backButton">back</button>
+		<button class="back-btn position-absolute top-0 start-0 m-3" data-path="/">
+			<i class="ri-arrow-left-line text-white"></i>
+		</button>
+		<h1 data-text="pages.home.playButton" class="text-white">Play</h1>
+	</div>
+	<div class="row">
+		<div class="col">
+			<button type="button" class="btn btn-primary" data-action="local" data-text="pages.play.local">Local</button>
+		</div>
+		<div class="col">
+			<button type="button" class="btn btn-primary" data-action="online" data-text="pages.play.online">Online</button>
+		</div>
 	</div>
 </div>
