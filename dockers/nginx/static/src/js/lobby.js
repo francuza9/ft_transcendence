@@ -48,8 +48,22 @@ function renderPlayerList(players, admin) {
 export const leaveRoom = () => {
 	history.pushState(null, '', `/`);
 	replaceHTML('/static/src/html/room.html');
+
+	const socket = getSocket();
+	if (!socket) {
+		console.error('WebSocket is not initialized yet.');
+		return;
+	}
+
+	if (socket.readyState === WebSocket.OPEN) {
+		console.log('starting game...');
+		socket.send(JSON.stringify({ type: 'exit' }));
+	} else {
+		console.error('WebSocket is not open.');
+	}
+
 	//todo: close websocket connection and remove player from backend
-}
+};
 
 export const startButton = () => {
     const socket = getSocket();  // Get the most recent socket value
