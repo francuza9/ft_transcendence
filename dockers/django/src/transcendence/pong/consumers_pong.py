@@ -15,13 +15,17 @@ class PongConsumer(AsyncWebsocketConsumer):
 	room_counters = {}
 	game_states = {}
 
+	def __init__(self, *args, **kwargs):
+		super().__init__(*args, **kwargs)
+		# Set default values
+		self.room_id = None
+		self.room_group_name = None
+		self.room_size_event = asyncio.Event()
+
 	async def connect(self):
 		try:
-			self.room_id = self.scope['url_route']['kwargs']['roomId']
+			self.room_id = self.scope['url_route']['kwargs']['lobbyId']
 			self.room_group_name = f"pong_{self.room_id}"
-
-			# Initialize room_size_event for every instance of PongConsumer
-			self.room_size_event = asyncio.Event()
 
 			if self.room_id not in PongConsumer.room_counters:
 				PongConsumer.room_counters[self.room_id] = 1
@@ -37,25 +41,22 @@ class PongConsumer(AsyncWebsocketConsumer):
 			)
 			await self.accept()
 			logger.info(f"WebSocket connection accepted for room {self.room_id}")
-			
 
 			response_message = {'pov': pov}
 			await self.send(text_data=json.dumps(response_message))
-			# Start game loop if it's the first player
-			# if PongConsumer.room_counters[self.room_id] == 1:
-			# await self.room_size_event.wait()
 			await asyncio.sleep(0.1)
 			asyncio.create_task(self.game_update_loop())
 		except Exception as e:
-			logger.info(f"Error during connection setup: {e}")
+			logger.error(f"Error during connection setup: {e}")
 			await self.close()
 
+
 	async def disconnect(self, close_code):
-		logger.info(f"Disconnect called with code: {close_code}")
-		await self.channel_layer.group_discard(
-			self.room_group_name,
-			self.channel_name
-		)
+		if self.room_group_name:
+			await self.channel_layer.group_discard(
+				self.room_group_name,
+				self.channel_name
+			)
 		logger.info(f"WebSocket connection closed with code: {close_code} for room {self.room_id}")
 
 	async def receive(self, text_data=None, bytes_data=None):
