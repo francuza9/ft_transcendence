@@ -67,7 +67,6 @@ document.addEventListener('DOMContentLoaded', () => {
             handleButtonAction(e, action);
         } 
         else if (e.target.closest('[data-variable]')) {
-            e.preventDefault();
             const element = e.target.closest('[data-variable]');
             const variable = element.dataset.variable;
             const value = element.dataset.value;
