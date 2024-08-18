@@ -35,6 +35,7 @@ class LobbyConsumer(AsyncWebsocketConsumer):
 				self.channel_name
 			)
 			await self.accept()
+			await self.send_refresh_message()
 			logger.info(f"WebSocket connection accepted for lobby {self.lobby_id}")
 
 		except Exception as e:
@@ -73,7 +74,7 @@ class LobbyConsumer(AsyncWebsocketConsumer):
 				else:
 					self.redirect_message()
 
-				if lobby_data[self.lobby_id]['admin'] == content.get('username'):
+				if lobby_data[self.lobby_id]['admin'] == content.get('username') and lobby_data[self.lobby_id]['max_users'] == 10:
 					lobby_data[self.lobby_id]['map'] = content.get('map')
 					lobby_data[self.lobby_id]['max_users'] = content.get('maxPlayerCount')
 					lobby_data[self.lobby_id]['room_name'] = content.get('roomName')
