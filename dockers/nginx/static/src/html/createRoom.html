@@ -23,6 +23,27 @@
 				</div>
 			</div>
 
+			<div class="mb-3">
+				<div class="btn-group w-100">
+					<button id="btnGroupDrop2" type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" data-action='pointsDropdown' aria-expanded="false">
+						3 Points to Win
+					</button>
+					<ul class="dropdown-menu w-100" aria-labelledby="btnGroupDrop2">
+						<li><button class="dropdown-item" type="button" data-variable="pointsToWin" data-value="1">1</button></li>
+						<li><button class="dropdown-item" type="button" data-variable="pointsToWin" data-value="2">2</button></li>
+						<li><button class="dropdown-item" type="button" data-variable="pointsToWin" data-value="3">3</button></li>
+						<li><button class="dropdown-item" type="button" data-variable="pointsToWin" data-value="4">4</button></li>
+						<li><button class="dropdown-item" type="button" data-variable="pointsToWin" data-value="5">5</button></li>
+						<li><button class="dropdown-item" type="button" data-variable="pointsToWin" data-value="6">6</button></li>
+						<li><button class="dropdown-item" type="button" data-variable="pointsToWin" data-value="7">7</button></li>
+						<li><button class="dropdown-item" type="button" data-variable="pointsToWin" data-value="8">8</button></li>
+						<li><button class="dropdown-item" type="button" data-variable="pointsToWin" data-value="9">9</button></li>
+						<li><button class="dropdown-item" type="button" data-variable="pointsToWin" data-value="10">10</button></li>
+						<li><button class="dropdown-item" type="button" data-variable="pointsToWin" data-value="11">11</button></li>
+					  </ul>
+                </div>
+            </div>
+
 			<!-- Players Section -->
 			<div class="mb-3">
 				<div class="btn-group w-100">
@@ -62,13 +83,11 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="editNameModalLabel" data-text="pages.createRoom.editRoomName">Editing Room Name</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <input type="text" id="title-input" class="form-control" value="Guest's room">
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-danger" data-bs-dismiss="modal" data-text="pages.createRoom.cancelButton">Cancel</button>
                 <button type="button" class="btn btn-primary" data-bs-dismiss="modal" data-text="pages.createRoom.saveButton" data-action="saveNameEdit">Save</button>
             </div>
         </div>

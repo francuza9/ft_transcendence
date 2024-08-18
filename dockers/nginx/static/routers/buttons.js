@@ -1,7 +1,7 @@
 import {loginButton, loginWithGithubButton, loginWith42Button} from '/static/src/js/login/login.js';
 import {registerButton} from '/static/src/js/register.js';
 import {playButton, cancelButton, localButton, onlineButton, backFromOnlineButton, skipLoginButton, goToLoginButton} from '/static/src/js/play.js';
-import {createRoomButton, playerCountDropdownButton, editNameButton, saveNameEditButton, cancelNameEditButton, selectMapButton} from '/static/src/js/create.js';
+import {createRoomButton, playerCountDropdownButton, pointsDropdownButton, editNameButton, saveNameEditButton, cancelNameEditButton, selectMapButton} from '/static/src/js/create.js';
 import {loadRooms} from '/static/src/js/join.js';
 
 import {startButton, leaveRoom} from '/static/src/js/lobby.js';
@@ -20,6 +20,7 @@ const actionsMap = {
     goToLogin: goToLoginButton,
     createRoom: createRoomButton,
     playerCountDropdown: playerCountDropdownButton,
+	pointsDropdown: pointsDropdownButton,
     cancel: cancelButton,
 	editName: editNameButton,
 	saveNameEdit: saveNameEditButton,
