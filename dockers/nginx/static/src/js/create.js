@@ -3,6 +3,7 @@ import {variables} from '/static/src/js/variables.js';
 import {checkLoginStatus} from '/static/src/js/utils.js';
 import {refreshLobbyDetails} from '/static/src/js/lobby.js';
 import {initLobbySocket} from '/static/src/js/socket_handling/lobby_socket.js';
+import {Lobby} from '/static/views/lobby.js';
 
 export const setDefaultRoomName = () => {
     const displayTitle = document.getElementById('display-title');
@@ -118,20 +119,11 @@ export async function createRoomButton() {
 		if (data.success) {
 			variables.lobbyId = data.join_code;
 			history.pushState(null, '', `/${data.join_code}`);
-			replaceHTML('/static/src/html/lobby.html').then(() => {
-				variables.players = [variables.username];
-				refreshLobbyDetails(variables);
-			});
+			variables.players = [variables.username];
+			Lobby([data.join_code]);
 
 		} else {
 			console.error('Failed to create room:', data.message);	
 		}
-		
 	})
-
-	try {
-        const socket = await initLobbySocket(variables);
-	} catch (error) {
-        console.error('Failed to initialize WebSocket:', error);
-    }
 }
