@@ -15,13 +15,6 @@ class PongConsumer(AsyncWebsocketConsumer):
 	room_counters = {}
 	game_states = {}
 
-	def __init__(self, *args, **kwargs):
-		super().__init__(*args, **kwargs)
-		# Set default values
-		self.room_id = None
-		self.room_group_name = None
-		self.room_size_event = asyncio.Event()
-
 	async def connect(self):
 		try:
 			self.room_id = self.scope['url_route']['kwargs']['lobbyId']
@@ -40,7 +33,7 @@ class PongConsumer(AsyncWebsocketConsumer):
 				self.channel_name
 			)
 			await self.accept()
-			logger.info(f"WebSocket connection accepted for room {self.room_id}")
+			logger.info(f"pong: WebSocket connection accepted for room {self.room_id}")
 
 			response_message = {'pov': pov}
 			await self.send(text_data=json.dumps(response_message))
@@ -57,7 +50,7 @@ class PongConsumer(AsyncWebsocketConsumer):
 				self.room_group_name,
 				self.channel_name
 			)
-		logger.info(f"WebSocket connection closed with code: {close_code} for room {self.room_id}")
+		logger.info(f"pong: WebSocket connection closed with code: {close_code} for room {self.room_id}")
 
 	async def receive(self, text_data=None, bytes_data=None):
 		# self.send_message("hello")
@@ -70,9 +63,9 @@ class PongConsumer(AsyncWebsocketConsumer):
 					PongConsumer.game_states[self.room_id]['2_P']['players'][player_key]['x'] = positionX
 					PongConsumer.game_states[self.room_id]['2_P']['players'][player_key]['y'] = positionY
 			except KeyError as e:
-				logger.info(f"KeyError: {e}")
+				logger.info(f"pong: KeyError: {e}")
 			except struct.error as e:
-				logger.info(f"StructError: {e}")
+				logger.info(f"pong: StructError: {e}")
 		elif text_data:
 			data = json.loads(text_data)
 			message_type = data['type']
@@ -80,7 +73,7 @@ class PongConsumer(AsyncWebsocketConsumer):
 				room_size = data.get('room_size')
 				if room_size is not None and 2 <= room_size <= 8:
 					PongConsumer.game_states[self.room_id]['room_size'] = room_size
-					logger.info(f"Room size set to {PongConsumer.game_states[self.room_id]['room_size']}")
+					logger.info(f"pong: Room size set to {PongConsumer.game_states[self.room_id]['room_size']}")
 					self.room_size_event.set()
 				else:
 					await self.send(text_data=json.dumps({'error': 'Invalid room size'}))
