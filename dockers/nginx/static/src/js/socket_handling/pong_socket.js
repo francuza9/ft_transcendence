@@ -39,7 +39,7 @@ export async function initPongSocket(roomId, room_size) {
 
         socket.onerror = function(error) {
             console.error('WebSocket error:', error);
-            setTimeout(() => initializeWebSocket(roomId).then(resolve).catch(reject), 2000); // retry every 2 seconds
+            setTimeout(() => initPongSocket(roomId, room_size).then(resolve).catch(reject), 2000); // retry every 2 seconds
         };
 
         socket.onclose = function() {

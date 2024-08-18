@@ -58,14 +58,21 @@ class LobbyConsumer(AsyncWebsocketConsumer):
 			self.lobby_group_name,
 			self.channel_name
 		)
-		await self.send_refresh_message()
+
+		# Only send refresh message if the lobby still exists
+		if self.lobby_id in lobby_data:
+			await self.send_refresh_message()
+
 		logger.info(f"WebSocket connection closed with code: {close_code} for lobby {self.lobby_id}")
+
 
 	async def receive(self, text_data=None):
 		if text_data:
 			data = json.loads(text_data)
 			message_type = data.get('type')
 			content = data.get('content')
+
+			logger.info(f"message type: {message_type}")
 
 			if message_type == 'init':
 				if lobby_data[self.lobby_id]['admin'] is None:
@@ -97,24 +104,25 @@ class LobbyConsumer(AsyncWebsocketConsumer):
 				await self.close()  # Close the WebSocket connection
 
 	async def send_refresh_message(self):
-		# Convert set to list for JSON serialization
-		connected_clients = list(lobby_data[self.lobby_id]['connected_clients'])
+		if self.lobby_id in lobby_data:  # Ensure lobby exists before trying to send message
+			connected_clients = list(lobby_data[self.lobby_id]['connected_clients'])
 
-		await self.channel_layer.group_send(
-			self.lobby_group_name,
-			{
-				'type': 'refresh_message',
-				'message': {
-					'admin': lobby_data[self.lobby_id]['admin'],
-					'players': lobby_data[self.lobby_id]['players'],
-					'map': lobby_data[self.lobby_id]['map'],
-					'maxPlayerCount': lobby_data[self.lobby_id]['max_users'],
-					'roomName': lobby_data[self.lobby_id]['room_name'],
-					'isTournament': lobby_data[self.lobby_id]['is_tournament'],
-					'connected_clients': connected_clients
-				},
-			}
-		)
+			await self.channel_layer.group_send(
+				self.lobby_group_name,
+				{
+					'type': 'refresh_message',
+					'message': {
+						'admin': lobby_data[self.lobby_id]['admin'],
+						'players': lobby_data[self.lobby_id]['players'],
+						'map': lobby_data[self.lobby_id]['map'],
+						'maxPlayerCount': lobby_data[self.lobby_id]['max_users'],
+						'roomName': lobby_data[self.lobby_id]['room_name'],
+						'isTournament': lobby_data[self.lobby_id]['is_tournament'],
+						'connected_clients': connected_clients
+					},
+				}
+			)
+
 
 	async def refresh_message(self, event):
 		message = event['message']
@@ -133,10 +141,17 @@ class LobbyConsumer(AsyncWebsocketConsumer):
 			self.lobby_group_name,
 			{
 				'type': 'start_message',
-				'message': 'start'
+				'message': {
+						'playerCount': len(lobby_data[self.lobby_id]['players']),
+						'map': lobby_data[self.lobby_id]['map'],
+						'roomID': self.lobby_id,
+					}
 			}
 		)
 
 	async def start_message(self, event):
 		message = event['message']
-		await self.send(text_data=json.dumps({'type': message}))
+		await self.send(text_data=json.dumps({
+			'type': 'start',
+			'content': message,
+		}))
