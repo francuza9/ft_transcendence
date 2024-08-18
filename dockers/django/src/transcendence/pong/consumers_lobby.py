@@ -58,6 +58,7 @@ class LobbyConsumer(AsyncWebsocketConsumer):
 			self.lobby_group_name,
 			self.channel_name
 		)
+		await self.send_refresh_message()
 		logger.info(f"WebSocket connection closed with code: {close_code} for lobby {self.lobby_id}")
 
 	async def receive(self, text_data=None):
@@ -79,12 +80,21 @@ class LobbyConsumer(AsyncWebsocketConsumer):
 					lobby_data[self.lobby_id]['max_users'] = content.get('maxPlayerCount')
 					lobby_data[self.lobby_id]['room_name'] = content.get('roomName')
 					lobby_data[self.lobby_id]['is_tournament'] = content.get('isTournament')
-					# logger.info(lobbies)
-
 				await self.send_refresh_message()
 
 			elif message_type == 'start':
 				await self.send_start_message()
+
+			elif message_type == 'exit':
+				username = content.get('username')
+				if username in lobby_data[self.lobby_id]['players']:
+					lobby_data[self.lobby_id]['players'].remove(username)
+				if lobby_data[self.lobby_id]['admin'] == username:
+					if lobby_data[self.lobby_id]['players']:
+						lobby_data[self.lobby_id]['admin'] = lobby_data[self.lobby_id]['players'][0]
+					else:
+						lobby_data[self.lobby_id]['admin'] = None
+				await self.close()  # Close the WebSocket connection
 
 	async def send_refresh_message(self):
 		# Convert set to list for JSON serialization
