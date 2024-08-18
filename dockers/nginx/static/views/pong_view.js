@@ -7,19 +7,26 @@ const DESERT_MAP = 2;
 const HELL_MAP = 3;
 const SPACE_MAP = 4;
 
-export async function Pong([roomId]) {
-	const section = document.getElementsByTagName('section')[0];
-	section.remove();
+export async function Pong(roomId, room_size, map_name, ) {
+	// const section = document.getElementsByTagName('section')[0];
+	// section.remove();
 	const element = document.createElement('div');
 	element.innerHTML = `
 		<h1>Pong Game Room: ${roomId}</h1>
 		<!-- Include the script directly or ensure it's loaded via your build system -->
 		<script type="module" src="{% static 'src/js/3d.js' %}"></script>
 	`;
+	let map = NO_MAP;
 
-
-	// Get room_size somehow, possibly from API
-	const room_size = 3;
+	if (map_name === 'Mountain') {
+		map = MOUNTAIN_MAP;
+	} else if (map_name === 'Desert') {
+		map = DESERT_MAP;
+	} else if (map_name === 'Hell') {
+		map = HELL_MAP;
+	} else if (map_name === 'Space') {
+		map = SPACE_MAP;
+	}
 
 	// Initialize the Pong game
 	try {
@@ -27,7 +34,7 @@ export async function Pong([roomId]) {
 		if (room_size < 2 || room_size > 8 || room_size < pov) {
 			throw new Error('Invalid room size');
 		}
-        startGame(room_size, pov, MOUNTAIN_MAP, socket);
+        startGame(room_size, pov, map, socket);
 	} catch (error) {
         console.error('Failed to initialize WebSocket:', error);
     }

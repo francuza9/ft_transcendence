@@ -1,6 +1,8 @@
 import { refreshLobbyDetails } from '/static/src/js/lobby.js';
 import { checkLoginStatus } from '/static/src/js/utils.js';
 import { handleRouting } from '/static/routers/router.js';
+import { startGame } from '/static/src/js/3d.js';
+import { Pong } from '/static/views/pong_view.js';
 
 export async function initLobbySocket(variables) {
     // Ensure username is set
@@ -33,6 +35,7 @@ export async function initLobbySocket(variables) {
 
         socket.onmessage = function(event) {
             const message = JSON.parse(event.data);
+			console.log(message);
 
             if (message.type === 'refresh') {
                 const content = message.content;
@@ -52,7 +55,11 @@ export async function initLobbySocket(variables) {
             } else if (message.type === 'redirect') {
                 history.pushState(null, '', `/join`);
                 handleRouting();
-            }
+            } else if (message.type === 'start') {
+				console.log(message.content);
+				Pong(message.content.roomID, message.content.playerCount, message.content.map);
+				// socket.close();
+			}
         };
 
         socket.onerror = function(error) {
