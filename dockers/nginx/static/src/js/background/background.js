@@ -12,31 +12,47 @@ init();
 animate();
 
 function init() {
-  const container = document.getElementById("background-container");
+	const container = document.getElementById("background-container");
 
-  renderer = new THREE.WebGLRenderer({ antialias: true });
-  renderer.setPixelRatio(window.devicePixelRatio);
-  renderer.setSize(window.innerWidth, window.innerHeight);
-  canvas = renderer.domElement; // Save reference to canvas
-  container.appendChild(canvas);
+	renderer = new THREE.WebGLRenderer({ antialias: true });
+	renderer.setPixelRatio(window.devicePixelRatio);
+	renderer.setSize(window.innerWidth, window.innerHeight);
+	canvas = renderer.domElement; // Save reference to canvas
+	container.appendChild(canvas);
 
-  const materialB = new THREE.MeshStandardMaterial({
-    color: 0xFF9900,
-    flatShading: true,
-  });
+	// Define the camera outside for reuse in resize event
+	const w = window.innerWidth;
+	const h = window.innerHeight;
+	const camera = new THREE.PerspectiveCamera(50, w / h, 1, 10000);
+	camera.position.z = 2000;
 
-  sceneB = getFXScene({
-    renderer,
-    material: materialB,
-    clearColor: 0x000000,
-    needsAnimatedColor: true,
-  });
+	// Handle resize to keep objects' size consistent on screen
+	window.addEventListener('resize', () => {
+		const width = window.innerWidth;
+		const height = window.innerHeight;
 
-  transition = {
-    render: (delta) => {
-      sceneB.render(delta, false); // Only render sceneB
-    }
-  };
+		// Update the renderer size
+		renderer.setSize(width, height);
+	});
+
+
+	const materialB = new THREE.MeshStandardMaterial({
+		color: 0xFF9900,
+		flatShading: true,
+	});
+
+	sceneB = getFXScene({
+		renderer,
+		material: materialB,
+		clearColor: 0x000000,
+		needsAnimatedColor: true,
+	});
+
+	transition = {
+		render: (delta) => {
+			sceneB.render(delta, false); // Only render sceneB
+		}
+	};
 }
 
 // Animation loop function

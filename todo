@@ -29,7 +29,7 @@ Add css to all pages
 Add back button on login and register pages
 Fix login <--> register buttons broken on translations 
 
-
+fix register when auto input from firefox / chrome (gives white tab instead of transparent)
 
 Visuals:
 Play button on home page rework
