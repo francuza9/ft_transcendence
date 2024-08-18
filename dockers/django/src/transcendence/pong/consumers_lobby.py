@@ -15,7 +15,7 @@ class LobbyConsumer(AsyncWebsocketConsumer):
 			self.lobby_group_name = f"lobby_{self.lobby_id}"
 
 			if self.lobby_id not in lobby_data:
-				logger.info(f"lobby_data: {lobby_data}")
+				logger.info(f"lobby: lobby_data: {lobby_data}")
 				lobby_data[self.lobby_id] = {
 					'admin': None,
 					'map': "default_map",
@@ -25,7 +25,6 @@ class LobbyConsumer(AsyncWebsocketConsumer):
 					'room_name': "default_room_name",
 					'connected_clients': set(),
 				}
-			logger.info(lobby_data)
 
 			# Add the new client to the lobby's connected clients
 			lobby_data[self.lobby_id]['connected_clients'].add(self.channel_name)
@@ -36,14 +35,14 @@ class LobbyConsumer(AsyncWebsocketConsumer):
 			)
 			await self.accept()
 			await self.send_refresh_message()
-			logger.info(f"WebSocket connection accepted for lobby {self.lobby_id}")
+			logger.info(f"lobby: WebSocket connection accepted for lobby {self.lobby_id}")
 
 		except Exception as e:
 			logger.error(f"Error during connection setup: {e}")
 			await self.close()
 
 	async def disconnect(self, close_code):
-		logger.info(f"Disconnect called with code: {close_code}")
+		logger.info(f"lobby: Disconnect called with code: {close_code}")
 
 		if self.lobby_id in lobby_data:
 			lobby_data[self.lobby_id]['connected_clients'].discard(self.channel_name)
@@ -52,7 +51,7 @@ class LobbyConsumer(AsyncWebsocketConsumer):
 				await asyncio.sleep(10)
 				if not lobby_data[self.lobby_id]['connected_clients']:
 					del lobby_data[self.lobby_id]
-					logger.info(f"Lobby {self.lobby_id} removed due to inactivity.")
+					logger.info(f"lobby: Lobby {self.lobby_id} removed due to inactivity.")
 
 		await self.channel_layer.group_discard(
 			self.lobby_group_name,
@@ -63,7 +62,7 @@ class LobbyConsumer(AsyncWebsocketConsumer):
 		if self.lobby_id in lobby_data:
 			await self.send_refresh_message()
 
-		logger.info(f"WebSocket connection closed with code: {close_code} for lobby {self.lobby_id}")
+		logger.info(f"lobby: WebSocket connection closed with code: {close_code} for lobby {self.lobby_id}")
 
 
 	async def receive(self, text_data=None):
@@ -72,7 +71,7 @@ class LobbyConsumer(AsyncWebsocketConsumer):
 			message_type = data.get('type')
 			content = data.get('content')
 
-			logger.info(f"message type: {message_type}")
+			logger.info(f"lobby: message type: {message_type}")
 
 			if message_type == 'init':
 				if lobby_data[self.lobby_id]['admin'] is None:
@@ -90,7 +89,13 @@ class LobbyConsumer(AsyncWebsocketConsumer):
 				await self.send_refresh_message()
 
 			elif message_type == 'start':
-				await self.send_start_message()
+				if len(lobby_data[self.lobby_id]['players']) >= 2:
+					await self.send_start_message()
+				else:
+					await self.send(text_data=json.dumps({
+						'type': 'error',
+						'content': 'Not enough players to start the game'
+					}))
 
 			elif message_type == 'exit':
 				username = content.get('username')
