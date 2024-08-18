@@ -6,19 +6,19 @@ let socket;
 
 export async function Lobby([lobbyId]) {
 	variables.lobbyId = lobbyId;
-	replaceHTML('/static/src/html/lobby.html', false);
+	replaceHTML('/static/src/html/lobby.html', false).then(() => {
 	
-	lobbyPromise = new Promise(async (resolve, reject) => {
-		try {
-			socket = await initLobbySocket(variables);
-			console.log('WebSocket initialized:', socket);
-			resolve();
-		} catch (error) {
-			console.error('Failed to initialize WebSocket:', error);
-			reject(error);
-		}
+		const lobbyPromise = new Promise(async (resolve, reject) => {
+			try {
+				socket = await initLobbySocket(variables);
+				console.log('WebSocket initialized:', socket);
+				resolve();
+			} catch (error) {
+				console.error('Failed to initialize WebSocket:', error);
+				reject(error);
+			}
+		});
 	});
-
 }
 
 export function getSocket()
