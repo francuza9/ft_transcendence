@@ -58,7 +58,7 @@ export async function initLobbySocket(variables) {
             } else if (message.type === 'start') {
 				console.log(message.content);
 				Pong(message.content.roomID, message.content.playerCount, message.content.map);
-				// socket.close();
+				socket.close();
 			}
         };
 
