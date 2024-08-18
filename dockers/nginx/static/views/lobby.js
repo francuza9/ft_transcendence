@@ -11,7 +11,6 @@ export async function Lobby([lobbyId]) {
 		const lobbyPromise = new Promise(async (resolve, reject) => {
 			try {
 				socket = await initLobbySocket(variables);
-				console.log('WebSocket initialized:', socket);
 				resolve();
 			} catch (error) {
 				console.error('Failed to initialize WebSocket:', error);
@@ -23,6 +22,5 @@ export async function Lobby([lobbyId]) {
 
 export function getSocket()
 {
-	console.log('Current socket:', socket);
 	return socket;
 }
