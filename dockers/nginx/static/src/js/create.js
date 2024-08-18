@@ -7,6 +7,7 @@ import {Lobby} from '/static/views/lobby.js';
 
 export const setDefaultRoomName = () => {
     const displayTitle = document.getElementById('display-title');
+	const titleInput = document.getElementById('title-input');
 
     const ensureUsername = () => {
         if (variables.username) {
@@ -27,6 +28,7 @@ export const setDefaultRoomName = () => {
     ensureUsername().then(() => {
         variables.roomName = `${variables.username}'s room`;
         displayTitle.textContent = variables.roomName;
+		titleInput.value = variables.roomName;
     });
 };
 
@@ -34,6 +36,12 @@ export const updatePlayerCount = (document, value) => {
 	variables.maxPlayerCount = parseInt(value, 10);
 	const dropdownButton = document.getElementById('btnGroupDrop1');
 	dropdownButton.textContent = `${variables.maxPlayerCount} Players`;
+}
+
+export const updatePointsToWin = (document, value) => {
+	variables.pointsToWin = parseInt(value, 10);
+	const dropdownButton = document.getElementById('btnGroupDrop2');
+	dropdownButton.textContent = `${variables.pointsToWin} Points to Win`;
 }
 
 export const updateIsTournament = (document, value) => {
@@ -84,6 +92,11 @@ export const cancelNameEditButton = () => {
 
 export const playerCountDropdownButton = () => {
 	var dropdown = new bootstrap.Dropdown(document.getElementById('btnGroupDrop1'));
+	dropdown.toggle();
+}
+
+export const pointsDropdownButton = () => {
+	var dropdown = new bootstrap.Dropdown(document.getElementById('btnGroupDrop2'));
 	dropdown.toggle();
 }
 
