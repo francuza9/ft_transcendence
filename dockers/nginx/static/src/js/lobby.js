@@ -78,9 +78,7 @@ export const startButton = () => {
     } else {
         console.error('WebSocket is not open.');
     }
-	const section = document.getElementsByTagName('section')[0];
-	section.remove();
-	cleanupBackground();
+	
 
 	// //the following has to be adjusted to multiplayer pong game:
 	// const element = document.createElement('div');

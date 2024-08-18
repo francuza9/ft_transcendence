@@ -1,5 +1,6 @@
 import { startGame } from '/static/src/js/3d.js';
 import { initPongSocket } from '/static/src/js/socket_handling/pong_socket.js';
+import { cleanupBackground } from '/static/src/js/background/background.js';
 
 const NO_MAP = 0;
 const MOUNTAIN_MAP = 1;
@@ -8,8 +9,10 @@ const HELL_MAP = 3;
 const SPACE_MAP = 4;
 
 export async function Pong(roomId, room_size, map_name, ) {
-	// const section = document.getElementsByTagName('section')[0];
-	// section.remove();
+	const section = document.getElementsByTagName('section')[0];
+	section.remove();
+	cleanupBackground();
+
 	const element = document.createElement('div');
 	element.innerHTML = `
 		<h1>Pong Game Room: ${roomId}</h1>
