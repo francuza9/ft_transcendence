@@ -1,8 +1,9 @@
 import {cleanupBackground} from '/static/src/js/background/background.js';
-import {getCookie} from '/static/src/js/cookies.js';
 import {handleRouting} from '/static/routers/router.js';
 import {getSocket} from '/static/views/lobby.js';
 import {replaceHTML} from '/static/src/js/utils.js';
+import {checkLoginStatus} from '/static/src/js/utils.js';
+import {variables} from '/static/src/js/variables.js';
 
 function updateLobbyDetails(variables) {
 	if (variables.roomName)
@@ -57,12 +58,12 @@ export const leaveRoom = () => {
 
 	if (socket.readyState === WebSocket.OPEN) {
 		console.log('starting game...');
-		socket.send(JSON.stringify({ type: 'exit' }));
+		checkLoginStatus().then(loggedIn => {
+			socket.send(JSON.stringify({ type: 'exit', content: { username: variables.username } }));
+		});
 	} else {
 		console.error('WebSocket is not open.');
 	}
-
-	//todo: close websocket connection and remove player from backend
 };
 
 export const startButton = () => {
