@@ -8,7 +8,10 @@ fix clipboard-write feature policy warning (clipboard.writeText and clipboard.re
 
 42 login
 
-
+problem with pong game {
+	back arrow during pong fucks html because canvas 
+	is deleted when pong game is initialized
+}
 
 [Youssef] {
 Account settings page (edit personal data, upload profile picture, ect...)
@@ -41,13 +44,12 @@ Endscreen leaderboard
 
 Low priority:
 Add all languages in translations (only at end)
+add winning score display in lobby (variables.winning_score)
+
 
 Extra:
 Easter egg(s)
 }
+
 Check email fields are actual emails in login, register and account pages
 Stop the page from refreshing in account page when saving a field using Enter button
-
-george:
-
-
