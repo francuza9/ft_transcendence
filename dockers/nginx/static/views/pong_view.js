@@ -8,7 +8,7 @@ const DESERT_MAP = 2;
 const HELL_MAP = 3;
 const SPACE_MAP = 4;
 
-export async function Pong(roomId, room_size, map_name, ) {
+export async function Pong(roomId, room_size, map_name, winning_score) {
 	const section = document.getElementsByTagName('section')[0];
 	section.remove();
 	cleanupBackground();
@@ -33,7 +33,7 @@ export async function Pong(roomId, room_size, map_name, ) {
 
 	// Initialize the Pong game
 	try {
-        const { pov, socket } = await initPongSocket(roomId, room_size);
+        const { pov, socket } = await initPongSocket(roomId, room_size, winning_score);
 		if (room_size < 2 || room_size > 8 || room_size < pov) {
 			throw new Error('Invalid room size');
 		}
