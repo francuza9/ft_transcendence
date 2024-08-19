@@ -9,7 +9,6 @@ export const registerButton = () => {
 
     console.log(username, email);
 
-    // Validate input
     if (!username || !email || !password || !passwordConfirmation) {
         alert('Please fill in all fields');
         return;
@@ -20,15 +19,13 @@ export const registerButton = () => {
         return;
     }
 
-    // Fetch CSRF token from the cookie
     const csrftoken = getCookie('csrftoken');
 
-    // Send registration data to the server
     fetch('/api/register/', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
-            'X-CSRFToken': csrftoken,  // Include CSRF token here
+            'X-CSRFToken': csrftoken,
         },
         body: JSON.stringify({ username, email, password })
     })
@@ -49,3 +46,52 @@ export const registerButton = () => {
         alert('An error occurred during registration');
     });
 };
+
+export function addRegisterListeners() {
+    const form = document.querySelector('.register-box form');
+    const registerButton = document.querySelector('button[data-action="register"]');
+
+    if (form && registerButton) {
+        form.addEventListener('submit', handleFormSubmit);
+        form.addEventListener('keypress', handleKeyPress);
+    }
+}
+
+export function observeRegisterForm() {
+    const observer = new MutationObserver((mutationsList, observer) => {
+        for (let mutation of mutationsList) {
+            if (mutation.type === 'childList') {
+                const form = document.querySelector('.register-box form');
+                const registerButton = document.querySelector('button[data-action="register"]');
+                if (form && registerButton) {
+                    addRegisterListeners();
+                    observer.disconnect();
+                    break;
+                }
+            }
+        }
+    });
+
+    observer.observe(document.body, { childList: true, subtree: true });
+}
+
+export function removeRegisterListeners() {
+    const form = document.querySelector('.register-box form');
+
+    if (form) {
+        form.removeEventListener('submit', handleFormSubmit);
+        form.removeEventListener('keypress', handleKeyPress);
+    }
+}
+
+function handleFormSubmit(event) {
+    event.preventDefault();
+    registerButton();
+}
+
+function handleKeyPress(event) {
+    if (event.key === 'Enter') {
+        event.preventDefault();
+        registerButton();
+    }
+}

@@ -17,21 +17,30 @@ export function viewProfile(playerId) {
 }
 
 export const refreshLobbyDetails = (variables) => {
-	renderPlayerList(variables.players, variables.admin);
+	renderPlayerList(variables);
 	updateLobbyDetails(variables);
+	if (variables.username === variables.admin) {
+		showStartButton();
+	}
 }
 
-function renderPlayerList(players, admin) {
+export const showStartButton = () => {
+	const startButton = document.getElementById('start');
+
+	startButton.classList.remove('hidden');
+}
+
+function renderPlayerList(variables) {
     const playerListElement = document.getElementsByClassName('playerList')[0];
 	playerListElement.innerHTML = '';
 
-    players.forEach((player, index) => {
+    variables.players.forEach((player, index) => {
         const row = document.createElement('tr');
         row.classList.add('player-row');
         row.setAttribute('data-player-id', `player${index + 1}`);
 
-		if (player === admin) {
-            row.classList.add('admin-row');
+		if (player === variables.username) {
+            row.classList.add('highlighted-row');
         }
 
         row.innerHTML = `
@@ -39,7 +48,7 @@ function renderPlayerList(players, admin) {
             <td><img src="${player.profile_picture || 'https://via.placeholder.com/40'}" alt="${player}" class="player-img"></td>
             <td>${player.totalScore}</td>
 			-->
-            <td>${player}${player === admin ? '<span class="admin-badge">Room Admin</span>' : ''}</td>
+            <td>${player}${player === variables.admin ? '<span class="admin-badge">Room Admin</span>' : ''}</td>
         `;
 
         playerListElement.appendChild(row);
@@ -66,7 +75,7 @@ export const leaveRoom = () => {
 };
 
 export const startButton = () => {
-    const socket = getSocket();  // Get the most recent socket value
+    const socket = getSocket();
 
     if (!socket) {
         console.error('WebSocket is not initialized yet.');
