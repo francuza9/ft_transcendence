@@ -24,6 +24,7 @@ class LobbyConsumer(AsyncWebsocketConsumer):
 					'is_tournament': False,
 					'room_name': "default_room_name",
 					'connected_clients': set(),
+					'winning_score': 999,
 				}
 
 			# Add the new client to the lobby's connected clients
@@ -86,6 +87,7 @@ class LobbyConsumer(AsyncWebsocketConsumer):
 					lobby_data[self.lobby_id]['max_users'] = content.get('maxPlayerCount')
 					lobby_data[self.lobby_id]['room_name'] = content.get('roomName')
 					lobby_data[self.lobby_id]['is_tournament'] = content.get('isTournament')
+					lobby_data[self.lobby_id]['winning_score'] = content.get('pointsToWin')
 				await self.send_refresh_message()
 
 			elif message_type == 'start':
@@ -123,6 +125,7 @@ class LobbyConsumer(AsyncWebsocketConsumer):
 						'maxPlayerCount': lobby_data[self.lobby_id]['max_users'],
 						'roomName': lobby_data[self.lobby_id]['room_name'],
 						'isTournament': lobby_data[self.lobby_id]['is_tournament'],
+						'winning_score': lobby_data[self.lobby_id]['winning_score'],
 						'connected_clients': connected_clients
 					},
 				}
@@ -150,6 +153,7 @@ class LobbyConsumer(AsyncWebsocketConsumer):
 						'playerCount': len(lobby_data[self.lobby_id]['players']),
 						'map': lobby_data[self.lobby_id]['map'],
 						'roomID': self.lobby_id,
+						'winning_score': lobby_data[self.lobby_id]['winning_score'],
 					}
 			}
 		)

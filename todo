@@ -39,13 +39,10 @@ Endscreen leaderboard
 
 Low priority:
 Add all languages in translations (only at end)
+add winning score display in lobby (variables.winning_score)
 
 
 Extra:
 Easter egg(s)
 Add backbutton on login page (and handle playing redirection)
 }
-
-george:
-leave room button (disc socket too)
-disconnect socket when room is full
