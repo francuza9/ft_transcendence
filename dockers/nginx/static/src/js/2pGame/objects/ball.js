@@ -2,25 +2,24 @@ import * as THREE from 'three';
 
 export class Ball {
     constructor(scene) {
-        // Ball geometry and material
+
     	const ballGeometry = new THREE.SphereGeometry(0.25, 6, 32);
     	const ballMaterial = new THREE.MeshLambertMaterial({ color: 0xffffff });
 		const ballMaterial2 = new THREE.MeshLambertMaterial({ color: 0x000000 });
 
 		this.color = 0xffffff;
-		        // Ball mesh
+
 		this.ball = new THREE.Mesh(ballGeometry, ballMaterial);
 		this.ball2 = new THREE.Mesh(ballGeometry, ballMaterial2);
-		this.ball.position.set(0, 0.75, 0); // Set initial position with y = 0.75
+		this.ball.position.set(0, 0.75, 0);
 		this.ball2.position.set(0, 0.75, 0);
 
 		this.ball2.rotation.y = 0.1;
 		this.ball.rotation.x = Math.PI / 2;
 		this.ball2.rotation.x = Math.PI / 2;
 
-        // Animation parameters
-        this.speed = 0.05; // Adjust speed as needed
-        this.direction = new THREE.Vector3(1.5, 0, 0); // Movement direction
+        this.speed = 0;
+        this.direction = new THREE.Vector3(1.5, 0, 0);
 
 		this.trail = [];
 		const trailGeometries = [

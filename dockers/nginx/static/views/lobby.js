@@ -6,13 +6,18 @@ let socket;
 
 export async function Lobby([lobbyId]) {
 	variables.lobbyId = lobbyId;
-	replaceHTML('/static/src/html/lobby.html', false);
+	replaceHTML('/static/src/html/lobby.html', false).then(() => {
 	
-	try {
-        socket = await initLobbySocket(variables);
-	} catch (error) {
-        console.error('Failed to initialize WebSocket:', error);
-    }
+		const lobbyPromise = new Promise(async (resolve, reject) => {
+			try {
+				socket = await initLobbySocket(variables);
+				resolve();
+			} catch (error) {
+				console.error('Failed to initialize WebSocket:', error);
+				reject(error);
+			}
+		});
+	});
 }
 
 export function getSocket()

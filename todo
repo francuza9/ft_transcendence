@@ -1,6 +1,4 @@
-when admin disconnects from lobby give admin to oldest in the lobby
 clean up old views
-get correct lobby data to backend
 when lobby doesnt exist, redirect to join page and show error popup to client
 
 
@@ -24,15 +22,14 @@ Add kick button to kick players on lobby page (for admin only)
 
 [Marijn] {
 
-Background rework
-Add css to all pages
 Add back button on login and register pages
 Fix login <--> register buttons broken on translations 
 
-
+fix register when auto input from firefox / chrome (gives white tab instead of transparent)
 
 Visuals:
 Play button on home page rework
+Fix language menu button color
 Fix mode button group animations
 Fade in animation for smooth transition between pages
 
@@ -45,7 +42,7 @@ Add all languages in translations (only at end)
 
 
 Extra:
-Lobby name edit popup?
+Easter egg(s)
 Add backbutton on login page (and handle playing redirection)
 }
 Check email fields are actual emails in login, register and account pages

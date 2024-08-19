@@ -49,11 +49,3 @@ export const registerButton = () => {
         alert('An error occurred during registration');
     });
 };
-
-export const loginWithGithubButton = () => {
-    console.log('Register with GitHub');
-}
-
-export const loginWith42Button = () => {
-    console.log('Register with 42');
-}

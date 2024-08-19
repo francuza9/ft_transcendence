@@ -1,8 +1,9 @@
 import {cleanupBackground} from '/static/src/js/background/background.js';
-import {getCookie} from '/static/src/js/cookies.js';
 import {handleRouting} from '/static/routers/router.js';
 import {getSocket} from '/static/views/lobby.js';
 import {replaceHTML} from '/static/src/js/utils.js';
+import {checkLoginStatus} from '/static/src/js/utils.js';
+import {variables} from '/static/src/js/variables.js';
 
 function updateLobbyDetails(variables) {
 	if (variables.roomName)
@@ -48,8 +49,21 @@ function renderPlayerList(players, admin) {
 export const leaveRoom = () => {
 	history.pushState(null, '', `/`);
 	replaceHTML('/static/src/html/room.html');
-	//todo: close websocket connection and remove player from backend
-}
+
+	const socket = getSocket();
+	if (!socket) {
+		console.error('WebSocket is not initialized yet.');
+		return;
+	}
+
+	if (socket.readyState === WebSocket.OPEN) {
+		checkLoginStatus().then(loggedIn => {
+			socket.send(JSON.stringify({ type: 'exit', content: { username: variables.username } }));
+		});
+	} else {
+		console.error('WebSocket is not open.');
+	}
+};
 
 export const startButton = () => {
     const socket = getSocket();  // Get the most recent socket value
@@ -60,21 +74,17 @@ export const startButton = () => {
     }
 
     if (socket.readyState === WebSocket.OPEN) {
-        console.log('starting game...');
         socket.send(JSON.stringify({ type: 'start' }));
     } else {
         console.error('WebSocket is not open.');
     }
-	const section = document.getElementsByTagName('section')[0];
-	section.remove();
-	cleanupBackground();
+	
 
-	/*//the following has to be adjusted to multiplayer pong game:
-	const element = document.createElement('div');
-	element.innerHTML = `
-		<h1>Pong Local Game !/h1>
-		<script type="module" src="{% static 'src/js/localgame/localgame.js' %}"></script>
-	`;
-	startLocal();
-	*/
+	// //the following has to be adjusted to multiplayer pong game:
+	// const element = document.createElement('div');
+	// element.innerHTML = `
+	// 	<h1>Pong Local Game !/h1>
+	// 	<script type="module" src="{% static 'src/js/localgame/localgame.js' %}"></script>
+	// `;
+	// startLocal();
 };

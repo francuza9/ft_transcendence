@@ -68,9 +68,8 @@
             "continueAsGuest": "Continue as guest",
             "login": "Login",
             "back": "Back",
-            "localButton": "Local",
-            "onlineButton": "Online",
-            "backButton": "Back",
+            "local": "Local",
+            "online": "Online",
             "joinRoomButton": "Join Room",
             "createRoomButton": "Create Room"
         },
