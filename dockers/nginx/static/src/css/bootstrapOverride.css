@@ -1,9 +1,88 @@
+/* Primary Button */
 .btn-primary {
-    background-color: #600080;
-    border-color: #4C0065;
+  --bs-btn-color: #fff;
+  --bs-btn-bg: #600080;
+  --bs-btn-border-color: #600080;
+  --bs-btn-hover-color: #fff;
+  --bs-btn-hover-bg: #50006a;
+  --bs-btn-hover-border-color: #4a0062;
+  --bs-btn-focus-shadow-rgb: 96, 0, 128;
+  --bs-btn-active-color: #fff;
+  --bs-btn-active-bg: #4a0062;
+  --bs-btn-active-border-color: #43005a;
+  --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+  --bs-btn-disabled-color: #fff;
+  --bs-btn-disabled-bg: #600080;
+  --bs-btn-disabled-border-color: #600080;
 }
 
-.btn-primary:hover {
-    background-color: #4C0065;
-    border-color: #39004C;
+.btn-primary:hover, .btn-primary:focus {
+  background-color: #50006a;
+  border-color: #4a0062;
+  color: #fff;
+}
+
+.btn-primary:active, .btn-primary.active, .btn-primary.show {
+  background-color: #4a0062;
+  border-color: #43005a;
+  color: #fff;
+}
+
+/* Outline Button */
+.btn-outline-primary {
+  color: #600080;
+  border-color: #600080;
+}
+
+.btn-outline-primary:hover, .btn-outline-primary:focus {
+  color: #fff;
+  background-color: #50006a;
+  border-color: #4a0062;
+}
+
+.btn-outline-primary:active, .btn-outline-primary.active, .btn-outline-primary.show {
+  color: #fff;
+  background-color: #4a0062;
+  border-color: #43005a;
+}
+
+/* Dropdown Button */
+.btn-primary.dropdown-toggle {
+  background-color: #600080;
+  border-color: #600080;
+  color: #fff;
+}
+
+.btn-primary.dropdown-toggle:hover, .btn-primary.dropdown-toggle:focus {
+  background-color: #50006a;
+  border-color: #4a0062;
+  color: #fff;
+}
+
+.btn-primary.dropdown-toggle:active, .btn-primary.dropdown-toggle.active, .btn-primary.dropdown-toggle.show {
+  background-color: #4a0062;
+  border-color: #43005a;
+  color: #fff;
+}
+
+.dropdown-item:hover, .dropdown-item:focus {
+  background-color: #f8f9fa;
+  color: #50006a;
+}
+
+.btn-check:checked + .btn,
+.btn.active,
+.btn.show,
+.btn:first-child:active,
+:not(.btn-check) + .btn:active {
+  color: #fff;
+  background-color: #600080;
+  border-color: #600080;
+}
+
+/* Hover Styles for Button Groups */
+.btn-check + .btn:hover {
+  color: #fff;
+  background-color: #4a0062;
+  border-color: #43005a;
 }
