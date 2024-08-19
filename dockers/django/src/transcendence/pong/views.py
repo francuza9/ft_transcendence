@@ -12,6 +12,16 @@ from .views_lobby import (
 	
 from .views_account import (
     get_account_info,
+<<<<<<< HEAD
     # update_account_info,
     upload_avatar,
 )
+=======
+    update_account_info,
+)
+
+from .views_avatar import (
+    update_avatar,
+    remove_avatar,
+)
+>>>>>>> refs/remotes/origin/main
