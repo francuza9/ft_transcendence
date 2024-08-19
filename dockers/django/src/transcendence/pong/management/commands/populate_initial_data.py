@@ -1,7 +1,9 @@
+from django.core.files import File  # Required to handle file fields
 from django.core.management.base import BaseCommand
 from django.conf import settings
 from pong.models import Profile, Tournament, Game, Message, CustomUser
 from django.utils import timezone
+import os
 
 class Command(BaseCommand):
 	help = 'Populates the database with initial test data.'
@@ -24,11 +26,24 @@ class Command(BaseCommand):
 			password='jwadie-a123'  # Automatically hashed
 		)
 
-		# Create profiles
-		Profile.objects.create(user=user1, displayName='George', avatarUrl='http://example.com/avatar1.jpg', totalScore=15)
-		Profile.objects.create(user=user2, displayName='Marijn', avatarUrl='http://example.com/avatar2.jpg', totalScore=10)
-		Profile.objects.create(user=user3, displayName='Youssef', avatarUrl='http://example.com/avatar3.jpg', totalScore=5)
+		avatar1_path = os.path.join(settings.MEDIA_ROOT, 'profile_pictures/Geo.png')
+		avatar2_path = os.path.join(settings.MEDIA_ROOT, 'profile_pictures/Marijn.png')
+		avatar3_path = os.path.join(settings.MEDIA_ROOT, 'profile_pictures/Joe.png')
 
+		# Create profiles
+		profile1 = Profile.objects.create(user=user1, displayName='George', totalScore=15)
+		profile2 = Profile.objects.create(user=user2, displayName='Marijn', totalScore=10)
+		profile3 = Profile.objects.create(user=user3, displayName='Youssef', totalScore=5)
+
+		with open(avatar1_path, 'rb') as avatar1_file:
+			profile1.avatarUrl.save('Geo.png', File(avatar1_file), save=True)
+
+		with open(avatar2_path, 'rb') as avatar2_file:
+			profile2.avatarUrl.save('Marijn.png', File(avatar2_file), save=True)
+
+		with open(avatar3_path, 'rb') as avatar3_file:
+			profile3.avatarUrl.save('Joe.png', File(avatar3_file), save=True)
+		
 		# Create a tournament
 		tournament = Tournament.objects.create(
 			name='Summer Tournament',

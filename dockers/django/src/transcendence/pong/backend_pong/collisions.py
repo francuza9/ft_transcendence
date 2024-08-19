@@ -24,13 +24,17 @@ def update_ball_position(game_state):
 
     if ball['x'] > 5.5 and player_2['y'] - 1 <= ball['y'] <= player_2['y'] + 1:
         relative_intersect = player_2['y'] - ball['y']
-        bounce_angle = relative_intersect * (3.14159 / 4)  # Math.PI / 4
+        bounce_angle = relative_intersect * (3.14159 / 4)
         direction['y'] = -1 * bounce_angle
         direction['x'] *= -1
         if speed < 0.3:
             speed += 0.01
         result = COLLISION
         ball['x'] = 5.5
+        game_state['ball_speed'] = speed
+        ball['x'] += direction['x'] * speed
+        ball['y'] += direction['y'] * speed
+        return result
     elif ball['x'] < -5.5 and player_1['y'] - 1 <= ball['y'] <= player_1['y'] + 1:
         relative_intersect = player_1['y'] - ball['y']
         bounce_angle = relative_intersect * (3.14159 / 4)
@@ -40,16 +44,18 @@ def update_ball_position(game_state):
             speed += 0.01
         result = COLLISION
         ball['x'] = -5.5
+        game_state['ball_speed'] = speed
+        ball['x'] += direction['x'] * speed
+        ball['y'] += direction['y'] * speed
+        return result
 
     # Scoring
     if ball['x'] > 5.7:  # Player 1 scores
-        # score[0] = int(score[0]) + 1
         score[0] += 1;
         speed = 0.05
         reset_ball(game_state)
         result = SCORE
     elif ball['x'] < -5.7:  # Player 2 scores
-        # score[1] = int(score[1]) + 1
         score[1] += 1;
         speed = 0.05
         reset_ball(game_state)

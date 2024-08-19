@@ -3,6 +3,7 @@ import {registerButton} from '/static/src/js/register.js';
 import {playButton, cancelButton, localButton, onlineButton, backFromOnlineButton, skipLoginButton, goToLoginButton} from '/static/src/js/play.js';
 import {createRoomButton, playerCountDropdownButton, pointsDropdownButton, editNameButton, saveNameEditButton, cancelNameEditButton, selectMapButton} from '/static/src/js/create.js';
 import {loadRooms} from '/static/src/js/join.js';
+import { saveAvatarButton, removeAvatarButton, uploadAvatarButton } from '/static/src/js/account.js';
 import {startButton, leaveRoom} from '/static/src/js/lobby.js';
 import {settingsButton, closeButton, langButton, backButton, logoutButton} from '/static/src/js/settings.js';
 
@@ -32,6 +33,9 @@ const actionsMap = {
 	close: closeButton,
 	langButton: langButton,
 	back: backButton,
+	saveAvatar: saveAvatarButton,
+    removeAvatar: removeAvatarButton,
+	uploadAvatar: uploadAvatarButton,
 	goBackFromLogin: goBackFromLogin,
 	goToRegister: goToRegister,
 	goToLogin: goToLogin,
@@ -44,6 +48,6 @@ export const handleButtonAction = (e, action) => {
     if (actionFunction) {
         actionFunction(e);
     } else {
-        console.log('Unknown action');
+        console.log('Unknown action:', action);
     }
 };

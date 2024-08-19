@@ -10,20 +10,27 @@ import os
 
 @login_required
 def get_account_info(request):
-    user = request.user
-    profile, created = Profile.objects.get_or_create(user=user)
-    data = {
-        'username': user.username,
-        'email': user.email,
-        'bio': profile.bio,
-        'displayName': profile.displayName,
-        # 'avatarUrl': profile.avatarUrl,
-        'totalScore': profile.totalScore,
-        'gamesPlayed': profile.gamesPlayed,
-        'gamesWon': profile.gamesWon,
-        'gamesLost': profile.gamesLost,
-    }
-    return JsonResponse({'success': True, 'data': data})
+	user = request.user
+	profile, created = Profile.objects.get_or_create(user=user)
+
+	avatar_url = profile.avatarUrl.url if profile.avatarUrl else None  # Get the URL of the image
+
+	print(profile.avatarUrl.path)  # Outputs the full file path on the server
+	print(profile.avatarUrl.url)   # Outputs the URL relative to MEDIA_URL
+	data = {
+		'username': user.username,
+		'email': user.email,
+		'bio': profile.bio,
+		'displayName': profile.displayName,
+		'avatarUrl': avatar_url,
+		'totalScore': profile.totalScore,
+		'gamesPlayed': profile.gamesPlayed,
+		'gamesWon': profile.gamesWon,
+		'gamesLost': profile.gamesLost,
+		'avatarPath': profile.avatarUrl.path  #remove this line later
+	}
+
+	return JsonResponse({'success': True, 'data': data})
 
 # @login_required
 # @csrf_exempt
@@ -65,20 +72,3 @@ def get_account_info(request):
 #     return JsonResponse({'success': False, 'message': 'Invalid request method'}, status=405)
 
 
-@login_required
-@csrf_exempt
-def upload_avatar(request):
-    if request.method == 'POST' and request.FILES.get('avatar'):
-        user = request.user
-        profile = user.profile
-        avatar = request.FILES['avatar']
-
-        # Save the file to the media directory
-        avatar_name = f"avatars/{user.username}_{avatar.name}"
-        avatar_path = default_storage.save(avatar_name, avatar)
-        profile.avatarUrl = os.path.join(settings.MEDIA_URL, avatar_name)
-        profile.save()
-
-        return JsonResponse({'success': True, 'message': 'Avatar uploaded successfully.', 'avatarUrl': profile.avatarUrl})
-    else:
-        return JsonResponse({'success': False, 'message': 'No file uploaded.'})

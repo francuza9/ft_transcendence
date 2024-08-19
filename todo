@@ -45,6 +45,8 @@ Add all languages in translations (only at end)
 Extra:
 Easter egg(s)
 }
+Check email fields are actual emails in login, register and account pages
+Stop the page from refreshing in account page when saving a field using Enter button
 
 george:
 
