@@ -8,7 +8,10 @@ fix clipboard-write feature policy warning (clipboard.writeText and clipboard.re
 
 42 login
 
-
+problem with pong game {
+	back arrow during pong fucks html because canvas 
+	is deleted when pong game is initialized
+}
 
 [Youssef] {
 Account settings page (edit personal data, upload profile picture, ect...)
