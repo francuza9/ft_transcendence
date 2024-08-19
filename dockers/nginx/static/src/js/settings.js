@@ -1,4 +1,6 @@
 import {getCookie} from '/static/src/js/cookies.js';
+import {checkLoginStatus} from '/static/src/js/utils.js';
+import {variables} from '/static/src/js/variables.js';
 
 export const settingsButton = () => {
     const sidebar = document.getElementById('sidebar');
@@ -7,6 +9,51 @@ export const settingsButton = () => {
 	sidebar.classList.remove('hidden');
     settingsBtn.classList.add('hidden');
 	highlightCurrentLanguage(currentLang);
+}
+
+export const checkUserState = () => {
+	const authenticated = document.getElementById('authenticated');
+	const unauthenticated = document.getElementById('unauthenticated');
+	const hello = document.getElementById('hello');
+	if (!variables.hello)
+		variables.hello = hello.textContent;
+
+	checkLoginStatus().then(loggedIn => {
+		if (loggedIn) {
+			authenticated.classList.remove('hidden');
+			unauthenticated.classList.add('hidden');
+			hello.textContent = `${variables.hello} ${variables.username}!`;
+		} else {
+			unauthenticated.classList.remove('hidden');
+			authenticated.classList.add('hidden');
+		}
+	}).catch(error => {
+		console.error('Error checking login status:', error);
+	});
+}
+
+export async function logoutButton() {
+    try {
+        const response = await fetch('api/logout/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': getCookie('csrftoken')
+            }
+        });
+
+        const data = await response.json();
+        if (data.success) {
+            document.cookie = 'userId=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/;';
+			//replace this with a popup
+			alert('You have been logged out successfully.');
+			checkUserState();
+        } else {
+            console.error('Logout failed:', data.message);
+        }
+    } catch (error) {
+        console.error('Error during logout:', error);
+    }
 }
 
 export const closeButton = () => {
@@ -30,6 +77,7 @@ export const backButton = () => {
 
 export function highlightCurrentLanguage(currentLang) {
     const languageBtns = document.querySelectorAll('[data-variable="lang"]');
+	checkUserState();
 
     languageBtns.forEach(btn => {
         if (btn.dataset.value === currentLang) {

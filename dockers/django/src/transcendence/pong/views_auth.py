@@ -1,5 +1,5 @@
-from .models import CustomUser
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
+from .models import CustomUser, Profile
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.db.utils import IntegrityError
@@ -73,3 +73,8 @@ def check_login_status(request):
         return JsonResponse({'success': True, 'user': user_data})
     else:
         return JsonResponse({'success': False, 'message': 'User is not logged in'})
+
+@csrf_exempt
+def logout_user(request):
+    logout(request)
+    return JsonResponse({'success': True, 'message': 'User logged out successfully'})

@@ -51,7 +51,9 @@
 			"editButton": "Edit",
 			"saveButton": "Save",
             "cancelButton": "Cancel",
-            "uploadAvatarButton": "Upload Avatar",
+			"removeButton": "Remove",
+			"uploadButton": "Upload",
+			"avatarLabel": "Avatar",
             "usernameLabel": "Username",
             "displayNameLabel": "Display Name",
             "emailLabel": "Email",
@@ -93,6 +95,10 @@
 		"settings":{
 			"loginButton": "Login",
             "registerButton": "Register",
+			"hello": "Hello",
+			"profile": "View Profile",
+			"settings": "Account Settings",
+			"logout": "Logout",
             "languageButton": "Language",
             "backButton": "Back"
 		}

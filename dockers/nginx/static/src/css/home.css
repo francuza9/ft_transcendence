@@ -16,6 +16,11 @@ h1 {
 	padding-right: 15px;
 }
 
+h4 {
+	color: white;
+	padding-bottom: 1.2em;
+}
+
 /*
 #hero {
 	background: linear-gradient(rgba(var(--c-brand-rgb), 0.507), rgba(var(--c-brand-rgb), 0.438)), url(/static/src/images/dark-background.jpg);
