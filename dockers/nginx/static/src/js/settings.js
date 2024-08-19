@@ -44,10 +44,10 @@ export async function logoutButton() {
 
         const data = await response.json();
         if (data.success) {
-            document.cookie = 'userId=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/;';
+			document.cookie = 'sessionid=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/; SameSite=None; Secure;';
+			checkUserState();
 			//replace this with a popup
 			alert('You have been logged out successfully.');
-			checkUserState();
         } else {
             console.error('Logout failed:', data.message);
         }
