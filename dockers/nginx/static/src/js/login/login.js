@@ -2,6 +2,7 @@ import {handleRouting} from '/static/routers/router.js';
 import {variables} from '/static/src/js/variables.js';
 import {replaceHTML} from '/static/src/js/utils.js';
 import {getCookie} from '/static/src/js/cookies.js';
+import {removeRegisterListeners} from '/static/src/js/register.js';
 
 export const goBackFromLogin = () => {
 	if (!variables.previousPage) {
@@ -17,6 +18,8 @@ export const goBackFromLogin = () => {
 			variables.previousPage = '/';
 		handleRouting();
 	}
+	removeLoginListeners();
+    removeRegisterListeners();
 }
 
 export const goToRegister = () => {
@@ -36,14 +39,12 @@ export const loginButton = () => {
     const password = document.getElementById('password').value;
 
     if (email && password) {
-        // Fetch CSRF token from the cookie
-        const csrftoken = getCookie('csrftoken');
 
         fetch('/api/login/', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'X-CSRFToken': csrftoken,  // Include CSRF token here
+                'X-CSRFToken': getCookie('csrftoken')
             },
             body: JSON.stringify({ email, password })
         })
@@ -59,6 +60,7 @@ export const loginButton = () => {
 					history.pushState(null, '', '/');
 					handleRouting();
 				}
+				removeLoginListeners();
             } else {
                 console.error('Login failed:', data.message);
                 alert('Login failed: ' + data.message);
@@ -79,4 +81,53 @@ export const loginWithGithubButton = () => {
 
 export const loginWith42Button = () =>  {
     console.log('Login with 42');
+}
+
+function addLoginListeners() {
+    const form = document.querySelector('.login-box form');
+    const loginButton = document.querySelector('button[data-action="login"]');
+
+    if (form && loginButton) {
+        form.addEventListener('submit', handleFormSubmit);
+        form.addEventListener('keypress', handleKeyPress);
+    }
+}
+
+export function observeLoginForm() {
+    const observer = new MutationObserver((mutationsList, observer) => {
+        for (let mutation of mutationsList) {
+            if (mutation.type === 'childList') {
+                const form = document.querySelector('.login-box form');
+                const loginButton = document.querySelector('button[data-action="login"]');
+                if (form && loginButton) {
+                    addLoginListeners();
+                    observer.disconnect();
+                    break;
+                }
+            }
+        }
+    });
+
+    observer.observe(document.body, { childList: true, subtree: true });
+}
+
+export function removeLoginListeners() {
+    const form = document.querySelector('.login-box form');
+
+    if (form) {
+        form.removeEventListener('submit', handleFormSubmit);
+        form.removeEventListener('keypress', handleKeyPress);
+    }
+}
+
+function handleFormSubmit(event) {
+    event.preventDefault();
+	loginButton();
+}
+
+function handleKeyPress(event) {
+    if (event.key === 'Enter') {
+        event.preventDefault();
+		loginButton();
+    }
 }
