@@ -10,4 +10,5 @@ urlpatterns = [
 	path('api/account/info/', views.get_account_info, name='get_account_info'),
     # path('api/account/update/', views.update_account_info, name='update_account_info'),
     path('api/account/avatar/', views.upload_avatar, name='upload_avatar'),
+    path('api/logout/', views.logout_user, name='logout_user'),
 ]

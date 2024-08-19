@@ -14,6 +14,16 @@ export const variables = {
 	players: [],
 };
 
+export const resetVariables = () => {
+	variables.isTournament = false;
+    variables.pointsToWin = 3;
+    variables.maxPlayerCount = 2;
+    variables.map = 'classic';
+    variables.roomName = '';
+    variables.admin = '';
+    variables.players = [];
+}
+
 export function updateVariable(document, variableName, value) {
 	switch (variableName) {
 		case 'playerCount':

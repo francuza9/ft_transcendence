@@ -4,7 +4,7 @@ import {playButton, cancelButton, localButton, onlineButton, backFromOnlineButto
 import {createRoomButton, playerCountDropdownButton, pointsDropdownButton, editNameButton, saveNameEditButton, cancelNameEditButton, selectMapButton} from '/static/src/js/create.js';
 import {loadRooms} from '/static/src/js/join.js';
 import {startButton, leaveRoom} from '/static/src/js/lobby.js';
-import {settingsButton, closeButton, langButton, backButton} from '/static/src/js/settings.js';
+import {settingsButton, closeButton, langButton, backButton, logoutButton} from '/static/src/js/settings.js';
 
 const actionsMap = {
     login: loginButton,
@@ -35,6 +35,7 @@ const actionsMap = {
 	goBackFromLogin: goBackFromLogin,
 	goToRegister: goToRegister,
 	goToLogin: goToLogin,
+	logout: logoutButton,
 };
 
 export const handleButtonAction = (e, action) => {
