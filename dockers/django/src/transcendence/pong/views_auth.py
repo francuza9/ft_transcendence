@@ -1,10 +1,5 @@
-<<<<<<< HEAD
-from .models import CustomUser
 from django.contrib.auth import authenticate, login, logout
-=======
 from .models import CustomUser, Profile
-from django.contrib.auth import authenticate, login
->>>>>>> refs/remotes/origin/main
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.db.utils import IntegrityError
