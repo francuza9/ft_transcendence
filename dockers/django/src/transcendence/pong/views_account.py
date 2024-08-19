@@ -32,43 +32,43 @@ def get_account_info(request):
 
 	return JsonResponse({'success': True, 'data': data})
 
-@login_required
-@csrf_exempt
-def update_account_info(request):
-    if request.method == 'POST':
-        try:
-            data = json.loads(request.body)
-            field = data.get('field')
-            new_value = data.get('value')
+# @login_required
+# @csrf_exempt
+# def update_account_info(request):
+#     if request.method == 'POST':
+#         try:
+#             data = json.loads(request.body)
+#             field = data.get('field')
+#             new_value = data.get('value')
 
-            if not field or new_value is None:
-                return JsonResponse({'success': False, 'message': 'Field and value are required'})
+#             if not field or new_value is None:
+#                 return JsonResponse({'success': False, 'message': 'Field and value are required'})
 
-            user = request.user
+#             user = request.user
 
-            if field in [f.name for f in CustomUser._meta.get_fields()]:
-                # Update field in CustomUser model
-                setattr(user, field, new_value)
-                user.save()
-                return JsonResponse({'success': True, 'message': 'Field updated successfully'})
+#             if field in [f.name for f in CustomUser._meta.get_fields()]:
+#                 # Update field in CustomUser model
+#                 setattr(user, field, new_value)
+#                 user.save()
+#                 return JsonResponse({'success': True, 'message': 'Field updated successfully'})
             
-            profile, created = Profile.objects.get_or_create(user=user)
+#             profile, created = Profile.objects.get_or_create(user=user)
 
-            if field in [f.name for f in Profile._meta.get_fields()]:
-                # Update field in Profile model
-                setattr(profile, field, new_value)
-                profile.save()
-                return JsonResponse({'success': True, 'message': 'Field updated successfully'})
+#             if field in [f.name for f in Profile._meta.get_fields()]:
+#                 # Update field in Profile model
+#                 setattr(profile, field, new_value)
+#                 profile.save()
+#                 return JsonResponse({'success': True, 'message': 'Field updated successfully'})
             
-            return JsonResponse({'success': False, 'message': 'Invalid field'})
+#             return JsonResponse({'success': False, 'message': 'Invalid field'})
 
-        except json.JSONDecodeError:
-            return JsonResponse({'success': False, 'message': 'Invalid JSON'})
-        except ObjectDoesNotExist:
-            return JsonResponse({'success': False, 'message': 'Profile does not exist'})
-        except Exception as e:
-            return JsonResponse({'success': False, 'message': str(e)})
+#         except json.JSONDecodeError:
+#             return JsonResponse({'success': False, 'message': 'Invalid JSON'})
+#         except ObjectDoesNotExist:
+#             return JsonResponse({'success': False, 'message': 'Profile does not exist'})
+#         except Exception as e:
+#             return JsonResponse({'success': False, 'message': str(e)})
 
-    return JsonResponse({'success': False, 'message': 'Invalid request method'}, status=405)
+#     return JsonResponse({'success': False, 'message': 'Invalid request method'}, status=405)
 
 
