@@ -2,6 +2,7 @@ from .views_auth import (
     login_view,
     register_view,
     check_login_status,
+    logout_user,
 )
 
 from .views_lobby import (

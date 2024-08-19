@@ -7,7 +7,6 @@ fix clipboard-write feature policy warning (clipboard.writeText and clipboard.re
 404 error
 
 42 login
-Github login
 
 
 
@@ -17,35 +16,36 @@ Profile pictures
 Leaderboard
 Profile page (show all data of a user)
 Add kick button to kick players on lobby page (for admin only)
+Put a 12 char limit on usernames when creating accounts and editing usernames
 }
 
 
 [Marijn] {
 
-Add back button on login and register pages
-Fix login <--> register buttons broken on translations 
+Dynamic settings with link to account
+Css on account page
+
+Profile modal (for leaderboard, lobby and endscreen)
+Github login
+
+Highlight current user instead of admin in lobby
+Make start game button visible to admin only
+Add kick player button for admin only
 
 fix register when auto input from firefox / chrome (gives white tab instead of transparent)
 
 Visuals:
 Play button on home page rework
-Fix language menu button color
-Fix mode button group animations
 Fade in animation for smooth transition between pages
-
-Profile modal (for leaderboard, lobby and endscreen)
 Endscreen leaderboard
-
 
 Low priority:
 Add all languages in translations (only at end)
 
-
 Extra:
 Easter egg(s)
-Add backbutton on login page (and handle playing redirection)
 }
 
 george:
-leave room button (disc socket too)
-disconnect socket when room is full
+
+

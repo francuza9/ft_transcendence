@@ -8,14 +8,31 @@
 	</button>
 	<div id="sidebar-content">
 		<div id="main-menu">
-			<button data-path="/login">
-				<i class="ri-user-fill" ></i>
-				<div data-text="pages.settings.loginButton">Login</div>
-			</button>
-			<button data-path="/register" >
-				<i class="ri-user-add-fill"></i>
-				<div data-text="pages.settings.registerButton">Register</div>
-			</button>
+			<div id="unauthenticated">
+				<button data-path="/login">
+					<i class="ri-user-fill" ></i>
+					<div data-text="pages.settings.loginButton">Login</div>
+				</button>
+				<button data-path="/register" >
+					<i class="ri-user-add-fill"></i>
+					<div data-text="pages.settings.registerButton">Register</div>
+				</button>
+			</div>
+			<div id="authenticated" class="hidden">
+				<h4 id="hello" data-text="pages.settings.hello">Hello</h4>
+				<button data-action="profileButton">
+					<i class="ri-user-fill" ></i>
+					<div data-text="pages.settings.profile">View Profile</div>
+				</button>
+				<button data-action="viewProfile">
+					<i class="ri-user-settings-fill" ></i>
+					<div data-text="pages.settings.settings">Account Settings</div>
+				</button>
+				<button data-action="logout">
+					<i class="ri-logout-box-fill" ></i>
+					<div data-action="logout" data-text="pages.settings.logout">Logout</div>
+				</button>
+			</div>
 			<button data-action="langButton">
 				<i class="ri-flag-fill" ></i>
 				<div data-text="pages.settings.languageButton">Language</div>

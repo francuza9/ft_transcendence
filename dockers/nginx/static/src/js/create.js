@@ -46,7 +46,7 @@ export const updatePointsToWin = (document, value) => {
 
 export const updateIsTournament = (document, value) => {
     variables.isTournament = value;
-};
+}
 
 export const editNameButton = () => {
     const displayMode = document.querySelector('.display-mode');
