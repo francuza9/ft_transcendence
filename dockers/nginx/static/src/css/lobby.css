@@ -13,7 +13,7 @@
 	max-width: 800px;
 }
 
-.admin-row {
+.highlighted-row {
     background-color: #ffeb3b;
     font-weight: bold;
 }
@@ -27,7 +27,7 @@
     font-size: 12px;
 }
 
-.admin-row:hover {
+.highlighted-row:hover {
     background-color: #ffe082;
     cursor: pointer;
 }
@@ -48,4 +48,8 @@
 
 #lobbyDetails {
 	color: lightgray;
+}
+
+.hidden {
+	display: none;
 }
