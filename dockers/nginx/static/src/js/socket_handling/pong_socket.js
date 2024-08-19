@@ -7,6 +7,7 @@ export async function initPongSocket(roomId, room_size) {
 
         socket.onopen = function() {
             console.log('WebSocket connection opened.');
+			socket.send(JSON.stringify({ type: 'hello' }));
             if (socket.readyState === WebSocket.OPEN) {
 				console.log("sending data to pong consumer");
 				socket.send(JSON.stringify({ type: 'initial_data', 'room_size': room_size }));
