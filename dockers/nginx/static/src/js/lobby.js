@@ -78,13 +78,4 @@ export const startButton = () => {
     } else {
         console.error('WebSocket is not open.');
     }
-	
-
-	// //the following has to be adjusted to multiplayer pong game:
-	// const element = document.createElement('div');
-	// element.innerHTML = `
-	// 	<h1>Pong Local Game !/h1>
-	// 	<script type="module" src="{% static 'src/js/localgame/localgame.js' %}"></script>
-	// `;
-	// startLocal();
 };
