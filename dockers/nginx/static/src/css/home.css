@@ -173,7 +173,7 @@ button img {
 }
 
 #sidebar-content button.active {
-    background-color: rgba(78, 87, 212, 0.5);
+	background-color: rgba(96, 0, 128, 0.4);
     color: white;
 }
 
