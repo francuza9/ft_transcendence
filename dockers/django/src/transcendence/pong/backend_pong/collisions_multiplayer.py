@@ -1,0 +1,6 @@
+import random
+
+NOTHING = 0
+COLLISION = 1
+SCORE = 2
+FINISH = 3
