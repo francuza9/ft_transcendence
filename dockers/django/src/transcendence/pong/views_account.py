@@ -15,8 +15,6 @@ def get_account_info(request):
 
 	avatar_url = profile.avatarUrl.url if profile.avatarUrl else None  # Get the URL of the image
 
-	print(profile.avatarUrl.path)  # Outputs the full file path on the server
-	print(profile.avatarUrl.url)   # Outputs the URL relative to MEDIA_URL
 	data = {
 		'username': user.username,
 		'email': user.email,
@@ -27,7 +25,6 @@ def get_account_info(request):
 		'gamesPlayed': profile.gamesPlayed,
 		'gamesWon': profile.gamesWon,
 		'gamesLost': profile.gamesLost,
-		'avatarPath': profile.avatarUrl.path  #remove this line later
 	}
 
 	return JsonResponse({'success': True, 'data': data})
