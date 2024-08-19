@@ -9,6 +9,7 @@ export const variables = {
 	map: 'classic',
 	roomName: '',
 	nextPage: 'profile',
+	previousPage: '/',
 	admin: '',
 	players: [],
 };

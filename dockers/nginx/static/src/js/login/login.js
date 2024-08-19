@@ -3,6 +3,34 @@ import {variables} from '/static/src/js/variables.js';
 import {replaceHTML} from '/static/src/js/utils.js';
 import {getCookie} from '/static/src/js/cookies.js';
 
+export const goBackFromLogin = () => {
+	if (!variables.previousPage) {
+		variables.previousPage = '/';
+	}
+	else if (variables.previousPage == 'online') {
+		history.pushState(null, '', '/');
+		handleRouting();
+		replaceHTML('/static/src/html/online.html', false);
+	} else {
+		history.pushState(null, '', variables.previousPage);
+		if (variables.previousPage == '/login' || variables.previousPage == '/register')
+			variables.previousPage = '/';
+		handleRouting();
+	}
+}
+
+export const goToRegister = () => {
+	variables.previousPage = '/login';
+	history.pushState(null, '', '/register');
+	handleRouting();
+}
+
+export const goToLogin = () => {
+	variables.previousPage = '/register';
+	history.pushState(null, '', '/login');
+	handleRouting();
+}
+	
 export const loginButton = () => {
     const email = document.getElementById('email').value;
     const password = document.getElementById('password').value;
@@ -27,8 +55,7 @@ export const loginButton = () => {
 					history.pushState(null, '', '/');
 					handleRouting();
 					replaceHTML('/static/src/html/room.html', false);
-				} else
-				{
+				} else {
 					history.pushState(null, '', '/');
 					handleRouting();
 				}
@@ -45,22 +72,6 @@ export const loginButton = () => {
         alert('Please enter both email and password');
     }
 };
-
-/*
-function getCookie(name) {
-    let cookieValue = null;
-    if (document.cookie && document.cookie !== '') {
-        const cookies = document.cookie.split(';');
-        for (let i = 0; i < cookies.length; i++) {
-            const cookie = cookies[i].trim();
-            if (cookie.substring(0, name.length + 1) === (name + '=')) {
-                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                break;
-            }
-        }
-    }
-    return cookieValue;
-}*/
 
 export const loginWithGithubButton = () => {
     console.log('Login with GitHub');

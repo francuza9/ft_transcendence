@@ -61,12 +61,14 @@ document.addEventListener('DOMContentLoaded', () => {
             history.pushState(null, '', path);
             handleRouting();
         } 
-        else if (e.target.closest('button[data-action]')) {
-            e.preventDefault();
-            const action = e.target.closest('button').dataset.action;
-            handleButtonAction(e, action);
-        } 
+		else if (e.target.closest('button[data-action], a[data-action]')) {
+			e.preventDefault();
+			const targetElement = e.target.closest('button[data-action], a[data-action]');
+			const action = targetElement.dataset.action;
+			handleButtonAction(e, action);
+		}
         else if (e.target.closest('[data-variable]')) {
+            e.preventDefault();
             const element = e.target.closest('[data-variable]');
             const variable = element.dataset.variable;
             const value = element.dataset.value;

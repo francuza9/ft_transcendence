@@ -122,15 +122,22 @@ button {
 	color: #fff;
 	text-align: center;
 	margin: 25px 0 10px;
+	display: flex;
+	justify-content: center;
+	gap: 5px;
 }
 
-.link p a {
+.link p {
+	margin: 0;
+}
+
+.link a {
 	color: #fff;
 	text-decoration: none;
 	font-weight: 600;
 }
 
-.link p a:hover {
+.link a:hover {
 	text-decoration: underline;
 }
 
@@ -140,4 +147,27 @@ button {
 
 .divider {
 	margin: 0 0 1.5em;
+}
+
+.back-btn {
+    top: 20px;
+    right: 20px;
+    width: 50px;
+	font-size: 32px;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    border: none;
+}
+
+#login-back {
+	top: 3px !important;
+}
+
+#register-back{
+	top: -3px !important;
+}
+
+.link a:hover {
+    text-decoration: underline !important;
 }
