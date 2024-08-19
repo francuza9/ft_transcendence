@@ -45,6 +45,7 @@ export async function initLobbySocket(variables) {
                     variables.maxPlayerCount = content.maxPlayerCount;
                     variables.roomName = content.roomName;
                     variables.isTournament = content.isTournament;
+					variables.pointsToWin = content.winning_score;
 
                     refreshLobbyDetails(variables);
                 } else {
@@ -54,8 +55,8 @@ export async function initLobbySocket(variables) {
                 history.pushState(null, '', `/join`);
                 handleRouting();
             } else if (message.type === 'start') {
-				console.log(message.content);
-				Pong(message.content.roomID, message.content.playerCount, message.content.map);
+				console.log("message content: ", message.content);
+				Pong(message.content.roomID, message.content.playerCount, message.content.map, message.content.winning_score);
 				socket.close();
 			} else if (message.type === 'error') {
 				console.error('Error:', message.content);

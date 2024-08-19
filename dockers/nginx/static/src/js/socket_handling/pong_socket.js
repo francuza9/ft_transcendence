@@ -1,4 +1,4 @@
-export async function initPongSocket(roomId, room_size) {
+export async function initPongSocket(roomId, room_size, winning_score) {
     return new Promise((resolve, reject) => {
 
 		console.log("roomId: ", roomId);
@@ -7,14 +7,12 @@ export async function initPongSocket(roomId, room_size) {
 
         socket.onopen = function() {
             console.log('WebSocket connection opened.');
-			socket.send(JSON.stringify({ type: 'hello' }));
             if (socket.readyState === WebSocket.OPEN) {
-				console.log("sending data to pong consumer");
-				socket.send(JSON.stringify({ type: 'initial_data', 'room_size': room_size }));
+				console.log("winning score: ", winning_score);
+				socket.send(JSON.stringify({ type: 'initial_data', 'room_size': room_size, 'winning_score': winning_score }));
 			} else {
 				console.error('WebSocket is not open yet.');
 			}
-			console.log("socket.readyState: ", socket.readyState);
         };
 
 		socket.onmessage = function(event) {
@@ -43,7 +41,7 @@ export async function initPongSocket(roomId, room_size) {
 
         socket.onerror = function(error) {
             console.error('WebSocket error:', error);
-            setTimeout(() => initPongSocket(roomId, room_size).then(resolve).catch(reject), 2000); // retry every 2 seconds
+            setTimeout(() => initPongSocket(roomId, room_size, winning_score).then(resolve).catch(reject), 2000); // retry every 2 seconds
         };
 
         socket.onclose = function() {

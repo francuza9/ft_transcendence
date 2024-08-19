@@ -10,6 +10,7 @@ logger = logging.getLogger(__name__)
 NOTHING = 0
 COLLISION = 1
 SCORE = 2
+FINISH = 3
 
 class PongConsumer(AsyncWebsocketConsumer):
 	room_counters = {}
@@ -53,8 +54,6 @@ class PongConsumer(AsyncWebsocketConsumer):
 		logger.info(f"pong: WebSocket connection closed with code: {close_code} for room {self.room_id}")
 
 	async def receive(self, text_data=None, bytes_data=None):
-		logger.info("pong: text_data: {text_data}")
-		logger.info("pong: bytes_data: {bytes_data}")
 		if bytes_data:
 			try:
 				format_str = '<Bff'
@@ -73,9 +72,10 @@ class PongConsumer(AsyncWebsocketConsumer):
 			message_type = data['type']
 			if message_type == 'initial_data':
 				room_size = data.get('room_size')
-				logger.info(f"pong: room size: {room_size}")
+				winning_score = data.get('winning_score')
 				if room_size is not None and 2 <= room_size <= 8:
 					PongConsumer.game_states[self.room_id]['room_size'] = room_size
+					PongConsumer.game_states[self.room_id]['2_P']['winning_score'] = winning_score
 					logger.info(f"pong: Room size set to {PongConsumer.game_states[self.room_id]['room_size']}")
 				else:
 					await self.send(text_data=json.dumps({'error': 'Invalid room size'}))
@@ -119,6 +119,12 @@ class PongConsumer(AsyncWebsocketConsumer):
 						ball_speed,
 						score[0], score[1]
 					)
+				elif result == FINISH:
+					format_str = '<ii'
+					packed_data = struct.pack(
+						format_str,
+						score[0], score[1],
+					)
 
 				await self.channel_layer.group_send(
 					self.room_group_name,
@@ -127,6 +133,8 @@ class PongConsumer(AsyncWebsocketConsumer):
 						'message': packed_data
 					}
 				)
+				if (result == FINISH):
+					break
 			await asyncio.sleep(1 / 30)  # 30 updates per second
 
 	async def pong_message(self, event):
@@ -156,6 +164,8 @@ class PongConsumer(AsyncWebsocketConsumer):
 				'ball_direction': {'x': 1.5, 'y': 0},
 				'ball_speed': 0.05,
 				'score': [0, 0],
+				'winning_score': 999,
+				'finished': False,
 			},
 			'multi': {
 			},
