@@ -60,4 +60,5 @@ export const skipLoginButton = () => {
 export const goToLoginButton = () => {
 	history.pushState(null, '', '/login');
 	handleRouting();
+	variables.previousPage = 'online';
 }

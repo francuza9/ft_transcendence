@@ -1,6 +1,9 @@
 <link rel="stylesheet" href="/static/src/css/login.css">
 <div class="register-box">
 	<form action="">
+		<button id="register-back" class="back-btn position-absolute top-0 start-0 m-5" data-action="goBackFromLogin">
+			<i class="ri-arrow-left-line text-white"></i>
+		</button>
 		<h2 data-text="pages.register.pageTitle">Register</h2>
 		<div class="input-box">
 			<input id="username" required>
@@ -20,7 +23,8 @@
 		</div>
 		<button type="submit" data-action="register" data-text="pages.register.submitButton">Register</button>
 		<div class="link">
-			<p data-text="pages.register.loginPrompt">Already have an account? <a href="/login" data-text="pages.register.loginLink">Login</a></p>
+			<p data-text="pages.register.loginPrompt">Already have an account?</p>
+			<a role="button" data-action="goToLogin" data-text="pages.register.loginLink">Login</a>
 		</div>
 	</form>
 </div>
