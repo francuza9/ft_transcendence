@@ -12,5 +12,9 @@ from .views_lobby import (
 from .views_account import (
     get_account_info,
     update_account_info,
-    upload_avatar,
+)
+
+from .views_avatar import (
+    update_avatar,
+    remove_avatar,
 )

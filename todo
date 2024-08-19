@@ -48,6 +48,8 @@ Extra:
 Lobby name edit popup?
 Add backbutton on login page (and handle playing redirection)
 }
+Check email fields are actual emails in login, register and account pages
+Stop the page from refreshing in account page when saving a field using Enter button
 
 george:
 leave room button (disc socket too)

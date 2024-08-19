@@ -1,4 +1,4 @@
-from .models import CustomUser
+from .models import CustomUser, Profile
 from django.contrib.auth import authenticate, login
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
