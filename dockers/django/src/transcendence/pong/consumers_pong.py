@@ -38,7 +38,9 @@ class PongConsumer(AsyncWebsocketConsumer):
 			response_message = {'pov': pov}
 			await self.send(text_data=json.dumps(response_message))
 			await asyncio.sleep(0.1)
+			logger.info("pong: creating task")
 			asyncio.create_task(self.game_update_loop())
+			logger.info("pong: created task")
 		except Exception as e:
 			logger.error(f"Error during connection setup: {e}")
 			await self.close()
@@ -53,7 +55,9 @@ class PongConsumer(AsyncWebsocketConsumer):
 		logger.info(f"pong: WebSocket connection closed with code: {close_code} for room {self.room_id}")
 
 	async def receive(self, text_data=None, bytes_data=None):
-		# self.send_message("hello")
+		logger.info("pong: here")
+		logger.info(f"pong: text_data: {text_data}")
+		logger.info(f"pong: bytes_data: {bytes_data}")
 		if bytes_data:
 			try:
 				format_str = '<Bff'
@@ -68,6 +72,7 @@ class PongConsumer(AsyncWebsocketConsumer):
 				logger.info(f"pong: StructError: {e}")
 		elif text_data:
 			data = json.loads(text_data)
+			logger.info(f"pong: data recieved: {data}")
 			message_type = data['type']
 			if message_type == 'initial_data':
 				room_size = data.get('room_size')

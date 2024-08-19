@@ -8,6 +8,6 @@ urlpatterns = [
 	path('api/create_lobby/', views.create_lobby, name='create_lobby'),
 	path('api/lobbies/', views.get_lobbies, name='get_lobbies'),
 	path('api/account/info/', views.get_account_info, name='get_account_info'),
-    path('api/account/update/', views.update_account_info, name='update_account_info'),
+    # path('api/account/update/', views.update_account_info, name='update_account_info'),
     path('api/account/avatar/', views.upload_avatar, name='upload_avatar'),
 ]
