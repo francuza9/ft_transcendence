@@ -1,18 +1,14 @@
 import * as THREE from 'three';
 
 import { OrbitControls } from 'https://cdn.jsdelivr.net/npm/three@0.161.0/examples/jsm/controls/OrbitControls.js';
-
 import { initScene, initCamera, initRenderer} from '../2pGame/init.js';
 import { initPlane } from './objects/plane.js';
 import { createEdges } from './objects/edges.js';
 import { fixCamera } from './scene/camera.js';
-import { createBall } from './objects/ball.js';
+import { Ball } from './objects/ball.js';
 import { createLights } from './objects/lights.js';
 import { createPlayers } from './objects/players.js';
-
 import { buildMap } from './scene/maps/chooseMap.js';
-
-import { GLTFLoader } from 'https://cdn.jsdelivr.net/npm/three@0.153.0/examples/jsm/loaders/GLTFLoader.js';
 
 export function createMultigame(pcount, pov, map, socket)
 {
@@ -27,7 +23,9 @@ export function createMultigame(pcount, pov, map, socket)
 	const planeVectors = plane.geometry.attributes.position.array;
 
 	fixCamera(pov, planeVectors, camera);
-	const ball = createBall();
+	// const ball = createBall();
+	const ball = new Ball(scene);
+	const ballMesh = ball.getMesh();
 	const edges = createEdges(planeVectors, pcount);
 
 	const vectorObjects = [];
@@ -36,21 +34,9 @@ export function createMultigame(pcount, pov, map, socket)
 	}
 
 	const light = new THREE.AmbientLight( 0xffffff, 1 );
-	const lights = createLights(pcount, ball, vectorObjects);
+	const lights = createLights(pcount, ballMesh, vectorObjects);
 
 	const players = createPlayers(pcount, pov, vectorObjects);
-
-
-	/* const loader = new GLTFLoader();
-    loader.load('spaceship.gltf', function(gltf) {
-        const model = gltf.scene;
-        model.position.set(0, 0, 0); // Adjust position as needed
-        model.scale.set(1, 1, 1); // Adjust scale as needed
-        group.add(model); // Add the model to the group or directly to the scene
-    }, undefined, function(error) {
-        console.error(error);
-    }); */
-
 
 	// controls
 	const controls = new OrbitControls(camera, renderer.domElement);
@@ -59,7 +45,8 @@ export function createMultigame(pcount, pov, map, socket)
 	group.add(plane);
 	group.add(light);
 	group.add(edges);
-	group.add(ball);
+	group.add(ballMesh);
+	group.add(ball.getMesh2());
 	group.add(lights);
 	group.add(players);
 
@@ -72,6 +59,8 @@ export function createMultigame(pcount, pov, map, socket)
 
 	function animate() {
 		// render
+		ball.animate();
+
 		controls.update();
 		renderer.render(scene, camera);
 	}

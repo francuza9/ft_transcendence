@@ -14,7 +14,7 @@ export class Ball {
 		this.ball.position.set(0, 0.75, 0);
 		this.ball2.position.set(0, 0.75, 0);
 
-		this.ball2.rotation.y = 0.1;
+		this.ball2.rotation.y = 0.6;
 		this.ball.rotation.x = Math.PI / 2;
 		this.ball2.rotation.x = Math.PI / 2;
 
@@ -92,7 +92,7 @@ export class Ball {
 		this.ball2.position.set(this.ball.position.x, this.ball.position.y, this.ball.position.z);
 
 		this.ball.rotation.y -= this.direction.x / 15;
-		this.ball2.rotation.y = this.ball.rotation.y + 0.1;
+		this.ball2.rotation.y = this.ball.rotation.y + 0.6;
 
 		// console.log("speed:", this.speed, "direction:", this.direction.x, "ball_position_x:", this.ball.position.x);
 
