@@ -115,7 +115,11 @@ export function create2Pgame(mappov, socket) {
 				} else if (mappov - 1 !== 1) {
 					players.children[1].position.z = bytes[3];
 				}
-			}  else {
+			} else if (bytes.length >= 2){
+				const score1 = new DataView(event.data).getInt32(0, true);  // Correctly reading the integer
+				const score2 = new DataView(event.data).getInt32(4, true);  // Correctly reading the integer
+				console.log("game finished, score1: ", score1, "score2: ", score2);
+			} else {
 				console.error(`Unexpected data length received: ${bytes.length}. Data:`, bytes);
 			}
 		} else {
