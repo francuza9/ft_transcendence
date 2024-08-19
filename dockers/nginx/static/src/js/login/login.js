@@ -77,10 +77,14 @@ export const loginButton = () => {
 
 export const loginWithGithubButton = () => {
     console.log('Login with GitHub');
+
 }
 
 export const loginWith42Button = () =>  {
     console.log('Login with 42');
+	const clientId = Ov23li5k50XUjRjLs4bc
+	const githubAuthUrl = `https://github.com/login/oauth/authorize?client_id=${clientId}&scope=user:email`;
+	window.location.href = githubAuthUrl;
 }
 
 function addLoginListeners() {

@@ -25,9 +25,9 @@ Put a 12 char limit on usernames when creating accounts and editing usernames
 
 [Marijn] {
 
-Dynamic settings with link to account
 Css on account page
 
+fix the padle not going right on D
 Profile modal (for leaderboard, lobby and endscreen)
 Github login
 
@@ -48,6 +48,8 @@ add winning score display in lobby (variables.winning_score)
 
 
 Extra:
+Spectators
+Random maps
 Easter egg(s)
 }
 
