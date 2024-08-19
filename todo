@@ -1,52 +1,60 @@
-clean up old views
-when lobby doesnt exist, redirect to join page and show error popup to client
+[George] {
 
+	fix clipboard-write feature policy warning (clipboard.writeText and clipboard.readText in ArcballControls.js)
 
-support guest requests to the backend (give them a sessionid)
-fix clipboard-write feature policy warning (clipboard.writeText and clipboard.readText in ArcballControls.js)
-404 error
-
-42 login
-
-
+}
 
 [Youssef] {
-Account settings page (edit personal data, upload profile picture, ect...)
-Profile pictures
-Leaderboard
-Profile page (show all data of a user)
-Add kick button to kick players on lobby page (for admin only)
-Put a 12 char limit on usernames when creating accounts and editing usernames
+
+	Account settings page (edit personal data, upload profile picture, etc...) - Done
+	Profile pictures - Done
+	
+	Put a 12 char limit on usernames when creating accounts and editing usernames
+	Email checks, password checks
+	
+	when lobby doesnt exist, redirect to join page and show error popup to client
+	
+	fix register when auto input from firefox / chrome (gives white tab instead of transparent)
+	
+	Check email fields are actual emails in login, register and account pages
+	IMPORTANT: remove csrf exemptions
+	
+	support guest requests to the backend
+	404 error
+	
+	Leaderboard
+
+	Maybe:
+	Changing password inside Account Settings
+
+
 }
 
 
 [Marijn] {
 
-Dynamic settings with link to account
-Css on account page
+	Github login
+	add winning score display in lobby (variables.winning_score)
+	Css on account page
+	Leaderboard page
+	Add kick button to kick players on lobby page (for admin only)
+	Spectator
+	Endscreen
+	404 css
 
-Profile modal (for leaderboard, lobby and endscreen)
-Github login
+	Profile modal (for leaderboard, lobby and endscreen)
 
-Highlight current user instead of admin in lobby
-Make start game button visible to admin only
-Add kick player button for admin only
-
-fix register when auto input from firefox / chrome (gives white tab instead of transparent)
-
-Visuals:
-Play button on home page rework
-Fade in animation for smooth transition between pages
-Endscreen leaderboard
-
-Low priority:
-Add all languages in translations (only at end)
-add winning score display in lobby (variables.winning_score)
+	Visuals:
+	Play button on home page rework
+	Animations for smooth transition between pages
+	Endscreen leaderboard
 
 
-Extra:
-Easter egg(s)
+	Low priority:
+	42 login
+	Add all languages in translations (only at end)
+
+	Extra:
+	Easter egg(s)
+
 }
-
-Check email fields are actual emails in login, register and account pages
-Stop the page from refreshing in account page when saving a field using Enter button

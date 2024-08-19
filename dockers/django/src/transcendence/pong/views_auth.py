@@ -32,49 +32,49 @@ def login_view(request):
 
 @csrf_exempt
 def register_view(request):
-    if request.method == 'POST':
-        try:
-            data = json.loads(request.body)
-            username = data.get('username')
-            email = data.get('email')
-            password = data.get('password')
+	if request.method == 'POST':
+		try:
+			data = json.loads(request.body)
+			username = data.get('username')
+			email = data.get('email')
+			password = data.get('password')
 
-            if not username or not email or not password:
-                return JsonResponse({'success': False, 'message': 'All fields are required'})
+			if not username or not email or not password:
+				return JsonResponse({'success': False, 'message': 'All fields are required'})
 
-            if CustomUser.objects.filter(username=username).exists():
-                return JsonResponse({'success': False, 'message': 'Username already exists'})
+			if CustomUser.objects.filter(username=username).exists():
+				return JsonResponse({'success': False, 'message': 'Username already exists'})
 
-            if CustomUser.objects.filter(email=email).exists():
-                return JsonResponse({'success': False, 'message': 'Email already exists'})
+			if CustomUser.objects.filter(email=email).exists():
+				return JsonResponse({'success': False, 'message': 'Email already exists'})
 
-            user = CustomUser.objects.create_user(username=username, email=email, password=password)
-        
-            Profile.objects.create(user=user)
+			user = CustomUser.objects.create_user(username=username, email=email, password=password)
+		
+			Profile.objects.create(user=user)
 
-            return JsonResponse({'success': True, 'message': 'User registered successfully'})
+			return JsonResponse({'success': True, 'message': 'User registered successfully'})
 
-        except IntegrityError as e:
-            logging.error("IntegrityError during user registration: %s", e)
-            return JsonResponse({'success': False, 'message': 'An unexpected database error occurred. Please try again.'})
-        
-        except json.JSONDecodeError:
-            return JsonResponse({'success': False, 'message': 'Invalid JSON'})
+		except IntegrityError as e:
+			logging.error("IntegrityError during user registration: %s", e)
+			return JsonResponse({'success': False, 'message': 'An unexpected database error occurred. Please try again.'})
 
-    return JsonResponse({'success': False, 'message': 'Invalid request method'}, status=405)
+		except json.JSONDecodeError:
+			return JsonResponse({'success': False, 'message': 'Invalid JSON'})
+
+	return JsonResponse({'success': False, 'message': 'Invalid request method'}, status=405)
 
 @csrf_exempt
 def check_login_status(request):
-    if request.user.is_authenticated:
-        user_data = {
-            'username': request.user.username,
-            'email': request.user.email,
-        }
-        return JsonResponse({'success': True, 'user': user_data})
-    else:
-        return JsonResponse({'success': False, 'message': 'User is not logged in'})
+	if request.user.is_authenticated:
+		user_data = {
+			'username': request.user.username,
+			'email': request.user.email,
+		}
+		return JsonResponse({'success': True, 'user': user_data})
+	else:
+		return JsonResponse({'success': False, 'message': 'User is not logged in'})
 
 @csrf_exempt
 def logout_user(request):
-    logout(request)
-    return JsonResponse({'success': True, 'message': 'User logged out successfully'})
+	logout(request)
+	return JsonResponse({'success': True, 'message': 'User logged out successfully'})
