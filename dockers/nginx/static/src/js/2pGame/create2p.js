@@ -76,12 +76,12 @@ export function create2Pgame(mappov, socket) {
         p = 'player_2';
 
 	socket.onerror = function(event) {
-	    console.error('WebSocket error observed:', event);
+		console.error('WebSocket error observed:', event);
 	};
 
     // Wrap the event handlers to pass the additional arguments
-    const boundOnKeydown = (event) => onKeydown(event, socket, p);
-    const boundOnKeyup = (event) => onKeyup(event, socket, p);
+    const boundOnKeydown = (event) => onKeydown(event, camera);
+    const boundOnKeyup = (event) => onKeyup(event);
 
     window.addEventListener('keydown', boundOnKeydown, false);
     window.addEventListener('keyup', boundOnKeyup, false);
@@ -116,6 +116,8 @@ export function create2Pgame(mappov, socket) {
 					players.children[1].position.z = bytes[3];
 				}
 			} else if (bytes.length >= 2){
+				window.removeEventListener('keydown', boundOnKeydown, false);
+				window.removeEventListener('keyup', boundOnKeyup, false);
 				const score1 = new DataView(event.data).getInt32(0, true);  // Correctly reading the integer
 				const score2 = new DataView(event.data).getInt32(4, true);  // Correctly reading the integer
 				console.log("game finished, score1: ", score1, "score2: ", score2);
@@ -220,10 +222,19 @@ function updatePlayerPosition(player)
 	}
 }
 
-
-function onKeydown(event) {
+function onKeydown(event, camera) {
 	if (event.key in keys) {
 		keys[event.key] = true;
+	}
+	else if (event.key === ' ') {
+		if (camera.position.x < -7)
+			camera.position.set(-0.1, 12, 0);
+		else if (camera.position.x < 0)
+			camera.position.set(-10, 3, 6.123233995736766e-16);
+		else if (camera.position.x > 7)
+			camera.position.set(0.1, 12, 0);
+		else
+			camera.position.set(10, 3, 6.123233995736766e-16);
 	}
 }
 
