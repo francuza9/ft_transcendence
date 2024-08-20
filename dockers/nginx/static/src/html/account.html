@@ -1,155 +1,260 @@
 <link rel="stylesheet" href="/static/src/css/account.css">
-<div class="container md">
-    <h1 data-text="pages.account.pageTitle">Account Settings</h1>
 
-	<!-- Avatar Section -->
-	<div class="row">
-		<div class="col">
-			<h3 data-text="pages.account.avatarLabel">Avatar</h3>
-		</div>
-		<div class="col editable-container">
-			<!-- Display Mode (shows avatar and edit button) -->
-			<div class="display-mode d-flex align-items-center">
-				<!-- Avatar Image -->
-				<img id="avatar" src="/static/default-avatar.png" data-original-src="/static/default-avatar.png" alt="Avatar" width="100" height="100" class="me-3">
-				<!-- Edit Button -->
-				<button data-variable="editField" data-value="avatar" class="btn btn-outline-primary btn-sm" data-text="pages.account.editButton">Edit</button>
-			</div>
+<div class="container-md position-relative">
+    <button class="back-btn position-absolute top-0 start-0 m-5" data-path="/">
+        <i class="ri-arrow-left-line text-white"></i>
+    </button>
+    <h1 data-text="pages.account.pageTitle" class="text-center mb-4">Account Settings</h1>
 
-			<!-- Edit Mode (shows upload/remove/cancel/save buttons) -->
-			<form id="edit-form-avatar" class="edit-mode mt-3" style="display: none;" enctype="multipart/form-data">
-				<div class="input-group">
-					<!-- Upload Button -->
-					<button type="button" id="upload-avatar" data-action="uploadAvatar" class="btn btn-outline-secondary me-2" data-text="pages.account.uploadButton">Upload</button>
-					<!-- File Name Display -->
-					<span id="file-name" class="me-2"></span>
-					<!-- Remove Button (shown only if avatar exists) -->
-					<button type="button" id="remove-avatar" data-action="removeAvatar" class="btn btn-outline-danger me-2" style="display: none;" data-text="pages.account.removeButton">Remove</button>
-					<!-- Hidden File Input (triggered by Upload button) -->
-					<input type="file" id="avatar-input" class="form-control" style="display: none;" accept="image/*">
-				</div>
-				<div class="mt-3">
-					<!-- Save and Cancel Buttons -->
-					<button type="button" data-action="saveAvatar" class="btn btn-success" data-text="pages.account.saveButton">Save</button>
-					<button type="button" data-variable="cancelField" data-value="avatar" class="btn btn-danger ms-2" data-text="pages.account.cancelButton">Cancel</button>
-				</div>
-			</form>
-		</div>
-	</div>
-
-	<!-- Username -->
-    <div class="row">
-        <div class="col">
-            <h3 data-text="pages.account.usernameLabel">Username</h3>
-        </div>
-        <div class="col">
-            <h4 id="username" class="me-3">My Username</h4>
-        </div>
-    </div>
-
-    <!-- Display Name -->
-    <div class="row">
-        <div class="col">
-            <h3 data-text="pages.account.displayNameLabel">Display Name</h3>
-        </div>
-        <div class="col editable-container">
-            <div class="display-mode d-flex align-items-center">
-                <h4 id="displayName" class="me-3">My Display Name</h4>
-                <button data-variable="editField" data-value="displayName"  class="btn btn-outline-primary btn-sm">
-                    Edit
-                </button>
-            </div>
-            <form id="edit-form-displayName" class="edit-mode mt-3" style="display: none;">
-                <div class="input-group">
-                    <input type="text" id="title-input-displayName" class="form-control">
-                    <button type="button" data-variable="saveField" data-value="displayName"  class="btn btn-success">Save</button>
-                    <button type="button" data-variable="cancelField" data-value="displayName"  class="btn btn-danger ms-2">Cancel</button>
+    <!-- Avatar Section -->
+    <div class="row mb-3">
+        <div class="col-12">
+            <div class="row mb-2">
+                <div class="col-3">
+                    <h3 data-text="pages.account.avatarLabel">Avatar</h3>
                 </div>
-            </form>
-        </div>
-    </div>
-
-    <!-- Email -->
-    <div class="row">
-        <div class="col">
-            <h3 data-text="pages.account.emailLabel">Email</h3>
-        </div>
-        <div class="col editable-container">
-            <div class="display-mode d-flex align-items-center">
-                <h4 id="email" class="me-3">My Email</h4>
-                <button data-variable="editField" data-value="email"  class="btn btn-outline-primary btn-sm">
-                    Edit
-                </button>
-            </div>
-            <form id="edit-form-email" class="edit-mode mt-3" style="display: none;">
-                <div class="input-group">
-                    <input type="text" id="title-input-email" class="form-control">
-                    <button type="button" data-variable="saveField" data-value="email"  class="btn btn-success">Save</button>
-                    <button type="button" data-variable="cancelField" data-value="email" class="btn btn-danger ms-2">Cancel</button>
+                <div class="col-6 d-flex align-items-center">
+                    <img id="avatar" src="/static/default-avatar.png" alt="Avatar" width="100" height="100" class="me-3 rounded-circle">
                 </div>
-            </form>
-        </div>
-    </div>
-
-    <!-- Bio -->
-    <div class="row">
-        <div class="col">
-            <h3 data-text="pages.account.bioLabel">Bio</h3>
-        </div>
-        <div class="col editable-container">
-            <div class="display-mode d-flex align-items-center">
-                <h4 id="bio" class="me-3">Bio</h4>
-                <button data-variable="editField" data-value="bio"  class="btn btn-outline-primary btn-sm">
-                    Edit
-                </button>
-            </div>
-            <form id="edit-form-bio" class="edit-mode mt-3" style="display: none;">
-                <div class="input-group">
-                    <input type="text" id="title-input-bio" class="form-control">
-                    <button type="button" data-variable="saveField" data-value="bio" class="btn btn-success">Save</button>
-                    <button type="button" data-variable="cancelField" data-value="bio"  class="btn btn-danger ms-2">Cancel</button>
+                <div class="col-3 text-end">
+                    <button class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#editAvatarModal">Edit</button>
                 </div>
-            </form>
+            </div>
         </div>
     </div>
 
-	<!-- Total Score -->
-    <div class="row">
-        <div class="col">
-            <h3 data-text="pages.account.totalScoreLabel">Total Score</h3>
-        </div>
-        <div class="col">
-            <h4 id="totalScore" class="me-3"></h4>
-        </div>
-    </div>
-
-	<!-- Games Played -->
-    <div class="row">
-        <div class="col">
-            <h3 data-text="pages.account.gamesPlayedLabel">Games Played</h3>
-        </div>
-        <div class="col">
-            <h4 id="gamesPlayed" class="me-3"></h4>
+    <!-- Username Section -->
+    <div class="row mb-3">
+        <div class="col-12">
+            <div class="row mb-2">
+                <div class="col-3">
+                    <h3 data-text="pages.account.usernameLabel">Username</h3>
+                </div>
+                <div class="col-6">
+                    <h4 id="username" class="me-3">My Username</h4>
+                </div>
+                <div class="col-3 text-end">
+                    <button class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#editUsernameModal">Edit</button>
+                </div>
+            </div>
         </div>
     </div>
 
-	<!-- Games Won -->
-    <div class="row">
-        <div class="col">
-            <h3 data-text="pages.account.gamesWonLabel">Games Won</h3>
-        </div>
-        <div class="col">
-            <h4 id="gamesWon" class="me-3"></h4>
+    <!-- Display Name Section -->
+    <div class="row mb-3">
+        <div class="col-12">
+            <div class="row mb-2">
+                <div class="col-3">
+                    <h3 data-text="pages.account.displayNameLabel">Display Name</h3>
+                </div>
+                <div class="col-6">
+                    <h4 id="displayName" class="me-3">My Display Name</h4>
+                </div>
+                <div class="col-3 text-end">
+                    <button class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#editDisplayNameModal">Edit</button>
+                </div>
+            </div>
         </div>
     </div>
 
-	<!-- Games Lost -->
-    <div class="row">
-        <div class="col">
-            <h3 data-text="pages.account.gamesLostLabel">Games Lost</h3>
+    <!-- Email Section -->
+    <div class="row mb-3">
+        <div class="col-12">
+            <div class="row mb-2">
+                <div class="col-3">
+                    <h3 data-text="pages.account.emailLabel">Email</h3>
+                </div>
+                <div class="col-6">
+                    <h4 id="email" class="me-3">My Email</h4>
+                </div>
+                <div class="col-3 text-end">
+                    <button class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#editEmailModal">Edit</button>
+                </div>
+            </div>
         </div>
-        <div class="col">
-            <h4 id="gamesLost" class="me-3"></h4>
+    </div>
+
+    <!-- Bio Section -->
+    <div class="row mb-3">
+        <div class="col-12">
+            <div class="row mb-2">
+                <div class="col-3">
+                    <h3 data-text="pages.account.bioLabel">Bio</h3>
+                </div>
+                <div class="col-6">
+                    <h4 id="bio" class="me-3">Bio</h4>
+                </div>
+                <div class="col-3 text-end">
+                    <button class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#editBioModal">Edit</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Total Score Section -->
+    <div class="row mb-3">
+        <div class="col-12">
+            <div class="row mb-2">
+                <div class="col-3">
+                    <h3 data-text="pages.account.totalScoreLabel">Total Score</h3>
+                </div>
+                <div class="col-6">
+                    <h4 id="totalScore" class="me-3">0</h4>
+                </div>
+                <div class="col-3 text-end">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Games Played Section -->
+    <div class="row mb-3">
+        <div class="col-12">
+            <div class="row mb-2">
+                <div class="col-3">
+                    <h3 data-text="pages.account.gamesPlayedLabel">Games Played</h3>
+                </div>
+                <div class="col-6">
+                    <h4 id="gamesPlayed" class="me-3">0</h4>
+                </div>
+                <div class="col-3 text-end">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Games Won Section -->
+    <div class="row mb-3">
+        <div class="col-12">
+            <div class="row mb-2">
+                <div class="col-3">
+                    <h3 data-text="pages.account.gamesWonLabel">Games Won</h3>
+                </div>
+                <div class="col-6">
+                    <h4 id="gamesWon" class="me-3">0</h4>
+                </div>
+                <div class="col-3 text-end">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Games Lost Section -->
+    <div class="row mb-3">
+        <div class="col-12">
+            <div class="row mb-2">
+                <div class="col-3">
+                    <h3 data-text="pages.account.gamesLostLabel">Games Lost</h3>
+                </div>
+                <div class="col-6">
+                    <h4 id="gamesLost" class="me-3">0</h4>
+                </div>
+                <div class="col-3 text-end">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modals -->
+<!-- Avatar Modal -->
+<div class="modal fade" id="editAvatarModal" tabindex="-1" aria-labelledby="editAvatarModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editAvatarModalLabel">Edit Avatar</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="edit-form-avatar-modal" enctype="multipart/form-data">
+                    <div class="input-group">
+                        <input type="file" id="avatar-input-modal" class="form-control" accept="image/*">
+                        <button type="button" id="upload-avatar-modal" class="btn btn-outline-secondary">Upload</button>
+                        <span id="file-name-modal" class="ms-2"></span>
+                        <button type="button" id="remove-avatar-modal" class="btn btn-outline-danger ms-2" style="display: none;">Remove</button>
+                    </div>
+                    <div class="mt-3">
+                        <button type="button" data-action="saveAvatar" class="btn btn-success">Save</button>
+                        <button type="button" class="btn btn-danger ms-2" data-bs-dismiss="modal">Cancel</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Username Modal -->
+<div class="modal fade" id="editUsernameModal" tabindex="-1" aria-labelledby="editUsernameModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editUsernameModalLabel">Edit Username</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <input type="text" id="username-input-modal" class="form-control" value="My Username">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success">Save</button>
+                <button type="button" class="btn btn-danger ms-2" data-bs-dismiss="modal">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Display Name Modal -->
+<div class="modal fade" id="editDisplayNameModal" tabindex="-1" aria-labelledby="editDisplayNameModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editDisplayNameModalLabel">Edit Display Name</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <input type="text" id="displayName-input-modal" class="form-control" value="My Display Name">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success">Save</button>
+                <button type="button" class="btn btn-danger ms-2" data-bs-dismiss="modal">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Email Modal -->
+<div class="modal fade" id="editEmailModal" tabindex="-1" aria-labelledby="editEmailModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editEmailModalLabel">Edit Email</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <input type="email" id="email-input-modal" class="form-control" value="My Email">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success">Save</button>
+                <button type="button" class="btn btn-danger ms-2" data-bs-dismiss="modal">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Bio Modal -->
+<div class="modal fade" id="editBioModal" tabindex="-1" aria-labelledby="editBioModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editBioModalLabel">Edit Bio</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <textarea id="bio-input-modal" class="form-control" rows="3">Bio</textarea>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success">Save</button>
+                <button type="button" class="btn btn-danger ms-2" data-bs-dismiss="modal">Cancel</button>
+            </div>
         </div>
     </div>
 </div>

@@ -160,6 +160,11 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 
+#Github Login
+
+GITHUB_CLIENT_ID = 'REDACTED'
+GITHUB_CLIENT_SECRET = 'REDACTED'
+
 # Internationalization
 # https://docs.djangoproject.com/en/5.0/topics/i18n/
 

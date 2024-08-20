@@ -5,6 +5,10 @@ from .views_auth import (
     logout_user,
 )
 
+from .views_auth_github import (
+    github,
+)
+
 from .views_lobby import (
     create_lobby,
     get_lobbies,
