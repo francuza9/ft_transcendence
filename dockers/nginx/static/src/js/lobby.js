@@ -9,7 +9,8 @@ function updateLobbyDetails(variables) {
 	if (variables.roomName)
 		document.getElementById('lobbyTitle').innerText = variables.roomName;
 	const mode = variables.isTournament ? 'Tournament' : 'Classic';
-	document.getElementById('lobbyDetails').innerText = `Players: ${variables.players.length} / ${variables.maxPlayerCount} | Map: ${variables.map} | Mode: ${mode}`;
+	console.log(variables);
+	document.getElementById('lobbyDetails').innerText = `Players: ${variables.players.length} / ${variables.maxPlayerCount} | Map: ${variables.map} | Wining Score: ${variables.pointsToWin} | Mode: ${mode}`;
 }
 
 export function viewProfile(playerId) {
