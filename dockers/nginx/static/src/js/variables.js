@@ -6,7 +6,7 @@ export const variables = {
 	isTournament: false,
 	pointsToWin: 3,
     maxPlayerCount: 2,
-	map: 'classic',
+	map: 'Classic',
 	roomName: '',
 	nextPage: 'profile',
 	previousPage: '/',
