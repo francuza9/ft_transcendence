@@ -1,7 +1,44 @@
 [George] {
 
-	fix clipboard-write feature policy warning (clipboard.writeText and clipboard.readText in ArcballControls.js)
+	Current {
+		Multiplayer Game {
+			handle information exchange well,
+			do backend pong logic,
+			moving to next rounds (8 >> 7 >> 6 >> 5 >> 4 >> 3 >> 2 >> winner)	
+		}
+	}
 
+	Upcoming {
+		AI {
+			AI should connect to correct socket on demand,
+			AI algo,
+			AI clean exit
+		},
+
+		Global Socket {
+			Any logged in client joins global socket in DOMContentLoaded,
+			Exchangement of informations between clients {
+				Friend system,
+				Chat system,
+				Active Status
+			}
+		}
+
+		Tournament {
+			Tournament logic,
+		}
+	
+		Localgame {
+			localgame takes variables {
+				player names,
+				points to win,
+			}
+		}
+	}
+
+	Extra {
+		Spectators,
+	}
 }
 
 [Youssef] {
@@ -37,10 +74,7 @@
 
 [Marijn] {
 
-	add winning score display in lobby (variables.winning_score)
-	Fix back btn css on account page and title padding-bottom
 	Add kick button to kick players on lobby page (for admin only)
-	Spectator
 	Endscreen
 	404 css
 
@@ -57,6 +91,7 @@
 
 	Low priority:
 	42 login
+	Spectator
 	Add all languages in translations (only at end)
 
 	Extra:

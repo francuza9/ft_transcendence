@@ -12,10 +12,15 @@
 }
 
 .back-btn {
-    border: none;
+    top: 20px;
+    right: 20px;
+    width: 50px;
+	font-size: 32px;
+    align-items: center;
+    justify-content: center;
     background: transparent;
-    color: white;
-    font-size: 1.5rem;
+    border: none;
+	top: 0.2em !important;
 }
 
 .btn-outline-primary, .btn-outline-secondary, .btn-outline-danger {
@@ -87,6 +92,10 @@ textarea.form-control {
 
 h1, h3, h4 {
     color: #ffffff;
+}
+
+h1 {
+    margin-bottom: 50px;
 }
 
 .input-group {
