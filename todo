@@ -21,6 +21,8 @@
 	
 	support guest requests to the backend
 	404 error
+
+	Github Authentication database handling (together w/ Marijn)
 	
 	Leaderboard
 
@@ -33,16 +35,17 @@
 
 [Marijn] {
 
-	Github login
 	add winning score display in lobby (variables.winning_score)
-	Css on account page
-	Leaderboard page
+	Fix back btn css on account page and title padding-bottom
 	Add kick button to kick players on lobby page (for admin only)
 	Spectator
 	Endscreen
 	404 css
 
 	Profile modal (for leaderboard, lobby and endscreen)
+
+	GithubLogin
+		Login Successfull page
 
 	Visuals:
 	Play button on home page rework
