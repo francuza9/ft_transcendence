@@ -6,8 +6,12 @@
 
 [Youssef] {
 
-	Account settings page (edit personal data, upload profile picture, etc...) - Done
 	Profile pictures - Done
+	How are profile pictures stored in the database upon user/profile creation?
+	Account settings page (edit personal data, upload profile picture, etc...)
+	Check uploaded profile picture format and size
+	404 error
+	Github Authentication database handling (together w/ Marijn)
 	
 	Put a 12 char limit on usernames when creating accounts and editing usernames
 	Email checks, password checks
@@ -20,9 +24,7 @@
 	IMPORTANT: remove csrf exemptions
 	
 	support guest requests to the backend
-	404 error
 
-	Github Authentication database handling (together w/ Marijn)
 	
 	Leaderboard
 
