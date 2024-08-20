@@ -6,6 +6,8 @@ from django.db import models
 from django.conf import settings
 
 class CustomUser(AbstractUser):
+    github_id = models.PositiveIntegerField(null=True, blank=True, unique=True)
+    github_token = models.CharField(max_length=255, blank=True, null=True)
 
     class Meta:
         db_table = 'pong_user'  # Set a custom table name
