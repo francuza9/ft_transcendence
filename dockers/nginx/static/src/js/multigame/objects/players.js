@@ -3,13 +3,12 @@ import * as THREE from 'three';
 export function createPlayers(pcount, pov, vectorObjects)
 {
 	const group = new THREE.Group();
-
-	const others = createOthers(pcount, pov, vectorObjects);
+	
 	const me = createMe(pov, vectorObjects);
-
-	group.add(others);
 	group.add(me);
 
+	createOthers(pcount, pov, vectorObjects, group);
+	
 	return (group);
 }
 
@@ -46,8 +45,7 @@ function createMe(pov, vectorObjects) {
 }
 
 
-function createOthers(pcount, pov, vectorObjects) {
-    const group = new THREE.Group();
+function createOthers(pcount, pov, vectorObjects, group) {
     const geometry = new THREE.BoxGeometry(0.5, 0.5, 2); // Size of the player box
     const scaleFactor = 1.02;
     const colors = ['#FF0000', '#FF5733', '#00FF00', '#800080', '#0000FF', '#00FFFF', '#FFFF00', '#FF00FF'];
@@ -75,6 +73,4 @@ function createOthers(pcount, pov, vectorObjects) {
         if (i + 1 != pov)
             group.add(player);
     }
-
-    return group;
 }

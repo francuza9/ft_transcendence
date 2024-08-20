@@ -29,6 +29,8 @@ initScore(score).then(scorea => {
 }).catch(error => { console.error('Failed to load score:', error); })
 
 export function create2Pgame(mappov, socket) {
+	if (mappov > 2)
+		mappov = 0;
     const scene = initScene();
     const camera = initCamera(mappov);
     const renderer = initRenderer();
@@ -118,8 +120,9 @@ export function create2Pgame(mappov, socket) {
 			} else if (bytes.length >= 2){
 				window.removeEventListener('keydown', boundOnKeydown, false);
 				window.removeEventListener('keyup', boundOnKeyup, false);
-				const score1 = new DataView(event.data).getInt32(0, true);  // Correctly reading the integer
-				const score2 = new DataView(event.data).getInt32(4, true);  // Correctly reading the integer
+				socket.removeEventListener('message', event);
+				const score1 = new DataView(event.data).getInt32(0, true);
+				const score2 = new DataView(event.data).getInt32(4, true);
 				console.log("game finished, score1: ", score1, "score2: ", score2);
 			} else {
 				console.error(`Unexpected data length received: ${bytes.length}. Data:`, bytes);
