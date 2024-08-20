@@ -1,7 +1,7 @@
 import * as THREE from 'three';
 
 import { OrbitControls } from 'https://cdn.jsdelivr.net/npm/three@0.161.0/examples/jsm/controls/OrbitControls.js';
-import { initScene, initCamera, initRenderer} from '../2pGame/init.js';
+import { initScene, initCamera, initRenderer } from '../2pGame/init.js';
 import { initPlane } from './objects/plane.js';
 import { createEdges } from './objects/edges.js';
 import { fixCamera } from './scene/camera.js';
@@ -10,12 +10,15 @@ import { createLights } from './objects/lights.js';
 import { createPlayers } from './objects/players.js';
 import { buildMap } from './scene/maps/chooseMap.js';
 
-export function createMultigame(pcount, pov, map, socket)
-{
+export function createMultigame(pcount, pov, map, socket) {
+	if (pov > pcount)
+		pov = 0;
 	const scene = initScene();
 	const camera = initCamera(0);
 	const renderer = initRenderer();
-	renderer.setAnimationLoop( animate );
+	renderer.setAnimationLoop(animate);
+
+	console.log("my pov: ", pov);
 
 	const group = new THREE.Group();
 
@@ -23,22 +26,36 @@ export function createMultigame(pcount, pov, map, socket)
 	const planeVectors = plane.geometry.attributes.position.array;
 
 	fixCamera(pov, planeVectors, camera);
-	// const ball = createBall();
 	const ball = new Ball(scene);
 	const ballMesh = ball.getMesh();
 	const edges = createEdges(planeVectors, pcount);
 
 	const vectorObjects = [];
-	for (let i = 0; i < planeVectors.length; i += 3) {
+	for (let i = 0; i < pcount * 3; i += 3) {
 		vectorObjects.push(new THREE.Vector3(planeVectors[i], planeVectors[i + 1], planeVectors[i + 2]));
 	}
 
-	const light = new THREE.AmbientLight( 0xffffff, 1 );
+	const light = new THREE.AmbientLight(0xffffff, 1);
 	const lights = createLights(pcount, ballMesh, vectorObjects);
 
 	const players = createPlayers(pcount, pov, vectorObjects);
 
-	// controls
+	// Attach direction vectors and side lengths to each player
+	players.children.forEach((player, i) => {
+		let v1 = vectorObjects[i];
+		let v2 = vectorObjects[(i + 1) % pcount];
+		let directionVector = new THREE.Vector3().subVectors(v2, v1).normalize();
+		let sideLength = v1.distanceTo(v2);
+		player.userData = {
+			sideIndex: i,
+			directionVector: directionVector,
+			sideLength: sideLength,
+		};
+	});
+
+	sendInitialData(socket, vectorObjects);
+
+	// Controls
 	const controls = new OrbitControls(camera, renderer.domElement);
 	controls.update();
 
@@ -57,12 +74,64 @@ export function createMultigame(pcount, pov, map, socket)
 
 	window.addEventListener('resize', onWindowResize, false);
 
-	function animate() {
-		// render
-		ball.animate();
+	// Event listeners for keyboard inputs
+	const keys = {
+		"a": false,
+		"d": false,
+		"ArrowLeft": false,
+		"ArrowRight": false,
+	};
 
+	const boundOnKeydown = (event) => onKeydown(event);
+	const boundOnKeyup = (event) => onKeyup(event);
+
+	window.addEventListener('keydown', boundOnKeydown, false);
+	window.addEventListener('keyup', boundOnKeyup, false);
+
+	function animate() {
+		// Send player positions over the socket
+		if (pov > 0) {
+			const buffer = serializeData(
+				pov,
+				players.children[0].position.x,
+				players.children[0].position.z
+			);
+			socket.send(buffer);
+		}
+
+		// Update only the player with index 0 on the correct side of the polygon
+		updatePlayerPosition(
+			players.children[0], 
+			players.children[pov - 1].userData.directionVector, 
+			players.children[pov - 1].userData.sideLength,
+			vectorObjects[pov - 1],
+			vectorObjects[pov % pcount]
+		);
+
+		ball.animate();
 		controls.update();
 		renderer.render(scene, camera);
+	}
+
+	function updatePlayerPosition(player, directionVector, length, v1, v2) {
+		// Check the keys pressed and move along the direction vector
+		if (keys.a || keys.ArrowLeft) {
+			// Move in the negative direction
+			player.position.addScaledVector(directionVector, -0.2);
+		}
+		if (keys.d || keys.ArrowRight) {
+			// Move in the positive direction
+			player.position.addScaledVector(directionVector, 0.2);
+		}
+
+		// Ensure the player stays within the boundaries of their side
+		let playerToV1 = new THREE.Vector3().subVectors(player.position, v1);
+		let projectionLength = playerToV1.dot(directionVector);
+		if (projectionLength < 0) {
+			player.position.copy(v1);
+		} else if (projectionLength > length) {
+			player.position.copy(v2);
+		}
 	}
 
 	function onWindowResize() {
@@ -70,4 +139,43 @@ export function createMultigame(pcount, pov, map, socket)
 		camera.updateProjectionMatrix();
 		renderer.setSize(window.innerWidth, window.innerHeight);
 	}
+
+	function onKeydown(event) {
+		if (event.key in keys) {
+			keys[event.key] = true;
+		}
+	}
+
+	function onKeyup(event) {
+		if (event.key in keys) {
+			keys[event.key] = false;
+		}
+	}
+
+	function serializeData(pov, positionX, positionY) {
+		const buffer = new ArrayBuffer(13); // 1 byte (pov) + 4 bytes (positionX) + 4 bytes (positionY) + 4 bytes for padding
+		const view = new DataView(buffer);
+
+		view.setUint8(0, pov); // 1 byte
+
+		// Write positionX and positionY as 32-bit floats
+		view.setFloat32(1, positionX, true); // 4 bytes (little-endian)
+		view.setFloat32(5, positionY, true); // 4 bytes (little-endian)
+
+		return buffer;
+	}
+
+	function sendInitialData(socket, vectorObjects) {
+		const data = {
+			type: 'init',
+			content: {
+				vectors: vectorObjects.map(vector => ({
+					x: vector.x,
+					z: vector.z
+				}))
+			}
+		};
+		socket.send(JSON.stringify(data));
+	}
+
 }
