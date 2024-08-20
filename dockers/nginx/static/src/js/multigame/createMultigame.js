@@ -31,7 +31,7 @@ export function createMultigame(pcount, pov, map, socket) {
 	const edges = createEdges(planeVectors, pcount);
 
 	const vectorObjects = [];
-	for (let i = 0; i < pcount * 3; i += 3) {
+	for (let i = 0; i <= pcount * 3; i += 3) {
 		vectorObjects.push(new THREE.Vector3(planeVectors[i], planeVectors[i + 1], planeVectors[i + 2]));
 	}
 
@@ -87,6 +87,33 @@ export function createMultigame(pcount, pov, map, socket) {
 
 	window.addEventListener('keydown', boundOnKeydown, false);
 	window.addEventListener('keyup', boundOnKeyup, false);
+
+	socket.addEventListener('message', event => {
+		if (event.data instanceof ArrayBuffer) {
+		} else {
+			const blob = event.data;
+
+			const reader = new FileReader();
+			reader.onload = function() {
+				const arrayBuffer = reader.result;
+
+				const dataView = new DataView(arrayBuffer);
+				processData(dataView);
+			};
+			reader.readAsArrayBuffer(blob);
+		}
+	});
+
+	function processData(dataView) {
+		// Example: assuming the structure from the server is something like <ffff>
+		console.log("dataview: ",dataView);
+		const ballX = dataView.getFloat32(0, true);
+		const ballY = dataView.getFloat32(4, true);
+		const player1Y = dataView.getFloat32(8, true);
+		const player2Y = dataView.getFloat32(12, true);
+
+		// Now you can use ballX, ballY, player1Y, player2Y in your game logic
+	}
 
 	function animate() {
 		// Send player positions over the socket
@@ -153,7 +180,7 @@ export function createMultigame(pcount, pov, map, socket) {
 	}
 
 	function serializeData(pov, positionX, positionY) {
-		const buffer = new ArrayBuffer(13); // 1 byte (pov) + 4 bytes (positionX) + 4 bytes (positionY) + 4 bytes for padding
+		const buffer = new ArrayBuffer(9); // 1 byte (pov) + 4 bytes (positionX) + 4 bytes (positionY) + 4 bytes for padding
 		const view = new DataView(buffer);
 
 		view.setUint8(0, pov); // 1 byte
@@ -171,7 +198,7 @@ export function createMultigame(pcount, pov, map, socket) {
 			content: {
 				vectors: vectorObjects.map(vector => ({
 					x: vector.x,
-					z: vector.z
+					y: vector.z
 				}))
 			}
 		};
