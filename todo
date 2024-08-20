@@ -23,6 +23,17 @@
 				Active Status
 			}
 		}
+
+		Tournament {
+			Tournament logic,
+		}
+	
+		Localgame {
+			localgame takes variables {
+				player names,
+				points to win,
+			}
+		}
 	}
 
 	Extra {
