@@ -27,7 +27,7 @@ class PongConsumer(AsyncWebsocketConsumer):
 			else:
 				PongConsumer.room_counters[self.room_id] += 1
 
-			pov = PongConsumer.room_counters[self.room_id] if PongConsumer.room_counters[self.room_id] <= 2 else 0
+			pov = PongConsumer.room_counters[self.room_id]
 
 			await self.channel_layer.group_add(
 				self.room_group_name,
@@ -168,6 +168,8 @@ class PongConsumer(AsyncWebsocketConsumer):
 				'finished': False,
 			},
 			'multi': {
+				'edges': [],
+				'players': [],
 			},
 			'room_size': 0,
 		}
