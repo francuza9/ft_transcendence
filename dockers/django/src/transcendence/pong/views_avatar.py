@@ -1,50 +1,46 @@
-from .models import CustomUser, Profile
-from django.contrib.auth.decorators import login_required
-from django.core.files.storage import default_storage
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
-from django.conf import settings
-import json
-import os
-
+from django.contrib.auth.decorators import login_required
+from .models import Profile
 
 @login_required
 @csrf_exempt
 def update_avatar(request):
-	if request.method == 'POST':
-		user_profile = Profile.objects.get(user=request.user)  # Get the user profile
+    if request.method == 'POST':
+        user_profile = Profile.objects.get(user=request.user)
 
-		# Check if the avatar file exists in the request
-		if 'avatar' not in request.FILES:
-			return JsonResponse({'success': False, 'message': 'No file uploaded.'}, status=400)
-		
-		avatar_file = request.FILES['avatar']
-		
-		# If there is an existing avatar and it's not null, delete it
-		if user_profile.avatarUrl:
-			user_profile.avatarUrl.delete(save=False)
-		
-		# Assign the new file to the avatarUrl field
-		user_profile.avatarUrl = avatar_file
-		user_profile.save()
+        if 'avatar' not in request.FILES:
+            return JsonResponse({'success': False, 'message': 'No file uploaded.'}, status=400)
+        
+        avatar_file = request.FILES['avatar']
 
-		return JsonResponse({'success': True, 'avatarUrl': user_profile.avatarUrl.url})
+        # If there is an existing avatar, delete the old file
+        if user_profile.avatarUrl:
+            user_profile.avatarUrl.delete(save=False)
+        
+        # Assign the new file to the avatarUrl field
+        user_profile.avatarUrl = avatar_file
+        user_profile.save()
 
-	return JsonResponse({'success': False, 'message': 'Invalid request method.'}, status=405)
+        return JsonResponse({'success': True, 'avatarUrl': user_profile.avatarUrl.url})
 
+    return JsonResponse({'success': False, 'message': 'Invalid request method.'}, status=405)
+
+@login_required
 @csrf_exempt
 def remove_avatar(request):
-	if request.method == 'POST':
-		user_profile = Profile.objects.get(user=request.user)  # Get the user profile
+    if request.method == 'POST':
+        user_profile = Profile.objects.get(user=request.user)
 
-		# If there is an avatar, delete the file
-		if user_profile.avatarUrl:
-			user_profile.avatarUrl.delete(save=False)
-		
-		# Set the avatar field to null (remove the avatar)
-		user_profile.avatarUrl = None
-		user_profile.save()
+        # If there is an avatar, delete the file
+        if user_profile.avatarUrl:
+            user_profile.avatarUrl.delete(save=False)
+        
+        # Set the avatar field to None
+        user_profile.avatarUrl = None
+        user_profile.save()
 
-		return JsonResponse({'success': True, 'avatarUrl': None})  # No avatar after removal
+        # Optionally, send the default avatar URL back (e.g., '/static/default-avatar.png')
+        return JsonResponse({'success': True, 'avatarUrl': '/static/default-avatar.png'})
 
-	return JsonResponse({'success': False, 'message': 'Invalid request method.'}, status=405)
+    return JsonResponse({'success': False, 'message': 'Invalid request method.'}, status=405)
