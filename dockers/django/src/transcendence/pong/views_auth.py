@@ -65,14 +65,15 @@ def register_view(request):
 
 @csrf_exempt
 def check_login_status(request):
-	if request.user.is_authenticated:
-		user_data = {
-			'username': request.user.username,
-			'email': request.user.email,
-		}
-		return JsonResponse({'success': True, 'user': user_data})
-	else:
-		return JsonResponse({'success': False, 'message': 'User is not logged in'})
+    if request.user.is_authenticated:
+        user_data = {
+            'username': request.user.username,
+            'email': request.user.email,
+        }
+        logger.info(f"Authenticated user data: {user_data}")
+        return JsonResponse({'success': True, 'user': user_data})
+    else:
+        return JsonResponse({'success': False, 'message': 'User is not logged in'})
 
 @csrf_exempt
 def logout_user(request):
