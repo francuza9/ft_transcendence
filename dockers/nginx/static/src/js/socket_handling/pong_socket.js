@@ -17,10 +17,10 @@ export async function initPongSocket(roomId, room_size, winning_score) {
 
 		socket.onmessage = function(event) {
 			// Handle binary data
-			if (event.data instanceof ArrayBuffer) {
-				// Process the binary data as needed
-				return;
-			}
+			// if (event.data instanceof ArrayBuffer) {
+			// 	// Process the binary data as needed
+			// 	return;
+			// }
 			
 			// Handle JSON data
 			if (typeof event.data === "string") {
@@ -33,8 +33,6 @@ export async function initPongSocket(roomId, room_size, winning_score) {
 				} catch (e) {
 					console.error('Failed to parse JSON:', e, 'Received data:', event.data);
 				}
-			} else {
-				console.error('Unexpected non-JSON message:', event.data);
 			}
 		};
 
