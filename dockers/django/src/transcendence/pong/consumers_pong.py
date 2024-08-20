@@ -79,6 +79,8 @@ class PongConsumer(AsyncWebsocketConsumer):
 					logger.info(f"pong: Room size set to {PongConsumer.game_states[self.room_id]['room_size']}")
 				else:
 					await self.send(text_data=json.dumps({'error': 'Invalid room size'}))
+			elif message_type == 'init':
+				
 
 	async def game_update_loop(self):
 		while True:
@@ -170,6 +172,10 @@ class PongConsumer(AsyncWebsocketConsumer):
 			'multi': {
 				'edges': [],
 				'players': [],
+				'ball_position': {'x': 0, 'y': 0},
+				'ball_direction': {'x': 0, 'y': 0},
+				'ball_speed': 0.05,
+				'finished': False,
 			},
 			'room_size': 0,
 		}
