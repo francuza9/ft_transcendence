@@ -1,20 +1,16 @@
-.player-row:hover {
-	background-color: #f8f9fa;
-	cursor: pointer;
-}
 .player-img {
-	width: 40px;
-	height: 40px;
-	border-radius: 50%;
-	object-fit: cover;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
 }
+
 .table-centered {
-	margin: 0 auto;
-	max-width: 800px;
+    margin: 0 auto;
+    max-width: 800px;
 }
 
 .highlighted-row {
-    background-color: #ffeb3b;
     font-weight: bold;
 }
 
@@ -27,11 +23,6 @@
     font-size: 12px;
 }
 
-.highlighted-row:hover {
-    background-color: #ffe082;
-    cursor: pointer;
-}
-
 .lobby-box {
     background: transparent;
     border: 2px solid rgba(255, 255, 255, 0.5);
@@ -41,15 +32,68 @@
     backdrop-filter: blur(15px);
     padding: 20px;
     margin: auto;
-	max-width: 900px;
-	height: 450px;
-	color: white;
+    max-width: 900px;
+    height: 450px;
+    color: white;
 }
 
 #lobbyDetails {
-	color: lightgray;
+    color: lightgray;
 }
 
 .hidden {
-	display: none;
+    display: none;
+}
+
+.table-responsive {
+    overflow-x: auto;
+}
+
+.table {
+    background: rgba(0, 0, 0, 0.5); /* Dark transparent background for the table */
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.5); /* More transparent border */
+    border-collapse: separate;
+    border-spacing: 0;
+}
+
+.table > :not(caption) > * > * {
+    background-color: transparent; /* Ensure background is transparent */
+}
+
+.table th, .table td {
+    padding: 10px;
+}
+
+.table tbody tr {
+    border-radius: 10px;
+}
+
+.table tbody tr:nth-child(even) {
+    background: rgba(0, 0, 0, 0.3); /* Transparent background for even rows */
+}
+
+.table tbody tr:hover {
+    background: rgba(0, 0, 0, 0.4); /* Darker transparent background on hover */
+}
+
+.table td {
+    color: #fff;
+	border-style: hidden;
+}
+
+.table td .player-img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.table td .admin-badge {
+    background-color: #ff5722;
+    color: white;
+    padding: 2px 8px;
+    margin-left: 10px;
+    border-radius: 5px;
+    font-size: 12px;
 }
