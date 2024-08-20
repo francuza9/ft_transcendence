@@ -1,4 +1,4 @@
-import {loginButton, loginWithGithubButton, loginWith42Button, goBackFromLogin, goToRegister, goToLogin} from '/static/src/js/login/login.js';
+import {loginButton, loginWithGithubButton, loginWith42Button, goBackFromLogin, goToRegister, goToLogin} from '/static/src/js/login.js';
 import {registerButton} from '/static/src/js/register.js';
 import {playButton, cancelButton, localButton, onlineButton, backFromOnlineButton, skipLoginButton, goToLoginButton} from '/static/src/js/play.js';
 import {createRoomButton, playerCountDropdownButton, pointsDropdownButton, editNameButton, saveNameEditButton, cancelNameEditButton, selectMapButton} from '/static/src/js/create.js';

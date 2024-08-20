@@ -5,6 +5,11 @@ from .views_auth import (
     logout_user,
 )
 
+from .views_auth_github import (
+    github_login,
+    github_callback,
+)
+
 from .views_lobby import (
     create_lobby,
     get_lobbies,
