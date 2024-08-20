@@ -1,5 +1,33 @@
 [George] {
 
+	Current {
+		Multiplayer Game {
+			handle information exchange well,
+			do backend pong logic,
+			moving to next rounds (8 >> 7 >> 6 >> 5 >> 4 >> 3 >> 2 >> winner)	
+		}
+	}
+
+	Upcoming {
+		AI {
+			AI should connect to correct socket on demand,
+			AI algo,
+			AI clean exit
+		},
+
+		Global Socket {
+			Any logged in client joins global socket in DOMContentLoaded,
+			Exchangement of informations between clients {
+				Friend system,
+				Chat system,
+				Active Status
+			}
+		}
+	}
+
+	Extra {
+		Spectators,
+	}
 }
 
 [Youssef] {
