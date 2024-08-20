@@ -5,16 +5,21 @@ from django.http import HttpResponse
 from django.contrib.auth import login as django_login
 from django.contrib.auth.models import User
 from django.contrib.sessions.models import Session
+import logging
 
-def github_login(request):
-    client_id = settings.GITHUB_CLIENT_ID
-    redirect_uri = request.build_absolute_uri('/auth/github/callback/')
-    return redirect(f'https://github.com/login/oauth/authorize?client_id={client_id}&redirect_uri={redirect_uri}')
+logger = logging.getLogger(__name__)
 
-def github_callback(request):
+def github(request):
+    logger.debug('GitHub callback received')
+    logger.info('GitHub callback received')
     code = request.GET.get('code')
     if not code:
+        logger.debug('No code received')
+        logger.info('No code received')
         return HttpResponse('No code provided', status=400)
+
+    logger.debug(f'Code received: {code}')
+    logger.info(f'Code received: {code}')
     
     # Exchange code for access token
     token_response = requests.post(

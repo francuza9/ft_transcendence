@@ -12,6 +12,5 @@ urlpatterns = [
 	path('api/avatar_update/', views.update_avatar, name='update_avatar'),
 	path('api/avatar_remove/', views.remove_avatar, name='remove_avatar'),
     path('api/logout/', views.logout_user, name='logout_user'),
-    path('auth/github/', github_login, name='github_login'),
-    path('auth/github/callback/', github_callback, name='github_callback'),
+    path('github/', views.github, name='github'),
 ]
