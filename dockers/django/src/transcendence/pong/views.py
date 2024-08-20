@@ -6,8 +6,7 @@ from .views_auth import (
 )
 
 from .views_auth_github import (
-    github_login,
-    github_callback,
+    github,
 )
 
 from .views_lobby import (

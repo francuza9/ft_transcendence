@@ -133,8 +133,9 @@ export const loginWith42Button = () =>  {
 }
 
 export const loginWithGithubButton = () => {
-    console.log('Login with GitHub');
-	const clientId = Ov23li5k50XUjRjLs4bc
-	const githubAuthUrl = `https://github.com/login/oauth/authorize?client_id=${clientId}&scope=user:email`;
+    console.log('Redirecting to GitHub for login...');
+	const clientId = 'Ov23li5k50XUjRjLs4bc';
+    const redirectUri = 'http://localhost/github/';
+    const githubAuthUrl = `https://github.com/login/oauth/authorize?client_id=${clientId}&redirect_uri=${redirectUri}&scope=user:email`;
 	window.location.href = githubAuthUrl;
 }
