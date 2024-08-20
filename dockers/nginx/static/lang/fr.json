@@ -81,7 +81,7 @@
         },
         "login": {
             "title": "Se Connecter",
-            "emailLabel": "Email",
+            "emailLabel": "Nom d'utilisateur ou Email",
             "passwordLabel": "Mot de Passe",
             "loginButton": "Se Connecter",
             "noAccount": "Pas de compte ?",

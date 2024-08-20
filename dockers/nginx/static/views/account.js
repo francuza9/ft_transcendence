@@ -22,8 +22,6 @@ async function fetchAccountInfo() {
             document.getElementById('gamesPlayed').innerText = data.gamesPlayed;
             document.getElementById('gamesWon').innerText = data.gamesWon;
             document.getElementById('gamesLost').innerText = data.gamesLost;
-			// console.log('avatarUrl', data.avatarUrl);
-			// console.log('avatarPath', data.avatarPath);
 			
         } else {
             alert('Failed to fetch account info.');

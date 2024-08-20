@@ -103,19 +103,103 @@ export const cancelField = (field) => {
         console.error(`Form or display mode not found for field: ${field}`);
     }
 
-    // Avatar-specific logic (reset the avatar preview if needed)
+    // Avatar-specific logic: Reset the avatar preview if the user cancels
     if (field === 'avatar') {
+        const avatarImage = document.getElementById('avatar');
+        const originalAvatarUrl = avatarImage.dataset.originalSrc;
+
+        // Reset the avatar preview to the original one
+        avatarImage.src = originalAvatarUrl;
+
+        // Clear the file input to reset any selected file
         const avatarInput = document.getElementById('avatar-input');
-        avatarInput.value = '';  // Clear the file input if necessary
+        avatarInput.value = '';
+
+        // Restore the remove button visibility based on whether the avatar is default or not
+        const removeButton = document.getElementById('remove-avatar');
+        if (originalAvatarUrl.includes('default-avatar.png')) {
+            removeButton.style.display = 'none';
+        } else {
+            removeButton.style.display = 'inline-block';
+        }
     }
 };
 
+
 export const uploadAvatarButton = () => {
     const fileInput = document.getElementById('avatar-input');
+
+    fileInput.onchange = function () {
+        const file = fileInput.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                const avatarImage = document.getElementById('avatar');
+                avatarImage.src = e.target.result; // Show the preview
+            };
+            reader.readAsDataURL(file); // Read the file and trigger the onload event
+        }
+    };
+
     fileInput.click(); // Trigger the file input dialog
 };
 
 export const saveAvatarButton = async () => {
+    const fileInput = document.getElementById('avatar-input');
+    const file = fileInput.files[0];  // This will be non-null if a new avatar was uploaded
+    const avatarImage = document.getElementById('avatar');
+
+    // Check if the current avatar is the default (implying removal)
+    const isAvatarRemoved = avatarImage.src.includes('default-avatar.png');
+    
+    const formData = new FormData();
+
+    if (file) {
+        // Case 1: User uploaded a new avatar
+        formData.append('avatar', file);
+    } else if (isAvatarRemoved) {
+        // Case 2: User removed the avatar (i.e., it's set to the default image)
+        formData.append('remove_avatar', true);
+    } else {
+        // No changes were made; return early
+        console.log('No changes to avatar');
+        return;
+    }
+
+    try {
+        const response = await fetch('/api/avatar_update/', {
+            method: 'POST',
+            body: formData,
+            headers: {
+                'X-CSRFToken': getCookie('csrftoken'),
+            },
+        });
+        
+        const result = await response.json();
+        
+        if (result.success) {
+            console.log('Avatar updated successfully');
+            
+            // Update the avatar image based on the server response
+            if (result.avatarUrl) {
+                avatarImage.src = result.avatarUrl;
+            } else {
+                avatarImage.src = '/static/default-avatar.png';  // Fallback in case of avatar removal
+            }
+
+            // Clear the file input and reset file name display
+            fileInput.value = '';
+            document.getElementById('file-name').textContent = '';
+        } else {
+            console.error('Failed to update avatar:', result.message);
+        }
+    } catch (error) {
+        console.error('Error updating avatar:', error);
+    }
+};
+
+
+/* export const saveAvatarButton = async () => {
     const fileInput = document.getElementById('avatar-input');
     const file = fileInput.files[0];
     if (!file) {
@@ -146,9 +230,9 @@ export const saveAvatarButton = async () => {
     } catch (error) {
         console.error('Error updating avatar:', error);
     }
-};
+}; */
 
-export const removeAvatarButton = async () => {
+/* export const removeAvatarButton = async () => {
     try {
         const response = await fetch('/api/avatar_remove/', {
             method: 'POST',
@@ -168,4 +252,19 @@ export const removeAvatarButton = async () => {
     } catch (error) {
         console.error('Error removing avatar:', error);
     }
+}; */
+
+export const removeAvatarButton = () => {
+    const avatarImage = document.getElementById('avatar');
+    const fileInput = document.getElementById('avatar-input');
+    const removeButton = document.getElementById('remove-avatar');
+    
+    // Show the default avatar in the preview
+    avatarImage.src = '/static/default-avatar.png';
+
+    // Ensure file input is cleared, so no file is sent to the server
+    fileInput.value = '';
+
+    // Hide the remove button since the avatar is now the default
+    removeButton.style.display = 'none';
 };
