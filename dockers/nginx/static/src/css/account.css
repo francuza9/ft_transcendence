@@ -37,6 +37,10 @@
     border-color: #dc3545;
 }
 
+.btn-close {
+	color: white;
+}
+
 #avatar {
     border-radius: 50%;
 }
