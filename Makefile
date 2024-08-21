@@ -18,6 +18,7 @@ annihilate: fclean
 	@echo "Removing Docker volumes..."
 	docker volume prune -f
 	docker volume rm $$(docker volume ls -q) || true
+	rm -rf ./dockers/django/src/transcendence/media/profile_pictures/* || true
 
 
 re: annihilate all

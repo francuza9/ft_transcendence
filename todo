@@ -44,11 +44,13 @@
 [Youssef] {
 
 	Profile pictures - Done
-	How are profile pictures stored in the database upon user/profile creation?
+	How the fuck do you hide a modal??? - Done
+	Github Authentication database handling (together w/ Marijn) - Done
 	Account settings page (edit personal data, upload profile picture, etc...)
+	Add char limits for text fields, add scrollbar for Bio
+	Handle guests login in 
 	Check uploaded profile picture format and size
 	404 error
-	Github Authentication database handling (together w/ Marijn)
 
 	Fix missing translation keys in account page
 	Put a 12 char limit on usernames when creating accounts and editing usernames
@@ -77,8 +79,6 @@
 		Add kick button to kick players on lobby page (for admin only)
 
 	Fix window resize stretching background
-
-	Handle guests with cookie
 
 	Fix Github Auth to not reload SPA
 
