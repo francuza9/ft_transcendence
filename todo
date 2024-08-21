@@ -56,39 +56,41 @@
 	Check email fields are actual emails in login, register and account pages
 	IMPORTANT: remove csrf exemptions
 	
-	support guest requests to the backend
 	404 error
 
 	Github Authentication database handling (together w/ Marijn)
 	
 	Leaderboard
 
-	Maybe:
 	Changing password inside Account Settings
-
 
 }
 
 
 [Marijn] {
 
-	Add kick button to kick players on lobby page (for admin only)
+	Finish table css
+
 	Endscreen
-	404 css
 
 	Profile modal (for leaderboard, lobby and endscreen)
+		Add kick button to kick players on lobby page (for admin only)
+
+	Fix window resize stretching background
+
+	Handle guests with cookie
 
 	GithubLogin
 		Login Successfull page
 
-	Visuals:
-	Play button on home page rework
-	Animations for smooth transition between pages
-	Endscreen leaderboard
+	42 login
+
 
 
 	Low priority:
-	42 login
+	Play button on home page rework
+	Animations for smooth transition between pages
+	404 css
 	Spectator
 	Add all languages in translations (only at end)
 
