@@ -15,6 +15,7 @@ export const setDefaultRoomName = () => {
         } else {
             return checkLoginStatus().then(loggedIn => {
                 if (!loggedIn) {
+					//TODO: log in as guest
                     variables.username = 'Guest';
                 }
                 return;

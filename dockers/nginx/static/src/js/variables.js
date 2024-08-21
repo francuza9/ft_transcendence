@@ -1,6 +1,6 @@
 import {updatePlayerCount, updatePointsToWin, updateIsTournament} from '/static/src/js/create.js';
 import {setLanguage} from '/static/src/js/lang.js';
-import {editField, saveField, cancelField} from '/static/src/js/account.js';
+import {editField, saveField} from '/static/src/js/account.js';
 
 export const variables = {
 	isTournament: false,
@@ -43,9 +43,6 @@ export function updateVariable(document, variableName, value) {
 			break;
 		case 'saveField':
 			saveField(value);
-			break;
-		case 'cancelField':	
-			cancelField(value);
 			break;
 		default:
 			console.warn(`Unknown variable: ${variableName}`);

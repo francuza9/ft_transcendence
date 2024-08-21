@@ -30,17 +30,15 @@ def update_avatar(request):
 @login_required
 @csrf_exempt
 def remove_avatar(request):
-    if request.method == 'POST':
-        user_profile = Profile.objects.get(user=request.user)  # Get the user profile
+	if request.method == 'POST':
+		user_profile = Profile.objects.get(user=request.user)  # Get the user profile
 
-        # If there is an avatar, delete the file
-        if user_profile.avatarUrl:
-            user_profile.avatarUrl.delete(save=False)
-            user_profile.avatarUrl = None
-            user_profile.save()
+		# If there is an avatar, delete the file
+		if user_profile.avatarUrl:
+			user_profile.avatarUrl.delete(save=False)
+			user_profile.avatarUrl = None
+			user_profile.save()
 
-            return JsonResponse({'success': True, 'avatarUrl': None})
-        else:
-            return JsonResponse({'success': False, 'message': 'No avatar to remove.'}, status=400)
+		return JsonResponse({'success': True, 'avatarUrl': None})
 
-    return JsonResponse({'success': False, 'message': 'Invalid request method.'}, status=405)
+	return JsonResponse({'success': False, 'message': 'Invalid request method.'}, status=405)
