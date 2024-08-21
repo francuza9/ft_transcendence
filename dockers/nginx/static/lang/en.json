@@ -103,6 +103,11 @@
 			"logout": "Logout",
             "languageButton": "Language",
             "backButton": "Back"
+		},
+		"end":{
+			"leaderboard": "Leaderboard",
+			"continue": "Continue",
+			"again": "Play Again"
 		}
     }
 }
