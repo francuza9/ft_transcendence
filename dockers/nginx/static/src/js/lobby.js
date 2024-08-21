@@ -9,7 +9,6 @@ function updateLobbyDetails(variables) {
 	if (variables.roomName)
 		document.getElementById('lobbyTitle').innerText = variables.roomName;
 	const mode = variables.isTournament ? 'Tournament' : 'Classic';
-	console.log(variables);
 	document.getElementById('lobbyDetails').innerText = `Players: ${variables.players.length} / ${variables.maxPlayerCount} | Map: ${variables.map} | Wining Score: ${variables.pointsToWin} | Mode: ${mode}`;
 }
 
@@ -35,7 +34,9 @@ function renderPlayerList(variables) {
     const playerListElement = document.getElementsByClassName('playerList')[0];
 	playerListElement.innerHTML = '';
 
+	let highestIndex = -1;
     variables.players.forEach((player, index) => {
+		highestIndex = index;
         const row = document.createElement('tr');
         row.classList.add('player-row');
         row.setAttribute('data-player-id', `player${index + 1}`);
@@ -54,9 +55,16 @@ function renderPlayerList(variables) {
 
         playerListElement.appendChild(row);
     });
+	if (highestIndex >= 0) {
+		const lastRow = playerListElement.children[highestIndex];
+		lastRow.classList.add('no-bottom-border');
+	}
 }
 
 export const leaveRoom = () => {
+	const backdrops = document.querySelectorAll('.modal-backdrop');
+    backdrops.forEach(backdrop => backdrop.remove());
+
 	history.pushState(null, '', `/`);
 	replaceHTML('/static/src/html/room.html');
 

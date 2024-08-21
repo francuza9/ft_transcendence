@@ -49,7 +49,8 @@
 	Check uploaded profile picture format and size
 	404 error
 	Github Authentication database handling (together w/ Marijn)
-	
+
+	Fix missing translation keys in account page
 	Put a 12 char limit on usernames when creating accounts and editing usernames
 	Email checks, password checks
 	
@@ -60,41 +61,44 @@
 	Check email fields are actual emails in login, register and account pages
 	IMPORTANT: remove csrf exemptions
 	
-	support guest requests to the backend
-
 	
 	Leaderboard
 
-	Maybe:
 	Changing password inside Account Settings
-
 
 }
 
 
 [Marijn] {
 
-	Add kick button to kick players on lobby page (for admin only)
 	Endscreen
-	404 css
 
 	Profile modal (for leaderboard, lobby and endscreen)
+		Add kick button to kick players on lobby page (for admin only)
 
-	GithubLogin
-		Login Successfull page
+	Fix window resize stretching background
 
-	Visuals:
-	Play button on home page rework
-	Animations for smooth transition between pages
-	Endscreen leaderboard
+	Handle guests with cookie
+
+	Fix Github Auth to not reload SPA
+
+	42 login
 
 
 	Low priority:
-	42 login
+
+	Fix modal backdrop
+	Play button on home page rework
+	Start game button placement in lobby
+	Create room button placement
+	Create local game page
+
+	404 css
 	Spectator
 	Add all languages in translations (only at end)
 
 	Extra:
+	Animations for smooth transition between pages
 	Easter egg(s)
 
 }

@@ -30,7 +30,9 @@ function renderLobbies(lobbies) {
 		lobbyTable.classList.remove('hidden');
 		lobbyListElement.innerHTML = '';
 
-		lobbies.forEach(lobby => {
+		let highestIndex = -1;
+		lobbies.forEach((lobby, index) => {
+			highestIndex = index;
 			const row = document.createElement('tr');
 			row.classList.add('lobby-row');
 			row.dataset.joinCode = lobby.join_code;
@@ -48,6 +50,10 @@ function renderLobbies(lobbies) {
 
 			lobbyListElement.appendChild(row);
 		});
+		if (highestIndex >= 0) {
+			const lastRow = lobbyListElement.children[highestIndex];
+			lastRow.classList.add('no-bottom-border');
+		}
 	}
 }
 

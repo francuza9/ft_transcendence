@@ -124,10 +124,6 @@ function handleKeyPress(event) {
     }
 }
 
-
-
-
-
 export const loginWith42Button = () =>  {
     console.log('Login with 42');
 }
