@@ -94,6 +94,8 @@
             "username": "Username",
             "level": "Level",
             "leaveButton": "Leave Room",
+			"leaveConfirmation": "Are you sure you want to leave",
+			"cancel": "Cancel",
             "startButton": "Start game"
         },
 		"settings":{

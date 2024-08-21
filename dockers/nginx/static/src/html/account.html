@@ -1,20 +1,28 @@
 <link rel="stylesheet" href="/static/src/css/account.css">
 
 <div class="container-md position-relative">
-    <button class="back-btn position-absolute top-0 start-0 m-4" data-path="/">
-        <i class="ri-arrow-left-line text-white"></i>
-    </button>
-    <h1 data-text="pages.account.pageTitle" class="text-center">Account Settings</h1>
+    <div class="row">
+		<div class="col">
+			<button class="back-btn" data-path="/">
+				<i class="ri-arrow-left-line text-white"></i>
+			</button>
+		</div>
+		<div class="col-8">
+			<h1 data-text="pages.account.pageTitle" class="text-center">Account Settings</h1>
+		</div>
+		<div class="col">
+		</div>
+	</div>
 
     <!-- Avatar Section -->
     <div class="row mb-3">
         <div class="col-12">
-            <div class="row mb-2">
+            <div class="row mb-3">
                 <div class="col-3">
                     <h3 data-text="pages.account.avatarLabel">Avatar</h3>
                 </div>
-                <div class="col-6 d-flex align-items-center">
-                    <img id="avatar" src="/static/default-avatar.png" alt="Avatar" width="100" height="100" class="me-3 rounded-circle">
+                <div class="col-6">
+                    <img id="avatar" src="/static/default-avatar.png" alt="Avatar" width="100" height="100" class="rounded-circle">
                 </div>
                 <div class="col-3 text-end">
                     <button class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#edit-avatar-modal" data-variable="editField" data-value="avatar" data-text="pages.account.editButton">Edit</button>
@@ -31,7 +39,7 @@
                     <h3 data-text="pages.account.usernameLabel">Username</h3>
                 </div>
                 <div class="col-6">
-                    <h4 id="username" class="me-3">My Username</h4>
+                    <h4 id="username">My Username</h4>
                 </div>
                 <div class="col-3 text-end">
                     <button class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#edit-username-modal" data-variable="editField" data-value="username" data-text="pages.account.editButton">Edit</button>
@@ -48,7 +56,7 @@
                     <h3 data-text="pages.account.displayNameLabel">Display Name</h3>
                 </div>
                 <div class="col-6">
-                    <h4 id="displayName" class="me-3">My Display Name</h4>
+                    <h4 id="displayName">My Display Name</h4>
                 </div>
                 <div class="col-3 text-end">
                     <button class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#edit-displayName-modal" data-variable="editField" data-value="displayName" data-text="pages.account.editButton">Edit</button>
@@ -65,7 +73,7 @@
                     <h3 data-text="pages.account.emailLabel">Email</h3>
                 </div>
                 <div class="col-6">
-                    <h4 id="email" class="me-3">My Email</h4>
+                    <h4 id="email">My Email</h4>
                 </div>
                 <div class="col-3 text-end">
                     <button class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#edit-email-modal" data-variable="editField" data-value="email" data-text="pages.account.editButton">Edit</button>
@@ -82,7 +90,7 @@
                     <h3 data-text="pages.account.bioLabel">Bio</h3>
                 </div>
                 <div class="col-6">
-                    <h4 id="bio" class="me-3">Bio</h4>
+                    <h4 id="bio">Bio</h4>
                 </div>
                 <div class="col-3 text-end">
                     <button class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#edit-bio-modal" data-variable="editField" data-value="bio" data-text="pages.account.editButton">Edit</button>
@@ -99,7 +107,7 @@
                     <h3 data-text="pages.account.totalScoreLabel">Total Score</h3>
                 </div>
                 <div class="col-6">
-                    <h4 id="totalScore" class="me-3">0</h4>
+                    <h4 id="totalScore">0</h4>
                 </div>
                 <div class="col-3 text-end">
                 </div>
@@ -115,7 +123,7 @@
                     <h3 data-text="pages.account.gamesPlayedLabel">Games Played</h3>
                 </div>
                 <div class="col-6">
-                    <h4 id="gamesPlayed" class="me-3">0</h4>
+                    <h4 id="gamesPlayed">0</h4>
                 </div>
                 <div class="col-3 text-end">
                 </div>
@@ -131,7 +139,7 @@
                     <h3 data-text="pages.account.gamesWonLabel">Games Won</h3>
                 </div>
                 <div class="col-6">
-                    <h4 id="gamesWon" class="me-3">0</h4>
+                    <h4 id="gamesWon">0</h4>
                 </div>
                 <div class="col-3 text-end">
                 </div>
@@ -147,7 +155,7 @@
                     <h3 data-text="pages.account.gamesLostLabel">Games Lost</h3>
                 </div>
                 <div class="col-6">
-                    <h4 id="gamesLost" class="me-3">0</h4>
+                    <h4 id="gamesLost">0</h4>
                 </div>
                 <div class="col-3 text-end">
                 </div>
