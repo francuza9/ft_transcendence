@@ -1,9 +1,18 @@
 <link rel="stylesheet" href="/static/src/css/lobby.css">
 <div class="container-md lobby-box">
-    <div class="text-center mb-4">
-        <h1 id="lobbyTitle" data-text="pages.lobby.title">Room Name</h1>
-        <p id="lobbyDetails" data-text="pages.lobby.details"></p>
+    <div class="text-center row">
+        <div class="col">
+			<button class="back-btn" data-bs-toggle="modal" data-bs-target="#leaveModal">
+                <i class="ri-arrow-left-line text-white"></i>
+            </button>
+        </div>
+        <div class="col-8">
+            <h1 id="lobbyTitle" data-text="pages.lobby.title">Room Name</h1>
+        </div>
+        <div class="col">
+        </div>
     </div>
+    <p id="lobbyDetails" data-text="pages.lobby.details"></p>
     <div class="table-responsive table-centered">
         <table class="table table-hover text-center">
             <tbody id="playerList" class="playerList">
@@ -11,7 +20,27 @@
         </table>
     </div>
     <div class="text-center mt-4">
-        <button class="btn btn-danger" data-action="leave" data-text="pages.lobby.leaveButton">Leave Room</button>
         <button id="start" class="btn btn-success hidden" data-action="start" data-text="pages.lobby.startButton">Start game</button>
+    </div>
+</div>
+
+<!-- Bootstrap Modal for Leave Confirmation -->
+<div class="modal fade" id="leaveModal" tabindex="-1" role="dialog" aria-labelledby="leaveModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="confirmation" data-text="pages.lobby.leaveConfirmation">Are you sure you want to leave</h5>
+            </div>
+            <div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal" aria-label="Close">
+					<i class="ri-close-fill"></i>
+					<div data-text="pages.lobby.cancel">Cancel</div>
+				</button>
+                <button type="button" class="btn btn-danger" data-action="leave" id="leaveButton">
+					<i class="ri-check-fill"></i>
+					<div data-text="pages.lobby.leaveButton">Leave</div>
+                </button>
+            </div>
+        </div>
     </div>
 </div>
