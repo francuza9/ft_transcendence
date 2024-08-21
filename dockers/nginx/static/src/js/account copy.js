@@ -12,16 +12,25 @@ export const accountButton = (e) => {
 // JavaScript to handle the edit button functionality for everything (texts and avatar)
 export const editField = (field) => {
     console.log('Editing field:', field);
+    const editableContainer = document.querySelector(`[data-value="${field}"]`).closest('.editable-container');
+    const displayMode = editableContainer.querySelector('.display-mode');
+    const editForm = editableContainer.querySelector(`#edit-form-${field}-modal`);
 
+    if (!editForm || !displayMode) {
+        console.error(`Form or display mode not found for field: ${field}`);
+        return;
+    }
+
+    // Avatar-specific logic
     if (field === 'avatar') {
-		const avatarImage = document.getElementById('avatar');
-		const avatarPreview = document.getElementById('avatar-preview-modal');
-        const removeButton = document.getElementById('remove-avatar-modal');
-		
-		avatarPreview.src = avatarImage.src;
+        const avatarImage = document.getElementById('avatar');
+        const removeButton = document.getElementById('remove-avatar');
+
+        // Store the original avatar URL in a data attribute so it can be restored if "Cancel" is clicked
+		window.originalAvatarSrc = avatarImage.src;
 
         // Show the remove button if the avatar is not the default image
-        if (avatarPreview.src.includes('default-avatar.png')) {
+        if (avatarImage.src.includes('default-avatar.png')) {
             removeButton.style.display = 'none';
         } else {
             removeButton.style.display = 'inline-block';
@@ -29,8 +38,8 @@ export const editField = (field) => {
 
     } else {
         // For text fields, set the input value to the current display value
-        const titleInput = document.getElementById(`${field}-input-modal`);
-        const displayTitle = document.getElementById(field);
+        const titleInput = editForm.querySelector(`#title-input-${field}`);
+        const displayTitle = editableContainer.querySelector(`#${field}`);
         
         if (displayTitle && titleInput) {
             titleInput.value = displayTitle.textContent.trim();
@@ -39,15 +48,27 @@ export const editField = (field) => {
             return;
         }
     }
+
+    // Toggle visibility: Hide display mode, show edit mode
+    displayMode.style.display = 'none';
+    editForm.style.display = 'block';
+
+    // Focus on the input field for non-avatar fields
+    if (field !== 'avatar') {
+        const titleInput = editForm.querySelector(`#title-input-${field}`);
+        titleInput.focus();
+    }
 };
 
 // JavaScript to handle the save button functionality only for text fields
 export const saveField = async (field) => {
-	const titleInput = document.getElementById(`${field}-input-modal`);
-	const displayTitle = document.getElementById(field);
+    const editableContainer = document.querySelector(`[data-value="${field}"]`).closest('.editable-container');
+    const displayMode = editableContainer.querySelector('.display-mode');
+    const editForm = editableContainer.querySelector(`#edit-form-${field}`);
+    const titleInput = editForm.querySelector(`#title-input-${field}`);
+    const displayTitle = editableContainer.querySelector(`#${field}`);
 
     const newTitle = titleInput.value.trim();
-
     if (newTitle) {
         try {
             const response = await fetch('/api/account_update/', {
@@ -63,20 +84,10 @@ export const saveField = async (field) => {
             });
 
             const result = await response.json();
-			// TODO: if result is success, close the modal
-			// else display error message somewhere
+
             if (result.success) {
                 // Update the display field with the new value
                 displayTitle.textContent = newTitle;
-
-				var modalElement = document.getElementById(`edit-${field}-modal`);
-				modalElement.hide();
-				// Create a Bootstrap modal instance
-				var modal = new bootstrap.Modal(modalElement);
-
-				// Hide the modal
-				modal.hide();
-
                 console.log('Field updated successfully');
             } else {
                 console.error('Failed to update field:', result.message);
@@ -85,6 +96,10 @@ export const saveField = async (field) => {
             console.error('Error updating field:', error);
         }
     }
+
+    // Hide the edit form and show the display mode
+    editForm.style.display = 'none';
+    displayMode.style.display = 'flex';
 };
 
 // JavaScript to handle the cancel button functionality for all fields (texts and avatar)

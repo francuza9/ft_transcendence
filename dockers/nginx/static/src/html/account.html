@@ -17,7 +17,7 @@
                     <img id="avatar" src="/static/default-avatar.png" alt="Avatar" width="100" height="100" class="me-3 rounded-circle">
                 </div>
                 <div class="col-3 text-end">
-                    <button class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#editAvatarModal" data-text="pages.account.editButton">Edit</button>
+                    <button class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#edit-avatar-modal" data-variable="editField" data-value="avatar" data-text="pages.account.editButton">Edit</button>
                 </div>
             </div>
         </div>
@@ -34,7 +34,7 @@
                     <h4 id="username" class="me-3">My Username</h4>
                 </div>
                 <div class="col-3 text-end">
-                    <button class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#editUsernameModal" data-text="pages.account.editButton">Edit</button>
+                    <button class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#edit-username-modal" data-variable="editField" data-value="username" data-text="pages.account.editButton">Edit</button>
                 </div>
             </div>
         </div>
@@ -51,7 +51,7 @@
                     <h4 id="displayName" class="me-3">My Display Name</h4>
                 </div>
                 <div class="col-3 text-end">
-                    <button class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#editDisplayNameModal" data-text="pages.account.editButton">Edit</button>
+                    <button class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#edit-displayName-modal" data-variable="editField" data-value="displayName" data-text="pages.account.editButton">Edit</button>
                 </div>
             </div>
         </div>
@@ -68,7 +68,7 @@
                     <h4 id="email" class="me-3">My Email</h4>
                 </div>
                 <div class="col-3 text-end">
-                    <button class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#editEmailModal" data-text="pages.account.editButton">Edit</button>
+                    <button class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#edit-email-modal" data-variable="editField" data-value="email" data-text="pages.account.editButton">Edit</button>
                 </div>
             </div>
         </div>
@@ -85,7 +85,7 @@
                     <h4 id="bio" class="me-3">Bio</h4>
                 </div>
                 <div class="col-3 text-end">
-                    <button class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#editBioModal" data-text="pages.account.editButton">Edit</button>
+                    <button class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#edit-bio-modal" data-variable="editField" data-value="bio" data-text="pages.account.editButton">Edit</button>
                 </div>
             </div>
         </div>
@@ -158,7 +158,7 @@
 
 <!-- Modals -->
 <!-- Avatar Modal -->
-<div class="modal fade" id="editAvatarModal" tabindex="-1" aria-labelledby="editAvatarModalLabel" aria-hidden="true">
+<div class="modal fade" id="edit-avatar-modal" tabindex="-1" aria-labelledby="editAvatarModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
@@ -166,12 +166,15 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
+				<div class="text-center mb-3">
+					<img id="avatar-preview-modal" src="/static/default-avatar	.png" alt="Avatar Preview" width="100" height="100" class="rounded-circle">
+				</div>
                 <form id="edit-form-avatar-modal" enctype="multipart/form-data">
                     <div class="input-group">
                         <input type="file" id="avatar-input-modal" class="form-control" accept="image/*">
                         <button type="button" id="upload-avatar-modal" class="btn btn-outline-secondary" data-text="pages.account.uploadButton">Upload</button>
                         <span id="file-name-modal" class="ms-2"></span>
-                        <button type="button" data-action="removeAvatar" class="btn btn-outline-danger ms-2" style="display: none;" data-text="pages.account.removeButton">Remove</button>
+                        <button type="button" id="remove-avatar-modal" data-action="removeAvatar" class="btn btn-outline-danger ms-2" style="display: none;" data-text="pages.account.removeButton">Remove</button>
                     </div>
                     <div class="mt-3">
                         <button type="button" data-action="saveAvatar" class="btn btn-success" data-text="pages.account.saveButton">Save</button>
@@ -184,7 +187,7 @@
 </div>
 
 <!-- Username Modal -->
-<div class="modal fade" id="editUsernameModal" tabindex="-1" aria-labelledby="editUsernameModalLabel" aria-hidden="true">
+<div class="modal fade" id="edit-username-modal" tabindex="-1" aria-labelledby="editUsernameModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
@@ -195,7 +198,7 @@
                 <input type="text" id="username-input-modal" class="form-control" value="My Username">
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-success" data-text="pages.account.saveButton">Save</button>
+                <button type="button" data-variable="saveField" data-value="username" class="btn btn-success" data-text="pages.account.saveButton">Save</button>
                 <button type="button" class="btn btn-danger ms-2" data-bs-dismiss="modal" data-text="pages.account.cancelButton">Cancel</button>
             </div>
         </div>
@@ -203,7 +206,7 @@
 </div>
 
 <!-- Display Name Modal -->
-<div class="modal fade" id="editDisplayNameModal" tabindex="-1" aria-labelledby="editDisplayNameModalLabel" aria-hidden="true">
+<div class="modal fade" id="edit-displayName-modal" tabindex="-1" aria-labelledby="editDisplayNameModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
@@ -214,46 +217,46 @@
                 <input type="text" id="displayName-input-modal" class="form-control" value="My Display Name">
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-success">Save</button>
-                <button type="button" class="btn btn-danger ms-2" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" data-variable="saveField" data-value="displayName" class="btn btn-success" data-text="pages.account.saveButton">Save</button>
+                <button type="button" class="btn btn-danger ms-2" data-bs-dismiss="modal" data-text="pages.account.cancelButton">Cancel</button>
             </div>
         </div>
     </div>
 </div>
 
 <!-- Email Modal -->
-<div class="modal fade" id="editEmailModal" tabindex="-1" aria-labelledby="editEmailModalLabel" aria-hidden="true">
+<div class="modal fade" id="edit-email-modal" tabindex="-1" aria-labelledby="editEmailModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="editEmailModalLabel">Edit Email</h5>
+                <h5 class="modal-title" id="editEmailModalLabel" data-text="pages.account.editEmail">Edit Email</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <input type="email" id="email-input-modal" class="form-control" value="My Email">
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-success">Save</button>
-                <button type="button" class="btn btn-danger ms-2" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" data-variable="saveField" data-value="email" class="btn btn-success" data-text="pages.account.saveButton">Save</button>
+                <button type="button" class="btn btn-danger ms-2" data-bs-dismiss="modal" data-text="pages.account.cancelButton">Cancel</button>
             </div>
         </div>
     </div>
 </div>
 
 <!-- Bio Modal -->
-<div class="modal fade" id="editBioModal" tabindex="-1" aria-labelledby="editBioModalLabel" aria-hidden="true">
+<div class="modal fade" id="edit-bio-modal" tabindex="-1" aria-labelledby="editBioModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="editBioModalLabel">Edit Bio</h5>
+                <h5 class="modal-title" id="editBioModalLabel" data-text="pages.account.editBio">Edit Bio</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <textarea id="bio-input-modal" class="form-control" rows="3">Bio</textarea>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-success">Save</button>
-                <button type="button" class="btn btn-danger ms-2" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" data-variable="saveField" data-value="bio" class="btn btn-success" data-text="pages.account.saveButton">Save</button>
+                <button type="button" class="btn btn-danger ms-2" data-bs-dismiss="modal" data-text="pages.account.cancelButton">Cancel</button>
             </div>
         </div>
     </div>
