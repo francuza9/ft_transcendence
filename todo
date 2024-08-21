@@ -70,7 +70,7 @@
 
 [Marijn] {
 
-	Finish table css
+	Account page fix back arrow position
 
 	Endscreen
 
@@ -81,21 +81,25 @@
 
 	Handle guests with cookie
 
-	GithubLogin
-		Login Successfull page
+	Fix Github Auth to not reload SPA
 
 	42 login
 
 
-
 	Low priority:
+
+	Fix modal backdrop
 	Play button on home page rework
-	Animations for smooth transition between pages
+	Start game button placement in lobby
+	Create room button placement
+	Create local game page
+
 	404 css
 	Spectator
 	Add all languages in translations (only at end)
 
 	Extra:
+	Animations for smooth transition between pages
 	Easter egg(s)
 
 }

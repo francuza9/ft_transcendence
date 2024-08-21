@@ -1,6 +1,15 @@
 .player-row {
-    border-radius: 10px; /* Ensure rows have rounded corners */
-    overflow: hidden; /* Prevent background from spilling outside the rounded corners */
+    border-radius: 10px;
+    overflow: hidden;
+    border-bottom: 1px solid white;
+}
+
+.player-row.no-bottom-border {
+    border-bottom: none;
+}
+
+.no-bottom-border td {
+    border-bottom: none;
 }
 
 .player-img {
@@ -42,6 +51,20 @@
     color: white;
 }
 
+.back-btn {
+    top: 20px;
+    right: 20px;
+    width: 50px;
+    height: 50px;
+    font-size: 32px;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    border: none;
+    color: white;
+    cursor: pointer;
+}
+
 #lobbyDetails {
     color: lightgray;
 }
@@ -55,15 +78,15 @@
 }
 
 .table {
-    background: transparent; /* Dark transparent background for the table */
+    background: transparent;
     border-radius: 10px;
-    border: 1px solid rgba(255, 255, 255, 1); /* More transparent border */
+    border: 1px solid rgba(255, 255, 255, 0.5);
     border-collapse: separate;
     border-spacing: 0;
 }
 
 .table > :not(caption) > * > * {
-    background-color: transparent; /* Ensure background is transparent */
+    background-color: transparent;
 }
 
 .table th, .table td {
@@ -74,17 +97,13 @@
     border-radius: 10px;
 }
 
-.table tbody tr:nth-child(even) {
-    background: rgba(0, 0, 0, 0.3); /* Transparent background for even rows */
-}
 
 .table tbody tr:hover {
-    background: rgba(0, 0, 0, 0.4); /* Darker transparent background on hover */
+    background: rgba(0, 0, 0, 0.5); /* Darker transparent background on hover */
 }
 
 .table td {
     color: #fff;
-	border-style: hidden;
 }
 
 .table td .player-img {
@@ -101,4 +120,65 @@
     margin-left: 10px;
     border-radius: 5px;
     font-size: 12px;
+}
+
+.modal-content {
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    justify-content: center;
+    align-items: center;
+    backdrop-filter: blur(15px);
+    border-radius: 10px;
+    color: white;
+}
+
+.modal-header {
+    border-bottom: none;
+}
+
+.modal-footer {
+    border-top: none;
+}
+
+.modal-title {
+    color: white;
+}
+
+.modal-body p {
+    color: lightgray;
+}
+
+/* Adjust button styles */
+.btn-danger {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-danger i {
+    margin-right: 5px;
+}
+
+/* Ensure the modal button text is white */
+.btn-secondary {
+    color: white;
+}
+
+.modal-backdrop {
+	z-index: auto;
+}
+
+.modal-footer {
+    display: flex;
+    justify-content: center;
+    gap: 10px; /* Adjust gap between buttons if needed */
+}
+
+.modal-footer .btn {
+    display: flex;
+    align-items: center;
+}
+
+.modal-footer .btn i {
+    margin-right: 5px; /* Space between icon and text */
 }

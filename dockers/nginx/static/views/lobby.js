@@ -7,6 +7,8 @@ let socket;
 export async function Lobby([lobbyId]) {
 	variables.lobbyId = lobbyId;
 	replaceHTML('/static/src/html/lobby.html', false).then(() => {
+
+		document.getElementById('confirmation').innerText += ` ${variables.roomName}?`;
 	
 		const lobbyPromise = new Promise(async (resolve, reject) => {
 			try {
