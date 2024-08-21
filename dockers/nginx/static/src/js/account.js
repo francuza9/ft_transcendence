@@ -17,8 +17,12 @@ export const editField = (field) => {
 		const avatarImage = document.getElementById('avatar');
 		const avatarPreview = document.getElementById('avatar-preview-modal');
         const removeButton = document.getElementById('remove-avatar-modal');
+		const fileInput = document.getElementById('avatar-input-modal');
+		const saveButton = document.getElementById('save-avatar-modal');
 		
 		avatarPreview.src = avatarImage.src;
+		fileInput.value = ''; // Clear the file input
+		saveButton.disabled = true; // Disable the save button
 
         // Show the remove button if the avatar is not the default image
         if (avatarPreview.src.includes('default-avatar.png')) {
@@ -63,22 +67,18 @@ export const saveField = async (field) => {
             });
 
             const result = await response.json();
-			// TODO: if result is success, close the modal
-			// else display error message somewhere
+
             if (result.success) {
-                // Update the display field with the new value
                 displayTitle.textContent = newTitle;
 
-				var modalElement = document.getElementById(`edit-${field}-modal`);
-				modalElement.hide();
-				// Create a Bootstrap modal instance
-				var modal = new bootstrap.Modal(modalElement);
-
 				// Hide the modal
-				modal.hide();
+				const modalInstance = bootstrap.Modal.getInstance(document.getElementById(`edit-${field}-modal`));
+				if (modalInstance)
+					modalInstance.hide();
 
                 console.log('Field updated successfully');
             } else {
+				// TODO: create an error element to show the error message
                 console.error('Failed to update field:', result.message);
             }
         } catch (error) {
@@ -87,54 +87,22 @@ export const saveField = async (field) => {
     }
 };
 
-// JavaScript to handle the cancel button functionality for all fields (texts and avatar)
-export const cancelField = (field) => {
-    const editableContainer = document.querySelector(`[data-value="${field}"]`).closest('.editable-container');
-    const displayMode = editableContainer.querySelector('.display-mode');
-    const editForm = editableContainer.querySelector(`#edit-form-${field}`);
-
-    if (editForm && displayMode) {
-        // Hide the edit form and show the display mode
-        editForm.style.display = 'none';
-        displayMode.style.display = 'flex';
-    } else {
-        console.error(`Form or display mode not found for field: ${field}`);
-    }
-
-    // Avatar-specific logic (reset the avatar preview if needed)
-    if (field === 'avatar') {
-        const avatarInput = document.getElementById('avatar-input');
-        const avatarPreview = document.getElementById('avatar');
-        const removeButton = document.getElementById('remove-avatar');
-
-        // Reset the avatar input value
-        avatarInput.value = '';
-
-        // If the user cancels, revert the avatar preview to the original state
-        if (window.originalAvatarSrc) {
-            avatarPreview.src = window.originalAvatarSrc;
-        }
-
-        // Hide the remove button if the avatar is the default image
-        if (avatarPreview.src.includes('default-avatar.png')) {
-            removeButton.style.display = 'none';
-        } else {
-            removeButton.style.display = 'inline-block';
-        }
-    }
-};
-
-
 export const uploadAvatarButton = () => {
-    const fileInput = document.getElementById('avatar-input');
+	console.log('uploadAvatarButton');
+	const fileInput = document.getElementById('avatar-input-modal');
+	const avatarPreview = document.getElementById('avatar-preview-modal');
+	const removeButton = document.getElementById('remove-avatar-modal');
+	const saveButton = document.getElementById('save-avatar-modal');
 
     fileInput.onchange = function () {
         const file = fileInput.files[0];
         if (file) {
             const reader = new FileReader();
             reader.onload = function (e) {
-                const avatarImage = document.getElementById('avatar');
-                avatarImage.src = e.target.result; // Show the preview
+                
+                avatarPreview.src = e.target.result; // Show the preview
+				removeButton.style.display = 'inline-block'; // Show the remove button
+				saveButton.disabled = false; // Enable the save button
             };
             reader.readAsDataURL(file); // Read the file and trigger the onload event
         }
@@ -144,16 +112,13 @@ export const uploadAvatarButton = () => {
 };
 
 export const saveAvatarButton = async () => {
-    const fileInput = document.getElementById('avatar-input');
+    const fileInput = document.getElementById('avatar-input-modal');
     const file = fileInput.files[0];  // Check if a new avatar was uploaded
+	const avatarPreview = document.getElementById('avatar-preview-modal');
     const avatarImage = document.getElementById('avatar');
-    const editableContainer = document.querySelector(`[data-value="avatar"]`).closest('.editable-container');
-    const displayMode = editableContainer.querySelector('.display-mode');
-    const editForm = editableContainer.querySelector('#edit-form-avatar');
-    const removeButton = document.getElementById('remove-avatar');
 
     // Check if the current avatar is the default (meaning it was removed)
-    const isAvatarRemoved = avatarImage.src.includes('default-avatar.png');
+    const isAvatarRemoved = avatarPreview.src.includes('default-avatar.png');
 
     if (file) {
         // If a file is uploaded, call the update API
@@ -174,13 +139,6 @@ export const saveAvatarButton = async () => {
             if (result.success) {
                 // Update the avatar image
                 avatarImage.src = result.avatarUrl;
-
-                // Close the edit form and show the display mode
-                editForm.style.display = 'none';
-                displayMode.style.display = 'flex';
-
-                // Update remove button visibility
-                removeButton.style.display = avatarImage.src.includes('default-avatar.png') ? 'none' : 'inline-block';
             } else {
                 console.error('Failed to update avatar:', result.message);
             }
@@ -203,14 +161,7 @@ export const saveAvatarButton = async () => {
 
             if (result.success) {
                 // Update the avatar image to the default
-                avatarImage.src = result.avatarUrl;
-
-                // Close the edit form and show the display mode
-                editForm.style.display = 'none';
-                displayMode.style.display = 'flex';
-
-                // Hide the remove button
-                removeButton.style.display = 'none';
+                avatarImage.src = "/static/default-avatar.png";
             } else {
                 console.error('Failed to remove avatar:', result.message);
             }
@@ -223,15 +174,21 @@ export const saveAvatarButton = async () => {
         console.log('No changes to avatar.');
     }
 
-    // Clear the file input
+	// Hide the modal
+	const modalInstance = bootstrap.Modal.getInstance(document.getElementById('edit-avatar-modal'));
+	if (modalInstance)
+		modalInstance.hide();
+	
+	// Clear the file input
     fileInput.value = '';
 };
 
 
 export const removeAvatarButton = () => {
-    const avatarImage = document.getElementById('avatar');
-    const fileInput = document.getElementById('avatar-input');
-    const removeButton = document.getElementById('remove-avatar');
+    const avatarImage = document.getElementById('avatar-preview-modal');
+    const fileInput = document.getElementById('avatar-input-modal');
+    const removeButton = document.getElementById('remove-avatar-modal');
+	const saveButton = document.getElementById('save-avatar-modal');
     
     // Show the default avatar in the preview
     avatarImage.src = '/static/default-avatar.png';
@@ -241,4 +198,7 @@ export const removeAvatarButton = () => {
 
     // Hide the remove button since the avatar is now the default
     removeButton.style.display = 'none';
+
+	// Enable the save button
+	saveButton.disabled = false;
 };
