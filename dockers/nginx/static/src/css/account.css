@@ -12,15 +12,11 @@
 }
 
 .back-btn {
-    top: 20px;
-    right: 20px;
     width: 50px;
 	font-size: 32px;
-    align-items: center;
-    justify-content: center;
     background: transparent;
     border: none;
-	top: 0.2em !important;
+	padding-left: 1.4em;
 }
 
 .btn-outline-primary, .btn-outline-secondary, .btn-outline-danger {

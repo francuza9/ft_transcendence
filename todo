@@ -49,7 +49,8 @@
 	Check uploaded profile picture format and size
 	404 error
 	Github Authentication database handling (together w/ Marijn)
-	
+
+	Fix missing translation keys in account page
 	Put a 12 char limit on usernames when creating accounts and editing usernames
 	Email checks, password checks
 	
@@ -69,8 +70,6 @@
 
 
 [Marijn] {
-
-	Account page fix back arrow position
 
 	Endscreen
 
