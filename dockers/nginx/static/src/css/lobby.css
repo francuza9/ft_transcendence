@@ -99,7 +99,7 @@
 
 
 .table tbody tr:hover {
-    background: rgba(0, 0, 0, 0.5); /* Darker transparent background on hover */
+    background: rgba(0, 0, 0, 0.5);
 }
 
 .table td {
