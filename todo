@@ -53,6 +53,8 @@
 
 	Fix guests not getting logged in if skipping continue as guest button through going straight to localhost/join or /create (checks are already done)
 
+	Add profie picture in home page settings, above hello ${username} (index.html and settings.js)
+
 	Check uploaded profile picture format and size
 	Add char limits for text fields, add scrollbar for Bio
 
@@ -77,8 +79,6 @@
 
 [Marijn] {
 
-	Endscreen
-
 	Profile modal (for leaderboard, lobby and endscreen)
 		Add kick button to kick players on lobby page (for admin only)
 
@@ -87,7 +87,6 @@
 	Fix Github Auth to not reload SPA
 
 	42 login
-
 
 	Low priority:
 
