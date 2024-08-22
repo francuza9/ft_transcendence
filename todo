@@ -49,6 +49,9 @@
 	Account settings page (edit personal data, upload profile picture, etc...) - Done
 	Handle guests login in - Done
 	404 error - Done
+
+	Fix guests not getting logged in if skipping continue as guest button through going straight to localhost/join or /create (checks are already done)
+
 	Check uploaded profile picture format and size
 	Add char limits for text fields, add scrollbar for Bio
 
@@ -72,8 +75,6 @@
 
 
 [Marijn] {
-
-	if user is guest, should not see profileButton or Account Settings (home page settings)
 
 	Endscreen
 
