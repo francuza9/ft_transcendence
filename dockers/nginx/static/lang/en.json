@@ -96,7 +96,8 @@
             "leaveButton": "Leave Room",
 			"leaveConfirmation": "Are you sure you want to leave",
 			"cancel": "Cancel",
-            "startButton": "Start game"
+            "startButton": "Start game",
+			"addBot": "Add a Bot"
         },
 		"settings":{
 			"loginButton": "Login",

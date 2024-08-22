@@ -92,7 +92,7 @@ export function createMultigame(pcount, pov, map, socket) {
 		if (event.data instanceof ArrayBuffer) {
 		} else {
 			let data = JSON.parse(event.data);
-			players_array = data.players;
+			let players_array = data.players;
 
 			ball.speed = data.ball.ball_speed;
 			ball.direction.x = data.ball.ball_direction.x;
