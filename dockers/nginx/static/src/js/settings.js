@@ -19,7 +19,7 @@ export const checkUserState = () => {
 		variables.hello = hello.textContent;
 
 	checkLoginStatus().then(loggedIn => {
-		if (loggedIn && !variables.is_guest) { //now guest is treated as not logged in
+		if (loggedIn && !variables.is_guest) {
 			authenticated.classList.remove('hidden');
 			unauthenticated.classList.add('hidden');
 			hello.textContent = `${variables.hello} ${variables.username}!`;
