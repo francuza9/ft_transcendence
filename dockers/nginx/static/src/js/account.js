@@ -88,15 +88,28 @@ export const saveField = async (field) => {
 };
 
 export const uploadAvatarButton = () => {
-	console.log('uploadAvatarButton');
 	const fileInput = document.getElementById('avatar-input-modal');
 	const avatarPreview = document.getElementById('avatar-preview-modal');
 	const removeButton = document.getElementById('remove-avatar-modal');
 	const saveButton = document.getElementById('save-avatar-modal');
+	const maxFileSize = 2 * 1024 * 1024; // 2MB in bytes
+	const allowedFormats = ['image/jpeg', 'image/png'];
 
     fileInput.onchange = function () {
         const file = fileInput.files[0];
+
         if (file) {
+
+			if (file.size > maxFileSize) {
+				alert('File size exceeds the limit of 2MB');
+				fileInput.value = '';
+				return;
+			}
+			if (!allowedFormats.includes(file.type)) {
+				alert('File format not supported. Please upload a JPEG or PNG image');
+				fileInput.value = '';
+				return;
+			}
             const reader = new FileReader();
             reader.onload = function (e) {
                 

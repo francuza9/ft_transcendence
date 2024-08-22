@@ -73,7 +73,7 @@
 
 [Marijn] {
 
-	if user is guest, should not see profileButton or Account Settings (maybe more things)
+	if user is guest, should not see profileButton or Account Settings (home page settings)
 
 	Endscreen
 
