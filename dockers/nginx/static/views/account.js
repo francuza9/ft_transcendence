@@ -44,5 +44,3 @@ async function fetchAccountInfo() {
         console.error('Error fetching account info:', error);
     }
 }
-
-
