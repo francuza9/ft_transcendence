@@ -16,6 +16,7 @@ export const setDefaultRoomName = () => {
             return checkLoginStatus().then(loggedIn => {
                 if (!loggedIn) {
 					//TODO: log in as guest
+					// probably no need to do this since guest login is implemnted in 'continue as guest' button
                     variables.username = 'Guest';
                 }
                 return;

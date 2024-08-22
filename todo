@@ -46,11 +46,11 @@
 	Profile pictures - Done
 	How the fuck do you hide a modal??? - Done
 	Github Authentication database handling (together w/ Marijn) - Done
-	Account settings page (edit personal data, upload profile picture, etc...)
-	Add char limits for text fields, add scrollbar for Bio
-	Handle guests login in 
+	Account settings page (edit personal data, upload profile picture, etc...) - Done
+	Handle guests login in - Done
+	404 error - Done
 	Check uploaded profile picture format and size
-	404 error
+	Add char limits for text fields, add scrollbar for Bio
 
 	Fix missing translation keys in account page
 	Put a 12 char limit on usernames when creating accounts and editing usernames
@@ -72,6 +72,8 @@
 
 
 [Marijn] {
+
+	if user is guest, should not see profileButton or Account Settings (maybe more things)
 
 	Endscreen
 

@@ -1,7 +1,7 @@
 import {replaceHTML} from '/static/src/js/utils.js';
 import {variables} from '/static/src/js/variables.js';
 import {handleRouting} from '/static/routers/router.js';
-import {checkLoginStatus} from '/static/src/js/utils.js';
+import {checkLoginStatus, guestLogin} from '/static/src/js/utils.js';
 import {startLocal} from '/static/src/js/localgame/localgame.js';
 import {cleanupBackground} from '/static/src/js/background/background.js';
 
@@ -54,6 +54,7 @@ export const backFromOnlineButton = () => {
 }
 
 export const skipLoginButton = () => {
+	guestLogin();
 	replaceHTML('/static/src/html/room.html', false);
 }
 

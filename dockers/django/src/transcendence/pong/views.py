@@ -1,6 +1,7 @@
 from .views_auth import (
     login_view,
     register_view,
+	guest_login_view,
     check_login_status,
     logout_user,
 )
