@@ -64,7 +64,10 @@ export function checkLoginStatus() {
         if (data.success) {
             const user = data.user;
 			variables.username = user.username;
+			variables.is_guest = user.is_guest;
             console.log('Logged in as:', user.username);
+			if (variables.is_guest)
+				console.log('Guest account');
 			return true;
         } else {
             console.log('User is not logged in');

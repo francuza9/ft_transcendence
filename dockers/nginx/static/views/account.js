@@ -1,9 +1,23 @@
-import { replaceHTML } from '/static/src/js/utils.js';
+import { variables } from '/static/src/js/variables.js';
+import { handleRouting } from '/static/routers/router.js';
+import { replaceHTML, checkLoginStatus } from '/static/src/js/utils.js';
 
 export async function Account() {
 	// do some redirection to login page if user is not logged in
-	replaceHTML('/static/src/html/account.html', false);
-	fetchAccountInfo();
+
+	checkLoginStatus().then(loggedIn => {
+		if (!loggedIn) {
+			history.pushState(null, '', '/login');
+			handleRouting();
+		} else if (variables.is_guest) {
+			history.pushState(null, '', '/');
+			handleRouting();
+		} else {
+			replaceHTML('/static/src/html/account.html', false);
+			fetchAccountInfo();
+		}
+	})
+	
 }
 
 async function fetchAccountInfo() {
