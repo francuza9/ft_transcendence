@@ -12,6 +12,10 @@
     border-bottom: none;
 }
 
+h1 {
+	margin-bottom: revert;
+}
+
 .player-img {
     width: 40px;
     height: 40px;
@@ -37,7 +41,7 @@
     font-size: 12px;
 }
 
-.lobby-box {
+.end-box {
     background: transparent;
     border: 2px solid rgba(255, 255, 255, 0.5);
     border-radius: 20px;
@@ -63,10 +67,6 @@
     border: none;
     color: white;
     cursor: pointer;
-}
-
-#lobbyDetails {
-    color: lightgray;
 }
 
 .hidden {
