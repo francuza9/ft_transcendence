@@ -50,8 +50,8 @@
 }
 
 .dropdown-item:hover, .dropdown-item:focus {
-	background-color: black;
-	color: #50006a;
+	background-color: rgba(0, 0, 0, 0.5);
+	color: #fff;
 }
 
 .btn-check:checked + .btn,

@@ -20,14 +20,17 @@ export const refreshLobbyDetails = (variables) => {
 	renderPlayerList(variables);
 	updateLobbyDetails(variables);
 	if (variables.username === variables.admin) {
-		showStartButton();
+		showAdminButtons();
+
 	}
 }
 
-export const showStartButton = () => {
+export const showAdminButtons = () => {
 	const startButton = document.getElementById('start');
+	const botButton = document.getElementById('bot');
 
 	startButton.classList.remove('hidden');
+	botButton.classList.remove('hidden');
 }
 
 function renderPlayerList(variables) {
@@ -97,3 +100,9 @@ export const startButton = () => {
         console.error('WebSocket is not open.');
     }
 };
+
+export const addBot = () => {
+	console.log(variables.lobbyId);
+	// const socket = 
+}
+

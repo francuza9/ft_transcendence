@@ -56,6 +56,9 @@
 
 	Leaderboard (start with end.js/html/css)
 
+	Add profie picture in home page settings, above hello ${username} (index.html and settings.js)
+
+	Check uploaded profile picture format and size
 	Add char limits for text fields, add scrollbar for Bio
 
 	Put a 12 char limit on usernames when creating accounts and editing usernames
@@ -78,8 +81,6 @@
 
 [Marijn] {
 
-	Endscreen
-
 	Profile modal (for leaderboard, lobby and endscreen)
 		Add kick button to kick players on lobby page (for admin only)
 
@@ -89,7 +90,6 @@
 
 	42 login
 
-
 	Low priority:
 
 	Fix modal backdrop
@@ -98,8 +98,10 @@
 	Create room button placement
 	Create local game page
 
-	404 css
 	Spectator
+
+
+
 	Add all languages in translations (only at end)
 
 	Extra:

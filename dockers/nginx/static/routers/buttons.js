@@ -4,7 +4,7 @@ import {playButton, cancelButton, localButton, onlineButton, backFromOnlineButto
 import {createRoomButton, playerCountDropdownButton, pointsDropdownButton, editNameButton, saveNameEditButton, cancelNameEditButton, selectMapButton} from '/static/src/js/create.js';
 import {loadRooms} from '/static/src/js/join.js';
 import {saveAvatarButton, removeAvatarButton, uploadAvatarButton} from '/static/src/js/account.js';
-import {startButton, leaveRoom} from '/static/src/js/lobby.js';
+import {startButton, leaveRoom, addBot} from '/static/src/js/lobby.js';
 import {settingsButton, closeButton, langButton, backButton, logoutButton} from '/static/src/js/settings.js';
 import {test} from '/static/src/js/end.js';
 
@@ -42,6 +42,7 @@ const actionsMap = {
 	goToLogin: goToLogin,
 	logout: logoutButton,
 	test: test,  //TODO
+	addBot: addBot,
 };
 
 export const handleButtonAction = (e, action) => {

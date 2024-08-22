@@ -171,6 +171,11 @@ h4 {
     align-self: flex-start;
 }
 
+img {
+	vertical-align: inherit;
+	margin-bottom: 15px;
+}
+
 button img {
     width: 24px;
     height: 24px;
