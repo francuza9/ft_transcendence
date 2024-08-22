@@ -25,6 +25,7 @@
 		}
 
 		Tournament {
+			create socket for tournament,
 			Tournament logic,
 		}
 	
