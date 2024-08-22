@@ -177,6 +177,11 @@ button img {
     margin-right: 10px;
 }
 
+#avatar img {
+	vertical-align: inherit;
+	margin-bottom: 15px;
+}
+
 #sidebar-content button.active {
 	background-color: rgba(96, 0, 128, 0.4);
     color: white;
