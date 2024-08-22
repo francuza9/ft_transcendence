@@ -44,21 +44,23 @@
 
 [Youssef] {
 
-	Profile pictures - Done
-	How the fuck do you hide a modal??? - Done
-	Github Authentication database handling (together w/ Marijn) - Done
-	Account settings page (edit personal data, upload profile picture, etc...) - Done
-	Handle guests login in - Done
-	404 error - Done
+	Profile pictures - DONE
+	How the fuck do you hide a modal??? - DONE
+	Github Authentication database handling (together w/ Marijn) - DONE
+	Account settings page (edit personal data, upload profile picture, etc...) - DONE
+	Handle guests login in - DONE
+	404 error - DONE
+	Fix guests not getting logged in if skipping continue as guest button through going straight to localhost/join or /create (checks are already done)  - Done
+	Check uploaded profile picture format and size - wip
+	In homepage, properly display avatar
 
-	Fix guests not getting logged in if skipping continue as guest button through going straight to localhost/join or /create (checks are already done)
+	Leaderboard (start with end.js/html/css)
 
 	Add profie picture in home page settings, above hello ${username} (index.html and settings.js)
 
 	Check uploaded profile picture format and size
 	Add char limits for text fields, add scrollbar for Bio
 
-	Fix missing translation keys in account page
 	Put a 12 char limit on usernames when creating accounts and editing usernames
 	Email checks, password checks
 	
@@ -69,8 +71,8 @@
 	Check email fields are actual emails in login, register and account pages
 	IMPORTANT: remove csrf exemptions
 	
+	Fix missing translation keys in account page
 	
-	Leaderboard
 
 	Changing password inside Account Settings
 
@@ -96,8 +98,10 @@
 	Create room button placement
 	Create local game page
 
-	404 css
 	Spectator
+
+
+
 	Add all languages in translations (only at end)
 
 	Extra:
