@@ -1,9 +1,11 @@
 from channels.generic.websocket import AsyncWebsocketConsumer
 from .backend_pong.collisions import update_ball_position
+from .backend_pong.collisions_multi import update_ball_position_multi
 import json
 import logging
 import asyncio
 import struct
+import random
 
 logger = logging.getLogger(__name__)
 
@@ -38,12 +40,11 @@ class PongConsumer(AsyncWebsocketConsumer):
 
 			response_message = {'pov': pov}
 			await self.send(text_data=json.dumps(response_message))
-			await asyncio.sleep(0.1)
+			await asyncio.sleep(0.2)
 			asyncio.create_task(self.game_update_loop())
 		except Exception as e:
 			logger.error(f"Error during connection setup: {e}")
 			await self.close()
-
 
 	async def disconnect(self, close_code):
 		if self.room_group_name:
@@ -67,9 +68,11 @@ class PongConsumer(AsyncWebsocketConsumer):
 							game_state['2_P']['players'][player_key]['y'] = positionY
 					else:
 						playerID -= 1
-						if playerID >= 0 and playerID < len(game_state.get('multi', {}).get('players', [])):
-							game_state['multi']['players'][playerID]['x'] = positionX
-							game_state['multi']['players'][playerID]['y'] = positionY
+						players_list = game_state.setdefault('multi', {}).setdefault('players', [])
+						while len(players_list) <= playerID:
+							players_list.append({})
+						players_list[playerID]['x'] = positionX
+						players_list[playerID]['y'] = positionY
 				else:
 					logger.info(f"pong: Received buffer size mismatch: {len(bytes_data)} bytes")
 			except KeyError as e:
@@ -78,28 +81,42 @@ class PongConsumer(AsyncWebsocketConsumer):
 				logger.info(f"pong: StructError: {e}")
 		elif text_data:
 			data = json.loads(text_data)
-			message_type = data['type']
+			message_type = data.get('type')
 			if message_type == 'initial_data':
 				room_size = data.get('room_size')
 				winning_score = data.get('winning_score')
 				if room_size is not None and 2 <= room_size <= 8:
-					PongConsumer.game_states[self.room_id]['room_size'] = room_size
-					PongConsumer.game_states[self.room_id]['2_P']['winning_score'] = winning_score
-					logger.info(f"pong: Room size set to {PongConsumer.game_states[self.room_id]['room_size']}")
+					game_state = PongConsumer.game_states.setdefault(self.room_id, {})
+					game_state['room_size'] = room_size
+					game_state['2_P'] = game_state.get('2_P', {})
+					game_state['2_P']['winning_score'] = winning_score
+					logger.info(f"pong: Room size set to {room_size}")
 				else:
 					await self.send(text_data=json.dumps({'error': 'Invalid room size'}))
 			elif message_type == 'init':
+				content = data.get('content', {})
 				logger.info(f"pong: multi data received: {data}")
-				edges = data.get('vectors')
-				PongConsumer.game_states[self.room_id]['multi']['edges'] = edges
+				edges = content.get('vectors', [])
+				logger.info(f"pong: Edges: {edges}")
+				game_state = PongConsumer.game_states.setdefault(self.room_id, {})
+				multi = game_state.setdefault('multi', {})
+				multi['edges'] = edges
 
 	async def game_update_loop(self):
+		game_state = await self.get_game_state()
+		game_state['multi']['ball_direction'] = {
+			'x': random.uniform(0, 1.5),
+			'y': random.uniform(0, 1.5)
+		}
+		game_state['2_P']['ball_direction'] = {
+			'x': random.choice([1.5, -1.5]),
+			'y': 0,
+		}
 		while True:
 			game_state = await self.get_game_state()
 			
-			if game_state['room_size'] == 2:
+			if game_state.get('room_size') == 2:
 				result = update_ball_position(game_state['2_P'])
-				# Prepare minimal game state data
 				player_1_y = game_state['2_P']['players']['player_1']['y']
 				player_2_y = game_state['2_P']['players']['player_2']['y']
 				ball_position = game_state['2_P']['ball_position']
@@ -142,18 +159,27 @@ class PongConsumer(AsyncWebsocketConsumer):
 					self.room_group_name,
 					{
 						'type': 'pong_message',
-						'message': packed_data
+						'message': packed_data,
+						'json': False
 					}
 				)
-				if (result == FINISH):
+				if result == FINISH:
 					break
 			else:
-				json_message = json.dumps(game_state['multi']).encode('utf-8')
+				result = update_ball_position_multi(game_state['2_P'])
+				json_message = json.dumps({
+					'ball': {
+							'ball_direction': game_state['multi']['ball_direction'],
+							'ball_speed': game_state['multi']['ball_speed'],
+						},
+					'players': game_state['multi']['players'],
+				})
 				await self.channel_layer.group_send(
 					self.room_group_name,
 					{
 						'type': 'pong_message',
-						'message': json_message
+						'message': json_message,
+						'json': True
 					}
 				)
 
@@ -161,19 +187,22 @@ class PongConsumer(AsyncWebsocketConsumer):
 
 	async def pong_message(self, event):
 		packed_data = event['message']
-		await self.send(bytes_data=packed_data)
+		if event.get('json', False):
+			await self.send(text_data=packed_data)
+		else:
+			await self.send(bytes_data=packed_data)
 
 	async def get_game_state(self):
 		return PongConsumer.game_states.get(self.room_id, {})
 
 	async def send_message(self, msg):
 		await self.channel_layer.group_send(
-		self.room_group_name,
-		{
-			'type': 'pong_message',
-			'message': msg
-		}
-)
+			self.room_group_name,
+			{
+				'type': 'pong_message',
+				'message': msg
+			}
+		)
 
 	async def initialize_game_state(self):
 		return {
@@ -193,7 +222,7 @@ class PongConsumer(AsyncWebsocketConsumer):
 				'edges': [],
 				'players': [],
 				'ball_position': {'x': 0, 'y': 0},
-				'ball_direction': {'x': 0, 'y': 0},
+				'ball_direction': {'x': 1.5, 'y': 0},
 				'ball_speed': 0.05,
 				'finished': False,
 			},
