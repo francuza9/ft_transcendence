@@ -109,6 +109,7 @@
             "backButton": "Back"
 		},
 		"end":{
+			"title": "Game Ended",
 			"leaderboard": "Leaderboard",
 			"continue": "Continue",
 			"again": "Play Again"
