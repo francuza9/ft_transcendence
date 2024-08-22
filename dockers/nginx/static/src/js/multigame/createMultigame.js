@@ -91,29 +91,24 @@ export function createMultigame(pcount, pov, map, socket) {
 	socket.addEventListener('message', event => {
 		if (event.data instanceof ArrayBuffer) {
 		} else {
-			const blob = event.data;
+			let data = JSON.parse(event.data);
+			players_array = data.players;
 
-			const reader = new FileReader();
-			reader.onload = function() {
-				const arrayBuffer = reader.result;
+			ball.speed = data.ball.ball_speed;
+			ball.direction.x = data.ball.ball_direction.x;
+			ball.direction.z = data.ball.ball_direction.y;
 
-				const dataView = new DataView(arrayBuffer);
-				processData(dataView);
-			};
-			reader.readAsArrayBuffer(blob);
+			let i;
+			for (i = 0; i < pov - 1 && i < players_array.length; i++) {
+				players.children[i + 1].position.set(players_array[i].x, 0.75, players_array[i].y);
+			}
+			i++;
+			while (i < players_array.length) {
+				players.children[i].position.set(players_array[i].x, 0.75, players_array[i].y);
+				i++;
+			}
 		}
 	});
-
-	function processData(dataView) {
-		// Example: assuming the structure from the server is something like <ffff>
-		console.log("dataview: ",dataView);
-		const ballX = dataView.getFloat32(0, true);
-		const ballY = dataView.getFloat32(4, true);
-		const player1Y = dataView.getFloat32(8, true);
-		const player2Y = dataView.getFloat32(12, true);
-
-		// Now you can use ballX, ballY, player1Y, player2Y in your game logic
-	}
 
 	function animate() {
 		// Send player positions over the socket

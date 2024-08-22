@@ -91,6 +91,7 @@ export function create2Pgame(mappov, socket) {
 	socket.addEventListener('message', event => {
 		if (event.data instanceof ArrayBuffer) {
 			const bytes = new Float32Array(event.data);
+			console.log("bytes: ", bytes);
 			if (bytes.length >= 9) {
 				ball.direction.x = bytes[0];
 				ball.direction.z = bytes[1];
@@ -127,8 +128,6 @@ export function create2Pgame(mappov, socket) {
 			} else {
 				console.error(`Unexpected data length received: ${bytes.length}. Data:`, bytes);
 			}
-		} else {
-			console.error(`Received unexpected data type: ${typeof event.data}. Data:`, event.data);
 		}
 	});
 
