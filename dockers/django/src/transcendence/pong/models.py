@@ -9,10 +9,28 @@ class CustomUser(AbstractUser):
 	github_id = models.PositiveIntegerField(null=True, blank=True, unique=True)
 	github_token = models.CharField(max_length=255, blank=True, null=True)
 	email = models.EmailField(blank=True, null=True)
-    #add isGuest boolean field
+	is_guest = models.BooleanField(default=False)
 
 	class Meta:
 		db_table = 'pong_user'  # Set a custom table name
+
+	@classmethod
+	def create_guest_user(cls, username_prefix="guest"):
+		"""Creates and returns a new guest user."""
+		import random
+		import string
+
+		# Generate a random guest username
+		guest_username = f"{username_prefix}_{''.join(random.choices(string.digits, k=4))}"
+
+		# Create the guest user with no email or password, and mark as guest
+		guest_user = cls.objects.create_user(
+			username=guest_username,
+			email=None,
+			password=None,
+			is_guest=True
+		)
+		return guest_user
 
 class Profile(models.Model):
 	id = models.AutoField(primary_key=True)

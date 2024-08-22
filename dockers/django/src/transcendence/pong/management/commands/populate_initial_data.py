@@ -13,17 +13,17 @@ class Command(BaseCommand):
 		user1 = CustomUser.objects.create_user(
 			username='gtskitis',
 			email='gtskitis@student.42angouleme.fr',
-			password='gtskitis123'  # Automatically hashed
+			password='gtskitis123'
 		)
 		user2 = CustomUser.objects.create_user(
 			username='marde-vr',
 			email='marde-vr@student.42angouleme.fr',
-			password='marde-vr123'  # Automatically hashed
+			password='marde-vr123'
 		)
 		user3 = CustomUser.objects.create_user(
 			username='jwadie-a',
 			email='jwadie-a@student.42angouleme.fr',
-			password='jwadie-a123'  # Automatically hashed
+			password='jwadie-a123'
 		)
 		user4 = CustomUser.objects.create_user(
 			username='a',

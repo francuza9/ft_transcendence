@@ -76,3 +76,27 @@ export function checkLoginStatus() {
 		return false;
     });
 }
+
+export function guestLogin()
+{ 
+	fetch('/api/guest_login/', {
+		method: 'POST',
+		headers: {
+			'Content-Type': 'application/json',
+			'X-CSRFToken': getCookie('csrftoken')
+		}
+	})
+	.then(response => response.json())
+	.then(data => {
+		if (data.success) {
+			variables.username = data.username;
+			console.log('Guest Login successful');
+		} else {
+			console.error('Guest Login failed:', data.message);
+		}
+	})
+	.catch(error => {
+		console.error('Error:', error);
+		alert('An error occurred during login');
+	});
+}

@@ -31,6 +31,26 @@ def login_view(request):
 		return JsonResponse({'success': False, 'message': 'Invalid request method'})
 
 @csrf_exempt
+def guest_login_view(request):
+	if request.method == 'POST':
+		try:
+			# Create the guest user
+			user = CustomUser.create_guest_user()
+
+			# Log the guest user in, specifying the backend manually
+			user.backend = 'django.contrib.auth.backends.ModelBackend'
+			login(request, user, backend=user.backend)
+
+			# Return success response with the guest username
+			return JsonResponse({'success': True, 'username': user.username})
+		except Exception as e:
+			# Handle any errors that occur
+			return JsonResponse({'success': False, 'message': str(e)})
+	else:
+		# Invalid request method
+		return JsonResponse({'success': False, 'message': 'Invalid request method'})
+
+@csrf_exempt
 def register_view(request):
 	if request.method == 'POST':
 		try:
@@ -69,6 +89,7 @@ def check_login_status(request):
         user_data = {
             'username': request.user.username,
             'email': request.user.email,
+			'is_guest': request.user.is_guest,
         }
         logger.info(f"Authenticated user data: {user_data}")
         return JsonResponse({'success': True, 'user': user_data})

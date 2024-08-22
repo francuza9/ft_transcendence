@@ -7,23 +7,23 @@ import { Leaderboard } from '../views/leaderboard.js';
 import { Create } from '../views/create.js';
 import { Join } from '../views/join.js';
 import { Lobby } from '../views/lobby.js';
-import { Account } from '../views/account.js';
 import { handleButtonAction } from './buttons.js';
 import { updateVariable } from '/static/src/js/variables.js';
 import { normalizePath } from '/static/src/js/utils.js';
 import { viewProfile } from '/static/src/js/lobby.js';
+import { NotFound } from '../views/notfound.js';
 
 const router = [
-    { path: /^\/$/, component: Home },
-    { path: /^\/pong\/(\d+)$/, component: Pong },
-    { path: /^\/register$/, component: Register },
+	{ path: /^\/$/, component: Home },
+	{ path: /^\/pong\/(\d+)$/, component: Pong },
+	{ path: /^\/register$/, component: Register },
 	{ path: /^\/login$/, component: Login },
 	{ path: /^\/about$/, component: About },
 	{ path: /^\/create$/, component: Create },
 	{ path: /^\/join$/, component: Join },
 	{ path: /^\/leaderboard$/, component: Leaderboard },
 	{ path: /^\/(\w{8})$/, component: Lobby },
-	{ path: /^\/account$/, component: Account },
+	{ path: /.*/, component: NotFound }, // Catch-all route for 404
 ];
 
 const content = document.getElementById("body-content");
