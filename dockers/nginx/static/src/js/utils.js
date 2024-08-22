@@ -5,7 +5,7 @@ import {translateContent} from '/static/src/js/lang.js';
 export async function replaceHTML(path)
 {
 	const body = document.getElementsByTagName('body')[0];
-	const section = document.getElementsByTagName('section')[0];
+	let section = document.getElementsByTagName('section')[0];
 	const userLang = getCookie('userLang') || 'en';
 
     try {
@@ -24,14 +24,13 @@ export async function replaceHTML(path)
         if (!response.ok) throw new Error('Network response was not ok');
         const htmlContent = await response.text();
 
-		/*
-        if (!contentSection) {
-            contentSection = document.createElement('div');
-            contentSection.className = 'content-section';
-            background.appendChild(contentSection);
+        if (!section) {
+            section = document.createElement('section');
+            section.className = 'background min-vh-100 text-center';
+            body.appendChild(section);
         } else {
-            contentSection.innerHTML = '';
-        }*/
+            section.innerHTML = '';
+        }
 
         section.innerHTML = htmlContent;
 
@@ -77,7 +76,6 @@ export function checkLoginStatus() {
 		return false;
     });
 }
-
 
 export async function fetchAccountInfo() {
     try {

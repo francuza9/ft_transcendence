@@ -40,7 +40,7 @@ class PongConsumer(AsyncWebsocketConsumer):
 
 			response_message = {'pov': pov}
 			await self.send(text_data=json.dumps(response_message))
-			await asyncio.sleep(0.2)
+			await asyncio.sleep(3)
 			asyncio.create_task(self.game_update_loop())
 		except Exception as e:
 			logger.error(f"Error during connection setup: {e}")
@@ -105,8 +105,8 @@ class PongConsumer(AsyncWebsocketConsumer):
 	async def game_update_loop(self):
 		game_state = await self.get_game_state()
 		game_state['multi']['ball_direction'] = {
-			'x': random.uniform(0, 1.5),
-			'y': random.uniform(0, 1.5)
+			'x': random.choice([1.5, -1.5]),
+			'y': 0
 		}
 		game_state['2_P']['ball_direction'] = {
 			'x': random.choice([1.5, -1.5]),
@@ -166,7 +166,7 @@ class PongConsumer(AsyncWebsocketConsumer):
 				if result == FINISH:
 					break
 			else:
-				result = update_ball_position_multi(game_state['2_P'])
+				result = update_ball_position_multi(game_state)
 				json_message = json.dumps({
 					'ball': {
 							'ball_direction': game_state['multi']['ball_direction'],

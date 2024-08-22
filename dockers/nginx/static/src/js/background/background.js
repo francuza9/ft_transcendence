@@ -58,6 +58,18 @@ function init() {
 	};
 }
 
+function handleResize() {
+    const width = window.innerWidth;
+    const height = window.innerHeight;
+
+    // Update the camera's aspect ratio and projection matrix
+    camera.aspect = width / height;
+    camera.updateProjectionMatrix();
+
+    // Update the renderer size
+    renderer.setSize(width, height);
+}
+
 // Animation loop function
 function animate() {
 	if (!animationPaused) {
@@ -117,6 +129,8 @@ export function cleanupBackground() {
 	sceneB = null;
 	renderer = null;
 	canvas = null;
+
+	console.log('background removed');
 }
 
 // Example of how to call cleanup when needed

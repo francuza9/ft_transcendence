@@ -10,6 +10,8 @@ import { initPlayers } from './objects/players.js';
 import { Ball } from './objects/ball.js';
 import { playerNames } from './objects/playerNames.js';
 import { initScore, updateScore } from './objects/score.js';
+import { replaceHTML } from '/static/src/js/utils.js'
+import { renderPlayerList } from '/static/src/js/end.js';
 // import { checkCollision } from './local.js';
 
 const group = new THREE.Group();
@@ -124,7 +126,16 @@ export function create2Pgame(mappov, socket) {
 				socket.removeEventListener('message', event);
 				const score1 = new DataView(event.data).getInt32(0, true);
 				const score2 = new DataView(event.data).getInt32(4, true);
-				console.log("game finished, score1: ", score1, "score2: ", score2);
+				console.log("game finished, score1:", score1, "score2:", score2);
+				
+				const times = [12, 92, 92];
+				const players = ["jwadie-a", "gtskitis", "marde-vr"];
+				const scores = [score1, score2];
+
+				replaceHTML('/static/src/html/end.html').then(() => {
+					renderPlayerList(times, players, scores);
+				});
+
 			} else {
 				console.error(`Unexpected data length received: ${bytes.length}. Data:`, bytes);
 			}
