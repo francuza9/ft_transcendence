@@ -28,7 +28,7 @@
     font-weight: bold;
 }
 
-.admin-badge {
+.winner-badge {
     background-color: #ff5722;
     color: white;
     padding: 2px 8px;
@@ -120,65 +120,4 @@
     margin-left: 10px;
     border-radius: 5px;
     font-size: 12px;
-}
-
-.modal-content {
-    background: transparent;
-    border: 1px solid rgba(255, 255, 255, 0.5);
-    justify-content: center;
-    align-items: center;
-    backdrop-filter: blur(15px);
-    border-radius: 10px;
-    color: white;
-}
-
-.modal-header {
-    border-bottom: none;
-}
-
-.modal-footer {
-    border-top: none;
-}
-
-.modal-title {
-    color: white;
-}
-
-.modal-body p {
-    color: lightgray;
-}
-
-/* Adjust button styles */
-.btn-danger {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.btn-danger i {
-    margin-right: 5px;
-}
-
-/* Ensure the modal button text is white */
-.btn-secondary {
-    color: white;
-}
-
-.modal-backdrop {
-	z-index: auto;
-}
-
-.modal-footer {
-    display: flex;
-    justify-content: center;
-    gap: 10px; /* Adjust gap between buttons if needed */
-}
-
-.modal-footer .btn {
-    display: flex;
-    align-items: center;
-}
-
-.modal-footer .btn i {
-    margin-right: 5px; /* Space between icon and text */
 }
