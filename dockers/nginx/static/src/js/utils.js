@@ -65,8 +65,6 @@ export function checkLoginStatus() {
 			variables.username = user.username;
 			variables.is_guest = user.is_guest;
             console.log('Logged in as:', user.username);
-			if (variables.is_guest)
-				console.log('Guest account');
 			return true;
         } else {
             console.log('User is not logged in');
@@ -79,26 +77,55 @@ export function checkLoginStatus() {
     });
 }
 
-export function guestLogin()
-{ 
-	fetch('/api/guest_login/', {
-		method: 'POST',
-		headers: {
-			'Content-Type': 'application/json',
-			'X-CSRFToken': getCookie('csrftoken')
-		}
-	})
-	.then(response => response.json())
-	.then(data => {
-		if (data.success) {
-			variables.username = data.username;
-			console.log('Guest Login successful');
-		} else {
-			console.error('Guest Login failed:', data.message);
-		}
-	})
-	.catch(error => {
-		console.error('Error:', error);
-		alert('An error occurred during login');
-	});
+export async function fetchAccountInfo() {
+    try {
+        const response = await fetch('/api/account_info/');
+        const result = await response.json();
+
+        if (result.success) {
+            const data = result.data;
+            document.getElementById('username').innerText = data.username;
+            document.getElementById('email').innerText = data.email;
+            document.getElementById('bio').innerText = data.bio;
+			document.getElementById('displayName').innerText = data.displayName;
+            document.getElementById('avatar').src = data.avatarUrl || '/static/default-avatar.png';
+            document.getElementById('totalScore').innerText = data.totalScore;
+            document.getElementById('gamesPlayed').innerText = data.gamesPlayed;
+            document.getElementById('gamesWon').innerText = data.gamesWon;
+            document.getElementById('gamesLost').innerText = data.gamesLost;
+			
+        } else {
+            alert('Failed to fetch account info.');
+        }
+    } catch (error) {
+        console.error('Error fetching account info:', error);
+    }
+}
+
+
+export async function guestLogin() {
+    try {
+        const response = await fetch('/api/guest_login/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': getCookie('csrftoken')
+            }
+        });
+
+        const data = await response.json();
+
+        if (data.success) {
+            variables.username = data.username;
+            variables.is_guest = data.is_guest;
+            console.log('Guest Login successful');
+        } else {
+            console.error('Guest Login failed:', data.message);
+            throw new Error(data.message);
+        }
+    } catch (error) {
+        console.error('Error during guest login:', error);
+        alert('An error occurred during login');
+        throw error; // Rethrow error so that calling code knows it failed
+    }
 }
