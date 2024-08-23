@@ -9,7 +9,6 @@
 
 	Current {
 		AI {
-			Put AI in backend instead of clients js
 			AI algo,
 			AI clean exit
 		},
@@ -83,26 +82,36 @@
 
 [Marijn] {
 
+	Fix modal backdrop
+
 	Profile modal (for leaderboard, lobby and endscreen)
-		Add kick button to kick players on lobby page (for admin only)
+
+	handle guest profiles
+
+	friend button / unfriend button
+	invite to game only if friend
+	chat button
+	block button
+
+	Add kick button to kick players on lobby page (for admin only)
 
 	Fix window resize stretching background
 
 	Fix Github Auth to not reload SPA
 
+	For tournament creation, change the amount of players they can choose
+
 	42 login
+
 
 	Low priority:
 
-	Fix modal backdrop
 	Play button on home page rework
 	Start game button placement in lobby
 	Create room button placement
 	Create local game page
 
 	Spectator
-
-
 
 	Add all languages in translations (only at end)
 

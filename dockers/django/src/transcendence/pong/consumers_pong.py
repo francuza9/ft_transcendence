@@ -1,6 +1,7 @@
 from channels.generic.websocket import AsyncWebsocketConsumer
 from .backend_pong.collisions import update_ball_position
 from .backend_pong.collisions_multi import update_ball_position_multi
+from .ai import AI
 import json
 import logging
 import asyncio
@@ -17,6 +18,7 @@ FINISH = 3
 class PongConsumer(AsyncWebsocketConsumer):
 	room_counters = {}
 	game_states = {}
+	ai_instances = {}
 
 	async def connect(self):
 		try:
@@ -45,6 +47,14 @@ class PongConsumer(AsyncWebsocketConsumer):
 		except Exception as e:
 			logger.error(f"Error during connection setup: {e}")
 			await self.close()
+		
+		await asyncio.sleep(0.2)
+		game_state = await self.get_game_state()
+		player_data = game_state.get('player_data', {})
+		for player_name, bot_status in player_data.items():
+			if bot_status:
+				player_id = list(player_data.keys()).index(player_name)
+				PongConsumer.ai_instances.setdefault(self.room_id, {})[player_id] = AI(player_id, game_state)
 
 	async def disconnect(self, close_code):
 		if self.room_group_name:
@@ -82,11 +92,27 @@ class PongConsumer(AsyncWebsocketConsumer):
 		elif text_data:
 			data = json.loads(text_data)
 			message_type = data.get('type')
+			game_state = PongConsumer.game_states.setdefault(self.room_id, {})
+
+			if message_type in ['initial_data', 'init']:
+				player_names = data.get('player_names', [])
+				is_bot = data.get('is_bot', [])
+				player_data = {}
+				for i in range(len(player_names)):
+					player_data[player_names[i]] = is_bot[i]
+				game_state['player_data'] = player_data
+
+			# Initialize AI instances based on player_data
 			if message_type == 'initial_data':
+				for player_name, bot_status in player_data.items():
+					if bot_status:
+						# Determine player ID
+						player_id = player_names.index(player_name)
+						PongConsumer.ai_instances.setdefault(self.room_id, {})[player_id] = AI(player_id, game_state)
+
 				room_size = data.get('room_size')
 				winning_score = data.get('winning_score')
 				if room_size is not None and 2 <= room_size <= 8:
-					game_state = PongConsumer.game_states.setdefault(self.room_id, {})
 					game_state['room_size'] = room_size
 					game_state['2_P'] = game_state.get('2_P', {})
 					game_state['2_P']['winning_score'] = winning_score
@@ -96,22 +122,16 @@ class PongConsumer(AsyncWebsocketConsumer):
 			elif message_type == 'init':
 				content = data.get('content', {})
 				edges = content.get('vectors', [])
-				game_state = PongConsumer.game_states.setdefault(self.room_id, {})
 				multi = game_state.setdefault('multi', {})
 				multi['edges'] = edges
-			elif message_type == 'bot_joined':
-				game_state = PongConsumer.game_states.get(self.room_id, {})
-				content = data.get('content', {})
-				if game_state.get('room_size') == 2:
-					if content.pov == 2:
-						player = game_state['2_P']['players']['player_2']
-					else:
-						player = game_state['2_P']['players']['player_1']
-					response_message = { 'player_pos': player, 'player_count': 2 }
-				else:
-					player = game_state['multi']['players'][content['pov'] - 1]
-					response_message = { 'player_pos': player, 'player_count': game_state['room_size'] }
-				await self.send(text_data=json.dumps(response_message))
+
+			# Initialize AI for multiplayer mode as well
+			if game_state.get('room_size') > 2:
+				for player_name, bot_status in player_data.items():
+					if bot_status:
+						# Determine player ID
+						player_id = player_names.index(player_name)
+						PongConsumer.ai_instances.setdefault(self.room_id, {})[player_id] = AI(player_id, game_state)
 
 	async def game_update_loop(self):
 		game_state = await self.get_game_state()
@@ -125,8 +145,21 @@ class PongConsumer(AsyncWebsocketConsumer):
 		}
 		while True:
 			game_state = await self.get_game_state()
-			
+
 			if game_state.get('room_size') == 2:
+				for player_id, ai_instance in PongConsumer.ai_instances.get(self.room_id, {}).items():
+					direction = ai_instance.decide_direction(game_state['2_P'])
+					if direction == 'down':
+						if player_id == 0 and game_state['2_P']['players']['player_1']['y'] < 3.4:
+							game_state['2_P']['players']['player_1']['y'] += 0.2  # Adjust value as needed
+						elif player_id == 1 and game_state['2_P']['players']['player_2']['y'] < 3.4:
+							game_state['2_P']['players']['player_2']['y'] += 0.2
+					elif direction == 'up':
+						if player_id == 0 and game_state['2_P']['players']['player_1']['y'] > -3.4:
+							game_state['2_P']['players']['player_1']['y'] -= 0.2
+						elif player_id == 1 and game_state['2_P']['players']['player_2']['y'] > -3.4:
+							game_state['2_P']['players']['player_2']['y'] -= 0.2
+				
 				result = update_ball_position(game_state['2_P'])
 				player_1_y = game_state['2_P']['players']['player_1']['y']
 				player_2_y = game_state['2_P']['players']['player_2']['y']
@@ -238,4 +271,5 @@ class PongConsumer(AsyncWebsocketConsumer):
 				'finished': False,
 			},
 			'room_size': 2,
+			'player_data': {},  # Changed to dictionary format
 		}
