@@ -1,5 +1,5 @@
 import {getCookie} from '/static/src/js/cookies.js';
-import {checkLoginStatus} from '/static/src/js/utils.js';
+import {checkLoginStatus, fetchAvatar} from '/static/src/js/utils.js';
 import {variables} from '/static/src/js/variables.js';
 
 export const settingsButton = () => {
@@ -20,6 +20,7 @@ export const checkUserState = () => {
 
 	checkLoginStatus().then(loggedIn => {
 		if (loggedIn && !variables.is_guest) {
+			fetchAvatar();
 			authenticated.classList.remove('hidden');
 			unauthenticated.classList.add('hidden');
 			hello.textContent = `${variables.hello} ${variables.username}!`;
