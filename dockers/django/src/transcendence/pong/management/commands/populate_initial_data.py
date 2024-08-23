@@ -50,12 +50,12 @@ class Command(BaseCommand):
 		avatar6_path = os.path.join(settings.MEDIA_ROOT, 'butt.png')
 
 		# Create profiles
-		profile1 = Profile.objects.create(user=user1, displayName='George', totalScore=15)
-		profile2 = Profile.objects.create(user=user2, displayName='Marijn', totalScore=10)
-		profile3 = Profile.objects.create(user=user3, displayName='Youssef', totalScore=5)
-		profile4 = Profile.objects.create(user=user4, displayName='Alexander', totalScore=15)
-		profile5 = Profile.objects.create(user=user5, displayName='Bob', totalScore=10)
-		profile6 = Profile.objects.create(user=user6, displayName='Charles', totalScore=5)
+		profile1 = Profile.objects.create(user=user1, displayName='George')
+		profile2 = Profile.objects.create(user=user2, displayName='Marijn')
+		profile3 = Profile.objects.create(user=user3, displayName='Youssef')
+		profile4 = Profile.objects.create(user=user4, displayName='Alexander')
+		profile5 = Profile.objects.create(user=user5, displayName='Bob')
+		profile6 = Profile.objects.create(user=user6, displayName='Charles')
 
 
 		with open(avatar1_path, 'rb') as avatar1_file:

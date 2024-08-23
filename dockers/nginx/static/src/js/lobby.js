@@ -52,7 +52,7 @@ function renderPlayerList(variables) {
         row.innerHTML = `
 			<!-- 
             <td><img src="${player.profile_picture || 'https://via.placeholder.com/40'}" alt="${player}" class="player-img"></td>
-            <td>${player.totalScore}</td>
+            <td>${player.gamesWon}</td>
 			-->
             <td>${player}${player === variables.admin ? '<span class="admin-badge">Room Admin</span>' : ''}</td>
         `;
