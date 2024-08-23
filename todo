@@ -1,19 +1,21 @@
 [George] {
 
-	Current {
+	Given to Youssef (probably) {
 		Multiplayer Game {
-			handle information exchange well,
-			do backend pong logic,
+			fix backend pong logic,
 			moving to next rounds (8 >> 7 >> 6 >> 5 >> 4 >> 3 >> 2 >> winner)	
 		}
 	}
 
-	Upcoming {
+	Current {
 		AI {
-			AI should connect to correct socket on demand,
+			Put AI in backend instead of clients js
 			AI algo,
 			AI clean exit
 		},
+	}
+
+	Upcoming {
 
 		Global Socket {
 			Any logged in client joins global socket in DOMContentLoaded,
@@ -79,6 +81,8 @@
 
 
 [Marijn] {
+
+	! toFix: user logged in, go to Account settings from homepage, edit something then save, then use back button, whole page is 'disabled' !
 
 	Profile modal (for leaderboard, lobby and endscreen)
 		Add kick button to kick players on lobby page (for admin only)
