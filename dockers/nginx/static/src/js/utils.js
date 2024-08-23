@@ -89,7 +89,6 @@ export async function fetchAccountInfo() {
             document.getElementById('bio').innerText = data.bio;
 			document.getElementById('displayName').innerText = data.displayName;
             document.getElementById('avatar').src = data.avatarUrl || '/static/default-avatar.png';
-            document.getElementById('totalScore').innerText = data.totalScore;
             document.getElementById('gamesPlayed').innerText = data.gamesPlayed;
             document.getElementById('gamesWon').innerText = data.gamesWon;
             document.getElementById('gamesLost').innerText = data.gamesLost;
@@ -142,6 +141,23 @@ export async function guestLogin() {
     } catch (error) {
         console.error('Error during guest login:', error);
         alert('An error occurred during login');
-        throw error; // Rethrow error so that calling code knows it failed
+        throw error;
     }
 }
+
+export const ensureUsername = async () => {
+	if (variables.username) {
+		return Promise.resolve();
+	} else {
+		try {
+			const loggedIn = await checkLoginStatus();
+			if (!loggedIn) {
+				await guestLogin();
+			}
+			return;
+		} catch (error) {
+			console.error('Error checking login status or guest login:', error);
+			throw error;
+		}
+	}
+};

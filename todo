@@ -54,9 +54,10 @@
 	404 error - DONE
 	Fix guests not getting logged in if skipping continue as guest button through going straight to localhost/join or /create (checks are already done)  - Done
 	Add profie picture in home page settings, above hello ${username} (index.html and settings.js) - DONE
-	toFix: user logged in, go to Account settings from homepage, edit something then save, then use back button, whole page is 'disabled'
+	toFix: user logged in, go to Account settings from homepage, edit something then save, then use back button, whole page is 'disabled' - DONE
 
-	Check uploaded profile picture format and size - wip
+	Check uploaded profile picture format and size
+	Upload button and hiding input form 
 
 	Leaderboard (start with end.js/html/css)
 
@@ -82,28 +83,36 @@
 
 [Marijn] {
 
-	! toFix: user logged in, go to Account settings from homepage, edit something then save, then use back button, whole page is 'disabled' !
+	Fix modal backdrop
 
 	Profile modal (for leaderboard, lobby and endscreen)
-		Add kick button to kick players on lobby page (for admin only)
+
+	handle guest profiles
+
+	friend button / unfriend button
+	invite to game only if friend
+	chat button
+	block button
+
+	Add kick button to kick players on lobby page (for admin only)
 
 	Fix window resize stretching background
 
 	Fix Github Auth to not reload SPA
 
+	For tournament creation, change the amount of players they can choose
+
 	42 login
+
 
 	Low priority:
 
-	Fix modal backdrop
 	Play button on home page rework
 	Start game button placement in lobby
 	Create room button placement
 	Create local game page
 
 	Spectator
-
-
 
 	Add all languages in translations (only at end)
 

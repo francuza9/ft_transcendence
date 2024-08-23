@@ -8,6 +8,7 @@ urlpatterns = [
 	path('api/check_login_status/', views.check_login_status, name='check_login_status'),
 	path('api/create_lobby/', views.create_lobby, name='create_lobby'),
 	path('api/lobbies/', views.get_lobbies, name='get_lobbies'),
+	path('api/profile_info/<str:username>/', views.get_profile_info, name='get_profile_info'),
 	path('api/account_info/', views.get_account_info, name='get_account_info'),
 	path('api/account_update/', views.update_account_info, name='update_account_info'),
 	path('api/avatar_update/', views.update_avatar, name='update_avatar'),
