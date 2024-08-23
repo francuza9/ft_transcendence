@@ -1,4 +1,7 @@
 import time
+import logging
+
+logger = logging.getLogger(__name__)
 
 class AI:
 	def __init__(self, player_id, game_state):
@@ -16,6 +19,9 @@ class AI:
 	def decide_direction(self, game_state):
 		current_time = time.time()
 		if current_time - self.last_decision_time >= 1:
+			# TO SEE DURING CORRECTION IF AI GETS INFO ONLY 1 TIME PER SECOND
+			# docker logs -f django for realtime logs
+			# logger.info(f"AI retrieved information at {current_time}")
 			self.last_decision_time = current_time
 			self.ball_position = game_state['ball_position']
 			self.player_position = game_state['players'][f'player_{self.player_id + 1}']['y']
