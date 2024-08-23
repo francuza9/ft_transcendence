@@ -83,8 +83,18 @@
 
 [Marijn] {
 
+	Fix modal backdrop
+
 	Profile modal (for leaderboard, lobby and endscreen)
-		Add kick button to kick players on lobby page (for admin only)
+
+	handle guest profiles
+
+	friend button / unfriend button
+	invite to game only if friend
+	chat button
+	block button
+
+	Add kick button to kick players on lobby page (for admin only)
 
 	Fix window resize stretching background
 
@@ -94,9 +104,9 @@
 
 	42 login
 
+
 	Low priority:
 
-	Fix modal backdrop
 	Play button on home page rework
 	Start game button placement in lobby
 	Create room button placement

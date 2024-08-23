@@ -1,6 +1,6 @@
 import {replaceHTML} from '/static/src/js/utils.js';
 import {variables} from '/static/src/js/variables.js';
-import {checkLoginStatus, guestLogin} from '/static/src/js/utils.js';
+import {checkLoginStatus, guestLogin, ensureUsername} from '/static/src/js/utils.js';
 import {refreshLobbyDetails} from '/static/src/js/lobby.js';
 import {initLobbySocket} from '/static/src/js/socket_handling/lobby_socket.js';
 import {Lobby} from '/static/views/lobby.js';
@@ -8,25 +8,6 @@ import {Lobby} from '/static/views/lobby.js';
 export const setDefaultRoomName = () => {
     const displayTitle = document.getElementById('display-title');
 	const titleInput = document.getElementById('title-input');
-
-    const ensureUsername = async () => {
-		if (variables.username) {
-			return Promise.resolve();
-		} else {
-			try {
-				const loggedIn = await checkLoginStatus();
-	
-				if (!loggedIn) {
-					await guestLogin();  // Ensure guestLogin is completed before proceeding
-				}
-	
-				return;  // Return after login or guest login is done
-			} catch (error) {
-				console.error('Error checking login status or guest login:', error);
-				throw error;  // Optional: rethrow to propagate the error up the chain
-			}
-		}
-	};
 
     ensureUsername().then(() => {
         variables.roomName = `${variables.username}'s room`;
