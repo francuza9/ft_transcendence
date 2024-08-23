@@ -4,6 +4,7 @@ import {getSocket} from '/static/views/lobby.js';
 import {replaceHTML} from '/static/src/js/utils.js';
 import {checkLoginStatus} from '/static/src/js/utils.js';
 import {variables} from '/static/src/js/variables.js';
+import {Bot} from '/static/src/js/bot.js';
 
 function updateLobbyDetails(variables) {
 	if (variables.roomName)
@@ -102,7 +103,26 @@ export const startButton = () => {
 };
 
 export const addBot = () => {
-	console.log(variables.lobbyId);
-	// const socket = 
+	const socket = new WebSocket(`wss://${window.location.host}/ws/${variables.lobbyId}`);
+
+	socket.onopen = function() {
+		console.log('WebSocket connection opened for a bot.');
+		socket.send(JSON.stringify({ type: 'add_bot' }));
+	};
+
+	socket.onmessage = function(event) {
+		const message = JSON.parse(event.data);
+
+		if (message.type === 'error') {
+			console.error('Bot Error:', message.content);
+		} else if (message.type === 'start') {
+			Bot(message.content.roomID);
+			socket.close();
+		}
+	};
+
+	socket.onclose = function() {
+		console.log('WebSocket connection closed for a bot.');
+	}
 }
 

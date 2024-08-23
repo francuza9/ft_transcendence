@@ -55,7 +55,6 @@ export async function initLobbySocket(variables) {
                 history.pushState(null, '', `/join`);
                 handleRouting();
             } else if (message.type === 'start') {
-				console.log("message content: ", message.content);
 				Pong(message.content.roomID, message.content.playerCount, message.content.map, message.content.winning_score);
 				socket.close();
 			} else if (message.type === 'error') {
