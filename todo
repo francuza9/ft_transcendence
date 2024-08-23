@@ -9,7 +9,6 @@
 
 	Current {
 		AI {
-			Put AI in backend instead of clients js
 			AI algo,
 			AI clean exit
 		},
