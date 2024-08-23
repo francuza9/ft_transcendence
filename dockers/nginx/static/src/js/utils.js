@@ -141,6 +141,23 @@ export async function guestLogin() {
     } catch (error) {
         console.error('Error during guest login:', error);
         alert('An error occurred during login');
-        throw error; // Rethrow error so that calling code knows it failed
+        throw error;
     }
 }
+
+export const ensureUsername = async () => {
+	if (variables.username) {
+		return Promise.resolve();
+	} else {
+		try {
+			const loggedIn = await checkLoginStatus();
+			if (!loggedIn) {
+				await guestLogin();
+			}
+			return;
+		} catch (error) {
+			console.error('Error checking login status or guest login:', error);
+			throw error;
+		}
+	}
+};
