@@ -1,4 +1,5 @@
 from channels.generic.websocket import AsyncWebsocketConsumer
+from .bot import pong_bot
 import json
 import logging
 import asyncio
@@ -97,9 +98,10 @@ class LobbyConsumer(AsyncWebsocketConsumer):
 					lobby_data[self.lobby_id]['winning_score'] = content.get('pointsToWin')
 				await self.send_refresh_message()
 
-			elif message_type == 'add_bot':
+			elif message_type == 'add_bot':	
+				address = data.get('address')
 				if len(lobby_data[self.lobby_id]['players']) < lobby_data[self.lobby_id]['max_users']:
-					await self.addBot()
+					await self.addBot(address)
 
 			elif message_type == 'start':
 				if len(lobby_data[self.lobby_id]['players']) >= 2:
@@ -178,7 +180,7 @@ class LobbyConsumer(AsyncWebsocketConsumer):
 			'content': message,
 		}))
 
-	async def addBot(self):
+	async def addBot(self, address):
 		# Choose a random name from the list of bot names
 		available_names = [name for name in bot_names if name not in lobby_data[self.lobby_id]['players']]
 		logger.info(f"lobby: Available bot names: {available_names}")
@@ -186,6 +188,7 @@ class LobbyConsumer(AsyncWebsocketConsumer):
 			bot_name = random.choice(available_names)
 			lobby_data[self.lobby_id]['players'].append(bot_name)
 			lobby_data[self.lobby_id]['is_bot'].append(True)
+			await pong_bot(address, self.lobby_id, len(lobby_data[self.lobby_id]['players']) - 1, None)
 			await self.send_refresh_message()
 			logger.info(f"lobby: Added bot with name {bot_name}")
 		else:
