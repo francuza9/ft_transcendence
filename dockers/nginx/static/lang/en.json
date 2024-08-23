@@ -63,7 +63,6 @@
 			"emailLabel": "Email",
 			"bioLabel": "Bio",
 			"updateProfileButton": "Update Profile",
-			"totalScoreLabel": "Total Score",
 			"gamesPlayedLabel": "Games Played",
 			"gamesWonLabel": "Games Won",
 			"gamesLostLabel": "Games Lost"
@@ -99,6 +98,9 @@
             "startButton": "Start game",
 			"addBot": "Add a Bot"
         },
+		"leaderboard": {
+			"title": "Leaderboard"
+		},
 		"settings":{
 			"loginButton": "Login",
             "registerButton": "Register",

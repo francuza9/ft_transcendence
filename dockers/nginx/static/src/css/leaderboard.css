@@ -1,0 +1,123 @@
+.player-row {
+    border-radius: 10px;
+    overflow: hidden;
+    border-bottom: 1px solid white;
+}
+
+.player-row.no-bottom-border {
+    border-bottom: none;
+}
+
+.no-bottom-border td {
+    border-bottom: none;
+}
+
+h1 {
+	margin-bottom: revert;
+}
+
+.player-img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.table-centered {
+    margin: 0 auto;
+    max-width: 800px;
+}
+
+.highlighted-row {
+    font-weight: bold;
+}
+
+.winner-badge {
+    background-color: #ff5722;
+    color: white;
+    padding: 2px 8px;
+    margin-left: 10px;
+    border-radius: 5px;
+    font-size: 12px;
+}
+
+.end-box {
+    background: transparent;
+    border: 2px solid rgba(255, 255, 255, 0.5);
+    border-radius: 20px;
+    justify-content: center;
+    align-items: center;
+    backdrop-filter: blur(15px);
+    padding: 20px;
+    margin: auto;
+    max-width: 900px;
+    height: 450px;
+    color: white;
+}
+
+.back-btn {
+    top: 20px;
+    right: 20px;
+    width: 50px;
+    height: 50px;
+    font-size: 32px;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    border: none;
+    color: white;
+    cursor: pointer;
+}
+
+.hidden {
+    display: none;
+}
+
+.table-responsive {
+    overflow-x: auto;
+}
+
+.table {
+    background: transparent;
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    border-collapse: separate;
+    border-spacing: 0;
+}
+
+.table > :not(caption) > * > * {
+    background-color: transparent;
+}
+
+.table th, .table td {
+    padding: 10px;
+}
+
+.table tbody tr {
+    border-radius: 10px;
+}
+
+
+.table tbody tr:hover {
+    background: rgba(0, 0, 0, 0.5);
+}
+
+.table td {
+    color: #fff;
+}
+
+.table td .player-img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.table td .admin-badge {
+    background-color: #ff5722;
+    color: white;
+    padding: 2px 8px;
+    margin-left: 10px;
+    border-radius: 5px;
+    font-size: 12px;
+}

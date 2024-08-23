@@ -89,7 +89,6 @@ export async function fetchAccountInfo() {
             document.getElementById('bio').innerText = data.bio;
 			document.getElementById('displayName').innerText = data.displayName;
             document.getElementById('avatar').src = data.avatarUrl || '/static/default-avatar.png';
-            document.getElementById('totalScore').innerText = data.totalScore;
             document.getElementById('gamesPlayed').innerText = data.gamesPlayed;
             document.getElementById('gamesWon').innerText = data.gamesWon;
             document.getElementById('gamesLost').innerText = data.gamesLost;

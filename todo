@@ -54,9 +54,10 @@
 	404 error - DONE
 	Fix guests not getting logged in if skipping continue as guest button through going straight to localhost/join or /create (checks are already done)  - Done
 	Add profie picture in home page settings, above hello ${username} (index.html and settings.js) - DONE
-	toFix: user logged in, go to Account settings from homepage, edit something then save, then use back button, whole page is 'disabled'
+	toFix: user logged in, go to Account settings from homepage, edit something then save, then use back button, whole page is 'disabled' - DONE
 
-	Check uploaded profile picture format and size - wip
+	Check uploaded profile picture format and size
+	Upload button and hiding input form 
 
 	Leaderboard (start with end.js/html/css)
 
