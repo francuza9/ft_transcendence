@@ -102,6 +102,22 @@ export async function fetchAccountInfo() {
     }
 }
 
+export async function fetchAvatar() {
+	try {
+		const response = await fetch('/api/account_info/');
+		const result = await response.json();
+
+		if (result.success) {
+			const data = result.data;
+			document.getElementById('avatar').src = data.avatarUrl || '/static/default-avatar.png';
+		} else {
+			alert('Failed to fetch avatar.');
+		}
+	} catch (error) {
+		console.error('Error fetching avatar:', error);
+	}
+}
+
 
 export async function guestLogin() {
     try {

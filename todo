@@ -51,14 +51,13 @@
 	Handle guests login in - DONE
 	404 error - DONE
 	Fix guests not getting logged in if skipping continue as guest button through going straight to localhost/join or /create (checks are already done)  - Done
+	Add profie picture in home page settings, above hello ${username} (index.html and settings.js) - DONE
+	toFix: user logged in, go to Account settings from homepage, edit something then save, then use back button, whole page is 'disabled'
+
 	Check uploaded profile picture format and size - wip
-	In homepage, properly display avatar
 
 	Leaderboard (start with end.js/html/css)
 
-	Add profie picture in home page settings, above hello ${username} (index.html and settings.js)
-
-	Check uploaded profile picture format and size
 	Add char limits for text fields, add scrollbar for Bio
 
 	Put a 12 char limit on usernames when creating accounts and editing usernames
