@@ -1,7 +1,6 @@
 .player-row {
     border-radius: 10px;
     overflow: hidden;
-    border-bottom: 1px solid white;
 }
 
 .player-row.no-bottom-border {
@@ -148,7 +147,6 @@
     color: lightgray;
 }
 
-/* Adjust button styles */
 .btn-danger {
     display: flex;
     align-items: center;
@@ -159,7 +157,6 @@
     margin-right: 5px;
 }
 
-/* Ensure the modal button text is white */
 .btn-secondary {
     color: white;
 }
@@ -171,7 +168,7 @@
 .modal-footer {
     display: flex;
     justify-content: center;
-    gap: 10px; /* Adjust gap between buttons if needed */
+    gap: 10px;
 }
 
 .modal-footer .btn {
@@ -180,5 +177,5 @@
 }
 
 .modal-footer .btn i {
-    margin-right: 5px; /* Space between icon and text */
+    margin-right: 5px;
 }

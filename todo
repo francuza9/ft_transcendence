@@ -82,14 +82,14 @@
 
 [Marijn] {
 
-	! toFix: user logged in, go to Account settings from homepage, edit something then save, then use back button, whole page is 'disabled' !
-
 	Profile modal (for leaderboard, lobby and endscreen)
 		Add kick button to kick players on lobby page (for admin only)
 
 	Fix window resize stretching background
 
 	Fix Github Auth to not reload SPA
+
+	For tournament creation, change the amount of players they can choose
 
 	42 login
 
@@ -102,8 +102,6 @@
 	Create local game page
 
 	Spectator
-
-
 
 	Add all languages in translations (only at end)
 

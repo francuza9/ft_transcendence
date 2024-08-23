@@ -13,10 +13,6 @@ function updateLobbyDetails(variables) {
 	document.getElementById('lobbyDetails').innerText = `Players: ${variables.players.length} / ${variables.maxPlayerCount} | Map: ${variables.map} | Wining Score: ${variables.pointsToWin} | Mode: ${mode}`;
 }
 
-export function viewProfile(playerId) {
-	console.log('Viewing profile of:', playerId);
-}
-
 export const refreshLobbyDetails = (variables) => {
 	renderPlayerList(variables);
 	updateLobbyDetails(variables);
@@ -43,7 +39,7 @@ function renderPlayerList(variables) {
 		highestIndex = index;
         const row = document.createElement('tr');
         row.classList.add('player-row');
-        row.setAttribute('data-player-id', `player${index + 1}`);
+        row.setAttribute('data-player-id', `${player}`);
 
 		if (player === variables.username) {
             row.classList.add('highlighted-row');
