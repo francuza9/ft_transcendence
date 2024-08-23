@@ -1,5 +1,5 @@
 from channels.generic.websocket import AsyncWebsocketConsumer
-from .bot import pong_bot
+from .ai import AI
 import json
 import logging
 import asyncio
@@ -169,6 +169,8 @@ class LobbyConsumer(AsyncWebsocketConsumer):
 					'map': lobby_data[self.lobby_id]['map'],
 					'roomID': self.lobby_id,
 					'winning_score': lobby_data[self.lobby_id]['winning_score'],
+					'player_names': lobby_data[self.lobby_id]['players'],
+					'is_bot': lobby_data[self.lobby_id]['is_bot'],
 				}
 			}
 		)
@@ -188,7 +190,6 @@ class LobbyConsumer(AsyncWebsocketConsumer):
 			bot_name = random.choice(available_names)
 			lobby_data[self.lobby_id]['players'].append(bot_name)
 			lobby_data[self.lobby_id]['is_bot'].append(True)
-			await pong_bot(address, self.lobby_id, len(lobby_data[self.lobby_id]['players']) - 1, None)
 			await self.send_refresh_message()
 			logger.info(f"lobby: Added bot with name {bot_name}")
 		else:
