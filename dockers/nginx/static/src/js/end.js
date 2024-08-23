@@ -1,10 +1,6 @@
 import {replaceHTML} from '/static/src/js/utils.js';
 import {variables} from '/static/src/js/variables.js';
 
-export const test = () => {
-	replaceHTML('/static/src/html/end.html');
-}
-
 export function renderPlayerList(times, players, scores) {
 	const playerListElement = document.getElementsByClassName('playerList')[0];
 	playerListElement.innerHTML = '';

@@ -1,12 +1,40 @@
 from .models import CustomUser, Profile
 from django.contrib.auth.decorators import login_required
-from django.core.files.storage import default_storage
+from django.core.exceptions import ObjectDoesNotExist
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.conf import settings
 import json
 import os
 
+def get_profile_info(request, username):
+	try:
+		# Retrieve the user based on the username
+		user = CustomUser.objects.get(username=username)
+		profile, created = Profile.objects.get_or_create(user=user)
+		avatar_url = profile.avatarUrl.url if profile.avatarUrl else None
+
+		# Collect the user information you want to return
+		user_info = {
+			'username': user.username,
+			'email': user.email,
+			'bio': profile.bio,
+			'displayName': profile.displayName,
+			'avatarUrl': avatar_url,
+			'gamesPlayed': profile.gamesPlayed,
+			'gamesWon': profile.gamesWon,
+			'gamesLost': profile.gamesLost,
+		}
+		# Return user info as a JSON response
+		return JsonResponse(user_info, status=200)
+
+	except ObjectDoesNotExist:
+		# Return an error if the user does not exist
+		return JsonResponse({'error': 'User not found'}, status=404)
+
+	except Exception as e:
+		# Handle any other errors
+		return JsonResponse({'error': str(e)}, status=500)
 
 @login_required
 def get_account_info(request):
@@ -21,7 +49,6 @@ def get_account_info(request):
 		'bio': profile.bio,
 		'displayName': profile.displayName,
 		'avatarUrl': avatar_url,
-		'totalScore': profile.totalScore,
 		'gamesPlayed': profile.gamesPlayed,
 		'gamesWon': profile.gamesWon,
 		'gamesLost': profile.gamesLost,

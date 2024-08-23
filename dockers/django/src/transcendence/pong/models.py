@@ -15,13 +15,13 @@ class CustomUser(AbstractUser):
 		db_table = 'pong_user'  # Set a custom table name
 
 	@classmethod
-	def create_guest_user(cls, username_prefix="guest"):
+	def create_guest_user(cls, username_prefix="Guest"):
 		"""Creates and returns a new guest user."""
 		import random
 		import string
 
 		# Generate a random guest username
-		guest_username = f"{username_prefix}_{''.join(random.choices(string.digits, k=4))}"
+		guest_username = f"{username_prefix}{''.join(random.choices(string.digits, k=4))}"
 
 		# Create the guest user with no email or password, and mark as guest
 		guest_user = cls.objects.create_user(
@@ -38,7 +38,6 @@ class Profile(models.Model):
 	displayName = models.CharField(max_length=50, default='displayName')
 	avatarUrl = models.ImageField(upload_to=UploadTo('profile_pictures/'), blank=True, null=True)
 	bio = models.TextField(blank=True, default='')
-	totalScore = models.IntegerField(default=0)
 	gamesPlayed = models.IntegerField(default=0)
 	gamesWon = models.IntegerField(default=0)
 	gamesLost = models.IntegerField(default=0)
@@ -70,6 +69,7 @@ class Game(models.Model):
     player2 = models.ForeignKey('CustomUser', on_delete=models.CASCADE, related_name='games_as_player2')
     winner = models.ForeignKey('CustomUser', on_delete=models.SET_NULL, null=True, blank=True, related_name='won_games')
     tournament = models.ForeignKey(Tournament, on_delete=models.CASCADE, related_name='games')
+    is_tournament = models.BooleanField(default=False)
     player1Score = models.IntegerField(default=0)
     player2Score = models.IntegerField(default=0)
     createdAt = models.DateTimeField(auto_now_add=True)

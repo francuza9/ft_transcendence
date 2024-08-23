@@ -1,29 +1,8 @@
-import {replaceHTML, checkLoginStatus, guestLogin} from '/static/src/js/utils.js';
+import {replaceHTML, checkLoginStatus, guestLogin, ensureUsername} from '/static/src/js/utils.js';
 import {handleRouting} from '/static/routers/router.js';
 import {variables} from '/static/src/js/variables.js';
 
 export const loadRooms = () => {
-
-	//This is the same implementation as the one for creating the room (setDefaultRoomName() in create.js).
-	const ensureUsername = async () => {
-		if (variables.username) {
-			return Promise.resolve();
-		} else {
-			try {
-				const loggedIn = await checkLoginStatus();
-	
-				if (!loggedIn) {
-					await guestLogin();  // Ensure guestLogin is completed before proceeding
-				}
-	
-				return;  // Return after login or guest login is done
-			} catch (error) {
-				console.error('Error checking login status or guest login:', error);
-				throw error;  // Optional: rethrow to propagate the error up the chain
-			}
-		}
-	};
-
     ensureUsername().then(() => {
 		fetch('/api/lobbies/')
 			.then(response => response.json())
