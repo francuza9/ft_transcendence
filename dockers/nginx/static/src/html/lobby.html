@@ -27,7 +27,7 @@
 
 <!-- Bootstrap Modal for Leave Confirmation -->
 <div class="modal fade" id="leaveModal" tabindex="-1" role="dialog" aria-labelledby="leaveModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
+    <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="confirmation" data-text="pages.lobby.leaveConfirmation">Are you sure you want to leave</h5>
@@ -44,4 +44,18 @@
             </div>
         </div>
     </div>
+</div>
+
+<div class="modal fade" id="playerProfileModal" tabindex="-1" aria-labelledby="playerProfileModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="playerProfileModalLabel">Player Profile</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <!-- Player profile details go here -->
+      </div>
+    </div>
+  </div>
 </div>

@@ -11,8 +11,8 @@ import { Account } from '../views/account.js';
 import { handleButtonAction } from './buttons.js';
 import { updateVariable } from '/static/src/js/variables.js';
 import { normalizePath } from '/static/src/js/utils.js';
-import { viewProfile } from '/static/src/js/lobby.js';
 import { NotFound } from '/static/views/notfound.js';
+import { viewProfile, showPlayerPreview, hidePlayerPreview } from '/static/src/js/profile.js';
 
 const router = [
     { path: /^\/$/, component: Home },
@@ -75,12 +75,29 @@ document.addEventListener('DOMContentLoaded', () => {
             const value = element.dataset.value;
             updateVariable(document, variable, value);
         }
-
-        const targetRow = e.target.closest('tr[data-player-id]');
-        if (targetRow) {
+		else if (e.target.closest('tr[data-player-id]')) {
+			const targetRow = e.target.closest('tr[data-player-id]');
             const playerId = targetRow.dataset.playerId;
             viewProfile(playerId);
         }
+
+		/*
+		// Hover preview for player row
+		document.body.addEventListener('mouseover', (e) => {
+			const targetRow = e.target.closest('tr[data-player-id]');
+			if (targetRow) {
+				const playerId = targetRow.dataset.playerId;
+				showPlayerPreview(targetRow, playerId);
+			}
+		});
+
+		document.body.addEventListener('mouseout', (e) => {
+			const targetRow = e.target.closest('tr[data-player-id]');
+			if (targetRow) {
+				hidePlayerPreview(targetRow);
+			}
+		});
+		*/
 
     });
 

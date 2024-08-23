@@ -1,7 +1,6 @@
 .player-row {
     border-radius: 10px;
     overflow: hidden;
-    border-bottom: 1px solid white;
 }
 
 .player-row.no-bottom-border {
