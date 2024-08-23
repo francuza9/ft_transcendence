@@ -16,8 +16,9 @@ from .views_lobby import (
 )
 	
 from .views_account import (
-    get_account_info,
-    update_account_info,
+	get_profile_info,
+	get_account_info,
+	update_account_info,
 )
 
 from .views_avatar import (
