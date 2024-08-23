@@ -48,12 +48,13 @@ class PongConsumer(AsyncWebsocketConsumer):
 			logger.error(f"Error during connection setup: {e}")
 			await self.close()
 		
+		await asyncio.sleep(0.2)
 		game_state = await self.get_game_state()
 		player_data = game_state.get('player_data', {})
 		for player_name, bot_status in player_data.items():
 			if bot_status:
 				player_id = list(player_data.keys()).index(player_name)
-				PongConsumer.ai_instances.setdefault(self.room_id, {})[player_id] = AI(player_id)
+				PongConsumer.ai_instances.setdefault(self.room_id, {})[player_id] = AI(player_id, game_state)
 
 	async def disconnect(self, close_code):
 		if self.room_group_name:
@@ -107,7 +108,7 @@ class PongConsumer(AsyncWebsocketConsumer):
 					if bot_status:
 						# Determine player ID
 						player_id = player_names.index(player_name)
-						PongConsumer.ai_instances.setdefault(self.room_id, {})[player_id] = AI(player_id)
+						PongConsumer.ai_instances.setdefault(self.room_id, {})[player_id] = AI(player_id, game_state)
 
 				room_size = data.get('room_size')
 				winning_score = data.get('winning_score')
@@ -130,7 +131,7 @@ class PongConsumer(AsyncWebsocketConsumer):
 					if bot_status:
 						# Determine player ID
 						player_id = player_names.index(player_name)
-						PongConsumer.ai_instances.setdefault(self.room_id, {})[player_id] = AI(player_id)
+						PongConsumer.ai_instances.setdefault(self.room_id, {})[player_id] = AI(player_id, game_state)
 
 	async def game_update_loop(self):
 		game_state = await self.get_game_state()
