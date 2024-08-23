@@ -15,13 +15,13 @@ class CustomUser(AbstractUser):
 		db_table = 'pong_user'  # Set a custom table name
 
 	@classmethod
-	def create_guest_user(cls, username_prefix="guest"):
+	def create_guest_user(cls, username_prefix="Guest"):
 		"""Creates and returns a new guest user."""
 		import random
 		import string
 
 		# Generate a random guest username
-		guest_username = f"{username_prefix}_{''.join(random.choices(string.digits, k=4))}"
+		guest_username = f"{username_prefix}{''.join(random.choices(string.digits, k=4))}"
 
 		# Create the guest user with no email or password, and mark as guest
 		guest_user = cls.objects.create_user(

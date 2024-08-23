@@ -1,26 +1,9 @@
 import { refreshLobbyDetails } from '/static/src/js/lobby.js';
-import { checkLoginStatus } from '/static/src/js/utils.js';
+import { checkLoginStatus, ensureUsername } from '/static/src/js/utils.js';
 import { handleRouting } from '/static/routers/router.js';
 import { Pong } from '/static/views/pong_view.js';
 
 export async function initLobbySocket(variables) {
-    // Ensure username is set
-    const ensureUsername = () => {
-        if (variables.username) {
-            return Promise.resolve();
-        } else {
-            return checkLoginStatus().then(loggedIn => {
-                if (!loggedIn) {
-                    variables.username = 'Guest';
-                }
-                return;
-            }).catch(error => {
-                console.error('Error checking login status:', error);
-                variables.username = 'Guest';
-            });
-        }
-    };
-
     return new Promise((resolve, reject) => {
         const socket = new WebSocket(`wss://${window.location.host}/ws/${variables.lobbyId}`);
 
@@ -55,7 +38,7 @@ export async function initLobbySocket(variables) {
                 history.pushState(null, '', `/join`);
                 handleRouting();
             } else if (message.type === 'start') {
-				Pong(message.content.roomID, message.content.playerCount, message.content.map, message.content.winning_score);
+				Pong(message.content);
 				socket.close();
 			} else if (message.type === 'error') {
 				console.error('Error:', message.content);
