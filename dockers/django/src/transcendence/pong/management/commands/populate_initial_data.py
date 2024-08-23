@@ -82,7 +82,8 @@ class Command(BaseCommand):
 			startDate=timezone.now(),
 			endDate=timezone.now() + timezone.timedelta(days=10)
 		)
-
+		self.stdout.write(self.style.SUCCESS('Successfully populated initial data with hashed passwords.'))
+""" 
 		# Create games
 		Game.objects.create(player1=user1, player2=user2, tournament=tournament, player1Score=15, player2Score=10)
 		Game.objects.create(player1=user2, player2=user3, tournament=tournament, player1Score=15, player2Score=14)
@@ -93,5 +94,4 @@ class Command(BaseCommand):
 		Message.objects.create(sender=user2, recipient=user1, content='I am fine, thank you!')
 		Message.objects.create(sender=user1, recipient=user3, content='Hello, how are you?')
 		Message.objects.create(sender=user2, recipient=user3, content='Fuck off please')
-
-		self.stdout.write(self.style.SUCCESS('Successfully populated initial data with hashed passwords.'))
+ """

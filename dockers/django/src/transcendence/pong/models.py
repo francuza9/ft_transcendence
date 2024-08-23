@@ -51,35 +51,72 @@ class Profile(models.Model):
 		return self.displayName
 
 class Tournament(models.Model):
-    id = models.AutoField(primary_key=True)
-    name = models.CharField(max_length=50)
-    startDate = models.DateTimeField()
-    endDate = models.DateTimeField()
-    winner = models.ForeignKey('CustomUser', on_delete=models.SET_NULL, null=True, blank=True, related_name='won_tournaments')
+	name = models.CharField(max_length=255)
+	start_date = models.DateTimeField(default=timezone.now)
+	end_date = models.DateTimeField(null=True, blank=True)
+	has_bots = models.BooleanField(default=False)
+	max_players = models.PositiveIntegerField(default=8)  # Maximum number of players allowed
+	winner = models.ForeignKey(
+		CustomUser, 
+		null=True, 
+		blank=True, 
+		on_delete=models.SET_NULL, 
+		related_name='won_tournaments'
+	)  # Nullable, as the tournament may not have a winner yet
 
-    class Meta:
-        db_table = 'pong_tournament'  # Set a custom table name
+	def __str__(self):
+		return self.name
 
-    def __str__(self):
-        return self.name
+
+# class PlayerTournament(models.Model):
+# 	player = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+# 	tournament = models.ForeignKey(Tournament, on_delete=models.CASCADE)
+# 	round_eliminated = models.PositiveIntegerField(null=True, blank=True)  # The round they were eliminated in
+
+# 	class Meta:
+# 		unique_together = ('player', 'tournament')  # Ensure a player can only participate once in a tournament
+
+# 	def __str__(self):
+# 		return f"{self.player.username} in {self.tournament.name} - Round Eliminated: {self.round_eliminated}"
+
 
 class Game(models.Model):
-    id = models.AutoField(primary_key=True)
-    player1 = models.ForeignKey('CustomUser', on_delete=models.CASCADE, related_name='games_as_player1')
-    player2 = models.ForeignKey('CustomUser', on_delete=models.CASCADE, related_name='games_as_player2')
-    winner = models.ForeignKey('CustomUser', on_delete=models.SET_NULL, null=True, blank=True, related_name='won_games')
-    tournament = models.ForeignKey(Tournament, on_delete=models.CASCADE, related_name='games')
-    is_tournament = models.BooleanField(default=False)
-    player1Score = models.IntegerField(default=0)
-    player2Score = models.IntegerField(default=0)
-    createdAt = models.DateTimeField(auto_now_add=True)
-    updatedAt = models.DateTimeField(auto_now=True)
+	id = models.AutoField(primary_key=True)
+	player1 = models.ForeignKey('CustomUser', on_delete=models.CASCADE, related_name='games_as_player1')
+	player2 = models.ForeignKey('CustomUser', on_delete=models.CASCADE, related_name='games_as_player2')
+	winner = models.ForeignKey('CustomUser', on_delete=models.SET_NULL, null=True, blank=True, related_name='won_games')
+	tournament = models.ForeignKey(Tournament, on_delete=models.CASCADE, related_name='games')
+	has_bots = models.BooleanField(default=False)
+	is_tournament = models.BooleanField(default=False)
+	player1Score = models.IntegerField(default=0)
+	player2Score = models.IntegerField(default=0)
+	createdAt = models.DateTimeField(auto_now_add=True)
+	updatedAt = models.DateTimeField(auto_now=True)
 
-    class Meta:
-        db_table = 'pong_game'  # Set a custom table name
+	class Meta:
+		db_table = 'pong_game'  # Set a custom table name
 
-    def __str__(self):
-        return f"Game between {self.player1} and {self.player2} in {self.tournament}"
+	def __str__(self):
+		return f"Game between {self.player1} and {self.player2} in {self.tournament}"
+	
+# class MultiGame(models.Model):
+# 	id = models.AutoField(primary_key=True)
+# 	player1 = models.ForeignKey('CustomUser', on_delete=models.CASCADE, related_name='games_as_player1')
+# 	player2 = models.ForeignKey('CustomUser', on_delete=models.CASCADE, related_name='games_as_player2')
+# 	winner = models.ForeignKey('CustomUser', on_delete=models.SET_NULL, null=True, blank=True, related_name='won_games')
+# 	tournament = models.ForeignKey(Tournament, on_delete=models.CASCADE, related_name='games')
+# 	has_bots = models.BooleanField(default=False)
+# 	is_tournament = models.BooleanField(default=False)
+# 	player1Score = models.IntegerField(default=0)
+# 	player2Score = models.IntegerField(default=0)
+# 	createdAt = models.DateTimeField(auto_now_add=True)
+# 	updatedAt = models.DateTimeField(auto_now=True)
+
+# 	class Meta:
+# 		db_table = 'pong_game'  # Set a custom table name
+
+	def __str__(self):
+		return f"Game between {self.player1} and {self.player2} in {self.tournament}"
 
 class Message(models.Model):
     id = models.AutoField(primary_key=True)
@@ -94,19 +131,3 @@ class Message(models.Model):
     def __str__(self):
         return f"Message from {self.sender} to {self.recipient} at {self.createdAt}"
 
-# class Room(models.Model):
-# 	is_tournament = models.BooleanField(default=False)
-# 	player_count = models.IntegerField(default=0)
-# 	map_name = models.CharField(max_length=100)  # Adjust the max_length as needed
-# 	room_name = models.CharField(max_length=100)
-# 	admin = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='admin_rooms')
-# 	join_code = models.CharField(max_length=10, unique=True)  # Unique join code or link
-
-# 	def generate_join_code(self):
-# 		# You can use any method to generate a unique join code, e.g., random string
-# 		import random, string
-# 		self.join_code = ''.join(random.choices(string.ascii_letters + string.digits, k=8))
-# 		self.save()
-
-# 	def __str__(self):
-# 		return f"{self.room_name} - {('Tournament' if self.is_tournament else 'Regular')}"
