@@ -94,6 +94,6 @@ h1 {
     margin-bottom: 50px;
 }
 
-.input-group {
-    margin-bottom: 1rem;
+.center {
+	justify-content: center;
 }

@@ -45,16 +45,6 @@
 
 [Youssef] {
 
-	Profile pictures - DONE
-	How the fuck do you hide a modal??? - DONE
-	Github Authentication database handling (together w/ Marijn) - DONE
-	Account settings page (edit personal data, upload profile picture, etc...) - DONE
-	Handle guests login in - DONE
-	404 error - DONE
-	Fix guests not getting logged in if skipping continue as guest button through going straight to localhost/join or /create (checks are already done)  - Done
-	Add profie picture in home page settings, above hello ${username} (index.html and settings.js) - DONE
-	toFix: user logged in, go to Account settings from homepage, edit something then save, then use back button, whole page is 'disabled' - DONE
-
 	Check uploaded profile picture format and size
 	Upload button and hiding input form 
 
@@ -110,6 +100,7 @@
 	Start game button placement in lobby
 	Create room button placement
 	Create local game page
+	Center avatar modal buttons in account page
 
 	Spectator
 
