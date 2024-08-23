@@ -20,13 +20,13 @@ class AI:
 			self.ball_position = game_state['ball_position']
 			self.player_position = game_state['players'][f'player_{self.player_id + 1}']['y']
 
-		if self.ball_position['y'] > self.player_position:
+		if self.ball_position['y'] > self.player_position + 0.8:
 			if self.player_id == 0 and self.player_position < 3.4:
 				self.player_position += 0.2
 			elif self.player_id == 1 and self.player_position < 3.4:
 				self.player_position += 0.2
 			return 'down'
-		elif self.ball_position['y'] < self.player_position:
+		elif self.ball_position['y'] < self.player_position - 0.8:
 			if self.player_id == 0 and self.player_position > -3.4:
 				self.player_position -= 0.2
 			elif self.player_id == 1 and self.player_position > -3.4:
