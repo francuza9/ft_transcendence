@@ -48,7 +48,7 @@ function renderPlayerList(variables) {
         row.innerHTML = `
 			<!-- 
             <td><img src="${player.profile_picture || 'https://via.placeholder.com/40'}" alt="${player}" class="player-img"></td>
-            <td>${player.totalScore}</td>
+            <td>${player.gamesWon}</td>
 			-->
             <td>${player}${player === variables.admin ? '<span class="admin-badge">Room Admin</span>' : ''}</td>
         `;
@@ -99,26 +99,17 @@ export const startButton = () => {
 };
 
 export const addBot = () => {
-	const socket = new WebSocket(`wss://${window.location.host}/ws/${variables.lobbyId}`);
+	// const socket = new WebSocket(`wss://${window.location.host}/ws/${variables.lobbyId}`);
+	const socket = getSocket();
+	if (!socket) {
+        console.error('WebSocket is not initialized yet.');
+        return;
+    }
 
-	socket.onopen = function() {
-		console.log('WebSocket connection opened for a bot.');
-		socket.send(JSON.stringify({ type: 'add_bot' }));
-	};
-
-	socket.onmessage = function(event) {
-		const message = JSON.parse(event.data);
-
-		if (message.type === 'error') {
-			console.error('Bot Error:', message.content);
-		} else if (message.type === 'start') {
-			Bot(message.content.roomID);
-			socket.close();
-		}
-	};
-
-	socket.onclose = function() {
-		console.log('WebSocket connection closed for a bot.');
-	}
+    if (socket.readyState === WebSocket.OPEN) {
+        socket.send(JSON.stringify({ type: 'add_bot', address: window.location.host }));
+    } else {
+        console.error('WebSocket is not open.');
+    }
 }
 

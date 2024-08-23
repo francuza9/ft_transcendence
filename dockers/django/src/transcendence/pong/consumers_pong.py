@@ -237,5 +237,5 @@ class PongConsumer(AsyncWebsocketConsumer):
 				'ball_speed': 0.05,
 				'finished': False,
 			},
-			'room_size': 0,
+			'room_size': 2,
 		}
