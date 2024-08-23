@@ -76,6 +76,13 @@ export const saveField = async (field) => {
 				if (modalInstance)
 					modalInstance.hide();
 
+				setTimeout(() => {
+					const backdrop = document.querySelector('.modal-backdrop');
+					if (backdrop) {
+					  backdrop.remove();  // Remove the lingering backdrop
+					}
+				  }, 300);
+
                 console.log('Field updated successfully');
             } else {
 				// TODO: create an error element to show the error message
@@ -191,6 +198,13 @@ export const saveAvatarButton = async () => {
 	const modalInstance = bootstrap.Modal.getInstance(document.getElementById('edit-avatar-modal'));
 	if (modalInstance)
 		modalInstance.hide();
+
+	setTimeout(() => {
+		const backdrop = document.querySelector('.modal-backdrop');
+		if (backdrop) {
+		  backdrop.remove();  // Remove the lingering backdrop
+		}
+	  }, 300);
 	
 	// Clear the file input
     fileInput.value = '';
