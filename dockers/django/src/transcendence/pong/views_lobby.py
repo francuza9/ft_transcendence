@@ -10,6 +10,7 @@ import string
 logger = logging.getLogger(__name__)
 
 @csrf_exempt
+@login_required
 def create_lobby(request):
     if request.method == 'POST':
         try:
