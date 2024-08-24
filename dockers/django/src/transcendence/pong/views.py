@@ -25,3 +25,7 @@ from .views_avatar import (
     update_avatar,
     remove_avatar,
 )
+
+from .views_leaderboard import (
+	leaderboard_win_rate,
+)

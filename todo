@@ -47,8 +47,10 @@
 
 	Check uploaded profile picture format and size
 	Upload button and hiding input form 
-
+	
+	Password encryption and hashing
 	Leaderboard (start with end.js/html/css)
+	There is a line at the bottom of the leaderboard table
 
 	Add char limits for text fields, add scrollbar for Bio
 
@@ -74,6 +76,8 @@
 
 	Fix modal backdrop
 
+	A way for the pages (at least homepage) to display that you are logged in as a guest
+	Lobby, big number of players in room, make it scrollable or responsive 
 	Profile modal (for leaderboard, lobby and endscreen)
 
 	handle guest profiles
