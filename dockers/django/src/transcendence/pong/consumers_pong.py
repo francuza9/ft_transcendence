@@ -42,19 +42,9 @@ class PongConsumer(AsyncWebsocketConsumer):
 
 			response_message = {'pov': pov}
 			await self.send(text_data=json.dumps(response_message))
-			await asyncio.sleep(3)
-			asyncio.create_task(self.game_update_loop())
 		except Exception as e:
 			logger.error(f"Error during connection setup: {e}")
 			await self.close()
-		
-		await asyncio.sleep(0.2)
-		game_state = await self.get_game_state()
-		player_data = game_state.get('player_data', {})
-		for player_name, bot_status in player_data.items():
-			if bot_status:
-				player_id = list(player_data.keys()).index(player_name)
-				PongConsumer.ai_instances.setdefault(self.room_id, {})[player_id] = AI(player_id, game_state)
 
 	async def disconnect(self, close_code):
 		if self.room_group_name:
@@ -101,6 +91,7 @@ class PongConsumer(AsyncWebsocketConsumer):
 				for i in range(len(player_names)):
 					player_data[player_names[i]] = is_bot[i]
 				game_state['player_data'] = player_data
+				asyncio.create_task(self.game_update_loop())
 
 			# Initialize AI instances based on player_data
 			if message_type == 'initial_data':
@@ -125,15 +116,8 @@ class PongConsumer(AsyncWebsocketConsumer):
 				multi = game_state.setdefault('multi', {})
 				multi['edges'] = edges
 
-			# Initialize AI for multiplayer mode as well
-			if game_state.get('room_size') > 2:
-				for player_name, bot_status in player_data.items():
-					if bot_status:
-						# Determine player ID
-						player_id = player_names.index(player_name)
-						PongConsumer.ai_instances.setdefault(self.room_id, {})[player_id] = AI(player_id, game_state)
-
 	async def game_update_loop(self):
+		await asyncio.sleep(3)
 		game_state = await self.get_game_state()
 		game_state['multi']['ball_direction'] = {
 			'x': random.choice([1.5, -1.5]),

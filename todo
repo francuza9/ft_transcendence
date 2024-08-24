@@ -8,14 +8,6 @@
 	}
 
 	Current {
-		AI {
-			AI algo,
-			AI clean exit
-		},
-	}
-
-	Upcoming {
-
 		Global Socket {
 			Any logged in client joins global socket in DOMContentLoaded,
 			Exchangement of informations between clients {
@@ -24,6 +16,10 @@
 				Active Status
 			}
 		}
+	}
+
+	Upcoming {
+
 
 		Tournament {
 			create socket for tournament,
@@ -40,6 +36,10 @@
 
 	Extra {
 		Spectators,
+		
+		AI {
+			Difficulties
+		},
 	}
 }
 

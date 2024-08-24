@@ -147,12 +147,14 @@ export function createMultigame(pcount, pov, map, socket) {
 		}
 
 		// Ensure the player stays within the boundaries of their side
+		let halfPaddleLength = 1.0; // Assuming the paddle length is 2, so half is 1
 		let playerToV1 = new THREE.Vector3().subVectors(player.position, v1);
 		let projectionLength = playerToV1.dot(directionVector);
-		if (projectionLength < 0) {
-			player.position.copy(v1);
-		} else if (projectionLength > length) {
-			player.position.copy(v2);
+
+		if (projectionLength < halfPaddleLength) {
+			player.position.copy(v1).addScaledVector(directionVector, halfPaddleLength);
+		} else if (projectionLength > length - halfPaddleLength) {
+			player.position.copy(v2).addScaledVector(directionVector, -halfPaddleLength);
 		}
 	}
 
