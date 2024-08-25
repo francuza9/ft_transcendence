@@ -51,9 +51,6 @@ export function updateVariable(document, variableName, value) {
 		case 'unfriendUser':
 			unfriendUser(value);
 			break;
-		case 'chatWithUser':
-			chatWithUser(value);
-			break;
 		case 'blockUser':
 			blockUser(value);
 			break;
