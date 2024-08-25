@@ -44,7 +44,6 @@ export const backToFriends = () => {
     const friendList = document.getElementById("friend-list");
     const chatTitle = document.getElementById("chat-title");
     const backBtn = document.getElementById("back-btn");
-    const chatAvatar = document.getElementById("chat-avatar");
 
     chatArea.classList.add("hidden");
     friendList.classList.remove("hidden");
@@ -64,7 +63,7 @@ const loadFriends = () => {
     })
     .then(response => response.json())
     .then(data => {
-		console.log(data);
+        console.log(data);
         friendList.innerHTML = '';
         data.friends.forEach(friend => {
             const friendItem = document.createElement("div");
@@ -97,7 +96,7 @@ export const openChatWithFriend = (friend) => {
     chatTitle.classList.remove("hidden");
     backBtn.classList.remove("hidden");
 
-    chatName.textContent = friend.name;
+    chatName.textContent = friend.name || "Unknown User"; // Handle undefined username
     chatAvatar.src = friend.avatar;
 
     // Load chat messages with the selected friend
@@ -109,33 +108,29 @@ const loadChatMessages = (friendId) => {
 };
 
 export const sendMessage = () => {
-	const chatInput = document.getElementById("chat-input");
-	const message = chatInput.value.trim();
-	const targetUser = 'b';
-	const socket = getSocket();
+    const chatInput = document.getElementById("chat-input");
+    const message = chatInput.value.trim();
+    const targetUser = 'b'; // You need to set the target user dynamically
+    const socket = getSocket();
 
-	// before / after sending the message also display the message on the screen (only for the sender)
-
-	if (message) {
-		socket.send(JSON.stringify({
-			'type': 'privmsg',
-			'target': targetUser,
-			'message': message
-		}));
-		chatInput.value = '';
-	}
-	else
-		console.log('tried to send empty message');
+    if (message) {
+        socket.send(JSON.stringify({
+            'type': 'privmsg',
+            'target': targetUser,
+            'message': message
+        }));
+        chatInput.value = '';
+    } else {
+        console.log('Tried to send an empty message');
+    }
 };
 
 export const sendInvitation = () => {
-	const socket = getSocket();
-	const targetUser = 'b';
-	// we need to make actual target
+    const socket = getSocket();
+    const targetUser = 'b'; // You need to set the target user dynamically
+    const lobbyURL = window.location.href;
 
-	const lobbyURL = window.location.href;
+    console.log('Sending invitation');
 
-	console.log('sending invitation');
-
-	socket.send(JSON.stringify({type: 'game_invitation', target: targetUser, lobby: lobbyURL})); //TODO: DO THIS
-}
+    socket.send(JSON.stringify({ type: 'game_invitation', target: targetUser, lobby: lobbyURL }));
+};

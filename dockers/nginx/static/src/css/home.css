@@ -196,7 +196,6 @@ button img {
 }
 
 /* Chat Button */
-
 .chat-btn {
     position: fixed;
     bottom: 20px;
@@ -227,18 +226,17 @@ button img {
     left: 20px;
     width: 300px;
     height: 400px;
-    background: rgba(0, 0, 0, 0.8);
-    border: 2px solid rgba(255, 255, 255, 0.5);
+    background: rgba(0, 0, 0, 0.8); /* Updated to be more transparent */
     border-radius: 10px;
     backdrop-filter: blur(15px);
     display: flex;
     flex-direction: column;
     z-index: 1000;
-    display: none; /* Hidden by default */
+    visibility: hidden; /* Hidden by default */
 }
 
-#chat-window.hidden {
-    display: none;
+#chat-window:not(.hidden) {
+    visibility: visible; /* Ensure visibility when not hidden */
 }
 
 #chat-header {
@@ -249,6 +247,7 @@ button img {
     border-bottom: 1px solid rgba(255, 255, 255, 0.5);
     background: rgba(0, 0, 0, 0.9);
     color: white;
+    position: relative;
 }
 
 #chat-header #chat-title {
@@ -265,8 +264,35 @@ button img {
     font-weight: bold;
 }
 
+#chat-header #close-chat-btn,
 #chat-header #back-btn {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    background: none;
+    border: none;
+    color: white;
+}
+
+#chat-header #close-chat-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+
+#chat-header #back-btn {
+    position: absolute;
+    top: 10px;
+    left: 10px;
     display: none; /* Hidden by default */
+}
+
+#chat-header #back-btn i {
+    font-size: 20px;
 }
 
 #chat-content {
@@ -324,22 +350,25 @@ button img {
     font-size: 20px;
 }
 
-.manage-friends-btn {
+/* Settings Button */
+.settings-btn {
     position: absolute;
     bottom: 10px;
     right: 10px;
-    background: transparent;
-    border: 2px solid rgba(255, 255, 255, 0.5);
+    width: 40px;
+    height: 40px;
+    background: rgba(255, 255, 255, 0.3); /* Background with blur effect */
     border-radius: 50%;
     color: white;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
+    border: none;
 }
 
-.manage-friends-btn i {
-    font-size: 20px;
+.settings-btn i {
+    font-size: 24px;
 }
 
 /* Modal */
