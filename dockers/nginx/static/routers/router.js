@@ -82,28 +82,5 @@ document.addEventListener('DOMContentLoaded', () => {
 		}
 	});
 
-	/*
-	document.addEventListener('shown.bs.modal', function (event) {
-		const section = document.querySelector('.background');
-
-		let backdrop = document.querySelector('.modal-backdrop:not(.moved)');
-		while (backdrop) {
-			if (!section.contains(backdrop)) {
-				section.appendChild(backdrop);
-				backdrop.classList.add('moved');
-			}
-			backdrop = document.querySelector('.modal-backdrop:not(.moved)');
-		}
-	});
-	document.addEventListener('hidden.bs.modal', function (event) {
-		let backdrop = document.querySelector('.modal-backdrop.moved');
-
-		while (backdrop) {
-			backdrop.classList.remove('moved');
-			backdrop = document.querySelector('.modal-backdrop.moved');
-		}
-	});
-	*/
-
 	handleRouting();
 });

@@ -6,6 +6,7 @@ import {loadRooms} from '/static/src/js/join.js';
 import {saveAvatarButton, removeAvatarButton, uploadAvatarButton} from '/static/src/js/account.js';
 import {startButton, leaveRoom, addBot} from '/static/src/js/lobby.js';
 import {settingsButton, closeButton, langButton, backButton, logoutButton} from '/static/src/js/settings.js';
+import {openChat, closeChat, sendMessage} from '/static/src/js/chat.js';
 
 const actionsMap = {
     login: loginButton,
@@ -41,6 +42,9 @@ const actionsMap = {
 	goToLogin: goToLogin,
 	logout: logoutButton,
 	addBot: addBot,
+	openChat: openChat,
+	closeChat: closeChat,
+	sendMessage: sendMessage,
 };
 
 export const handleButtonAction = (e, action) => {
