@@ -5,6 +5,7 @@ General Mandatory Todo {
 	- server-side validation/sanitization on forms and any user input.
 	- Fix history
 	- Tournament
+	- Clean exit after game finishes
 
 	Remote Authentication:
 	- 42 Authentication

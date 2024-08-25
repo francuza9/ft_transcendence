@@ -38,7 +38,7 @@ export function renderPlayerList(times, players, scores) {
 		console.log('rank:', rank);
 		const row = document.createElement('tr');
 		row.classList.add('player-row');
-		row.setAttribute('data-player-id', `player${player.index + 1}`);
+		row.setAttribute('data-player-id', player.name);
 
 		if (player.name === variables.username) {
 			row.classList.add('highlighted-row');
