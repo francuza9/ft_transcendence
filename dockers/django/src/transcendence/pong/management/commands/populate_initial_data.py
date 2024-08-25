@@ -34,7 +34,7 @@ class Command(BaseCommand):
 		user5 = CustomUser.objects.create_user(
 			username='b',
 			email='b@b.b',
-			password='a'
+			password='b'
 		)
 		user6 = CustomUser.objects.create_user(
 			username='c',
@@ -42,6 +42,11 @@ class Command(BaseCommand):
 			password='c'
 		)
 
+		user1.friends.add(user2)
+		user1.friends.add(user3)
+		user1.friends.add(user4)
+		user2.friends.add(user5)
+		user3.friends.add(user6)
 
 		avatar1_path = os.path.join(settings.MEDIA_ROOT, 'Geo.png')
 		avatar2_path = os.path.join(settings.MEDIA_ROOT, 'Marijn.png')
