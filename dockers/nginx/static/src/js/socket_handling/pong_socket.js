@@ -1,4 +1,10 @@
-export async function initPongSocket(roomId, room_size, winning_score) {
+export async function initPongSocket(content) {
+	let roomId = content.roomID;
+	let room_size = content.playerCount;
+	let winning_score = content.winning_score;
+	let player_names = content.player_names;
+	let is_bot = content.is_bot;
+
     return new Promise((resolve, reject) => {
 
 		console.log("roomId: ", roomId);
@@ -9,7 +15,13 @@ export async function initPongSocket(roomId, room_size, winning_score) {
             console.log('WebSocket connection opened.');
             if (socket.readyState === WebSocket.OPEN) {
 				console.log("winning score: ", winning_score);
-				socket.send(JSON.stringify({ type: 'initial_data', 'room_size': room_size, 'winning_score': winning_score }));
+				socket.send(JSON.stringify({
+					type: 'initial_data',
+					'room_size': room_size,
+					'winning_score': winning_score,
+					'player_names': player_names,
+					'is_bot': is_bot
+				}));
 			} else {
 				console.error('WebSocket is not open yet.');
 			}

@@ -1,8 +1,9 @@
 from django.core.files import File  # Required to handle file fields
 from django.core.management.base import BaseCommand
 from django.conf import settings
-from pong.models import Profile, Tournament, Game, Message, CustomUser
+from pong.models import Profile, Tournament, Game, MultiGame, Message, CustomUser
 from django.utils import timezone
+import random
 import os
 
 class Command(BaseCommand):
@@ -76,17 +77,69 @@ class Command(BaseCommand):
 		with open(avatar6_path, 'rb') as avatar6_file:
 			profile6.avatarUrl.save('butt.png', File(avatar6_file), save=True)
 		
-		# Create a tournament
 		tournament = Tournament.objects.create(
 			name='Summer Tournament',
 			startDate=timezone.now(),
 			endDate=timezone.now() + timezone.timedelta(days=10)
 		)
 
-		# Create games
-		Game.objects.create(player1=user1, player2=user2, tournament=tournament, player1Score=15, player2Score=10)
-		Game.objects.create(player1=user2, player2=user3, tournament=tournament, player1Score=15, player2Score=14)
-		Game.objects.create(player1=user3, player2=user1, tournament=tournament, player1Score=15, player2Score=13)
+		# Create guest users
+		guest1 = CustomUser.create_guest_user()
+		guest2 = CustomUser.create_guest_user()
+
+		# Create bot users
+		bot1 = CustomUser.create_bot_user()
+		bot2 = CustomUser.create_bot_user()
+
+		# Create a list of all possible players, including bots and guests
+		players = [user1, user2, user3, user4, user5, user6, guest1, guest2, bot1, bot2]
+
+		# Create 20 random games with scores up to 11
+		for i in range(50):
+			player1, player2 = random.sample(players, 2)  # Randomly select two different players
+			player1_score = random.randint(0, 11)
+			player2_score = random.randint(0, 11)
+
+			# Ensure that there's a winner (no ties)
+			while player1_score == player2_score:
+				player2_score = random.randint(0, 11)
+
+			# Determine the winner
+			winner = player1 if player1_score > player2_score else player2
+
+			# Determine if the game includes bots
+			has_bots = player1.username.startswith('bot') or player2.username.startswith('bot')
+
+			# Create the game object (no tournament, flag for bots)
+			Game.objects.create(
+				player1=player1,
+				player2=player2,
+				player1Score=player1_score,
+				player2Score=player2_score,
+				winner=winner,
+				has_bots=has_bots,
+				is_tournament=False
+			)
+			if has_bots == False:
+				if not player1.username.startswith('guest'):
+					profile1 = Profile.objects.get(user=player1)
+					profile1.gamesPlayed += 1
+					if winner == player1:
+						profile1.gamesWon += 1
+					else:
+						profile1.gamesLost += 1
+					profile1.save()
+
+				if not player2.username.startswith('guest'):
+					profile2 = Profile.objects.get(user=player2)
+					profile2.gamesPlayed += 1
+					if winner == player2:
+						profile2.gamesWon += 1
+					else:
+						profile2.gamesLost += 1
+					profile2.save()
+
+		self.stdout.write(self.style.SUCCESS('Successfully populated random games with players, guests, and bots.'))
 
 		# Create messages
 		Message.objects.create(sender=user1, recipient=user2, content='Hello, how are you?')
@@ -94,4 +147,4 @@ class Command(BaseCommand):
 		Message.objects.create(sender=user1, recipient=user3, content='Hello, how are you?')
 		Message.objects.create(sender=user2, recipient=user3, content='Fuck off please')
 
-		self.stdout.write(self.style.SUCCESS('Successfully populated initial data with hashed passwords.'))
+		self.stdout.write(self.style.SUCCESS('Successfully populated initial data'))
