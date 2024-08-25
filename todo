@@ -1,3 +1,34 @@
+General Mandatory Todo {
+
+	Mandatory Part:
+	- Not push Passwords on git
+	- server-side validation/sanitization on forms and any user input.
+	- Fix history
+	- Tournament
+
+	Remote Authentication:
+	- 42 Authentication
+	- Secure Registration / Connection
+
+	Multiple Players:
+	- Fix Math
+	- Add end logic (detailed in todo)
+
+	User Management:
+	- Log in in a secure way
+	- Online status + Friends system
+
+	Chat:
+	- Direct Messages
+	- Block / Unblock users
+	- Invitation to the game
+	- Tournament Should warn users about the start of the game
+	- Access Users Profiles through Chat
+
+	Extra Features That affect mandatory:
+	- Github should be SPA
+}
+
 [George] {
 
 	Given to Youssef (probably) {
@@ -115,11 +146,6 @@
 
 }
 
-everything that we have left to do (from subject page) {
-
-	- Not push Passwords on git
-	- 
-}
 
 create lobby {
 	on the create lobby page instead of having switch between tournament or classic we are gonna have 4 choices:
