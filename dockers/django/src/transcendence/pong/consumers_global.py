@@ -49,6 +49,11 @@ class GlobalConsumer(AsyncWebsocketConsumer):
 			target = text_data_json.get('target', None)
 			if target and 0 < target.length() <= 12:
 				await self.unblock(target)
+		elif type == 'game_invitation':
+			target = text_data_json.get('target', None)
+			url = text_data_json.get('url', None)
+			if target and url and 0 < target.length() <= 12 and 0 < url.length() <= 100:
+				await self.send_game_invitation(target, url)
 
 	async def send_friend_request(self, target):
 		senderDB = await self.getUserDB(self.username)
@@ -61,6 +66,20 @@ class GlobalConsumer(AsyncWebsocketConsumer):
 				await userWS.send(text_data=json.dumps({
 					'type': 'friend_request',
 					'sender': self.username,
+				}))
+
+	async def send_game_invitation(self, target, url):
+		userWS = await self.getUserWS(target)
+		userDB = await self.getUserDB(target)
+		senderDB = await self.getUserDB(self.username)
+		if userWS and userDB and senderDB:
+			if not senderDB.blocked_users.filter(id=userDB.id).exists() \
+				and not userDB.blocked_users.filter(id=senderDB.id).exists() \
+				and senderDB.friends.filter(id=userDB.id).exists():
+				await userWS.send(text_data=json.dumps({
+					'type': 'game_invitation',
+					'sender': self.username,
+					'link': url,
 				}))
 
 	async def unblock(self, target):

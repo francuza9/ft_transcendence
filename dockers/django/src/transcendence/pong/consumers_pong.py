@@ -7,6 +7,7 @@ import logging
 import asyncio
 import struct
 import random
+import time
 
 logger = logging.getLogger(__name__)
 
@@ -118,6 +119,7 @@ class PongConsumer(AsyncWebsocketConsumer):
 
 	async def game_update_loop(self):
 		await asyncio.sleep(3)
+		game_length = time.time()
 		game_state = await self.get_game_state()
 		game_state['multi']['ball_direction'] = {
 			'x': random.choice([1.5, -1.5]),
@@ -178,11 +180,20 @@ class PongConsumer(AsyncWebsocketConsumer):
 						score[0], score[1]
 					)
 				elif result == FINISH:
-					format_str = '<ii'
-					packed_data = struct.pack(
-						format_str,
-						score[0], score[1],
-					)
+					time_length = time.time() - game_length
+					times = list()
+					times.append(time_length)
+					times.append(time_length)
+					names_list = list(game_state.get('player_data', {}).keys())
+					packed_data = {
+						'scores': score,
+						'time': times,
+						'players': names_list,
+					}
+
+					await self.send(text_data=json.dumps(packed_data))
+					break
+				logger.info(f"result = {result}")
 				await self.channel_layer.group_send(
 					self.room_group_name,
 					{

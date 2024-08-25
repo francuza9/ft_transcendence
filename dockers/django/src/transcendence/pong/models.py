@@ -11,6 +11,7 @@ class CustomUser(AbstractUser):
 	is_guest = models.BooleanField(default=False)
 	is_bot = models.BooleanField(default=False)
 	friends = models.ManyToManyField('self', blank=True)
+	blocked_users = models.ManyToManyField('self', blank=True, symmetrical=False, related_name='blocked_by')
 
 	class Meta:
 		db_table = 'users'  # Set a custom table name
