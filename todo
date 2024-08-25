@@ -71,6 +71,8 @@ todo {
 
 	Add char limits for text fields, add scrollbar for Bio
 
+	Fix pp file permission issues when make re
+
 	Put a 12 char limit on usernames when creating accounts and editing usernames
 	Email checks, password checks
 	
