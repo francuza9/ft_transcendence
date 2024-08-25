@@ -15,4 +15,5 @@ urlpatterns = [
 	path('api/avatar_remove/', views.remove_avatar, name='remove_avatar'),
     path('api/logout/', views.logout_user, name='logout_user'),
     path('api/github/', views.github, name='github'),
+	path('api/leaderboard/win_rate/', views.leaderboard_win_rate, name='leaderboard_win_rate'),
 ]

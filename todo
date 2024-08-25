@@ -8,15 +8,6 @@
 	}
 
 	Current {
-		AI {
-			Put AI in backend instead of clients js
-			AI algo,
-			AI clean exit
-		},
-	}
-
-	Upcoming {
-
 		Global Socket {
 			Any logged in client joins global socket in DOMContentLoaded,
 			Exchangement of informations between clients {
@@ -25,6 +16,10 @@
 				Active Status
 			}
 		}
+	}
+
+	Upcoming {
+
 
 		Tournament {
 			create socket for tournament,
@@ -41,25 +36,21 @@
 
 	Extra {
 		Spectators,
+		
+		AI {
+			Difficulties
+		},
 	}
 }
 
 [Youssef] {
 
-	Profile pictures - DONE
-	How the fuck do you hide a modal??? - DONE
-	Github Authentication database handling (together w/ Marijn) - DONE
-	Account settings page (edit personal data, upload profile picture, etc...) - DONE
-	Handle guests login in - DONE
-	404 error - DONE
-	Fix guests not getting logged in if skipping continue as guest button through going straight to localhost/join or /create (checks are already done)  - Done
-	Add profie picture in home page settings, above hello ${username} (index.html and settings.js) - DONE
-	toFix: user logged in, go to Account settings from homepage, edit something then save, then use back button, whole page is 'disabled' - DONE
-
 	Check uploaded profile picture format and size
 	Upload button and hiding input form 
-
+	
+	Password encryption and hashing
 	Leaderboard (start with end.js/html/css)
+	There is a line at the bottom of the leaderboard table
 
 	Add char limits for text fields, add scrollbar for Bio
 
@@ -85,6 +76,8 @@
 
 	Fix modal backdrop (put modals outside of section)
 
+	A way for the pages (at least homepage) to display that you are logged in as a guest
+	Lobby, big number of players in room, make it scrollable or responsive 
 	Profile modal (for leaderboard, lobby and endscreen)
 
 	Add kick button to kick players on lobby page (for admin only)
@@ -115,6 +108,7 @@
 	Start game button placement in lobby
 	Create room button placement
 	Create local game page
+	Center avatar modal buttons in account page
 
 	Spectator
 

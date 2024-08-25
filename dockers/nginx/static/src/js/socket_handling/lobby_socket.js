@@ -38,7 +38,7 @@ export async function initLobbySocket(variables) {
                 history.pushState(null, '', `/join`);
                 handleRouting();
             } else if (message.type === 'start') {
-				Pong(message.content.roomID, message.content.playerCount, message.content.map, message.content.winning_score);
+				Pong(message.content);
 				socket.close();
 			} else if (message.type === 'error') {
 				console.error('Error:', message.content);

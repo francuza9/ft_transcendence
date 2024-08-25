@@ -53,7 +53,7 @@ export function normalizePath(path)
 	return path;
 }
 
-export function checkLoginStatus() {
+export async function checkLoginStatus() {
     return fetch('/api/check_login_status/', {
         method: 'GET',
         credentials: 'include',  // Include cookies in the request

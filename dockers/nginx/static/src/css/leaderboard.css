@@ -41,7 +41,23 @@ h1 {
     font-size: 12px;
 }
 
-.end-box {
+.leaderboard-box {
+    background: transparent;
+    border: 2px solid rgba(255, 255, 255, 0.5);
+    border-radius: 20px;
+    backdrop-filter: blur(15px);
+    padding: 20px;
+    margin: auto;
+    max-width: 900px;
+    color: white;
+    display: grid;
+    grid-template-rows: auto 1fr; /* Header takes only as much space as needed */
+    grid-template-columns: 1fr; /* Single column layout */
+    height: auto; /* Adjust height based on content */
+    overflow: auto; /* Add scrollbars if needed */
+}
+/* 
+.leaderboard-box {
     background: transparent;
     border: 2px solid rgba(255, 255, 255, 0.5);
     border-radius: 20px;
@@ -53,7 +69,7 @@ h1 {
     max-width: 900px;
     height: 450px;
     color: white;
-}
+} */
 
 .back-btn {
     top: 20px;
@@ -74,11 +90,13 @@ h1 {
 }
 
 .table-responsive {
-    overflow-x: auto;
+    width: 100%; /* Ensure table-responsive div takes full width */
+    overflow-x: auto; /* Allow horizontal scrolling if needed */
 }
 
 .table {
     background: transparent;
+    width: 100%; /* Make table take up full width of container */
     border-radius: 10px;
     border: 1px solid rgba(255, 255, 255, 0.5);
     border-collapse: separate;
@@ -91,6 +109,7 @@ h1 {
 
 .table th, .table td {
     padding: 10px;
+	color: whitesmoke;
 }
 
 .table tbody tr {
@@ -113,11 +132,7 @@ h1 {
     object-fit: cover;
 }
 
-.table td .admin-badge {
-    background-color: #ff5722;
-    color: white;
-    padding: 2px 8px;
-    margin-left: 10px;
-    border-radius: 5px;
-    font-size: 12px;
+.table td img.player-img {
+    width: 30px; /* Adjust as needed */
+    height: 30px; /* Adjust as needed */
 }
