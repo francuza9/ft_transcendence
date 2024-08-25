@@ -9,9 +9,25 @@ export function addFriend(player) {
 }
 
 export function unfriendUser(player) {
+	const socket = getSocket();
+
 	console.log('unfriending', player);
+
+	socket.send(JSON.stringify({type: 'friend_removal', target: player}));
 }
 
 export function blockUser(player) {
+	const socket = getSocket();
+
 	console.log('blocking', player);
+
+	socket.send(JSON.stringify({type: 'block', target: player}));
+}
+
+export function unblockUser(player) {
+	const socket = getSocket();
+
+	console.log('unblocking', player);
+
+	socket.send(JSON.stringify({type: 'unblock', target: player}));
 }
