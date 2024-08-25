@@ -126,3 +126,15 @@ export const sendMessage = () => {
 	else
 		console.log('tried to send empty message');
 };
+
+export const sendInvitation = () => {
+	const socket = getSocket();
+	const targetUser = 'b';
+	// we need to make actual target
+
+	const lobbyURL = window.location.href;
+
+	console.log('sending invitation');
+
+	socket.send(JSON.stringify({type: 'game_invitation', target: targetUser, lobby: lobbyURL})); //TODO: DO THIS
+}
