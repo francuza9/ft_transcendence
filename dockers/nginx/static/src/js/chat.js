@@ -1,4 +1,5 @@
 import { getCookie } from '/static/src/js/cookies.js';
+import { getSocket } from '/static/src/js/socket_handling/global_socket.js';
 
 let chatInputListener = null;
 
@@ -107,33 +108,21 @@ const loadChatMessages = (friendId) => {
 };
 
 export const sendMessage = () => {
-    const chatInput = document.getElementById("chat-input");
-    const message = chatInput.value.trim();
+	const chatInput = document.getElementById("chat-input");
+	const message = chatInput.value.trim();
+	const targetUser = 'b';
+	const socket = getSocket();
 
-    if (message) {
-        fetch('/api/send-message/', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-CSRFToken': getCookie('csrftoken')
-            },
-            body: JSON.stringify({ message })
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.status === 'success') {
-                // Append the new message to the chat area
-                const messages = document.getElementById("messages");
-                messages.innerHTML += `<div class="message">${data.message}</div>`;
-                chatInput.value = ''; // Clear input after sending
-            } else {
-                console.error("Error sending message:", data.message);
-            }
-        })
-        .catch(error => {
-            console.error("Error sending message:", error);
-        });
-    } else {
-        console.log('Tried to send empty message');
-    }
+	// before / after sending the message also display the message on the screen (only for the sender)
+
+	if (message) {
+		socket.send(JSON.stringify({
+			'type': 'privmsg',
+			'target': targetUser,
+			'message': message
+		}));
+		chatInput.value = '';
+	}
+	else
+		console.log('tried to send empty message');
 };
