@@ -1,7 +1,7 @@
 import {updatePlayerCount, updatePointsToWin, updateIsTournament} from '/static/src/js/create.js';
 import {setLanguage} from '/static/src/js/lang.js';
 import {editField, saveField} from '/static/src/js/account.js';
-import {addFriend, unfriendUser, chatWithUser, blockUser} from '/static/src/js/profile.js';
+import {addFriend, unfriendUser, blockUser} from '/static/src/js/friends.js';
 
 export const variables = {
 	isTournament: false,
@@ -50,9 +50,6 @@ export function updateVariable(document, variableName, value) {
 			break;
 		case 'unfriendUser':
 			unfriendUser(value);
-			break;
-		case 'chatWithUser':
-			chatWithUser(value);
 			break;
 		case 'blockUser':
 			blockUser(value);
