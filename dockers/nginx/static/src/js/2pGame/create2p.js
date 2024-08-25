@@ -119,25 +119,18 @@ export function create2Pgame(mappov, socket) {
 				} else if (mappov - 1 !== 1) {
 					players.children[1].position.z = bytes[3];
 				}
-			} else if (bytes.length >= 2){
-				window.removeEventListener('keydown', boundOnKeydown, false);
-				window.removeEventListener('keyup', boundOnKeyup, false);
-				socket.removeEventListener('message', event);
-				const score1 = new DataView(event.data).getInt32(0, true);
-				const score2 = new DataView(event.data).getInt32(4, true);
-				console.log("game finished, score1:", score1, "score2:", score2);
-				
-				const times = [12, 92, 92];
-				const players = ["jwadie-a", "gtskitis", "marde-vr"];
-				const scores = [score1, score2];
-
-				replaceHTML('/static/src/html/end.html').then(() => {
-					renderPlayerList(times, players, scores);
-				});
-
 			} else {
 				console.error(`Unexpected data length received: ${bytes.length}. Data:`, bytes);
 			}
+		} else {
+			const data = JSON.parse(event.data);
+			
+			const time = data.time;
+			const score = data.scores;
+			const names_list = data.players;
+			replaceHTML('/static/src/html/end.html').then(() => {
+				renderPlayerList(time, names_list, score);
+			});
 		}
 	});
 
