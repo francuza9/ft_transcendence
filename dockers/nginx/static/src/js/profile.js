@@ -1,4 +1,4 @@
-import {ensureUsername} from '/static/src/js/utils.js';
+import {ensureUsername, isGuest} from '/static/src/js/utils.js';
 import {variables} from '/static/src/js/variables.js';
 
 export async function viewProfile(player) {
@@ -98,8 +98,7 @@ export async function viewProfile(player) {
 			modalBody.appendChild(statsRow);
 
 			ensureUsername().then(() => {
-				console.log(variables.username, '===', playerData.username);
-				if ((variables.username === playerData.username) || variables.username) {
+				if ((variables.username === playerData.username) || isGuest(variables.username)) {
 					buttonsRow.style.visibility = 'hidden';
 					buttonsRow.style.height = '0';
 				}
@@ -126,6 +125,8 @@ function createStatColumn(label, value) {
 }
 
 async function getPlayerData(player) {
+	if (isGuest(player))
+		return null;
 	try {
 		const response = await fetch(`/api/profile_info/${player}`);
 		if (!response.ok) {

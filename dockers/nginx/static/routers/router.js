@@ -51,55 +51,59 @@ window.addEventListener('popstate', handleRouting);
 
 document.addEventListener('DOMContentLoaded', () => {
 
-    document.body.addEventListener('click', (e) => {
-        if (e.target.tagName === 'A' && e.target.href.startsWith(window.location.origin)) {
-            e.preventDefault();
-            history.pushState(null, '', e.target.href);
-            handleRouting();
-        } 
-        else if (e.target.closest('button[data-path]')) {
-            e.preventDefault();
-            const path = e.target.closest('button').dataset.path;
-            history.pushState(null, '', path);
-            handleRouting();
-        } 
+	document.body.addEventListener('click', (e) => {
+		if (e.target.tagName === 'A' && e.target.href.startsWith(window.location.origin)) {
+			e.preventDefault();
+			history.pushState(null, '', e.target.href);
+			handleRouting();
+		} 
+		else if (e.target.closest('button[data-path]')) {
+			e.preventDefault();
+			const path = e.target.closest('button').dataset.path;
+			history.pushState(null, '', path);
+			handleRouting();
+		} 
 		else if (e.target.closest('button[data-action], a[data-action]')) {
 			e.preventDefault();
 			const targetElement = e.target.closest('button[data-action], a[data-action]');
 			const action = targetElement.dataset.action;
 			handleButtonAction(e, action);
 		}
-        else if (e.target.closest('[data-variable]')) {
-            const element = e.target.closest('[data-variable]');
-            const variable = element.dataset.variable;
-            const value = element.dataset.value;
-            updateVariable(document, variable, value);
-        }
+		else if (e.target.closest('[data-variable]')) {
+			const element = e.target.closest('[data-variable]');
+			const variable = element.dataset.variable;
+			const value = element.dataset.value;
+			updateVariable(document, variable, value);
+		}
 		else if (e.target.closest('tr[data-player-id]')) {
 			const targetRow = e.target.closest('tr[data-player-id]');
-            const playerId = targetRow.dataset.playerId;
-            viewProfile(playerId);
-        }
+			const playerId = targetRow.dataset.playerId;
+			viewProfile(playerId);
+		}
+	});
 
-		/*
-		// Hover preview for player row
-		document.body.addEventListener('mouseover', (e) => {
-			const targetRow = e.target.closest('tr[data-player-id]');
-			if (targetRow) {
-				const playerId = targetRow.dataset.playerId;
-				showPlayerPreview(targetRow, playerId);
+	/*
+	document.addEventListener('shown.bs.modal', function (event) {
+		const section = document.querySelector('.background');
+
+		let backdrop = document.querySelector('.modal-backdrop:not(.moved)');
+		while (backdrop) {
+			if (!section.contains(backdrop)) {
+				section.appendChild(backdrop);
+				backdrop.classList.add('moved');
 			}
-		});
+			backdrop = document.querySelector('.modal-backdrop:not(.moved)');
+		}
+	});
+	document.addEventListener('hidden.bs.modal', function (event) {
+		let backdrop = document.querySelector('.modal-backdrop.moved');
 
-		document.body.addEventListener('mouseout', (e) => {
-			const targetRow = e.target.closest('tr[data-player-id]');
-			if (targetRow) {
-				hidePlayerPreview(targetRow);
-			}
-		});
-		*/
+		while (backdrop) {
+			backdrop.classList.remove('moved');
+			backdrop = document.querySelector('.modal-backdrop.moved');
+		}
+	});
+	*/
 
-    });
-
-    handleRouting();
+	handleRouting();
 });
