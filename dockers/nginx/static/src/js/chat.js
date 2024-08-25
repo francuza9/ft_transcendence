@@ -37,15 +37,12 @@ export const closeChat = () => {
 const loadFriends = () => {
 	const friendList = document.getElementById("friend-list");
 
-	fetch('/your-endpoint-url', {
+	fetch('/api/friends/', {
 		method: 'POST',
 		headers: {
 			'Content-Type': 'application/json',
 			'X-CSRFToken': getCookie('csrftoken')
-		},
-		body: JSON.stringify({
-			// Your data to send to the server, if any
-		})
+		}
 	})
 	.then(response => response.json())
 	.then(data => {
