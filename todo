@@ -1,18 +1,3 @@
-todo {
-	on the create lobby page instead of having switch between tournament or classic we are gonna have 4 choices:
-	Classic,
-	Against AI,
-	Multiplayer,
-	Tournament
-
-	and depending on these we will show different options:
-	Classic -> Points to Win
-	AI -> Point to Win, Difficulty
-	Multiplayer -> Points to Win, Player Count, Map
-	Tournament -> Points to Win
-}
-
-
 [George] {
 
 	Given to Youssef (probably) {
@@ -24,29 +9,24 @@ todo {
 
 	Current {
 		Global Socket {
-			Any logged in client joins global socket in DOMContentLoaded,
-			Exchangement of informations between clients {
-				Friend system,
-				Chat system,
-				Active Status
-			}
+			maybe fix bugs and test
 		}
 	}
 
 	Upcoming {
 
-
 		Tournament {
-			create socket for tournament,
 			Tournament logic,
-		}
+		},
 	
 		Localgame {
 			localgame takes variables {
 				player names,
 				points to win,
 			}
-		}
+		},
+
+		42 Auth
 	}
 
 	Extra {
@@ -109,8 +89,6 @@ todo {
 
 	Add diffcilty dropdown for bot button
 
-	42 login
-
 	Chat
 		friend button / unfriend button
 		invite to game only if friend
@@ -135,4 +113,24 @@ todo {
 	Animations for smooth transition between pages
 	Easter egg(s)
 
+}
+
+everything that we have left to do (from subject page) {
+
+	- Not push Passwords on git
+	- 
+}
+
+create lobby {
+	on the create lobby page instead of having switch between tournament or classic we are gonna have 4 choices:
+	Classic,
+	Against AI,
+	Multiplayer,
+	Tournament
+
+	and depending on these we will show different options:
+	Classic -> Points to Win
+	AI -> Point to Win, Difficulty
+	Multiplayer -> Points to Win, Player Count, Map
+	Tournament -> Points to Win
 }
