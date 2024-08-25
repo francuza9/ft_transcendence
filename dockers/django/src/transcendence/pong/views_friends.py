@@ -1,9 +1,6 @@
 from django.http import JsonResponse
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_exempt
-import logging
-
-logger = logging.getLogger(__name__)
 
 @login_required
 @csrf_exempt
@@ -11,8 +8,7 @@ def get_friends(request):
 	try:
 		# Get the logged-in user
 		user = request.user
-		logger.info(f"User {user.username} requested friends list")
-
+		
 		# Retrieve the friends of the logged-in user
 		friends = user.friends.all()
 

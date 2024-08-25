@@ -3,6 +3,7 @@ import {variables} from '/static/src/js/variables.js';
 import {replaceHTML} from '/static/src/js/utils.js';
 import {getCookie} from '/static/src/js/cookies.js';
 import {removeRegisterListeners} from '/static/src/js/register.js';
+import {goActive} from '/static/src/js/socket_handling/global_socket.js';
 
 export const goBackFromLogin = () => {
 	if (!variables.previousPage) {
@@ -52,6 +53,7 @@ export const loginButton = () => {
         .then(data => {
             if (data.success) {
                 console.log('Login successful');
+				goActive();
 				if (variables.nextPage == 'room') {
 					history.pushState(null, '', '/');
 					handleRouting();

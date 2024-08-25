@@ -18,8 +18,9 @@ class GlobalConsumer(AsyncWebsocketConsumer):
 		await self.broadcast_active_users()
 
 	async def disconnect(self, close_code):
-		GlobalConsumer.connected_clients.remove(self)
-		if self.username in GlobalConsumer.active_users:
+		if self in GlobalConsumer.connected_clients:
+			GlobalConsumer.connected_clients.remove(self)
+		if self.username and self.username in GlobalConsumer.active_users:
 			GlobalConsumer.active_users[self.username] = False
 		await self.broadcast_active_users()
 
@@ -34,38 +35,100 @@ class GlobalConsumer(AsyncWebsocketConsumer):
 				await self.send_privmsg(message, target)
 		elif type == 'friend_request':
 			target = text_data_json.get('target', None)
-			if target and target.length() <= 12:
+			if target and 0 < target.length() <= 12:
 				await self.send_friend_request(target)
+		elif type == 'friend_removal':
+			target = text_data_json.get('target', None)
+			if target and 0 < target.length() <= 12:
+				await self.send_friend_removal(target)
+		elif type == 'block':
+			target = text_data_json.get('target', None)
+			if target and 0 < target.length() <= 12:
+				await self.send_block(target)
+		elif type == 'unblock':
+			target = text_data_json.get('target', None)
+			if target and 0 < target.length() <= 12:
+				await self.unblock(target)
+		elif type == 'game_invitation':
+			target = text_data_json.get('target', None)
+			url = text_data_json.get('url', None)
+			if target and url and 0 < target.length() <= 12 and 0 < url.length() <= 100:
+				await self.send_game_invitation(target, url)
 
 	async def send_friend_request(self, target):
 		senderDB = await self.getUserDB(self.username)
 		userDB = await self.getUserDB(target)
 		userWS = await self.getUserWS(target)
-
 		if senderDB and userDB:
-			if not senderDB.friends.filter(id=userDB.id).exists():
+			if not senderDB.friends.filter(id=userDB.id).exists() \
+				and not userDB.blocked_list.filter(id=senderDB.id).exists() \
+				and not senderDB.blocked_list.filter(id=userDB.id).exists():
 				await userWS.send(text_data=json.dumps({
 					'type': 'friend_request',
 					'sender': self.username,
 				}))
 
+	async def send_game_invitation(self, target, url):
+		userWS = await self.getUserWS(target)
+		userDB = await self.getUserDB(target)
+		senderDB = await self.getUserDB(self.username)
+		if userWS and userDB and senderDB:
+			if not senderDB.blocked_users.filter(id=userDB.id).exists() \
+				and not userDB.blocked_users.filter(id=senderDB.id).exists() \
+				and senderDB.friends.filter(id=userDB.id).exists():
+				await userWS.send(text_data=json.dumps({
+					'type': 'game_invitation',
+					'sender': self.username,
+					'link': url,
+				}))
+
+	async def unblock(self, target):
+		senderDB = await self.getUserDB(self.username)
+		userDB = await self.getUserDB(target)
+		if senderDB and userDB:
+			if senderDB.blocked_users.filter(id=userDB.id).exists():
+				senderDB.blocked_users.remove(userDB)
+
+	async def send_block(self, target):
+		senderDB = await self.getUserDB(self.username)
+		userDB = await self.getUserDB(target)
+		userWS = await self.getUserWS(target)
+		if senderDB and userDB and userWS:
+			if not senderDB.blocked_users.filter(id=userDB.id).exists() \
+				and not userDB.blocked_users.filter(id=senderDB.id).exists():
+				senderDB.blocked_users.add(userDB)
+				senderDB.friends.remove(userDB)
+				await userWS.send(text_data=json.dumps({
+					'type': 'block',
+					'sender': self.username,
+				}))
 
 	async def send_privmsg(self, message, target):
 		target_client = await self.getUserWS(target)
-		if target_client:
-			await target_client.send(text_data=json.dumps({
-				'type': 'privmsg',
-				'message': message,
-				'sender': self.username,
-				'recipient': target,
-			}))
+		senderDB = await self.getUserDB(self.username)
+		userDB = await self.getUserDB(target)
+		if target_client and senderDB and userDB:
+			if senderDB.friends.filter(id=userDB.id).exists() \
+				and not senderDB.blocked_users.filter(id=userDB.id).exists() \
+				and not userDB.blocked_users.filter(id=senderDB.id).exists():
+				await target_client.send(text_data=json.dumps({
+					'type': 'privmsg',
+					'message': message,
+					'sender': self.username,
+					'recipient': target,
+				}))
 
-	async def broadcast_message(self, message):
-		for client in GlobalConsumer.connected_clients:
-			await client.send(text_data=json.dumps({
-				'message': message,
-				'active_users': GlobalConsumer.active_users
-			}))
+	async def send_friend_removal(self, target):
+		senderDB = await self.getUserDB(self.username)
+		userDB = await self.getUserDB(target)
+		userWS = await self.getUserWS(target)
+		if senderDB and userDB and userWS:
+			if senderDB.friends.filter(id=userDB.id).exists():
+				senderDB.friends.remove(userDB)
+				await userWS.send(text_data=json.dumps({
+					'type': 'friend_removal',
+					'sender': self.username,
+				}))
 
 	async def broadcast_active_users(self):
 		for client in GlobalConsumer.connected_clients:

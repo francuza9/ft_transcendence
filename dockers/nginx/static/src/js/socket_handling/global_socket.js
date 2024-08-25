@@ -18,6 +18,15 @@ export function goActive() {
 			console.log(data.sender, ": ", data.message);
 		} else if (data.type === 'friend_request') {
 			console.log(data.sender, "wants to be your friend");
+		} else if (data.type === 'friend_removal') {
+			console.log(data.sender, "Removed you from their friends list");
+		} else if (data.type === 'block') {
+			console.log(data.sender, "Blocked you");
+		} else if (data.type === 'unblock') {
+			console.log(data.sender, "Unblocked you");
+		} else if (data.type === 'game_invitation') {
+			const url = data.link;
+			console.log(data.sender, "Invited you to a game, link: ", url);
 		}
 	};
 
