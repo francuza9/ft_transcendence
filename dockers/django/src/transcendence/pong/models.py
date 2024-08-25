@@ -10,6 +10,7 @@ class CustomUser(AbstractUser):
 	email = models.EmailField(blank=True, null=True)
 	is_guest = models.BooleanField(default=False)
 	is_bot = models.BooleanField(default=False)
+	friends = models.ManyToManyField('self', blank=True)
 
 	class Meta:
 		db_table = 'users'  # Set a custom table name
