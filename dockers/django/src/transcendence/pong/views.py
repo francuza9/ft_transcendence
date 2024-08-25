@@ -29,3 +29,7 @@ from .views_avatar import (
 from .views_leaderboard import (
 	leaderboard_win_rate,
 )
+
+from .views_friends import (
+    get_friends
+)

@@ -1,3 +1,18 @@
+todo {
+	on the create lobby page instead of having switch between tournament or classic we are gonna have 4 choices:
+	Classic,
+	Against AI,
+	Multiplayer,
+	Tournament
+
+	and depending on these we will show different options:
+	Classic -> Points to Win
+	AI -> Point to Win, Difficulty
+	Multiplayer -> Points to Win, Player Count, Map
+	Tournament -> Points to Win
+}
+
+
 [George] {
 
 	Given to Youssef (probably) {
@@ -76,18 +91,11 @@
 
 [Marijn] {
 
-	Fix modal backdrop
+	Fix modal backdrop (put modals outside of section)
 
 	A way for the pages (at least homepage) to display that you are logged in as a guest
 	Lobby, big number of players in room, make it scrollable or responsive 
 	Profile modal (for leaderboard, lobby and endscreen)
-
-	handle guest profiles
-
-	friend button / unfriend button
-	invite to game only if friend
-	chat button
-	block button
 
 	Add kick button to kick players on lobby page (for admin only)
 
@@ -97,7 +105,18 @@
 
 	For tournament creation, change the amount of players they can choose
 
+	Tags for bots (difficulty, bot)
+
+	Add diffcilty dropdown for bot button
+
 	42 login
+
+	Chat
+		friend button / unfriend button
+		invite to game only if friend
+		chat button
+		block button
+		online status
 
 
 	Low priority:
