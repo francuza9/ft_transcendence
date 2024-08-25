@@ -1,17 +1,24 @@
 <link rel="stylesheet" href="/static/src/css/leaderboard.css">
 <div class="container-md leaderboard-box">
-    <div class="text-center">
+	<div class="text-center">
 		<h1 id="leaderboadTitle" data-text="pages.leaderboard.title">Leaderboard</h1>
-    </div>
-    <div class="table-responsive table-centered">
-        <table class="table table-hover text-center">
-            <tbody id="playerList" class="playerList">
-            </tbody>
-        </table>
-    </div>
-    <div class="text-center mt-4">
-        <button class="btn btn-primary" data-path="/leaderboard" data-text="pages.end.leaderboard">Leaderboard</button>
-        <button class="btn btn-primary" data-action="cancel" data-text="pages.end.continue">Continue</button>
-        <button class="btn btn-primary hidden" data-action="again" data-text="pages.end.again">Play Again</button>
-    </div>
+	</div>
+	<div class="text-center mt-4">
+	</div>
+	<div class="table-responsive table-centered">
+		<table class="table table-hover text-center">
+			<thead>
+				<tr>
+					<th>Rank</th>
+					<th>Avatar</th>
+					<th>Player Name</th>
+					<th>Games Played</th>
+					<th>Games Won</th>
+					<th>Win Ratio</th>
+				</tr>
+			</thead>
+			<tbody id="playerList" class="playerList">
+			</tbody>
+		</table>
+	</div>
 </div>
