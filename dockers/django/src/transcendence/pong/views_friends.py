@@ -1,7 +1,9 @@
 from django.http import JsonResponse
 from django.contrib.auth.decorators import login_required
+from django.views.decorators.csrf import csrf_exempt
 
 @login_required
+@csrf_exempt
 def get_friends(request):
 	try:
 		# Get the logged-in user

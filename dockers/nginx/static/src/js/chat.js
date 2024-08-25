@@ -64,6 +64,7 @@ const loadFriends = () => {
     })
     .then(response => response.json())
     .then(data => {
+		console.log(data);
         friendList.innerHTML = '';
         data.friends.forEach(friend => {
             const friendItem = document.createElement("div");
