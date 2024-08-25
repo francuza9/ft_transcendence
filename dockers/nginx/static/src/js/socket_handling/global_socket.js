@@ -16,6 +16,8 @@ export function goActive() {
 			console.log(data.active_users);
 		} else if (data.type === 'privmsg') {
 			console.log(data.sender, ": ", data.message);
+		} else if (data.type === 'friend_request') {
+			console.log(data.sender, "wants to be your friend");
 		}
 	};
 
