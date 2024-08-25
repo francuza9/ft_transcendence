@@ -161,3 +161,8 @@ export const ensureUsername = async () => {
 		}
 	}
 };
+
+export function isGuest(username) {
+    const guestPattern = /^Guest\d{4}$/;
+    return guestPattern.test(username);
+}

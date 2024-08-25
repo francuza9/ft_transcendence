@@ -83,16 +83,9 @@
 
 [Marijn] {
 
-	Fix modal backdrop
+	Fix modal backdrop (put modals outside of section)
 
 	Profile modal (for leaderboard, lobby and endscreen)
-
-	handle guest profiles
-
-	friend button / unfriend button
-	invite to game only if friend
-	chat button
-	block button
 
 	Add kick button to kick players on lobby page (for admin only)
 
@@ -102,7 +95,18 @@
 
 	For tournament creation, change the amount of players they can choose
 
+	Tags for bots (difficulty, bot)
+
+	Add diffcilty dropdown for bot button
+
 	42 login
+
+	Chat
+		friend button / unfriend button
+		invite to game only if friend
+		chat button
+		block button
+		online status
 
 
 	Low priority:
