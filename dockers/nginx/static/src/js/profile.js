@@ -1,5 +1,6 @@
-import {ensureUsername} from '/static/src/js/utils.js';
+import {ensureUsername, isGuest} from '/static/src/js/utils.js';
 import {variables} from '/static/src/js/variables.js';
+import {addFriend, unfriendUser, blockUser} from '/static/src/js/friends.js';
 
 export async function viewProfile(player) {
 	try {
@@ -61,12 +62,6 @@ export async function viewProfile(player) {
 				${playerData.isFriend ? 'Unfriend' : 'Add Friend'}
 			`;
 
-			const chatButton = document.createElement('button');
-			chatButton.className = 'btn btn-primary';
-			chatButton.setAttribute('data-variable', 'chatWithUser');
-			chatButton.setAttribute('data-value', playerData.username);
-			chatButton.innerHTML = `<i class="ri-chat-3-line"></i> Chat`;
-
 			const blockButton = document.createElement('button');
 			blockButton.className = 'btn btn-primary';
 			blockButton.setAttribute('data-variable', 'blockUser');
@@ -74,7 +69,6 @@ export async function viewProfile(player) {
 			blockButton.innerHTML = `<i class="ri-user-forbid-line"></i> Block`;
 
 			buttonsRow.appendChild(friendButton);
-			buttonsRow.appendChild(chatButton);
 			buttonsRow.appendChild(blockButton);
 
 			const statsRow = document.createElement('div');
@@ -98,8 +92,7 @@ export async function viewProfile(player) {
 			modalBody.appendChild(statsRow);
 
 			ensureUsername().then(() => {
-				console.log(variables.username, '===', playerData.username);
-				if ((variables.username === playerData.username) || variables.username) {
+				if ((variables.username === playerData.username) || isGuest(variables.username)) {
 					buttonsRow.style.visibility = 'hidden';
 					buttonsRow.style.height = '0';
 				}
@@ -126,6 +119,8 @@ function createStatColumn(label, value) {
 }
 
 async function getPlayerData(player) {
+	if (isGuest(player))
+		return null;
 	try {
 		const response = await fetch(`/api/profile_info/${player}`);
 		if (!response.ok) {
@@ -166,20 +161,4 @@ export function hidePlayerPreview(row) {
 		row._previewTooltip.remove();
 		row._previewTooltip = null;
 	}
-}
-
-export function addFriend(player) {
-	console.log('adding friend', player);
-}
-
-export function unfriendUser(player) {
-	console.log('unfriending', player);
-}
-
-export function chatWithUser(player) {
-	console.log('chating with', player);
-}
-
-export function blockUser(player) {
-	console.log('blocking', player);
 }

@@ -21,13 +21,6 @@ h4 {
 	padding-bottom: 1.2em;
 }
 
-/*
-#hero {
-	background: linear-gradient(rgba(var(--c-brand-rgb), 0.507), rgba(var(--c-brand-rgb), 0.438)), url(/static/src/images/dark-background.jpg);
-	background-position: center;
-	background-size: cover;
-}*/
-
 .btn-play {
 	display: flex;
 	align-items: center;
@@ -46,6 +39,8 @@ h4 {
 	font-size: 1.8rem;
 	padding: 0 1rem;
 }
+
+/*SETTINGS*/
 
 .settings-btn {
     position: fixed;
@@ -198,4 +193,124 @@ button img {
 
 .hidden {
     display: none;
+}
+
+
+/*CHAT*/
+
+.chat-btn {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    border: 2px solid rgba(255, 255, 255, 0.5);
+    border-radius: 50%;
+    backdrop-filter: blur(15px);
+    transition: background 0.3s ease, color 0.3s ease;
+    cursor: pointer;
+    z-index: 1000;
+}
+
+.chat-btn:hover {
+    background: rgba(255, 255, 255, 0.2);
+    color: #000;
+}
+
+.chat-btn i {
+    font-size: 24px;
+    color: white;
+}
+
+/* Chat Window */
+.chat-window {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    width: 300px;
+    height: 400px;
+    background: rgba(0, 0, 0, 0.7);
+    border: 2px solid rgba(255, 255, 255, 0.5);
+    border-radius: 20px;
+    backdrop-filter: blur(15px);
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    z-index: 9999;
+}
+
+#chat-window.hidden {
+    display: none;
+}
+
+.close-chat-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 30px;
+    height: 30px;
+    border: 2px solid rgba(255, 255, 255, 0.5);
+    border-radius: 50%;
+    background: transparent;
+    color: #fff;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(15px);
+    transition: background 0.3s ease, color 0.3s ease;
+    z-index: 10000;
+}
+
+.close-chat-btn:hover {
+    background: rgba(255, 255, 255, 0.2);
+    color: #000;
+}
+
+.friend-item {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    margin-bottom: 10px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 10px;
+    color: white;
+    width: 100%;
+    transition: background 0.3s ease;
+}
+
+.friend-item:hover {
+    background: rgba(255, 255, 255, 0.4);
+    color: #000;
+}
+
+#chat-input {
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+    border: 2px solid rgba(255, 255, 255, 0.5);
+    border-radius: 10px;
+    background: rgba(0, 0, 0, 0.5);
+    color: white;
+}
+
+#send-btn {
+    margin-top: 10px;
+    padding: 10px 20px;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.2);
+    border: none;
+    color: white;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+#send-btn:hover {
+    background: rgba(255, 255, 255, 0.4);
+    color: #000;
 }

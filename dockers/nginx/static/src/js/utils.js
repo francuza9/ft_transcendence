@@ -77,6 +77,26 @@ export async function checkLoginStatus() {
     });
 }
 
+export async function getUsername() {
+    return fetch('/api/check_login_status/', {
+        method: 'GET',
+        credentials: 'include',  // Include cookies in the request
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            const user = data.user;
+			return user.username;
+        } else {
+			return undefined;
+        }
+    })
+    .catch(error => {
+        console.error('Error fetching user info:', error);
+		return false;
+    });
+}
+
 export async function fetchAccountInfo() {
     try {
         const response = await fetch('/api/account_info/');
@@ -161,3 +181,8 @@ export const ensureUsername = async () => {
 		}
 	}
 };
+
+export function isGuest(username) {
+    const guestPattern = /^Guest\d{4}$/;
+    return guestPattern.test(username);
+}

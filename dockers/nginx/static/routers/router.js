@@ -13,6 +13,7 @@ import { updateVariable } from '/static/src/js/variables.js';
 import { normalizePath } from '/static/src/js/utils.js';
 import { NotFound } from '/static/views/notfound.js';
 import { viewProfile, showPlayerPreview, hidePlayerPreview } from '/static/src/js/profile.js';
+import { goActive } from '/static/src/js/socket_handling/global_socket.js';
 
 const router = [
     { path: /^\/$/, component: Home },
@@ -51,55 +52,37 @@ window.addEventListener('popstate', handleRouting);
 
 document.addEventListener('DOMContentLoaded', () => {
 
-    document.body.addEventListener('click', (e) => {
-        if (e.target.tagName === 'A' && e.target.href.startsWith(window.location.origin)) {
-            e.preventDefault();
-            history.pushState(null, '', e.target.href);
-            handleRouting();
-        } 
-        else if (e.target.closest('button[data-path]')) {
-            e.preventDefault();
-            const path = e.target.closest('button').dataset.path;
-            history.pushState(null, '', path);
-            handleRouting();
-        } 
+	document.body.addEventListener('click', (e) => {
+		if (e.target.tagName === 'A' && e.target.href.startsWith(window.location.origin)) {
+			e.preventDefault();
+			history.pushState(null, '', e.target.href);
+			handleRouting();
+		} 
+		else if (e.target.closest('button[data-path]')) {
+			e.preventDefault();
+			const path = e.target.closest('button').dataset.path;
+			history.pushState(null, '', path);
+			handleRouting();
+		} 
 		else if (e.target.closest('button[data-action], a[data-action]')) {
 			e.preventDefault();
 			const targetElement = e.target.closest('button[data-action], a[data-action]');
 			const action = targetElement.dataset.action;
 			handleButtonAction(e, action);
 		}
-        else if (e.target.closest('[data-variable]')) {
-            const element = e.target.closest('[data-variable]');
-            const variable = element.dataset.variable;
-            const value = element.dataset.value;
-            updateVariable(document, variable, value);
-        }
+		else if (e.target.closest('[data-variable]')) {
+			const element = e.target.closest('[data-variable]');
+			const variable = element.dataset.variable;
+			const value = element.dataset.value;
+			updateVariable(document, variable, value);
+		}
 		else if (e.target.closest('tr[data-player-id]')) {
 			const targetRow = e.target.closest('tr[data-player-id]');
-            const playerId = targetRow.dataset.playerId;
-            viewProfile(playerId);
-        }
+			const playerId = targetRow.dataset.playerId;
+			viewProfile(playerId);
+		}
+	});
 
-		/*
-		// Hover preview for player row
-		document.body.addEventListener('mouseover', (e) => {
-			const targetRow = e.target.closest('tr[data-player-id]');
-			if (targetRow) {
-				const playerId = targetRow.dataset.playerId;
-				showPlayerPreview(targetRow, playerId);
-			}
-		});
-
-		document.body.addEventListener('mouseout', (e) => {
-			const targetRow = e.target.closest('tr[data-player-id]');
-			if (targetRow) {
-				hidePlayerPreview(targetRow);
-			}
-		});
-		*/
-
-    });
-
-    handleRouting();
+	goActive();
+	handleRouting();
 });

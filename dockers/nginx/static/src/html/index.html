@@ -84,3 +84,23 @@
 		</div>
 	</div>
 </div>
+<button id="chat-btn" class="chat-btn" data-action="openChat">
+	<i class="ri-chat-3-fill"></i>
+</button>
+<div id="chat-window" class="chat-window hidden">
+	<button data-action="closeChat" class="close-chat-btn">
+		<i class="ri-close-fill"></i>
+	</button>
+	<div id="chat-content">
+		<h4 data-text="pages.chat.title">Chat with Friends</h4>
+		<div id="friend-list">
+			<!-- Friends will be dynamically loaded here -->
+		</div>
+		<div id="message-box">
+			<input type="text" id="chat-input" placeholder="Type a message...">
+			<button id="send-btn" data-action="sendMessage">
+				<i class="ri-send-plane-fill"></i>
+			</button>
+		</div>
+	</div>
+</div>
