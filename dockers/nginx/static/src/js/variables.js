@@ -7,7 +7,7 @@ import {isAI, setDifficulty} from '/static/src/js/local.js';
 export const variables = {
 	isTournament: false,
 	localAI: false,
-	AIDifficulty: 'Moderate',
+	AIDifficulty: 'Moderate', // 'Novice' 'Moderate' 'Brutal' 'Insane'
 	pointsToWin: 3,
     maxPlayerCount: 2,
 	map: 'Classic',

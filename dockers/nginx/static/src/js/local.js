@@ -18,17 +18,24 @@ export const startLocalButton = () => {
 	cleanupBackground();
 
 	const element = document.createElement('div');
-	element.innerHTML = `
-		<h1>Pong Local Game !/h1>
-		<script type="module" src="{% static 'src/js/localgame/localgame.js' %}"></script>
-	`;
-	startLocal();
+	if (variables.isAI) {
+		element.innerHTML = `
+			<h1>Pong Local Game !/h1>
+			<script type="module" src="{% static 'src/js/localgame/localgame.js' %}"></script>
+		`;
+		startLocal();
+	} /* else {
+		element.innerHTML = `
+			<h1>Pong Local Game !/h1>
+			<script type="module" src="{% static 'src/js/create/localgame.js' %}"></script>
+		`;
+	} */
 }
 
 export const setDifficulty = (difficulty) => {
 	variables.AIDifficulty = difficulty;
 	const dropdownButton = document.getElementById('btnGroupDrop1');
-	dropdownButton.textContent = variables.difficulty;
+	dropdownButton.textContent = variables.AIDifficulty;
 }
 
 export const difficultyDropdown = () => {
