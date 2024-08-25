@@ -65,6 +65,8 @@ todo {
 	
 	Password encryption and hashing
 	Leaderboard (start with end.js/html/css)
+	Put avatar next to name, not in a separate coloumn
+	In register page, user should enter display name
 	There is a line at the bottom of the leaderboard table
 
 	Add char limits for text fields, add scrollbar for Bio
