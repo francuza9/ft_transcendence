@@ -49,6 +49,11 @@ class GlobalConsumer(AsyncWebsocketConsumer):
 			target = text_data_json.get('target', None)
 			if target and 0 < target.length() <= 12:
 				await self.unblock(target)
+		elif type == 'game_invitation':
+			target = text_data_json.get('target', None)
+			url = text_data_json.get('url', None)
+			if target and url and 0 < target.length() <= 12 and 0 < url.length() <= 100:
+				await self.send_game_invitation(target, url)
 
 	async def send_friend_request(self, target):
 		senderDB = await self.getUserDB(self.username)
