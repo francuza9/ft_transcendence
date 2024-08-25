@@ -8,7 +8,7 @@ def get_friends(request):
 	try:
 		# Get the logged-in user
 		user = request.user
-
+		
 		# Retrieve the friends of the logged-in user
 		friends = user.friends.all()
 
