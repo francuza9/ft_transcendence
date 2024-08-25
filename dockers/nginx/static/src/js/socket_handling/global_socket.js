@@ -24,6 +24,8 @@ export function goActive() {
 			console.log(data.sender, "Blocked you");
 		} else if (data.type === 'unblock') {
 			console.log(data.sender, "Unblocked you");
+		} else if (data.type === 'game_invitation') {
+			console.log(data.sender, "Invited you to a game, link: ", data.link);
 		}
 	};
 

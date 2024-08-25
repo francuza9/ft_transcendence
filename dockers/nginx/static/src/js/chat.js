@@ -137,5 +137,5 @@ export const sendInvitation = () => {
 
 	console.log('sending invitation');
 
-	socket.send(JSON.stringify({type: 'game_invitation', target: targetUser, lobby: lobbyURL})); //TODO: DO THIS
+	socket.send(JSON.stringify({type: 'game_invitation', target: targetUser, lobby: lobbyURL}));
 }
