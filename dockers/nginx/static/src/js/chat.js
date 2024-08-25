@@ -66,11 +66,11 @@ export const sendMessage = () => {
 	const chatInput = document.getElementById("chat-input");
 	const message = chatInput.value.trim();
 	const targetUser = 'b';
+	const socket = getSocket();
 
 	// before / after sending the message also display the message on the screen (only for the sender)
 
 	if (message) {
-		// Here you would send the message to the backend
 		socket.send(JSON.stringify({
 			'type': 'privmsg',
 			'target': targetUser,
