@@ -1,17 +1,27 @@
 from django.http import JsonResponse
-from django.views.decorators.csrf import csrf_exempt
-from django.views.decorators.http import require_POST
-import json
+from django.contrib.auth.decorators import login_required
 
-# Mock data for demonstration
-friends_data = [
-    {"name": "Alice", "avatar": "/static/src/images/alice.png"},
-    {"name": "Bob", "avatar": "/static/src/images/bob.png"},
-    # Add more friends as needed
-]
-
-@csrf_exempt
-@require_POST
+@login_required
 def get_friends(request):
-    # In a real application, you would query the database for friends of the current user
-    return JsonResponse({"friends": friends_data})
+	try:
+		# Get the logged-in user
+		user = request.user
+
+		# Retrieve the friends of the logged-in user
+		friends = user.friends.all()
+
+		# Prepare the data to be returned in the response
+		friends_data = []
+		for friend in friends:
+			# You can add more fields if necessary (e.g. avatar, display name)
+			friends_data.append({
+				'username': friend.username,
+				'displayName': friend.profile.displayName,  # Assuming profile is related
+				'avatarUrl': friend.profile.avatarUrl.url if friend.profile.avatarUrl else None,
+			})
+
+		# Return the friends data as JSON response
+		return JsonResponse({'success': True, 'friends': friends_data}, status=200)
+
+	except Exception as e:
+		return JsonResponse({'success': False, 'error': str(e)}, status=500)
