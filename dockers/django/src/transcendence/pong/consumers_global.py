@@ -63,6 +63,20 @@ class GlobalConsumer(AsyncWebsocketConsumer):
 					'sender': self.username,
 				}))
 
+	async def send_game_invitation(self, target, url):
+		userWS = await self.getUserWS(target)
+		userDB = await self.getUserDB(target)
+		senderDB = await self.getUserDB(self.username)
+		if userWS and userDB and senderDB:
+			if not senderDB.blocked_users.filter(id=userDB.id).exists() \
+				and not userDB.blocked_users.filter(id=senderDB.id).exists() \
+				and senderDB.friends.filter(id=userDB.id).exists():
+				await userWS.send(text_data=json.dumps({
+					'type': 'game_invitation',
+					'sender': self.username,
+					'link': url,
+				}))
+
 	async def unblock(self, target):
 		senderDB = await self.getUserDB(self.username)
 		userDB = await self.getUserDB(target)
