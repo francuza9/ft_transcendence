@@ -1,3 +1,18 @@
+todo {
+	on the create lobby page instead of having switch between tournament or classic we are gonna have 4 choices:
+	Classic,
+	Against AI,
+	Multiplayer,
+	Tournament
+
+	and depending on these we will show different options:
+	Classic -> Points to Win
+	AI -> Point to Win, Difficulty
+	Multiplayer -> Points to Win, Player Count, Map
+	Tournament -> Points to Win
+}
+
+
 [George] {
 
 	Given to Youssef (probably) {
