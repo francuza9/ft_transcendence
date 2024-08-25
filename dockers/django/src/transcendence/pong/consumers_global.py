@@ -18,8 +18,9 @@ class GlobalConsumer(AsyncWebsocketConsumer):
 		await self.broadcast_active_users()
 
 	async def disconnect(self, close_code):
-		GlobalConsumer.connected_clients.remove(self)
-		if self.username in GlobalConsumer.active_users:
+		if self in GlobalConsumer.connected_clients:
+			GlobalConsumer.connected_clients.remove(self)
+		if self.username and self.username in GlobalConsumer.active_users:
 			GlobalConsumer.active_users[self.username] = False
 		await self.broadcast_active_users()
 
