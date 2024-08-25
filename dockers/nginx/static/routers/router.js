@@ -13,6 +13,7 @@ import { updateVariable } from '/static/src/js/variables.js';
 import { normalizePath } from '/static/src/js/utils.js';
 import { NotFound } from '/static/views/notfound.js';
 import { viewProfile, showPlayerPreview, hidePlayerPreview } from '/static/src/js/profile.js';
+import { goActive } from '/static/src/js/socket_handling/global_socket.js';
 
 const router = [
     { path: /^\/$/, component: Home },
@@ -82,28 +83,7 @@ document.addEventListener('DOMContentLoaded', () => {
 		}
 	});
 
-	/*
-	document.addEventListener('shown.bs.modal', function (event) {
-		const section = document.querySelector('.background');
-
-		let backdrop = document.querySelector('.modal-backdrop:not(.moved)');
-		while (backdrop) {
-			if (!section.contains(backdrop)) {
-				section.appendChild(backdrop);
-				backdrop.classList.add('moved');
-			}
-			backdrop = document.querySelector('.modal-backdrop:not(.moved)');
-		}
-	});
-	document.addEventListener('hidden.bs.modal', function (event) {
-		let backdrop = document.querySelector('.modal-backdrop.moved');
-
-		while (backdrop) {
-			backdrop.classList.remove('moved');
-			backdrop = document.querySelector('.modal-backdrop.moved');
-		}
-	});
-	*/
+	goActive();
 
 	handleRouting();
 });
