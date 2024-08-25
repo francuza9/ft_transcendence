@@ -1,4 +1,5 @@
 import { getCookie } from '/static/src/js/cookies.js';
+import { getSocket } from '/static/src/js/socket_handling/global_socket.js';
 
 let chatInputListener = null;
 
@@ -64,10 +65,17 @@ const loadFriends = () => {
 export const sendMessage = () => {
 	const chatInput = document.getElementById("chat-input");
 	const message = chatInput.value.trim();
+	const targetUser = 'b';
+	const socket = getSocket();
+
+	// before / after sending the message also display the message on the screen (only for the sender)
 
 	if (message) {
-		// Here you would send the message to the backend
-		console.log("Message sent:", message);
+		socket.send(JSON.stringify({
+			'type': 'privmsg',
+			'target': targetUser,
+			'message': message
+		}));
 		chatInput.value = '';
 	}
 	else
