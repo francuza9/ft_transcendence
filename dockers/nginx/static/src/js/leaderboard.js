@@ -43,12 +43,21 @@ export async function fetchLeaderboard() {
 
 			// Create a new row element
 			const playerRow = document.createElement('tr');
+			playerRow.classList.add('player-row');
+			playerRow.setAttribute('data-player-id', `player${index + 1}`);
 
+			if (player.username === variables.username) {
+				playerRow.classList.add('highlighted-row');
+			}
 			// Populate the row with player data
 			playerRow.innerHTML = `
 				<td>${index + 1}</td> <!-- Rank -->
-				<td><img src="${player.avatarUrl || '/static/default-avatar.png'}" class="player-img" alt="${player.username}'s avatar"></td>
-				<td>${displayName}</td> <!-- Player Name -->
+				<td>
+					<div style="display: flex; align-items: center; justify-content: center;">
+						<img src="${player.avatarUrl || '/static/default-avatar.png'}" class="player-img" alt="${player.username}'s avatar" style="margin-right: 8px;">
+						<span>${displayName}</span>
+					</div>
+				</td> <!-- Avatar and Player Name in the same column -->
 				<td>${gamesPlayed}</td> <!-- Games Played -->
 				<td>${gamesWon}</td> <!-- Games Won -->
 				<td>${winRatio}%</td> <!-- Win Ratio -->
@@ -58,7 +67,13 @@ export async function fetchLeaderboard() {
 			playerList.appendChild(playerRow);
 		});
 
+		if (result.length > 0) {
+			const lastRow = playerList.lastElementChild;
+			lastRow.classList.add('no-bottom-border');
+		}
+
 		console.log("Leaderboard data successfully rendered.");
+		
 	} catch (error) {
 		console.error('Error encountered while fetching or processing leaderboard data:', error);
 	}

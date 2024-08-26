@@ -73,12 +73,12 @@ General Mandatory Todo {
 
 	Check uploaded profile picture format and size
 	Upload button and hiding input form 
-	
-	Password encryption and hashing
+	toFix: upon editing a field in account page, entire page is disabled
+	Remove games played, won and lost from account page
+
+	Password encryption and hashing ?
 	Leaderboard (start with end.js/html/css)
-	Put avatar next to name, not in a separate coloumn
-	In register page, user should enter display name
-	There is a line at the bottom of the leaderboard table
+	Player should be able to edit the display name in lobby that does not change the original display name
 
 	Add char limits for text fields, add scrollbar for Bio
 
