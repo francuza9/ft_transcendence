@@ -74,7 +74,9 @@
             "local": "Local",
             "online": "Online",
             "joinRoomButton": "Join Room",
-            "createRoomButton": "Create Room"
+            "createRoomButton": "Create Room",
+			"AI": "Player VS AI",
+			"noAI": "Player VS Player"
         },
         "login": {
             "title": "Login",
@@ -95,7 +97,7 @@
             "leaveButton": "Leave Room",
 			"leaveConfirmation": "Are you sure you want to leave",
 			"cancel": "Cancel",
-            "startButton": "Start game",
+            "startButton": "Start Game",
 			"addBot": "Add a Bot"
         },
 		"leaderboard": {

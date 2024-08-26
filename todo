@@ -5,6 +5,7 @@ General Mandatory Todo {
 	- server-side validation/sanitization on forms and any user input.
 	- Fix history
 	- Tournament
+	- Clean exit after game finishes
 
 	Remote Authentication:
 	- 42 Authentication
@@ -81,6 +82,8 @@ General Mandatory Todo {
 	Player should be able to edit the display name in lobby that does not change the original display name
 
 	Add char limits for text fields, add scrollbar for Bio
+
+	Fix pp file permission issues when make re
 
 	Put a 12 char limit on usernames when creating accounts and editing usernames
 	Email checks, password checks
