@@ -73,17 +73,16 @@ General Mandatory Todo {
 [Youssef] {
 
 	Account:
-		toFix: upon editing a field in account page, entire page is disabled
 		Check uploaded profile picture format and size
-		Upload button and hiding input form 
+		Upload button and hiding input form
 		Remove games played, won and lost from account page
 		Add char limits for text fields, add scrollbar for Bio
 		Changing password inside Account Settings
 		Email checks, password checks
-
+		
 	Leaderboard:
 		Add Tournaments won and multiplayer games won, along with buttons to sort by them
-
+	
 	Login and Register:
 		fix register when auto input from firefox / chrome (gives white tab instead of transparent)
 		Password encryption is necessary? If so, what about hashing?
@@ -94,8 +93,8 @@ General Mandatory Todo {
 	Lobby:
 		Player should be able to edit the display name in lobby that does not change the original display name
 		When lobby doesnt exist, redirect to join page and show error popup to client
-
-
+	
+	
 	Fix pp file permission issues when make re (??)
 	IMPORTANT: remove csrf exemptions
 	Fix missing translation keys in account page
@@ -103,7 +102,8 @@ General Mandatory Todo {
 
 
 [Marijn] {
-
+	
+	toFix: upon editing a field in account page, entire page is disabled
 	Fix modal backdrop (put modals outside of section)
 
 	A way for the pages (at least homepage) to display that you are logged in as a guest
