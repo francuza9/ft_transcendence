@@ -1,0 +1,49 @@
+<link rel="stylesheet" href="/static/src/css/create.css">
+<div class="container sm position-relative">
+	<button class="back-btn position-absolute top-0 start-0 m-3" data-action="local">
+        <i class="ri-arrow-left-line text-white"></i>
+    </button>
+    <h1 data-text="pages.createRoom.pageTitle" class="text-center mb-4">Local</h1>
+	<div class="row">
+		<div class="col">
+			<div class="mb-3">
+				<div class="btn-group w-100">
+					<button id="btnGroupDrop2" type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" data-action='pointsDropdown' aria-expanded="false">
+						3 Points to Win
+					</button>
+					<ul class="dropdown-menu w-100" aria-labelledby="btnGroupDrop2">
+						<li><button class="dropdown-item" type="button" data-variable="pointsToWin" data-value="1">1</button></li>
+						<li><button class="dropdown-item" type="button" data-variable="pointsToWin" data-value="2">2</button></li>
+						<li><button class="dropdown-item" type="button" data-variable="pointsToWin" data-value="3">3</button></li>
+						<li><button class="dropdown-item" type="button" data-variable="pointsToWin" data-value="4">4</button></li>
+						<li><button class="dropdown-item" type="button" data-variable="pointsToWin" data-value="5">5</button></li>
+						<li><button class="dropdown-item" type="button" data-variable="pointsToWin" data-value="6">6</button></li>
+						<li><button class="dropdown-item" type="button" data-variable="pointsToWin" data-value="7">7</button></li>
+						<li><button class="dropdown-item" type="button" data-variable="pointsToWin" data-value="8">8</button></li>
+						<li><button class="dropdown-item" type="button" data-variable="pointsToWin" data-value="9">9</button></li>
+						<li><button class="dropdown-item" type="button" data-variable="pointsToWin" data-value="10">10</button></li>
+						<li><button class="dropdown-item" type="button" data-variable="pointsToWin" data-value="11">11</button></li>
+					  </ul>
+                </div>
+            </div>
+
+			<div id="difficulty" class="mb-3 hidden">
+				<div class="btn-group w-100">
+					<button id="btnGroupDrop1" type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" data-action='difficultyDropdown' aria-expanded="false">
+						AI Diffculty
+					</button>
+					<ul class="dropdown-menu w-100" aria-labelledby="btnGroupDrop2">
+						<li><button class="dropdown-item" type="button" data-variable="AIDifficulty" data-value="Novice">Novice</button></li>
+						<li><button class="dropdown-item" type="button" data-variable="AIDifficulty" data-value="Moderate">Moderate</button></li>
+						<li><button class="dropdown-item" type="button" data-variable="AIDifficulty" data-value="Brutal">Brutal</button></li>
+						<li><button class="dropdown-item" type="button" data-variable="AIDifficulty" data-value="Insane">Insane</button></li>
+					  </ul>
+                </div>
+            </div>
+
+            <div class="text-center">
+                <button type="button" class="btn btn-success px-5 py-2 fw-bold" data-action="startLocal" data-text="pages.lobby.startButton">Start Game</button>
+            </div>
+        </div>
+    </div>
+</div>

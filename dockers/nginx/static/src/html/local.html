@@ -1,2 +1,17 @@
-<h1>Local</h1>
-<button type="button" class="btn btn-secondary" data-action="play">back</button>
+<link rel="stylesheet" href="/static/src/css/play.css">
+<div class="container">
+	<div class="row">
+		<button class="back-btn position-absolute top-0 start-0 m-3" data-action="play">
+			<i class="ri-arrow-left-line text-white"></i>
+		</button>
+		<h1 data-text="pages.play.local" class="text-white">Local</h1>
+	</div>
+	<div class="row">
+		<div class="col">
+			<button type="button" class="btn btn-primary" data-variable="AI" data-value="false" data-text="pages.play.noAI">Player VS Player</button>
+		</div>
+		<div class="col">
+			<button type="button" class="btn btn-primary" data-variable="AI" data-value="pages.play.AI">Player VS AI</button>
+		</div>
+	</div>
+</div>
