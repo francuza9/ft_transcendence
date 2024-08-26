@@ -72,34 +72,33 @@ General Mandatory Todo {
 
 [Youssef] {
 
-	Check uploaded profile picture format and size
-	Upload button and hiding input form 
-	toFix: upon editing a field in account page, entire page is disabled
-	Remove games played, won and lost from account page
+	Account:
+		toFix: upon editing a field in account page, entire page is disabled
+		Check uploaded profile picture format and size
+		Upload button and hiding input form 
+		Remove games played, won and lost from account page
+		Add char limits for text fields, add scrollbar for Bio
+		Changing password inside Account Settings
+		Email checks, password checks
 
-	Password encryption and hashing ?
-	Leaderboard (start with end.js/html/css)
-	Player should be able to edit the display name in lobby that does not change the original display name
+	Leaderboard:
+		Add Tournaments won and multiplayer games won, along with buttons to sort by them
 
-	Add char limits for text fields, add scrollbar for Bio
+	Login and Register:
+		fix register when auto input from firefox / chrome (gives white tab instead of transparent)
+		Password encryption is necessary? If so, what about hashing?
+		Put a 12 char limit on usernames when creating accounts and editing usernames
+		Check email fields are actual emails in login, register and account pages
+		Email checks, password checks
 
-	Fix pp file permission issues when make re
+	Lobby:
+		Player should be able to edit the display name in lobby that does not change the original display name
+		When lobby doesnt exist, redirect to join page and show error popup to client
 
-	Put a 12 char limit on usernames when creating accounts and editing usernames
-	Email checks, password checks
-	
-	when lobby doesnt exist, redirect to join page and show error popup to client
-	
-	fix register when auto input from firefox / chrome (gives white tab instead of transparent)
-	
-	Check email fields are actual emails in login, register and account pages
+
+	Fix pp file permission issues when make re (??)
 	IMPORTANT: remove csrf exemptions
-	
 	Fix missing translation keys in account page
-	
-
-	Changing password inside Account Settings
-
 }
 
 
