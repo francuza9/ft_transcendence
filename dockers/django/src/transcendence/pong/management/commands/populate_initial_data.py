@@ -30,7 +30,7 @@ class Command(BaseCommand):
 			username='a',
 			email='a@a.a',
 			password='a'
-		)  
+		)
 		user5 = CustomUser.objects.create_user(
 			username='b',
 			email='b@b.b',
