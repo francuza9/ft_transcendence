@@ -37,8 +37,6 @@ def update_ball_position(game_state):
 			speed += 0.01
 		elif speed < 0.35:
 			speed += 0.005
-		elif speed < 0.4:
-			speed += 0.002
 		ball['x'] = 5.5
 		game_state['ball_speed'] = speed
 		ball['x'] += direction['x'] * speed
@@ -53,8 +51,6 @@ def update_ball_position(game_state):
 			speed += 0.01
 		elif speed < 0.35:
 			speed += 0.005
-		elif speed < 0.4:
-			speed += 0.002
 		ball['x'] = -5.5
 		game_state['ball_speed'] = speed
 		ball['x'] += direction['x'] * speed
@@ -63,12 +59,12 @@ def update_ball_position(game_state):
 
 	# Scoring
 	if ball['x'] > 5.7:  # Player 1 scores
-		score[0] += 1;
+		score[0] += 1
 		speed = 0.05
 		reset_ball(game_state)
 		result = SCORE
 	elif ball['x'] < -5.7:  # Player 2 scores
-		score[1] += 1;
+		score[1] += 1
 		speed = 0.05
 		reset_ball(game_state)
 		result = SCORE
