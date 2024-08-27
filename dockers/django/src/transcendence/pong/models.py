@@ -8,7 +8,7 @@ class CustomUser(AbstractUser):
 	username = models.CharField(max_length=12, unique=True)
 	github_id = models.PositiveIntegerField(null=True, blank=True, unique=True)
 	github_token = models.CharField(max_length=255, blank=True, null=True)
-	email = models.EmailField(blank=True, null=True, max_length=128)
+	email = models.EmailField(blank=True, null=True, max_length=64)
 	is_guest = models.BooleanField(default=False)
 	is_bot = models.BooleanField(default=False)
 	friends = models.ManyToManyField('self', blank=True)
