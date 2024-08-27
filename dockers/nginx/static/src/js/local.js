@@ -2,6 +2,7 @@ import {variables} from '/static/src/js/variables.js';
 import {startLocal} from '/static/src/js/localgame/localgame.js';
 import {replaceHTML} from '/static/src/js/utils.js';
 import {cleanupBackground} from '/static/src/js/background/background.js';
+import {getSocket} from '/static/views/lobby.js';
 
 export const isAI = (value) => {
 	variables.isAI = value;
@@ -18,18 +19,18 @@ export const startLocalButton = () => {
 	cleanupBackground();
 
 	const element = document.createElement('div');
-	if (variables.isAI) {
+	if (!variables.isAI) {
 		element.innerHTML = `
 			<h1>Pong Local Game !/h1>
 			<script type="module" src="{% static 'src/js/localgame/localgame.js' %}"></script>
 		`;
 		startLocal();
-	} /* else {
+	} else {
 		element.innerHTML = `
-			<h1>Pong Local Game !/h1>
-			<script type="module" src="{% static 'src/js/create/localgame.js' %}"></script>
+			<h1>Pong Against AI !/h1>
+			<script type="module" src="{% static 'src/js/3d.js' %}"></script>
 		`;
-	} */
+	}
 }
 
 export const setDifficulty = (difficulty) => {
