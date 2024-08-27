@@ -34,7 +34,8 @@ class LobbyConsumer(AsyncWebsocketConsumer):
 					'room_name': "default_room_name",
 					'connected_clients': set(),
 					'winning_score': 999,
-					'difficulty': 'Moderate'
+					'difficulty': None,
+					'aiGame': False
 				}
 
 			lobby_data[self.lobby_id]['connected_clients'].add(self.channel_name)
@@ -44,7 +45,7 @@ class LobbyConsumer(AsyncWebsocketConsumer):
 				self.channel_name
 			)
 			await self.accept()
-			await self.send_refresh_message()
+			# await self.send_refresh_message() # maybe remove this
 			logger.info(f"lobby: WebSocket connection accepted for lobby {self.lobby_id}")
 
 		except Exception as e:
@@ -97,7 +98,8 @@ class LobbyConsumer(AsyncWebsocketConsumer):
 					lobby_data[self.lobby_id]['room_name'] = content.get('roomName')
 					lobby_data[self.lobby_id]['is_tournament'] = content.get('isTournament')
 					lobby_data[self.lobby_id]['winning_score'] = content.get('pointsToWin')
-					lobby_data[self.lobby_id]['difficulty'] = content.get('difficulty')
+					lobby_data[self.lobby_id]['difficulty'] = content.get('AIDifficulty')
+					lobby_data[self.lobby_id]['aiGame'] = content.get('aiGame')
 				await self.send_refresh_message()
 
 			elif message_type == 'add_bot':	
@@ -144,7 +146,8 @@ class LobbyConsumer(AsyncWebsocketConsumer):
 						'roomName': lobby_data[self.lobby_id]['room_name'],
 						'isTournament': lobby_data[self.lobby_id]['is_tournament'],
 						'winning_score': lobby_data[self.lobby_id]['winning_score'],
-						'connected_clients': connected_clients
+						'connected_clients': connected_clients,
+						'aiGame': lobby_data[self.lobby_id]['aiGame']
 					},
 				}
 			)

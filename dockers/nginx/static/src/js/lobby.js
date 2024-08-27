@@ -4,7 +4,7 @@ import {getSocket} from '/static/views/lobby.js';
 import {replaceHTML} from '/static/src/js/utils.js';
 import {checkLoginStatus} from '/static/src/js/utils.js';
 import {variables} from '/static/src/js/variables.js';
-import {Bot} from '/static/src/js/bot.js';
+import {getSocketAI} from '/static/src/js/local.js';
 
 function updateLobbyDetails(variables) {
 	if (variables.roomName)
@@ -83,8 +83,11 @@ export const leaveRoom = () => {
 	}
 };
 
-export const startButton = () => {
-    const socket = getSocket();
+export const startButton = (self) => {
+    let socket = getSocket();
+	if (!socket) {
+		socket = getSocketAI();
+	}
 
     if (!socket) {
         console.error('WebSocket is not initialized yet.');
@@ -98,9 +101,12 @@ export const startButton = () => {
     }
 };
 
-export const addBot = () => {
-	// const socket = new WebSocket(`wss://${window.location.host}/ws/${variables.lobbyId}`);
-	const socket = getSocket();
+export const addBot = (self) => {
+	let socket = getSocket();
+	if (!socket) {
+		socket = getSocketAI();
+	}
+
 	if (!socket) {
         console.error('WebSocket is not initialized yet.');
         return;
@@ -112,4 +118,3 @@ export const addBot = () => {
         console.error('WebSocket is not open.');
     }
 }
-

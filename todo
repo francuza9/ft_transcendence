@@ -40,9 +40,9 @@ General Mandatory Todo {
 	}
 
 	Current {
-		Global Socket {
-			maybe fix bugs and test
-		}
+		AI {
+			Difficulties
+		},
 	}
 
 	Upcoming {
@@ -59,14 +59,6 @@ General Mandatory Todo {
 		},
 
 		42 Auth
-	}
-
-	Extra {
-		Spectators,
-		
-		AI {
-			Difficulties
-		},
 	}
 }
 

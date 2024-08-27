@@ -16,6 +16,7 @@ export async function initPongSocket(content) {
             console.log('WebSocket connection opened.');
             if (socket.readyState === WebSocket.OPEN) {
 				console.log("winning score: ", winning_score);
+				console.log("pong: diff: ", difficulty);
 				socket.send(JSON.stringify({
 					type: 'initial_data',
 					'room_size': room_size,

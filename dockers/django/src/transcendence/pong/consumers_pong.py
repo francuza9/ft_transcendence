@@ -135,7 +135,7 @@ class PongConsumer(AsyncWebsocketConsumer):
 
 			if game_state.get('room_size') == 2:
 				for player_id, ai_instance in PongConsumer.ai_instances.get(self.room_id, {}).items():
-					direction = ai_instance.decide_direction(game_state['2_P'])
+					direction = ai_instance.ai_move(game_state['2_P'])
 					if direction == 'down':
 						if player_id == 0 and game_state['2_P']['players']['player_1']['y'] < 3.4:
 							game_state['2_P']['players']['player_1']['y'] += 0.2  # Adjust value as needed
@@ -194,7 +194,6 @@ class PongConsumer(AsyncWebsocketConsumer):
 
 					await self.send(text_data=json.dumps(packed_data))
 					break
-				logger.info(f"result = {result}")
 				await self.channel_layer.group_send(
 					self.room_group_name,
 					{
