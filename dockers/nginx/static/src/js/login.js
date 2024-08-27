@@ -36,7 +36,7 @@ export const goToLogin = () => {
 }
 	
 export const loginButton = () => {
-    const email = document.getElementById('email').value;
+    const email = document.getElementById('email').value.trim();
     const password = document.getElementById('password').value;
 
     if (email && password) {
