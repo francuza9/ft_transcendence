@@ -40,8 +40,11 @@ General Mandatory Todo {
 	}
 
 	Current {
-		AI {
-			Difficulties
+		Localgame {
+			localgame takes variables {
+				player names,
+				points to win,
+			}
 		},
 	}
 
@@ -49,13 +52,6 @@ General Mandatory Todo {
 
 		Tournament {
 			Tournament logic,
-		},
-	
-		Localgame {
-			localgame takes variables {
-				player names,
-				points to win,
-			}
 		},
 
 		42 Auth
