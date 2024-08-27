@@ -89,7 +89,7 @@ export async function createRoomButton() {
 				guestLogin();
 			}
 		}).catch(error => {
-			console.error('Error checking login status:', error);
+			console.error('Error checking login status:', error); 
 		});
 	}
 

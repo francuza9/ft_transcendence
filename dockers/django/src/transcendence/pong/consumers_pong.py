@@ -100,7 +100,8 @@ class PongConsumer(AsyncWebsocketConsumer):
 					if bot_status:
 						# Determine player ID
 						player_id = player_names.index(player_name)
-						PongConsumer.ai_instances.setdefault(self.room_id, {})[player_id] = AI(player_id, game_state)
+						difficulty = data.get('difficulty', 'Novice')
+						PongConsumer.ai_instances.setdefault(self.room_id, {})[player_id] = AI(player_id, game_state, difficulty)
 
 				room_size = data.get('room_size')
 				winning_score = data.get('winning_score')

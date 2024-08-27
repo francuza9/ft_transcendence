@@ -34,6 +34,7 @@ class LobbyConsumer(AsyncWebsocketConsumer):
 					'room_name': "default_room_name",
 					'connected_clients': set(),
 					'winning_score': 999,
+					'difficulty': 'Moderate'
 				}
 
 			lobby_data[self.lobby_id]['connected_clients'].add(self.channel_name)
@@ -96,6 +97,7 @@ class LobbyConsumer(AsyncWebsocketConsumer):
 					lobby_data[self.lobby_id]['room_name'] = content.get('roomName')
 					lobby_data[self.lobby_id]['is_tournament'] = content.get('isTournament')
 					lobby_data[self.lobby_id]['winning_score'] = content.get('pointsToWin')
+					lobby_data[self.lobby_id]['difficulty'] = content.get('difficulty')
 				await self.send_refresh_message()
 
 			elif message_type == 'add_bot':	
@@ -171,6 +173,7 @@ class LobbyConsumer(AsyncWebsocketConsumer):
 					'winning_score': lobby_data[self.lobby_id]['winning_score'],
 					'player_names': lobby_data[self.lobby_id]['players'],
 					'is_bot': lobby_data[self.lobby_id]['is_bot'],
+					'difficulty': lobby_data[self.lobby_id]['difficulty'],
 				}
 			}
 		)
