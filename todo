@@ -84,11 +84,30 @@ General Mandatory Todo {
 		Add Tournaments won and multiplayer games won, along with buttons to sort by them
 	
 	Login and Register:
-		fix register when auto input from firefox / chrome (gives white tab instead of transparent)
+		SQL injection checks
 		Password encryption is necessary? If so, what about hashing?
 		Put a 12 char limit on usernames when creating accounts and editing usernames
 		Check email fields are actual emails in login, register and account pages
 		Email checks, password checks
+
+	Registration checks:
+		password and password confirm should match
+		password length between 8 and 32 characters
+		password should contain at least one number, one lowercase and one uppercase letter
+		password and username should not match
+		email should not be empty
+		email only contains alphanumeric characters, dots, hypens and underscores before the @ symbol
+		email should not contain any spaces
+		email includes @ and . after it
+		username length between 3 and 12 characters
+		username only contains alphanumeric characters and underscores
+		username should not contain any spaces
+		username should contain at least one letter
+		username should not have more than 2 underscores in a row
+		username is case-sensitive (duh...)
+		username should not be common usernames like (admin, root, user, test, etc...)
+		THIS IS ONLY DONE IN FRONTEND, DO IT IN BACKEND TOO WITH THE UNIQUNESS CHECKS 
+
 
 	Lobby:
 		Player should be able to edit the display name in lobby that does not change the original display name
@@ -103,6 +122,7 @@ General Mandatory Todo {
 
 [Marijn] {
 	
+	Fix register page (yeah sorry I fucked it up :D)
 	toFix: upon editing a field in account page, entire page is disabled
 	Fix modal backdrop (put modals outside of section)
 
