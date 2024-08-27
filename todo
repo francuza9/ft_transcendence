@@ -103,6 +103,7 @@ General Mandatory Todo {
 		username only contains alphanumeric characters and underscores
 		username should not contain any spaces
 		username should contain at least one letter
+		username should not start or end with an underscore
 		username should not have more than 2 underscores in a row
 		username is case-sensitive (duh...)
 		username should not be common usernames like (admin, root, user, test, etc...)
@@ -113,8 +114,6 @@ General Mandatory Todo {
 		Player should be able to edit the display name in lobby that does not change the original display name
 		When lobby doesnt exist, redirect to join page and show error popup to client
 	
-	
-	Fix pp file permission issues when make re (??)
 	IMPORTANT: remove csrf exemptions
 	Fix missing translation keys in account page
 }
