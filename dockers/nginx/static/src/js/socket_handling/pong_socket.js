@@ -4,6 +4,7 @@ export async function initPongSocket(content) {
 	let winning_score = content.winning_score;
 	let player_names = content.player_names;
 	let is_bot = content.is_bot;
+	let difficulty = content.difficulty;
 
     return new Promise((resolve, reject) => {
 
@@ -20,7 +21,8 @@ export async function initPongSocket(content) {
 					'room_size': room_size,
 					'winning_score': winning_score,
 					'player_names': player_names,
-					'is_bot': is_bot
+					'is_bot': is_bot,
+					'difficulty': difficulty
 				}));
 			} else {
 				console.error('WebSocket is not open yet.');
@@ -45,7 +47,7 @@ export async function initPongSocket(content) {
 
         socket.onerror = function(error) {
             console.error('WebSocket error:', error);
-            setTimeout(() => initPongSocket(roomId, room_size, winning_score).then(resolve).catch(reject), 2000); // retry every 2 seconds
+            setTimeout(() => initPongSocket(content).then(resolve).catch(reject), 2000); // retry every 2 seconds
         };
 
         socket.onclose = function() {
