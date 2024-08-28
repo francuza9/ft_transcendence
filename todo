@@ -100,6 +100,7 @@ General Mandatory Todo {
 		username is case-sensitive (duh...)
 		username should not be common usernames like (admin, root, user, test, etc...)
 		THIS IS ONLY DONE IN FRONTEND, DO IT IN BACKEND TOO WITH THE UNIQUNESS CHECKS 
+		Test change
 
 
 	Lobby:
