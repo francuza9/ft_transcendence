@@ -54,6 +54,10 @@ General Mandatory Todo {
 			Tournament logic,
 		},
 
+		Game {
+			maybe make the game look better in terms of delay on collisions
+		}
+
 		42 Auth
 	}
 }
