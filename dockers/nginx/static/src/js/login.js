@@ -128,6 +128,9 @@ function handleKeyPress(event) {
 
 export const loginWith42Button = () =>  {
     console.log('Login with 42');
+	let client_id;
+	const redirectUri = 'https://api.intra.42.fr/oauth/authorize';
+	window.location.href = redirectUri;
 }
 
 export const loginWithGithubButton = () => {
