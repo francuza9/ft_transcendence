@@ -11,7 +11,6 @@ export async function initLobbySocket(variables, aiGame = false) {
             console.log('Lobby: WebSocket connection opened.');
             ensureUsername().then(() => {
 				variables.aiGame = aiGame;
-				console.log("lobby: diff: ", variables.AIDifficulty);
                 socket.send(JSON.stringify({ type: 'init', content: variables }));
                 resolve(socket); // Return the socket when it's open and initialized
             });

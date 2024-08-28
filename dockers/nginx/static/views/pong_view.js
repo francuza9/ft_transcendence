@@ -19,8 +19,6 @@ export async function Pong(content) {
 	let room_size = content.playerCount;
 	let map_name = content.map;
 
-	console.log("Pong content: ", content);
-
 	const element = document.createElement('div');
 	element.innerHTML = `
 		<h1>Pong Game Room: ${roomId}</h1>

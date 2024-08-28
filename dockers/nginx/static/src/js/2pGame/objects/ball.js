@@ -94,7 +94,14 @@ export class Ball {
 		this.ball.rotation.y -= this.direction.x / 15;
 		this.ball2.rotation.y = this.ball.rotation.y + 0.6;
 
-		// console.log("speed:", this.speed, "direction:", this.direction.x, "ball_position_x:", this.ball.position.x);
+		if (this.ball.position.x > 6)
+			this.ball.position.x = 6;
+		else if (this.ball.position.x < -6)
+			this.ball.position.x = -6;
+		else if (this.ball.position.z > 4.5)
+			this.ball.position.z = 4.5;
+		else if (this.ball.position.z < -4.5)
+			this.ball.position.z = -4.5;
 
 		if (this.direction.x > 0)
 			this.color = 0xff0000;
