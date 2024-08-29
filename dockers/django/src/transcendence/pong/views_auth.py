@@ -61,7 +61,7 @@ def register_view(request):
 			password = data.get('password')
 			password_confirm = data.get('passwordConfirmation')
 
-			if not username or not email or not password:
+			if not username or not email or not password or not password_confirm:
 				return JsonResponse({'success': False, 'message': 'All fields are required'})
 
 			# Username validation

@@ -11,6 +11,7 @@ urlpatterns = [
 	path('api/profile_info/<str:username>/', views.get_profile_info, name='get_profile_info'),
 	path('api/account_info/', views.get_account_info, name='get_account_info'),
 	path('api/account_update/', views.update_account_info, name='update_account_info'),
+	path('api/password_update/', views.password_update, name='password_update'),
 	path('api/avatar_update/', views.update_avatar, name='update_avatar'),
 	path('api/avatar_remove/', views.remove_avatar, name='remove_avatar'),
     path('api/logout/', views.logout_user, name='logout_user'),

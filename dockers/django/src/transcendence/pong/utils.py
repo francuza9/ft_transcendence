@@ -36,6 +36,7 @@ def is_valid_username(username):
 
 	return True, None
 
+
 def is_valid_password(password, password_confirm, username):
 	if len(password) < 8 or len(password) > 32:
 		return False, "Password must be between 8 and 32 characters long."
@@ -60,4 +61,13 @@ def is_valid_email(email):
 	if not re.match(r'^[A-Za-z0-9._%-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$', email):
 		return False, "Invalid email format."
 
+	return True, None
+
+def is_valid_display_name(display_name):
+	if len(display_name) < 3 or len(display_name) > 12:
+		return False, "Display name must be between 3 and 12 characters long."
+	if ' ' in display_name:
+		return False, "Display name cannot contain spaces."
+	if not any(char.isalpha() for char in display_name):
+		return False, "Display name must contain at least one letter."
 	return True, None

@@ -19,6 +19,7 @@ from .views_account import (
 	get_profile_info,
 	get_account_info,
 	update_account_info,
+	password_update,
 )
 
 from .views_avatar import (
