@@ -12,19 +12,24 @@
 
 .table-centered {
     margin: 0 auto;
-    max-width: 800px;
+    max-width: 100%;
 }
 
 .table-responsive {
+    max-height: 308px;
     overflow-x: auto;
+    overflow-y: auto;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    border-radius: 10px;
 }
 
-.no-bottom-border td {
-    border-bottom: none;
+.table-responsive::-webkit-scrollbar {
+    width: 8px;
 }
 
-h1 {
-	padding-bottom: 0.5em;
+.table-responsive::-webkit-scrollbar-thumb {
+    background-color: rgba(255, 255, 255, 0.5);
+    border-radius: 10px;
 }
 
 .table {
@@ -33,6 +38,7 @@ h1 {
     border: 1px solid rgba(255, 255, 255, 0.5);
     border-collapse: separate;
     border-spacing: 0;
+    margin-bottom: 0;
 }
 
 .table > :not(caption) > * > * {
@@ -56,6 +62,14 @@ h1 {
 
 .table tbody tr:hover {
     background: rgba(0, 0, 0, 0.5);
+}
+
+.table tbody tr:first-child td {
+    border-top: 1px solid rgba(255, 255, 255, 0.5);
+}
+
+.table tbody tr:last-child td {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.5);
 }
 
 .hidden {
@@ -83,4 +97,8 @@ h1 {
     transform: translate(-50%, -50%);
     text-align: center;
     color: white;
+}
+
+h1 {
+    padding-bottom: 0.5em;
 }
