@@ -5,9 +5,9 @@ const commonUsernames = [
 	'administrator', 'guest', 'system', 'support', 'superuser', 'moderator', 'operator', 'service', 'manager', 'staff',
 	'www', 'root', 'webmaster', 'sysadmin', 'ftp', 'mail', 'postmaster', 'hostmaster', 'server', 'monitor', 'daemon',
 	'test', 'tester', 'demo', 'dev', 'developer', 'admin', 'owner', 'manager', 'user', 'username', 'login', 'signup',
-	'user1', 'user123', 'anonymous', 'nobody', 'default', 'unknown',
-	'hacker', 'cracker', 'password', 'security'
-];
+	'user1', 'user123', 'anonymous', 'nobody', 'default', 'unknown', 'hacker', 'cracker', 'password', 'security',
+]
+
 
 var alertMessage = 'Alert Message';
 
@@ -63,10 +63,10 @@ function validateUsername() {
 
 // Validation logic for email
 function validateEmail() {
-    const emailInput = document.getElementById('email');
-    const emailError = document.getElementById('email-error');
-    const email = emailInput.value.trim();
-    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+	const emailInput = document.getElementById('email');
+	const emailError = document.getElementById('email-error');
+	const email = emailInput.value.trim();
+	const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
 	if (email === '') {
 		emailError.textContent = ''; 
@@ -74,15 +74,15 @@ function validateEmail() {
 		return false; 
 	}
 
-    if (!emailRegex.test(email)) {
-        emailError.textContent = 'Please enter a valid email address';
+	if (!emailRegex.test(email)) {
+		emailError.textContent = 'Please enter a valid email address';
 		alertMessage = 'Please enter a valid email address';
-        return false;
-    } else {
-        emailError.textContent = '';
-        return true;
-    }
-}
+		return false;
+	} else {
+		emailError.textContent = '';
+		return true;
+	}
+	}
 
 // Validation logic for password
 function validatePassword() {
@@ -178,20 +178,27 @@ export function removeRegisterListeners() {
     const passwordConfirmationInput = document.getElementById('password-confirmation');
     const form = document.querySelector('.register-box form');
 
-    usernameInput.removeEventListener('blur', validateUsername);
-    usernameInput.removeEventListener('input', validateUsername);
+	if (usernameInput) {
+		usernameInput.removeEventListener('blur', validateUsername);
+		usernameInput.removeEventListener('input', validateUsername);
+	}
 
-    emailInput.removeEventListener('blur', validateEmail);
-    emailInput.removeEventListener('input', validateEmail);
-
-    passwordInput.removeEventListener('blur', validatePassword);
-    passwordInput.removeEventListener('input', validatePassword);
-
-    passwordConfirmationInput.removeEventListener('blur', validatePasswordConfirmation);
-    passwordConfirmationInput.removeEventListener('input', validatePasswordConfirmation);
-
-    form.removeEventListener('submit', handleFormSubmit);
-    form.removeEventListener('keypress', handleKeyPress);
+	if (emailInput) {
+		emailInput.removeEventListener('blur', validateEmail);
+		emailInput.removeEventListener('input', validateEmail);
+	}
+	if (passwordInput) {
+		passwordInput.removeEventListener('blur', validatePassword);
+		passwordInput.removeEventListener('input', validatePassword);
+	}
+	if (passwordConfirmationInput) {
+		passwordConfirmationInput.removeEventListener('blur', validatePasswordConfirmation);
+		passwordConfirmationInput.removeEventListener('input', validatePasswordConfirmation);
+	}
+	if (form) {
+		form.removeEventListener('submit', handleFormSubmit);
+		form.removeEventListener('keypress', handleKeyPress);
+	}
 }
 
 // Handle form submission and validation
@@ -219,6 +226,7 @@ export const registerButton = () => {
     const username = document.getElementById('username').value.trim();
     const email = document.getElementById('email').value.trim();
     const password = document.getElementById('password').value;
+	const passwordConfirmation = document.getElementById('password-confirmation').value;
 
     const csrftoken = getCookie('csrftoken');
 
@@ -228,7 +236,7 @@ export const registerButton = () => {
             'Content-Type': 'application/json',
             'X-CSRFToken': csrftoken,
         },
-        body: JSON.stringify({ username, email, password })
+        body: JSON.stringify({ username, email, password, passwordConfirmation })
     })
     .then(response => response.json())
     .then(data => {

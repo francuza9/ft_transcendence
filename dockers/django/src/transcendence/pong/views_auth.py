@@ -1,5 +1,6 @@
 from django.contrib.auth import authenticate, login, logout
 from .models import CustomUser, Profile
+from .utils import is_valid_username, is_valid_email, is_valid_password
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.db.utils import IntegrityError
@@ -14,7 +15,7 @@ def login_view(request):
 	if request.method == 'POST':
 		try:
 			data = json.loads(request.body)
-			email = data.get('email')
+			email = data.get('email').lower()
 			password = data.get('password')
 			logger.info(f"Received email: {email} and password: {password}")
 
@@ -56,12 +57,29 @@ def register_view(request):
 		try:
 			data = json.loads(request.body)
 			username = data.get('username')
-			email = data.get('email')
+			email = data.get('email').lower()
 			password = data.get('password')
+			password_confirm = data.get('passwordConfirmation')
 
 			if not username or not email or not password:
 				return JsonResponse({'success': False, 'message': 'All fields are required'})
 
+			# Username validation
+			valid, error_message = is_valid_username(username)
+			if not valid:
+				return JsonResponse({'success': False, 'message': error_message})
+
+			# Email validation
+			valid, error_message = is_valid_email(email)
+			if not valid:
+				return JsonResponse({'success': False, 'message': error_message})
+
+			# Password validation
+			valid, error_message = is_valid_password(password, password_confirm, username)
+			if not valid:
+				return JsonResponse({'success': False, 'message': error_message})
+
+			# Check for existing users with the same username or email
 			if CustomUser.objects.filter(username=username).exists():
 				return JsonResponse({'success': False, 'message': 'Username already exists'})
 
@@ -69,7 +87,6 @@ def register_view(request):
 				return JsonResponse({'success': False, 'message': 'Email already exists'})
 
 			user = CustomUser.objects.create_user(username=username, email=email, password=password)
-		
 			Profile.objects.create(user=user)
 
 			return JsonResponse({'success': True, 'message': 'User registered successfully'})

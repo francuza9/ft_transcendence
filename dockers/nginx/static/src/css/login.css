@@ -89,14 +89,14 @@ input, select {
 	color: #fff;
 	font-size: 1.2em;
 	line-height: 57px;
-}
+}	
 
 .error-message {
 	color: #f00; /* Error message color */
 	font-size: 0.875em;
 	display: block;
 	position: absolute;
-	bottom: -20px; /* Position the error message below the input box */
+	bottom: -28px; /* Position the error message below the input box */
 	left: 0;
 	width: 100%; /* Ensure error message width matches input box */
 	padding: 0 5px; /* Optional padding for better alignment */
