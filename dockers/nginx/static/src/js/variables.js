@@ -61,6 +61,8 @@ export function updateVariable(document, variableName, value) {
 		case 'AI':
 			isAI(value);
 			break;
+		case 'noAI':
+			isAI
 		case 'AIDifficulty':
 			setDifficulty(value);
 			break;

@@ -123,3 +123,7 @@ h1 {
 .modal-header, .modal-body, .modal-footer {
     color: #ffffff;
 }
+
+.hidden {
+    display: none !important;
+}

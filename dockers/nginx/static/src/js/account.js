@@ -2,8 +2,6 @@ import { handleRouting } from '/static/routers/router.js';
 import { getCookie } from '/static/src/js/cookies.js';
 
 export const accountButton = (e) => {
-	//do some logic in case user is not logged in
-	//I think it is not necessary since the button is only visible when the user is logged in
 	e.preventDefault();
 	history.pushState(null, '', '/account');
 	handleRouting();
@@ -12,6 +10,20 @@ export const accountButton = (e) => {
 // JavaScript to handle the edit button functionality for everything (texts and avatar)
 export const editField = (field) => {
     console.log('Editing field:', field);
+
+	// Remove this shit later when Marijn fixes it
+	setTimeout(() => {
+		const backdrop = document.querySelector('.modal-backdrop');
+		if (backdrop) {
+			backdrop.remove();  // Remove the lingering backdrop
+		}
+		}, 300);
+	setTimeout(() => {
+		const backdrop = document.querySelector('.modal-backdrop');
+		if (backdrop) {
+			backdrop.remove();  // Remove the lingering backdrop
+		}
+		}, 300);
 
     if (field === 'avatar') {
 		const avatarImage = document.getElementById('avatar');
@@ -94,6 +106,68 @@ export const saveField = async (field) => {
     }
 };
 
+export const savePasswordButton = async () => {
+	const currentPasswordInput = document.getElementById('current-password-input-modal');
+	const newPasswordInput = document.getElementById('new-password-input-modal');
+	const confirmPasswordInput = document.getElementById('confirm-password-input-modal');
+	const errorElement = document.getElementById('password-error');
+
+	const currentPassword = currentPasswordInput.value;
+	const newPassword = newPasswordInput.value;
+	const confirmPassword = confirmPasswordInput.value;
+
+	if (!currentPassword || !newPassword || !confirmPassword) {
+		errorElement.textContent = 'Please fill in all fields';
+		return;
+	} else if (newPassword !== confirmPassword) {
+		errorElement.textContent = 'Passwords do not match';
+		return
+	}
+	try {
+		const response = await fetch('/api/password_update/', {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json',
+				'X-CSRFToken': getCookie('csrftoken'),
+			},
+			body: JSON.stringify({
+				currentPassword: currentPassword,
+				newPassword: newPassword,
+				confirmPassword: confirmPassword,
+			}),
+		});
+
+		const result = await response.json();
+
+		if (result.success) {
+			// Clear the input fields
+			currentPasswordInput.value = '';
+			newPasswordInput.value = '';
+			confirmPasswordInput.value = '';
+
+			// Hide the modal
+			const modalInstance = bootstrap.Modal.getInstance(document.getElementById('edit-password-modal'));
+			if (modalInstance)
+				modalInstance.hide();
+
+			setTimeout(() => {
+				const backdrop = document.querySelector('.modal-backdrop');
+				if (backdrop) {
+					backdrop.remove();  // Remove the lingering backdrop
+				}
+			}, 300);
+			
+			console.log('Password updated successfully');
+		} else {
+			errorElement.textContent = result.message;
+			console.error('Failed to update password:', result.message);
+		}
+	} catch (error) {
+		console.error('Error updating password:', error);
+	}
+};
+
+
 export const uploadAvatarButton = () => {
 	const fileInput = document.getElementById('avatar-input-modal');
 	const avatarPreview = document.getElementById('avatar-preview-modal');
@@ -130,6 +204,7 @@ export const uploadAvatarButton = () => {
 
     fileInput.click(); // Trigger the file input dialog
 };
+
 
 export const saveAvatarButton = async () => {
     const fileInput = document.getElementById('avatar-input-modal');

@@ -3,7 +3,7 @@ import {registerButton} from '/static/src/js/register.js';
 import {playButton, cancelButton, localButton, onlineButton, backFromOnlineButton, skipLoginButton, goToLoginButton} from '/static/src/js/play.js';
 import {createRoomButton, playerCountDropdownButton, pointsDropdownButton, editNameButton, saveNameEditButton, cancelNameEditButton, selectMapButton} from '/static/src/js/create.js';
 import {loadRooms} from '/static/src/js/join.js';
-import {saveAvatarButton, removeAvatarButton, uploadAvatarButton} from '/static/src/js/account.js';
+import {saveAvatarButton, removeAvatarButton, uploadAvatarButton, savePasswordButton} from '/static/src/js/account.js';
 import {startButton, leaveRoom, addBot} from '/static/src/js/lobby.js';
 import {settingsButton, closeButton, langButton, backButton, logoutButton} from '/static/src/js/settings.js';
 import {openChat, closeChat, sendMessage, backToFriends, sendInvitation} from '/static/src/js/chat.js';
@@ -37,6 +37,7 @@ const actionsMap = {
 	close: closeButton,
 	langButton: langButton,
 	back: backButton,
+	savePassword: savePasswordButton,
 	saveAvatar: saveAvatarButton,
     removeAvatar: removeAvatarButton,
 	uploadAvatar: uploadAvatarButton,

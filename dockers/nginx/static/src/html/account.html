@@ -41,8 +41,23 @@
                 <div class="col-6">
                     <h4 id="username">My Username</h4>
                 </div>
-                <div class="col-3 text-end">
+                <!-- <div class="col-3 text-end">
                     <button class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#edit-username-modal" data-variable="editField" data-value="username" data-text="pages.account.editButton">Edit</button>
+                </div> -->
+            </div>
+        </div>
+    </div>
+
+	<!-- Password Section -->
+    <div class="row mb-3">
+        <div class="col-12">
+            <div class="row mb-2">
+                <div class="col-3">
+                    <h3 data-text="pages.account.passwordLabel">Password</h3>
+                </div>
+                <div class="col-6"></div>
+                <div class="col-3 text-end">
+                    <button class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#edit-password-modal" data-variable="editField" data-value="password" data-text="pages.account.editButton">Edit</button>
                 </div>
             </div>
         </div>
@@ -98,100 +113,36 @@
             </div>
         </div>
     </div>
-
-    <!-- Total Score Section
-    <div class="row mb-3">
-        <div class="col-12">
-            <div class="row mb-2">
-                <div class="col-3">
-                    <h3 data-text="pages.account.totalScoreLabel">Total Score</h3>
-                </div>
-                <div class="col-6">
-                    <h4 id="totalScore">0</h4>
-                </div>
-                <div class="col-3 text-end">
-                </div>
-            </div>
-        </div>
-    </div> -->
-
-    <!-- Games Played Section -->
-    <div class="row mb-3">
-        <div class="col-12">
-            <div class="row mb-2">
-                <div class="col-3">
-                    <h3 data-text="pages.account.gamesPlayedLabel">Games Played</h3>
-                </div>
-                <div class="col-6">
-                    <h4 id="gamesPlayed">0</h4>
-                </div>
-                <div class="col-3 text-end">
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Games Won Section -->
-    <div class="row mb-3">
-        <div class="col-12">
-            <div class="row mb-2">
-                <div class="col-3">
-                    <h3 data-text="pages.account.gamesWonLabel">Games Won</h3>
-                </div>
-                <div class="col-6">
-                    <h4 id="gamesWon">0</h4>
-                </div>
-                <div class="col-3 text-end">
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Games Lost Section -->
-    <div class="row mb-3">
-        <div class="col-12">
-            <div class="row mb-2">
-                <div class="col-3">
-                    <h3 data-text="pages.account.gamesLostLabel">Games Lost</h3>
-                </div>
-                <div class="col-6">
-                    <h4 id="gamesLost">0</h4>
-                </div>
-                <div class="col-3 text-end">
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+</div> 
 
 <!-- Modals -->
 <!-- Avatar Modal -->
 <div class="modal fade" id="edit-avatar-modal" tabindex="-1" aria-labelledby="editAvatarModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="editAvatarModalLabel">Edit Avatar</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
+	<div class="modal-dialog modal-dialog-centered">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="editAvatarModalLabel">Edit Avatar</h5>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body">
 				<div class="text-center mb-3">
 					<img id="avatar-preview-modal" src="/static/default-avatar.png" alt="Avatar Preview" width="100" height="100" class="rounded-circle">
 				</div>
-                <form id="edit-form-avatar-modal" enctype="multipart/form-data">
-                    <div class="center">
-                        <input type="file" id="avatar-input-modal" class="form-control" accept="image/*" hidden>
-                        <button type="button" id="upload-avatar-modal" data-action="uploadAvatar" class="btn btn-outline-secondary" data-text="pages.account.uploadButton">Upload</button>
-                        <span id="file-name-modal" class="ms-2"></span>
-                        <button type="button" id="remove-avatar-modal" data-action="removeAvatar" class="btn btn-outline-danger ms-2" style="display: none;" data-text="pages.account.removeButton">Remove</button>
-                    </div>
-                    <div class="mt-3">
-                        <button type="button" id="save-avatar-modal" data-action="saveAvatar" class="btn btn-success" data-text="pages.account.saveButton">Save</button>
-                        <button type="button" class="btn btn-danger ms-2" data-bs-dismiss="modal" data-text="pages.account.cancelButton">Cancel</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
+				<form id="edit-form-avatar-modal" enctype="multipart/form-data">
+					<div class="center">
+						<input type="file" id="avatar-input-modal" class="form-control" accept="image/*" hidden>
+						<button type="button" id="upload-avatar-modal" data-action="uploadAvatar" class="btn btn-outline-secondary" data-text="pages.account.uploadButton">Upload</button>
+						<span id="file-name-modal" class="ms-2"></span>
+						<button type="button" id="remove-avatar-modal" data-action="removeAvatar" class="btn btn-outline-danger ms-2" style="display: none;" data-text="pages.account.removeButton">Remove</button>
+					</div>
+					<div class="mt-3">
+						<button type="button" id="save-avatar-modal" data-action="saveAvatar" class="btn btn-success" data-text="pages.account.saveButton">Save</button>
+						<button type="button" class="btn btn-danger ms-2" data-bs-dismiss="modal" data-text="pages.account.cancelButton">Cancel</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
 </div>
 
 <!-- Username Modal -->
@@ -204,9 +155,45 @@
             </div>
             <div class="modal-body">
                 <input type="text" id="username-input-modal" class="form-control" value="My Username">
+				<div id="username-error" class="text-danger mt-2" style="display: none;"></div>
             </div>
             <div class="modal-footer">
                 <button type="button" data-variable="saveField" data-value="username" data-bs-dismiss="modal" class="btn btn-success" data-text="pages.account.saveButton">Save</button>
+                <button type="button" class="btn btn-danger ms-2" data-bs-dismiss="modal" data-text="pages.account.cancelButton">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Password Modal -->
+<div class="modal fade" id="edit-password-modal" tabindex="-1" aria-labelledby="editPasswordModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editPasswordModalLabel" data-text="pages.account.editPassword">Change Password</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <!-- Current Password Input -->
+                <div class="mb-3">
+                    <label for="current-password-input-modal" class="form-label" data-text="pages.account.currentPasswordLabel">Current Password</label>
+                    <input type="password" id="current-password-input-modal" class="form-control">
+                </div>
+                <!-- New Password Input -->
+                <div class="mb-3">
+                    <label for="new-password-input-modal" class="form-label" data-text="pages.account.newPasswordLabel">New Password</label>
+                    <input type="password" id="new-password-input-modal" class="form-control">
+                </div>
+                <!-- Confirm Password Input -->
+                <div class="mb-3">
+                    <label for="confirm-password-input-modal" class="form-label" data-text="pages.account.confirmPasswordLabel">Confirm New Password</label>
+                    <input type="password" id="confirm-password-input-modal" class="form-control">
+                </div>
+                <!-- Error Message Area -->
+                <div id="password-error" class="text-danger mt-2" style="display: none;"></div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="save-password-modal" data-action="savePassword" class="btn btn-success" data-text="pages.account.saveButton">Save</button>
                 <button type="button" class="btn btn-danger ms-2" data-bs-dismiss="modal" data-text="pages.account.cancelButton">Cancel</button>
             </div>
         </div>

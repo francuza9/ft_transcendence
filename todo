@@ -62,12 +62,14 @@ General Mandatory Todo {
 
 [Youssef] {
 
+	Creation of randomized strings should check that string does not exist first
+	
+
 	Account:
 		Check uploaded profile picture format and size
-		Upload button and hiding input form
-		Remove games played, won and lost from account page
+		Upload button and hiding input form - almost done
 		Add char limits for text fields, add scrollbar for Bio
-		Changing password inside Account Settings
+		Changing password inside Account Settings - wip
 		Email checks, password checks
 		
 	Leaderboard:
@@ -76,9 +78,6 @@ General Mandatory Todo {
 	Login and Register:
 		SQL injection checks
 		Password encryption is necessary? If so, what about hashing?
-		Put a 12 char limit on usernames when creating accounts and editing usernames
-		Check email fields are actual emails in login, register and account pages
-		Email checks, password checks
 
 	Registration checks:
 		password and password confirm should match
