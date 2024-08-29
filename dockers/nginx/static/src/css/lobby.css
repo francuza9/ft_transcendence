@@ -73,7 +73,7 @@
     max-height: 250px;
     overflow-x: auto;
     overflow-y: auto;
-/*   border: 1px solid rgba(255, 255, 255, 0.5);*/
+	border: 1px solid rgba(255, 255, 255, 0.5);
     border-radius: 10px;
 }
 

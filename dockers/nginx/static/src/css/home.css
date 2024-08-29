@@ -195,7 +195,6 @@ button img {
     display: none;
 }
 
-/* Chat Button */
 .chat-btn {
     position: fixed;
     bottom: 20px;
@@ -219,24 +218,23 @@ button img {
     color: white;
 }
 
-/* Chat Window */
 #chat-window {
     position: fixed;
     bottom: 20px;
     left: 20px;
     width: 300px;
     height: 400px;
-    background: rgba(0, 0, 0, 0.8); /* Updated to be more transparent */
+    background: rgba(0, 0, 0, 0.5);
     border-radius: 10px;
     backdrop-filter: blur(15px);
     display: flex;
     flex-direction: column;
     z-index: 1000;
-    visibility: hidden; /* Hidden by default */
+    visibility: hidden;
 }
 
 #chat-window:not(.hidden) {
-    visibility: visible; /* Ensure visibility when not hidden */
+    visibility: visible;
 }
 
 #chat-header {
@@ -288,7 +286,7 @@ button img {
     position: absolute;
     top: 10px;
     left: 10px;
-    display: none; /* Hidden by default */
+    display: none;
 }
 
 #chat-header #back-btn i {
@@ -321,7 +319,7 @@ button img {
 }
 
 #chat-area {
-    display: none; /* Hidden by default */
+    display: none;
 }
 
 #message-input-area {

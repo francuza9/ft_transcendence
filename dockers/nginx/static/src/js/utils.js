@@ -186,3 +186,17 @@ export function isGuest(username) {
     const guestPattern = /^Guest\d{4}$/;
     return guestPattern.test(username);
 }
+
+export function moveModalBackdrops() {
+	const section = document.querySelector('.background');
+
+	if (section) {
+		const backdrops = document.querySelectorAll('.modal-backdrop');
+
+		backdrops.forEach(backdrop => {
+			if (backdrop && !section.contains(backdrop)) {
+				section.appendChild(backdrop);
+			}
+		});
+	}
+}
