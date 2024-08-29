@@ -12,10 +12,38 @@ export const isAI = (value) => {
 	variables.isAI = value;
 	replaceHTML('/static/src/html/createLocal.html', false).then(() => {
 		const difficultyDropdown = document.getElementById('difficulty')
-		if (variables.isAI)
-			difficultyDropdown.classList.remove('hidden');
+		if (difficultyDropdown)
+		{
+			console.log('isAI:', variables.isAI);
+			if (variables.isAI)
+				difficultyDropdown.classList.remove('hidden');
+			else
+				difficultyDropdown.classList.add('hidden');
+		} else {
+			console.error('Difficulty dropdown not found.');
+		}
 	});
 }
+
+// export const isAI = (value) => {
+//     variables.isAI = value;
+//     replaceHTML('/static/src/html/createLocal.html', false).then(() => {
+//         setTimeout(() => {
+//             const difficultyDropdown = document.getElementById('difficulty');
+
+//             if (difficultyDropdown) {
+//                 console.log('isAI:', variables.isAI);
+//                 if (variables.isAI) {
+//                     difficultyDropdown.style.display = 'block'; // Force show
+//                 } else {
+//                     difficultyDropdown.style.display = 'none'; // Force hide
+//                 }
+//             } else {
+//                 console.error('Difficulty dropdown element not found!');
+//             }
+//         }, 50); // Delay of 50ms
+//     });
+// }
 
 export const startLocalButton = () => {
 	const section = document.getElementsByTagName('section')[0];

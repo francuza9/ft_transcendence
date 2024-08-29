@@ -22,7 +22,6 @@ function validateUsername() {
 		alertMessage = 'Username cannot be empty';
         return false;
     }
-
     if (username.length < 3) {
         usernameError.textContent = 'Must be at least 3 characters long';
 		alertMessage = 'Username must be at least 3 characters long';
