@@ -81,6 +81,11 @@ document.addEventListener('DOMContentLoaded', () => {
 			const playerId = targetRow.dataset.playerId;
 			viewProfile(playerId);
 		}
+		const backdrop = document.querySelector('.modal-backdrop');
+		const section = document.querySelector('.background');
+
+		if (backdrop && section)
+			section.appendChild(backdrop);
 	});
 
 	goActive();
