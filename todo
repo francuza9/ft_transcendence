@@ -34,6 +34,8 @@ General Mandatory Todo {
 
 [George] {
 
+	Question: Should display name also be limited to 12 characters?
+
 	Given to Youssef (probably) {
 		Multiplayer Game {
 			fix backend pong logic,
@@ -63,14 +65,15 @@ General Mandatory Todo {
 [Youssef] {
 
 	Creation of randomized strings should check that string does not exist first
-
-
+	Reset Bio limit to 500 in models.py
+	
 	Account:
 		Check uploaded profile picture format and size
 		Upload button and hiding input form - almost done
 		Add char limits for text fields, add scrollbar for Bio
-		Changing password inside Account Settings - wip
-		Email checks, password checks
+		Changing password inside Account Settings - Done
+		Email checks, password checks - Done
+		Pressing Enter should save 
 		
 	Leaderboard:
 		Add Tournaments won and multiplayer games won, along with buttons to sort by them

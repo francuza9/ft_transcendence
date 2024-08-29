@@ -67,11 +67,11 @@ class Profile(models.Model):
 	user = models.OneToOneField('CustomUser', on_delete=models.CASCADE, related_name='profile')
 	displayName = models.CharField(max_length=50, default='displayName', blank=True)
 	avatarUrl = models.ImageField(upload_to=UploadTo('profile_pictures/'), blank=True, null=True)
-	bio = models.TextField(blank=True, default='')
+	bio = models.TextField(blank=True, default='')  # Just for testing
 	gamesPlayed = models.IntegerField(default=0)
 	gamesWon = models.IntegerField(default=0)
 	gamesLost = models.IntegerField(default=0)
-	multiGamesWon = models.IntegerField(default=0)    
+	multiGamesWon = models.IntegerField(default=0)
 	tournamentsWon = models.IntegerField(default=0)
 	createdAt = models.DateTimeField(auto_now_add=True)
 	updatedAt = models.DateTimeField(auto_now=True)
@@ -80,13 +80,19 @@ class Profile(models.Model):
 		db_table = 'profiles'  # Set a custom table name
 
 	def save(self, *args, **kwargs):
+		# Check if the bio length exceeds 10 characters
+		if len(self.bio) > 10:
+			raise ValueError("Bio cannot exceed 10 characters.")
+
 		# Check if displayName is empty or default, and assign the user's username
 		if not self.displayName or self.displayName == 'displayName':
 			self.displayName = self.user.username
+
 		super().save(*args, **kwargs)  # Call the original save method
 
 	def __str__(self):
 		return self.displayName
+
 
 class Tournament(models.Model):
 	name = models.CharField(max_length=255)

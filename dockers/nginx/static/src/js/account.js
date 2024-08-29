@@ -74,16 +74,10 @@ export const saveField = async (field) => {
 				if (modalInstance)
 					modalInstance.hide();
 
-				setTimeout(() => {
-					const backdrop = document.querySelector('.modal-backdrop');
-					if (backdrop) {
-					  backdrop.remove();  // Remove the lingering backdrop
-					}
-				  }, 300);
-
                 console.log('Field updated successfully');
             } else {
 				// TODO: create an error element to show the error message
+				alert(result.message);
                 console.error('Failed to update field:', result.message);
             }
         } catch (error) {
@@ -104,9 +98,11 @@ export const savePasswordButton = async () => {
 
 	if (!currentPassword || !newPassword || !confirmPassword) {
 		errorElement.textContent = 'Please fill in all fields';
+		errorElement.style.display = 'block';
 		return;
 	} else if (newPassword !== confirmPassword) {
 		errorElement.textContent = 'Passwords do not match';
+		errorElement.style.display = 'block';
 		return
 	}
 	try {
@@ -130,22 +126,18 @@ export const savePasswordButton = async () => {
 			currentPasswordInput.value = '';
 			newPasswordInput.value = '';
 			confirmPasswordInput.value = '';
+			errorElement.textContent = '';
 
 			// Hide the modal
 			const modalInstance = bootstrap.Modal.getInstance(document.getElementById('edit-password-modal'));
 			if (modalInstance)
 				modalInstance.hide();
-
-			setTimeout(() => {
-				const backdrop = document.querySelector('.modal-backdrop');
-				if (backdrop) {
-					backdrop.remove();  // Remove the lingering backdrop
-				}	
-			}, 300);
 			
 			console.log('Password updated successfully');
+			alert('Password updated successfully');
 		} else {
 			errorElement.textContent = result.message;
+			errorElement.style.display = 'block';
 			console.error('Failed to update password:', result.message);
 		}
 	} catch (error) {
@@ -259,13 +251,6 @@ export const saveAvatarButton = async () => {
 	const modalInstance = bootstrap.Modal.getInstance(document.getElementById('edit-avatar-modal'));
 	if (modalInstance)
 		modalInstance.hide();
-
-	setTimeout(() => {
-		const backdrop = document.querySelector('.modal-backdrop');
-		if (backdrop) {
-		  backdrop.remove();  // Remove the lingering backdrop
-		}
-	  }, 300);
 	
 	// Clear the file input
     fileInput.value = '';
