@@ -11,20 +11,6 @@ export const accountButton = (e) => {
 export const editField = (field) => {
     console.log('Editing field:', field);
 
-	// Remove this shit later when Marijn fixes it
-	setTimeout(() => {
-		const backdrop = document.querySelector('.modal-backdrop');
-		if (backdrop) {
-			backdrop.remove();  // Remove the lingering backdrop
-		}
-		}, 300);
-	setTimeout(() => {
-		const backdrop = document.querySelector('.modal-backdrop');
-		if (backdrop) {
-			backdrop.remove();  // Remove the lingering backdrop
-		}
-		}, 300);
-
     if (field === 'avatar') {
 		const avatarImage = document.getElementById('avatar');
 		const avatarPreview = document.getElementById('avatar-preview-modal');

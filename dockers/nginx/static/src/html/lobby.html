@@ -2,26 +2,27 @@
 <div class="container-md lobby-box">
     <div class="text-center row">
         <div class="col">
-			<button class="back-btn" data-bs-toggle="modal" data-bs-target="#leaveModal">
+            <button class="back-btn" data-bs-toggle="modal" data-bs-target="#leaveModal">
                 <i class="ri-arrow-left-line text-white"></i>
             </button>
         </div>
         <div class="col-8">
             <h1 id="lobbyTitle" data-text="pages.lobby.title">Room Name</h1>
         </div>
-        <div class="col">
-        </div>
+        <div class="col"></div>
     </div>
     <p id="lobbyDetails" data-text="pages.lobby.details"></p>
+    
     <div class="table-responsive table-centered">
         <table class="table table-hover text-center">
             <tbody id="playerList" class="playerList">
+                <!-- Player rows here -->
             </tbody>
         </table>
     </div>
-    <div class="text-center mt-4">
+    <div class="lobby-buttons">
         <button id="start" class="btn btn-success hidden" data-action="start" data-text="pages.lobby.startButton">Start game</button>
-		<button id="bot" class="btn btn-primary hidden" data-action="addBot" data-text="pages.lobby.addBot">Add a Bot</button>
+        <button id="bot" class="btn btn-primary hidden" data-action="addBot" data-text="pages.lobby.addBot">Add a Bot</button>
     </div>
 </div>
 
