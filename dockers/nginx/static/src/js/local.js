@@ -9,41 +9,15 @@ import {initLobbySocket} from '/static/src/js/socket_handling/lobby_socket.js';
 let socket;
 
 export const isAI = (value) => {
-	variables.isAI = value;
+    variables.isAI = value === "true";
 	replaceHTML('/static/src/html/createLocal.html', false).then(() => {
 		const difficultyDropdown = document.getElementById('difficulty')
-		if (difficultyDropdown)
-		{
-			console.log('isAI:', variables.isAI);
-			if (variables.isAI)
-				difficultyDropdown.classList.remove('hidden');
-			else
+		if (difficultyDropdown) {
+			if (!variables.isAI)
 				difficultyDropdown.classList.add('hidden');
-		} else {
-			console.error('Difficulty dropdown not found.');
 		}
 	});
 }
-
-// export const isAI = (value) => {
-//     variables.isAI = value;
-//     replaceHTML('/static/src/html/createLocal.html', false).then(() => {
-//         setTimeout(() => {
-//             const difficultyDropdown = document.getElementById('difficulty');
-
-//             if (difficultyDropdown) {
-//                 console.log('isAI:', variables.isAI);
-//                 if (variables.isAI) {
-//                     difficultyDropdown.style.display = 'block'; // Force show
-//                 } else {
-//                     difficultyDropdown.style.display = 'none'; // Force hide
-//                 }
-//             } else {
-//                 console.error('Difficulty dropdown element not found!');
-//             }
-//         }, 50); // Delay of 50ms
-//     });
-// }
 
 export const startLocalButton = () => {
 	const section = document.getElementsByTagName('section')[0];
@@ -51,19 +25,11 @@ export const startLocalButton = () => {
 	cleanupBackground();
 
 	const element = document.createElement('div');
-	if (!variables.isAI) {
-		element.innerHTML = `
-			<h1>Pong Local Game !</h1>
-			<script type="module" src="{% static 'src/js/localgame/localgame.js' %}"></script>
-		`;
-		startLocal();
-	} else if (variables.isAI) {
-		// element.innerHTML = `
-			// <h1>Pong Against AI !</h1>
-			// <script type="module" src="{% static 'src/js/3d.js' %}"></script>
-		// `;
-		play_with_ai();
-	}
+	element.innerHTML = `
+		<h1>${variables.isAI ? "Pong Against AI!" : "Pong Local Game!"}</h1>
+		<script type="module" src="{% static 'src/js/${variables.isAI ? '3d.js' : 'localgame/localgame.js'}' %}"></script>
+	`;
+	variables.isAI ? play_with_ai() : startLocal();
 };
 
 
