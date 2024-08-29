@@ -63,7 +63,7 @@ General Mandatory Todo {
 [Youssef] {
 
 	Creation of randomized strings should check that string does not exist first
-	
+
 
 	Account:
 		Check uploaded profile picture format and size
@@ -110,8 +110,6 @@ General Mandatory Todo {
 
 [Marijn] {
 	
-	Fix register page (yeah sorry I fucked it up :D)
-	toFix: upon editing a field in account page, entire page is disabled
 	Fix modal backdrop (put modals outside of section)
 
 	A way for the pages (at least homepage) to display that you are logged in as a guest

@@ -11,20 +11,6 @@ export const accountButton = (e) => {
 export const editField = (field) => {
     console.log('Editing field:', field);
 
-	// Remove this shit later when Marijn fixes it
-	setTimeout(() => {
-		const backdrop = document.querySelector('.modal-backdrop');
-		if (backdrop) {
-			backdrop.remove();  // Remove the lingering backdrop
-		}
-		}, 300);
-	setTimeout(() => {
-		const backdrop = document.querySelector('.modal-backdrop');
-		if (backdrop) {
-			backdrop.remove();  // Remove the lingering backdrop
-		}
-		}, 300);
-
     if (field === 'avatar') {
 		const avatarImage = document.getElementById('avatar');
 		const avatarPreview = document.getElementById('avatar-preview-modal');
@@ -43,13 +29,13 @@ export const editField = (field) => {
             removeButton.style.display = 'inline-block';
         }
 
-    } else {
+    } else if (field !== 'password') {
         // For text fields, set the input value to the current display value
         const titleInput = document.getElementById(`${field}-input-modal`);
         const displayTitle = document.getElementById(field);
         
         if (displayTitle && titleInput) {
-            titleInput.value = displayTitle.textContent.trim();
+            titleInput.value = displayTitle.textContent;
         } else {
             console.error(`Element with ID ${field} or input not found`);
             return;
@@ -154,7 +140,7 @@ export const savePasswordButton = async () => {
 				const backdrop = document.querySelector('.modal-backdrop');
 				if (backdrop) {
 					backdrop.remove();  // Remove the lingering backdrop
-				}
+				}	
 			}, 300);
 			
 			console.log('Password updated successfully');
