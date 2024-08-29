@@ -5,7 +5,6 @@ from .utils import UploadTo
 from django.db import models
 
 class CustomUser(AbstractUser):
-	username = models.CharField(max_length=12, unique=True)
 	github_id = models.PositiveIntegerField(null=True, blank=True, unique=True)
 	github_token = models.CharField(max_length=255, blank=True, null=True)
 	email = models.EmailField(blank=True, null=True, max_length=64)
@@ -24,7 +23,7 @@ class CustomUser(AbstractUser):
 		import string
 		
 		while True:
-			username = f"{prefix}{''.join(random.choices(string.digits, k=4))}" #increase k to accomoadate more users
+			username = f"{prefix}{''.join(random.choices(string.digits, k=6))}" #increase k to accomoadate more users
 			if not cls.objects.filter(username=username).exists():
 				return username
 
