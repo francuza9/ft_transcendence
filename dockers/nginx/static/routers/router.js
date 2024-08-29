@@ -14,6 +14,7 @@ import { normalizePath } from '/static/src/js/utils.js';
 import { NotFound } from '/static/views/notfound.js';
 import { viewProfile, showPlayerPreview, hidePlayerPreview } from '/static/src/js/profile.js';
 import { goActive } from '/static/src/js/socket_handling/global_socket.js';
+import { moveModalBackdrops } from '/static/src/js/utils.js';
 
 const router = [
     { path: /^\/$/, component: Home },
@@ -81,11 +82,7 @@ document.addEventListener('DOMContentLoaded', () => {
 			const playerId = targetRow.dataset.playerId;
 			viewProfile(playerId);
 		}
-		const backdrop = document.querySelector('.modal-backdrop');
-		const section = document.querySelector('.background');
-
-		if (backdrop && section)
-			section.appendChild(backdrop);
+		moveModalBackdrops();
 	});
 
 	goActive();
