@@ -45,6 +45,7 @@ class Command(BaseCommand):
 		user1.friends.add(user2)
 		user1.friends.add(user3)
 		user1.friends.add(user4)
+		user2.friends.add(user3)
 		user2.friends.add(user5)
 		user3.friends.add(user6)
 

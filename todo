@@ -66,14 +66,11 @@ General Mandatory Todo {
 		Check uploaded profile picture format and size
 		Button placement in avatar edit modal
 		Add scrollbar for Bio
+		Enter Button should save changes in account page
 
 	Leaderboard:
 		Add Tournaments won and multiplayer games won, along with buttons to sort by them
-	
-	Login and Register:
-		SQL injection checks
-		Password encryption is necessary? If so, what about hashing? - DONE
-
+		
 	Lobby:
 		Player should be able to edit the display name in lobby that does not change the original display name
 		When lobby doesnt exist, redirect to join page and show error popup to client
