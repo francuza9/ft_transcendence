@@ -6,15 +6,19 @@ let chatInputListener = null;
 export const openChat = () => {
     const chatWindow = document.getElementById("chat-window");
     const chatInput = document.getElementById("chat-input");
+	const chatBtn = document.getElementById("chat-btn");
     const sendBtn = document.getElementById("send-btn");
+	/*
     const friendList = document.getElementById("friend-list");
     const chatArea = document.getElementById("chat-area");
     const chatTitle = document.getElementById("chat-title");
     const chatName = document.getElementById("chat-name");
     const chatAvatar = document.getElementById("chat-avatar");
     const backBtn = document.getElementById("back-btn");
+	*/
 
     chatWindow.classList.remove("hidden");
+	chatBtn.classList.add("hidden");
     loadFriends();
 
     if (!chatInputListener) {
@@ -31,8 +35,10 @@ export const openChat = () => {
 export const closeChat = () => {
     const chatWindow = document.getElementById("chat-window");
     const chatInput = document.getElementById("chat-input");
+	const chatBtn = document.getElementById("chat-btn");
 
     chatWindow.classList.add("hidden");
+	chatBtn.classList.remove("hidden");
 
     if (chatInputListener) {
         chatInput.removeEventListener("keypress", chatInputListener);
@@ -44,9 +50,11 @@ export const backToFriends = () => {
     const friendList = document.getElementById("friend-list");
     const chatTitle = document.getElementById("chat-title");
     const backBtn = document.getElementById("back-btn");
+	const settingsBtn = document.getElementById("manage-friends-btn");
 
 	chatArea.classList.add("hidden");
     friendList.classList.remove("hidden");
+	settingsBtn.classList.remove("hidden");
 
     chatTitle.classList.add("hidden");
     chatTitle.style.display = "none";
@@ -93,9 +101,11 @@ export const openChatWithFriend = (friend) => {
     const chatName = document.getElementById("chat-name");
     const chatAvatar = document.getElementById("chat-avatar");
     const backBtn = document.getElementById("back-btn");
+	const settingsBtn = document.getElementById("manage-friends-btn");
 
     friendList.classList.add("hidden");
     chatArea.classList.remove("hidden");
+	settingsBtn.classList.add("hidden");
 
     chatTitle.classList.remove("hidden");
     chatTitle.style.display = "flex";
@@ -111,6 +121,7 @@ export const openChatWithFriend = (friend) => {
 
 const loadChatMessages = (friendId) => {
     // Implement fetching chat messages from backend here
+	
 };
 
 export const sendMessage = () => {
