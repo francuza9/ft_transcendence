@@ -195,6 +195,8 @@ button img {
     display: none;
 }
 
+/* CHAT */
+
 .chat-btn {
     position: fixed;
     bottom: 20px;
@@ -224,8 +226,9 @@ button img {
     left: 20px;
     width: 300px;
     height: 400px;
-    background: rgba(0, 0, 0, 0.5);
-    border-radius: 10px;
+    background: transparent;
+	border: 2px solid rgba(255, 255, 255, 0.5);
+	border-radius: 20px;
     backdrop-filter: blur(15px);
     display: flex;
     flex-direction: column;
@@ -243,9 +246,15 @@ button img {
     justify-content: space-between;
     padding: 10px;
     border-bottom: 1px solid rgba(255, 255, 255, 0.5);
-    background: rgba(0, 0, 0, 0.9);
+    background: transparent;
     color: white;
     position: relative;
+    height: 45px;
+    box-sizing: border-box;
+}
+
+#chat-header > * {
+    min-height: 40px;
 }
 
 #chat-header #chat-title {
@@ -289,8 +298,16 @@ button img {
     display: none;
 }
 
+#back-btn.show {
+    display: flex !important;
+}
+
 #chat-header #back-btn i {
     font-size: 20px;
+}
+
+#chat-title.hidden {
+    display: none !important;
 }
 
 #chat-content {
@@ -348,29 +365,8 @@ button img {
     font-size: 20px;
 }
 
-/* Settings Button */
-.settings-btn {
-    position: absolute;
-    bottom: 10px;
-    right: 10px;
-    width: 40px;
-    height: 40px;
-    background: rgba(255, 255, 255, 0.3); /* Background with blur effect */
-    border-radius: 50%;
-    color: white;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border: none;
-}
-
-.settings-btn i {
-    font-size: 24px;
-}
-
 /* Modal */
 .modal-content {
-    background: rgba(0, 0, 0, 0.8);
+    background: transparent;
     color: white;
 }
