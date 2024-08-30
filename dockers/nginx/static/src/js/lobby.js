@@ -83,6 +83,8 @@ export const leaveRoom = () => {
 	}
 };
 
+let tournament_socket;
+
 export const startButton = (self) => {
 	if (!variables.isTournament) {
 		let socket = getSocket();
@@ -101,7 +103,7 @@ export const startButton = (self) => {
 			console.error('WebSocket is not open.');
 		}
 	} else {
-		let socket = getSocket();
+		// let tournament_socket = ; TODO: WORK HERE
 	}
 };
 
