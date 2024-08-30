@@ -64,9 +64,9 @@ class GlobalConsumer(AsyncWebsocketConsumer):
 		userDB = await self.getUserDB(target)
 		userWS = await self.getUserWS(target)
 		if senderDB and userDB:
-			if not senderDB.friends.filter(id=userDB.id).exists() \
-				and not userDB.blocked_list.filter(id=senderDB.id).exists() \
-				and not senderDB.blocked_list.filter(id=userDB.id).exists():
+			if not await sync_to_async(senderDB.friends.filter(id=userDB.id).exists)() \
+				and not await sync_to_async(userDB.blocked_list.filter(id=senderDB.id).exists)() \
+				and not await sync_to_async(senderDB.blocked_list.filter(id=userDB.id).exists)():
 				await userWS.send(text_data=json.dumps({
 					'type': 'friend_request',
 					'sender': self.username,
@@ -77,9 +77,9 @@ class GlobalConsumer(AsyncWebsocketConsumer):
 		userDB = await self.getUserDB(target)
 		senderDB = await self.getUserDB(self.username)
 		if userWS and userDB and senderDB:
-			if not senderDB.blocked_users.filter(id=userDB.id).exists() \
-				and not userDB.blocked_users.filter(id=senderDB.id).exists() \
-				and senderDB.friends.filter(id=userDB.id).exists():
+			if not await sync_to_async(senderDB.blocked_users.filter(id=userDB.id).exists)() \
+				and not await sync_to_async(userDB.blocked_users.filter(id=senderDB.id).exists)() \
+				and await sync_to_async(senderDB.friends.filter(id=userDB.id).exists)():
 				await userWS.send(text_data=json.dumps({
 					'type': 'game_invitation',
 					'sender': self.username,
@@ -90,18 +90,18 @@ class GlobalConsumer(AsyncWebsocketConsumer):
 		senderDB = await self.getUserDB(self.username)
 		userDB = await self.getUserDB(target)
 		if senderDB and userDB:
-			if senderDB.blocked_users.filter(id=userDB.id).exists():
-				senderDB.blocked_users.remove(userDB)
+			if await sync_to_async(senderDB.blocked_users.filter(id=userDB.id).exists)():
+				await sync_to_async(senderDB.blocked_users.remove)(userDB)
 
 	async def send_block(self, target):
 		senderDB = await self.getUserDB(self.username)
 		userDB = await self.getUserDB(target)
 		userWS = await self.getUserWS(target)
 		if senderDB and userDB and userWS:
-			if not senderDB.blocked_users.filter(id=userDB.id).exists() \
-				and not userDB.blocked_users.filter(id=senderDB.id).exists():
-				senderDB.blocked_users.add(userDB)
-				senderDB.friends.remove(userDB)
+			if not await sync_to_async(senderDB.blocked_users.filter(id=userDB.id).exists)() \
+				and not await sync_to_async(userDB.blocked_users.filter(id=senderDB.id).exists)():
+				await sync_to_async(senderDB.blocked_users.add)(userDB)
+				await sync_to_async(senderDB.friends.remove)(userDB)
 				await userWS.send(text_data=json.dumps({
 					'type': 'block',
 					'sender': self.username,
@@ -112,9 +112,9 @@ class GlobalConsumer(AsyncWebsocketConsumer):
 		senderDB = await self.getUserDB(self.username)
 		userDB = await self.getUserDB(target)
 		if target_client and senderDB and userDB:
-			if senderDB.friends.filter(id=userDB.id).exists() \
-				and not senderDB.blocked_users.filter(id=userDB.id).exists() \
-				and not userDB.blocked_users.filter(id=senderDB.id).exists():
+			if await sync_to_async(senderDB.friends.filter(id=userDB.id).exists)() \
+				and not await sync_to_async(senderDB.blocked_users.filter(id=userDB.id).exists)() \
+				and not await sync_to_async(userDB.blocked_users.filter(id=senderDB.id).exists)():
 				await target_client.send(text_data=json.dumps({
 					'type': 'privmsg',
 					'message': message,
@@ -127,8 +127,8 @@ class GlobalConsumer(AsyncWebsocketConsumer):
 		userDB = await self.getUserDB(target)
 		userWS = await self.getUserWS(target)
 		if senderDB and userDB and userWS:
-			if senderDB.friends.filter(id=userDB.id).exists():
-				senderDB.friends.remove(userDB)
+			if await sync_to_async(senderDB.friends.filter(id=userDB.id).exists)():
+				await sync_to_async(senderDB.friends.remove)(userDB)
 				await userWS.send(text_data=json.dumps({
 					'type': 'friend_removal',
 					'sender': self.username,
