@@ -29,7 +29,7 @@ export const startLocalButton = () => {
 		<h1>${variables.isAI ? "Pong Against AI!" : "Pong Local Game!"}</h1>
 		<script type="module" src="{% static 'src/js/${variables.isAI ? '3d.js' : 'localgame/localgame.js'}' %}"></script>
 	`;
-	variables.isAI ? play_with_ai() : startLocal();
+	variables.isAI ? play_with_ai() : startLocal(variables.pointsToWin);
 };
 
 

@@ -47,8 +47,8 @@ function renderPlayerList(variables) {
 
         row.innerHTML = `
 			<!-- 
-            <td><img src="${player.profile_picture || 'https://via.placeholder.com/40'}" alt="${player}" class="player-img"></td>
-            <td>${player.gamesWon}</td>
+			<td><img src="${player.profile_picture || 'https://via.placeholder.com/40'}" alt="${player}" class="player-img"></td>
+			<td>${player.gamesWon}</td>
 			-->
             <td>${player}${player === variables.admin ? '<span class="admin-badge">Room Admin</span>' : ''}</td>
         `;
@@ -84,21 +84,25 @@ export const leaveRoom = () => {
 };
 
 export const startButton = (self) => {
-    let socket = getSocket();
-	if (!socket) {
-		socket = getSocketAI();
+	if (!variables.isTournament) {
+		let socket = getSocket();
+		if (!socket) {
+			socket = getSocketAI();
+		}
+
+		if (!socket) {
+			console.error('WebSocket is not initialized yet.');
+			return;
+		}
+
+		if (socket.readyState === WebSocket.OPEN) {
+			socket.send(JSON.stringify({ type: 'start' }));
+		} else {
+			console.error('WebSocket is not open.');
+		}
+	} else {
+		alert('Tournament mode is not available yet.');
 	}
-
-    if (!socket) {
-        console.error('WebSocket is not initialized yet.');
-        return;
-    }
-
-    if (socket.readyState === WebSocket.OPEN) {
-        socket.send(JSON.stringify({ type: 'start' }));
-    } else {
-        console.error('WebSocket is not open.');
-    }
 };
 
 export const addBot = (self) => {
