@@ -132,8 +132,9 @@ export const openChatWithFriend = (friend) => {
 
 const loadChatMessages = (friendUsername) => {
     const chatWindow = document.getElementById("messages");
+	console.log('Loading chat messages for:', friendUsername);
 
-    fetch(`/get_messages/${friendUsername}/`, {
+    fetch(`/api/messages/${friendUsername}/`, {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
