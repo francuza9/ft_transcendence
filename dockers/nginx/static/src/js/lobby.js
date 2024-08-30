@@ -101,7 +101,7 @@ export const startButton = (self) => {
 			console.error('WebSocket is not open.');
 		}
 	} else {
-		alert('Tournament mode is not available yet.');
+		let socket = getSocket();
 	}
 };
 
