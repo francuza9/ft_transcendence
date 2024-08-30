@@ -354,19 +354,24 @@ button img {
 
 #chat-area {
     flex: 1;
-    display: flex;
+    display: none;
     flex-direction: column;
     justify-content: flex-end;
 }
 
 #chat-area:not(.hidden) {
-	display: block;
+	display: flex;
 }
 
 #messages {
     flex-grow: 1;
     overflow-y: auto;
 	height: 270px;
+}
+
+.no-friends-message, .error-message {
+	padding-top: 125px;
+	color: white;
 }
 
 #message-input-area {
