@@ -8,10 +8,10 @@ let renderer;
 let transition;
 let canvas;
 
-init();
-animate();
+init_background();
+animate_background();
 
-function init() {
+export function init_background() {
 	const container = document.getElementById("background-container");
 
 	renderer = new THREE.WebGLRenderer({ antialias: true });
@@ -71,9 +71,9 @@ function handleResize() {
 }
 
 // Animation loop function
-function animate() {
+export function animate_background() {
 	if (!animationPaused) {
-		requestAnimationFrame(animate);
+		requestAnimationFrame(animate_background);
 		transition.render(clock.getDelta());
 	}
 }
@@ -92,7 +92,7 @@ function resumeAnimation() {
 	if (canvas) {
 		canvas.style.display = 'block';
 	}
-	animate();
+	animate_background();
 }
 
 // Clean up and remove the Three.js scene
