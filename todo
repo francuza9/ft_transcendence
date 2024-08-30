@@ -64,48 +64,21 @@ General Mandatory Todo {
 
 	Account:
 		Check uploaded profile picture format and size
-		Upload button and hiding input form
-		Remove games played, won and lost from account page
-		Add char limits for text fields, add scrollbar for Bio
-		Changing password inside Account Settings
-		Email checks, password checks
-		
+		Button placement in avatar edit modal
+		Add scrollbar for Bio
+
 	Leaderboard:
 		Add Tournaments won and multiplayer games won, along with buttons to sort by them
 	
 	Login and Register:
 		SQL injection checks
-		Password encryption is necessary? If so, what about hashing?
-		Put a 12 char limit on usernames when creating accounts and editing usernames
-		Check email fields are actual emails in login, register and account pages
-		Email checks, password checks
-
-	Registration checks:
-		password and password confirm should match
-		password length between 8 and 32 characters
-		password should contain at least one number, one lowercase and one uppercase letter
-		password and username should not match
-		email should not be empty
-		email only contains alphanumeric characters, dots, hypens and underscores before the @ symbol
-		email should not contain any spaces
-		email includes @ and . after it
-		username length between 3 and 12 characters
-		username only contains alphanumeric characters and underscores
-		username should not contain any spaces
-		username should contain at least one letter
-		username should not start or end with an underscore
-		username should not have more than 2 underscores in a row
-		username is case-sensitive (duh...)
-		username should not be common usernames like (admin, root, user, test, etc...)
-		THIS IS ONLY DONE IN FRONTEND, DO IT IN BACKEND TOO WITH THE UNIQUNESS CHECKS 
-		Test change
-
+		Password encryption is necessary? If so, what about hashing? - DONE
 
 	Lobby:
 		Player should be able to edit the display name in lobby that does not change the original display name
 		When lobby doesnt exist, redirect to join page and show error popup to client
-	
-	IMPORTANT: remove csrf exemptions
+		
+		IMPORTANT: check if csrf exemptions should be removed
 	Fix missing translation keys in account page
 }
 
@@ -115,47 +88,47 @@ General Mandatory Todo {
 	Fix register page (yeah sorry I fucked it up :D)
 	toFix: upon editing a field in account page, entire page is disabled
 	Fix modal backdrop (put modals outside of section)
-
+	
 	A way for the pages (at least homepage) to display that you are logged in as a guest
 	Lobby, big number of players in room, make it scrollable or responsive 
 	Profile modal (for leaderboard, lobby and endscreen)
-
+	
 	Add kick button to kick players on lobby page (for admin only)
 
 	Fix window resize stretching background
-
+	
 	Fix Github Auth to not reload SPA
-
+	
 	For tournament creation, change the amount of players they can choose
-
+	
 	Tags for bots (difficulty, bot)
-
+	
 	Add diffcilty dropdown for bot button
-
+	
 	Chat
 		friend button / unfriend button
 		invite to game only if friend
 		chat button
 		block button
 		online status
-
-
-	Low priority:
-
-	Play button on home page rework
-	Start game button placement in lobby
-	Create room button placement
-	Create local game page
-	Center avatar modal buttons in account page
-
-	Spectator
-
-	Add all languages in translations (only at end)
-
-	Extra:
-	Animations for smooth transition between pages
+		
+		
+		Low priority:
+		
+		Play button on home page rework
+		Start game button placement in lobby
+		Create room button placement
+		Create local game page
+		Center avatar modal buttons in account page
+		
+		Spectator
+		
+		Add all languages in translations (only at end)
+		
+		Extra:
+		Animations for smooth transition between pages
 	Easter egg(s)
-
+	
 }
 
 
@@ -165,10 +138,28 @@ create lobby {
 	Against AI,
 	Multiplayer,
 	Tournament
-
+	
 	and depending on these we will show different options:
 	Classic -> Points to Win
 	AI -> Point to Win, Difficulty
 	Multiplayer -> Points to Win, Player Count, Map
 	Tournament -> Points to Win
 }
+
+Registration checks:
+	password and password confirm should match
+	password length between 8 and 32 characters
+	password should contain at least one number, one lowercase and one uppercase letter
+	password and username should not match
+	email should not be empty
+	email only contains alphanumeric characters, dots, hypens and underscores before the @ symbol
+	email should not contain any spaces
+	email includes @ and . after it
+	username length between 3 and 12 characters
+	username only contains alphanumeric characters and underscores
+	username should not contain any spaces
+	username should contain at least one letter
+	username should not start or end with an underscore
+	username should not have more than 2 underscores in a row
+	username is case-sensitive (duh...)
+	username should not be common usernames like (admin, root, user, test, etc...)
