@@ -31,8 +31,9 @@ class GlobalConsumer(AsyncWebsocketConsumer):
 		if type == 'privmsg':
 			message = text_data_json.get('message', None)
 			target = text_data_json.get('target', None)
+			senderDB = await self.getUserDB(self.username)
 			if message and target and len(message) < 100 and len(target) <= 12:
-				Message.objects.create(sender=self.username, recipient=target, content=message)
+				Message.objects.create(sender=senderDB, recipient=target, content=message)
 				await self.send_privmsg(message, target)
 		elif type == 'friend_request':
 			target = text_data_json.get('target', None)

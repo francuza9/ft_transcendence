@@ -49,7 +49,7 @@ export async function initLobbySocket(variables, aiGame = false) {
 
         socket.onerror = function(error) {
             console.error('Lobby: WebSocket error:', error);
-            setTimeout(() => initLobbySocket(variables).then(resolve).catch(reject), 2000); // Retry every 2 seconds
+            setTimeout(() => initLobbySocket(variables).then(resolve).catch(reject), 2000);
         };
 
         socket.onclose = function() {
