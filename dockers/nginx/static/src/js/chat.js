@@ -1,6 +1,7 @@
 import {getCookie} from '/static/src/js/cookies.js';
 import {getSocket} from '/static/src/js/socket_handling/global_socket.js';
 import {checkLoginStatus} from '/static/src/js/utils.js';
+import {variables} from '/static/src/js/variables.js';
 
 let chatInputListener = null;
 let currentFriend = null;
@@ -151,9 +152,9 @@ const loadChatMessages = (friendUsername) => {
                 messageItem.className = "message-item";
                 messageItem.innerHTML = `
                     <strong>${message.sender}:</strong> ${message.content}
-                    <br><small>${new Date(message.timestamp).toLocaleString()}</small>
                 `;
                 chatWindow.appendChild(messageItem);
+				chatWindow.scrollTop = chatWindow.scrollHeight;
             });
         } else {
             chatWindow.innerHTML = `<div class="error-message">${data.error}</div>`;
@@ -169,6 +170,13 @@ export const sendMessage = () => {
     const chatInput = document.getElementById("chat-input");
     const message = chatInput.value.trim();
     const socket = getSocket();
+	const chatWindow = document.getElementById("messages");
+	const messageItem = document.createElement("div");
+
+	messageItem.className = "message-item";
+	messageItem.innerHTML = `<strong>${variables.username}:</strong> ${message}`;
+	chatWindow.appendChild(messageItem);
+	chatWindow.scrollTop = chatWindow.scrollHeight;
 
     if (message) {
         socket.send(JSON.stringify({
