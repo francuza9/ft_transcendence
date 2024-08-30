@@ -1,5 +1,6 @@
 from channels.generic.websocket import AsyncWebsocketConsumer
 from pong.models import Message, CustomUser
+from asgiref.sync import sync_to_async
 import json
 
 class GlobalConsumer(AsyncWebsocketConsumer):
@@ -32,8 +33,9 @@ class GlobalConsumer(AsyncWebsocketConsumer):
 			message = text_data_json.get('message', None)
 			target = text_data_json.get('target', None)
 			senderDB = await self.getUserDB(self.username)
+			recipientDB = await self.getUserDB(target)
 			if message and target and len(message) < 100 and len(target) <= 12:
-				Message.objects.create(sender=senderDB, recipient=target, content=message)
+				await sync_to_async(Message.objects.create)(sender=senderDB, recipient=recipientDB, content=message)
 				await self.send_privmsg(message, target)
 		elif type == 'friend_request':
 			target = text_data_json.get('target', None)
@@ -140,8 +142,7 @@ class GlobalConsumer(AsyncWebsocketConsumer):
 			}))
 
 	async def getUserDB(self, target):
-		user = CustomUser.objects.get(username=target)
-		return user
+		return await sync_to_async(CustomUser.objects.get)(username=target)
 
 	async def getUserWS(self, target):
 		for client in GlobalConsumer.connected_clients:
