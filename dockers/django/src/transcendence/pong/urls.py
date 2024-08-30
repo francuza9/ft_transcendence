@@ -18,4 +18,5 @@ urlpatterns = [
     path('api/github/', views.github, name='github'),
 	path('api/leaderboard/win_rate/', views.leaderboard_win_rate, name='leaderboard_win_rate'),
     path('api/friends/', views.get_friends, name='get_friends'),
+	path('api/messages/<str:username>/', views.get_messages, name='get_messages'),
 ]
