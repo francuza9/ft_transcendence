@@ -151,6 +151,8 @@ class Command(BaseCommand):
 		Message.objects.create(sender=user1, recipient=user2, content='Hello, how are you?')
 		Message.objects.create(sender=user2, recipient=user1, content='I am fine, thank you!')
 		Message.objects.create(sender=user1, recipient=user3, content='Hello, how are you?')
-		Message.objects.create(sender=user2, recipient=user3, content='Fuck off please')
+		Message.objects.create(sender=user3, recipient=user1, content='Fuck off please')
+		Message.objects.create(sender=user2, recipient=user3, content='Got some coke?')
+		Message.objects.create(sender=user3, recipient=user2, content='No, come tomorrow')
 
 		self.stdout.write(self.style.SUCCESS('Successfully populated initial data'))

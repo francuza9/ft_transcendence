@@ -38,14 +38,14 @@ def get_messages(request, username):
             raise Exception("You are not friends with this user")
         messages = Message.objects.filter(
                 Q(sender=user, recipient=friend) | Q(sender=friend, recipient=user)
-                ).order_by('timestamp')
+                ).order_by('createdAt')
 
         messages_data = []
         for message in messages:
             messages_data.append({
                 'sender': message.sender.username,
                 'recipient': message.recipient.username,
-                'timestamp': message.timestamp,
+                'timestamp': message.createdAt,
                 'content': message.content,
                 })
 
