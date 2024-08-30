@@ -3,6 +3,7 @@ import {getSocket} from '/static/src/js/socket_handling/global_socket.js';
 import {checkLoginStatus} from '/static/src/js/utils.js';
 
 let chatInputListener = null;
+let currentFriend = null;
 
 export const openChat = () => {
     const chatWindow = document.getElementById("chat-window");
@@ -126,6 +127,7 @@ export const openChatWithFriend = (friend) => {
     chatAvatar.src = friend.avatar;
 
     loadChatMessages(friend.username);
+	currentFriend = friend.username;
 };
 
 const loadChatMessages = (friendUsername) => {
@@ -165,13 +167,12 @@ const loadChatMessages = (friendUsername) => {
 export const sendMessage = () => {
     const chatInput = document.getElementById("chat-input");
     const message = chatInput.value.trim();
-    const targetUser = 'b'; // You need to set the target user dynamically
     const socket = getSocket();
 
     if (message) {
         socket.send(JSON.stringify({
             'type': 'privmsg',
-            'target': targetUser,
+            'target': currentFriend,
             'message': message
         }));
         chatInput.value = '';
