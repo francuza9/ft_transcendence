@@ -15,7 +15,15 @@ export function goActive() {
 		if (data.type === 'online_status') {
 			console.log(data.active_users);
 		} else if (data.type === 'privmsg') {
-			console.log(data.sender, ": ", data.message);
+			const chatWindow = document.getElementById("messages");
+			const messageItem = document.createElement("div");
+
+			messageItem.className = "message-item";
+			messageItem.innerHTML = `<strong>${data.sender}:</strong> ${data.message}`;
+			chatWindow.appendChild(messageItem);
+			chatWindow.scrollTop = chatWindow.scrollHeight;
+			console.log(chatWindow);
+			console.log(`${data.sender}, ${data.message}`);
 		} else if (data.type === 'friend_request') {
 			console.log(data.sender, "wants to be your friend");
 		} else if (data.type === 'friend_removal') {

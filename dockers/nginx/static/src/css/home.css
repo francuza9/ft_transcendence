@@ -367,6 +367,7 @@ button img {
     flex-grow: 1;
     overflow-y: auto;
 	height: 270px;
+	color: white;
 }
 
 .no-friends-message, .error-message {
