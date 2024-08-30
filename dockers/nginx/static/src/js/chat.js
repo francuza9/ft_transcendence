@@ -45,10 +45,14 @@ export const backToFriends = () => {
     const chatTitle = document.getElementById("chat-title");
     const backBtn = document.getElementById("back-btn");
 
-    chatArea.classList.add("hidden");
+	chatArea.classList.add("hidden");
     friendList.classList.remove("hidden");
+
     chatTitle.classList.add("hidden");
+    chatTitle.style.display = "none";
+
     backBtn.classList.add("hidden");
+    backBtn.classList.remove("show");
 };
 
 const loadFriends = () => {
@@ -63,7 +67,6 @@ const loadFriends = () => {
     })
     .then(response => response.json())
     .then(data => {
-        console.log(data);
         friendList.innerHTML = '';
         data.friends.forEach(friend => {
             const friendItem = document.createElement("div");
@@ -93,13 +96,16 @@ export const openChatWithFriend = (friend) => {
 
     friendList.classList.add("hidden");
     chatArea.classList.remove("hidden");
-    chatTitle.classList.remove("hidden");
-    backBtn.classList.remove("hidden");
 
-    chatName.textContent = friend.name || "Unknown User"; // Handle undefined username
+    chatTitle.classList.remove("hidden");
+    chatTitle.style.display = "flex";
+
+    backBtn.classList.remove("hidden");
+    backBtn.classList.add("show");
+
+    chatName.textContent = friend.name || "Unknown User";
     chatAvatar.src = friend.avatar;
 
-    // Load chat messages with the selected friend
     loadChatMessages(friend.id);
 };
 

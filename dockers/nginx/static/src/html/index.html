@@ -93,16 +93,19 @@
 <!-- Chat Window -->
 <div id="chat-window" class="hidden">
     <div id="chat-header">
-        <button id="close-chat-btn" class="close-chat-btn" data-action="closeChat">
-            <i class="ri-close-fill"></i>
-        </button>
-        <button id="back-btn" class="back-btn hidden" data-action="backToFriends">
+		<button id="back-btn" class="back-btn hidden" data-action="backToFriends">
             <i class="ri-arrow-left-line"></i>
         </button>
         <div id="chat-title" class="hidden">
             <img id="chat-avatar" src="" alt="Avatar" width="30" height="30" class="rounded-circle">
             <span id="chat-name"></span>
         </div>
+		<button id="manage-friends-btn" class="manage-friends-btn" data-bs-toggle="modal" data-bs-target="#manage-friends-modal">
+			<i class="ri-settings-5-fill"></i>
+		</button>
+        <button id="close-chat-btn" class="close-chat-btn" data-action="closeChat">
+            <i class="ri-close-fill"></i>
+        </button>
     </div>
     <div id="chat-content">
         <div id="friend-list" class="friend-list"></div>
@@ -116,9 +119,6 @@
             </div>
         </div>
     </div>
-    <button id="settings-btn" class="settings-btn" data-bs-toggle="modal" data-bs-target="#manage-friends-modal">
-        <i class="ri-settings-5-fill"></i>
-    </button>
 </div>
 
 <!-- Bootstrap Modal for Managing Friends -->
