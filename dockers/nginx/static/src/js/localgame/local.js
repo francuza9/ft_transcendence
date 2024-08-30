@@ -22,7 +22,7 @@ export function updatePlayerPositions(players) {
     }
 }
 
-export function checkCollision(ball, players, score, lights, scoremesh)
+export function checkCollision(ball, players, score, lights, scoremesh, pointsToWin)
 {
 	const p1 = players.children[0];
 	const p2 = players.children[1];
@@ -80,6 +80,12 @@ export function checkCollision(ball, players, score, lights, scoremesh)
 		for (let i = 0; i < 4; i++)
 			lights[i].color.setHex(0xffffff);
 		updateScoreText(score);
+	}
+	if (score[0] == pointsToWin || score[1] == pointsToWin)
+	{
+		alert("Game Over");
+		return true;
+		// location.reload();
 	}
 	// Check if scoremesh has a material and if that material has a color property
 	if (scoremesh === 0)

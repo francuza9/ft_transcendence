@@ -27,7 +27,7 @@ initScore(score).then(scorea => {
 	group.add(scoremesh);
 }).catch(error => {console.error('Failed to load score:', error);})
 
-export function startLocal()
+export function startLocal(pointsToWin)
 {
 	const scene = initScene();
 	const camera = initCamera(0);
@@ -75,13 +75,13 @@ export function startLocal()
 	initText().then(text => {
 		playerNames(0, "player 1", "player 2").then(names => {
 			group.add(text); // Add text mesh to the group
-	    	group.add(names);
+			group.add(names);
 			scene.add(light);
 	    	scene.add(group); // Add group to the scene after text is loaded
 	    	animate(); // Start animation loop after everything is set up
 		})
 	}).catch(error => {
-	    console.error('Failed to load text:', error);
+		console.error('Failed to load text:', error);
 	});
 
 
@@ -91,14 +91,38 @@ export function startLocal()
 		
 		controls.update();
 		renderer.render(scene, camera);
-		checkCollision(ball, players, score, lights, scoremesh);
+		let checker = checkCollision(ball, players, score, lights, scoremesh, pointsToWin);
+		if (checker) {
+			cleanup();
+		}
 		updatePlayerPositions(players);
 	}
 
 	function onWindowResize() {
-    	camera.aspect = window.innerWidth / window.innerHeight;
-    	camera.updateProjectionMatrix();
-    	renderer.setSize(window.innerWidth, window.innerHeight);
+		camera.aspect = window.innerWidth / window.innerHeight;
+		camera.updateProjectionMatrix();
+		renderer.setSize(window.innerWidth, window.innerHeight);
+	}
+
+	function cleanup() {
+			renderer.setAnimationLoop(null);
+			window.removeEventListener('resize', onWindowResize);
+			document.removeEventListener('keydown', onKeydown);
+			document.removeEventListener('keyup', onKeyup);
+			controls.dispose();
+			group.traverse(function (object) {
+				if (object.geometry) object.geometry.dispose();
+				if (object.material) {
+					if (Array.isArray(object.material)) {
+						object.material.forEach(material => material.dispose());
+					} else {
+						object.material.dispose();
+					}
+				}
+			});
+			scene.clear();
+			renderer.dispose();
+			renderer.domElement.remove();
 	}
 }
 
