@@ -31,29 +31,29 @@ class GlobalConsumer(AsyncWebsocketConsumer):
 		if type == 'privmsg':
 			message = text_data_json.get('message', None)
 			target = text_data_json.get('target', None)
-			if message and target and message.length() < 100 and target.length() <= 12:
+			if message and target and len(message) < 100 and len(target) <= 12:
 				Message.objects.create(sender=self.username, recipient=target, content=message)
 				await self.send_privmsg(message, target)
 		elif type == 'friend_request':
 			target = text_data_json.get('target', None)
-			if target and 0 < target.length() <= 12:
+			if target and 0 < len(target) <= 12:
 				await self.send_friend_request(target)
 		elif type == 'friend_removal':
 			target = text_data_json.get('target', None)
-			if target and 0 < target.length() <= 12:
+			if target and 0 < len(target) <= 12:
 				await self.send_friend_removal(target)
 		elif type == 'block':
 			target = text_data_json.get('target', None)
-			if target and 0 < target.length() <= 12:
+			if target and 0 < len(target) <= 12:
 				await self.send_block(target)
 		elif type == 'unblock':
 			target = text_data_json.get('target', None)
-			if target and 0 < target.length() <= 12:
+			if target and 0 < len(target) <= 12:
 				await self.unblock(target)
 		elif type == 'game_invitation':
 			target = text_data_json.get('target', None)
 			url = text_data_json.get('url', None)
-			if target and url and 0 < target.length() <= 12 and 0 < url.length() <= 100:
+			if target and url and 0 < len(target) <= 12 and 0 < len(url) <= 100:
 				await self.send_game_invitation(target, url)
 
 	async def send_friend_request(self, target):
