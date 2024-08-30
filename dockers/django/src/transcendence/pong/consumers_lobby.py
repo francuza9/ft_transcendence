@@ -108,7 +108,8 @@ class LobbyConsumer(AsyncWebsocketConsumer):
 					await self.addBot(address)
 
 			elif message_type == 'start':
-				if len(lobby_data[self.lobby_id]['players']) >= 2:
+				if len(lobby_data[self.lobby_id]['players']) >= 2 and lobby_data[self.lobby_id]['is_tournament'] == False \
+				or len(lobby_data[self.lobby_id]['players']) == lobby_data[self.lobby_id]['max_users'] and lobby_data[self.lobby_id]['is_tournament'] == True:
 					await self.send_start_message()
 				else:
 					await self.send(text_data=json.dumps({
@@ -127,7 +128,7 @@ class LobbyConsumer(AsyncWebsocketConsumer):
 						lobby_data[self.lobby_id]['admin'] = lobby_data[self.lobby_id]['players'][0]
 					else:
 						lobby_data[self.lobby_id]['admin'] = None
-				await self.close()  # Close the WebSocket connection
+				await self.close()
 
 	async def send_refresh_message(self):
 		if self.lobby_id in lobby_data:
