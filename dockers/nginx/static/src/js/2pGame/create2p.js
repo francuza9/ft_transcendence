@@ -12,7 +12,7 @@ import { playerNames } from './objects/playerNames.js';
 import { initScore, updateScore } from './objects/score.js';
 import { replaceHTML } from '/static/src/js/utils.js'
 import { renderPlayerList } from '/static/src/js/end.js';
-// import { checkCollision } from './local.js';
+import { init_background, animate_background } from '/static/src/js/background/background.js';
 
 const group = new THREE.Group();
 export let keys = {
@@ -56,8 +56,6 @@ export function create2Pgame(mappov, socket) {
     const groupCornerLights = new initCornerLights(ballmesh);
     const light = new THREE.AmbientLight(0xffffff, 1);
 
-    const lights = [groupCornerLights.children[9], groupCornerLights.children[10], groupCornerLights.children[11], groupCornerLights.children[12]];
-
     // controls
     const controls = new OrbitControls(camera, renderer.domElement);
     controls.update();
@@ -90,7 +88,7 @@ export function create2Pgame(mappov, socket) {
     window.addEventListener('keydown', boundOnKeydown, false);
     window.addEventListener('keyup', boundOnKeyup, false);
 
-	socket.addEventListener('message', event => {
+	const handleMessage = (event) => {
 		if (event.data instanceof ArrayBuffer) {
 			const bytes = new Float32Array(event.data);
 			if (bytes.length >= 9) {
@@ -128,11 +126,16 @@ export function create2Pgame(mappov, socket) {
 			const time = data.time;
 			const score = data.scores;
 			const names_list = data.players;
+			// cleanup();
+			// init_background();
+			// animate_background();
 			replaceHTML('/static/src/html/end.html').then(() => {
 				renderPlayerList(time, names_list, score);
 			});
 		}
-	});
+	};
+
+	socket.addEventListener('message', handleMessage);
 
 
     // add objects to scene
@@ -166,7 +169,6 @@ export function create2Pgame(mappov, socket) {
         ball.animate();
         // render
 
-		// checkCollision(ball, players, score, lights, scoremesh);
 		if (mappov > 0)
 			updatePlayerPosition(players.children[mappov - 1]);
 
@@ -192,7 +194,30 @@ export function create2Pgame(mappov, socket) {
 	    view.setFloat32(1, positionX, true); // 4 bytes (little-endian)
 	    view.setFloat32(5, positionY, true); // 4 bytes (little-endian)
 
-	    return buffer;
+		return buffer;
+	}
+
+	function cleanup() {
+		renderer.setAnimationLoop(null);
+		window.removeEventListener('resize', onWindowResize);
+		window.removeEventListener('keydown', boundOnKeydown);
+		window.removeEventListener('keyup', boundOnKeyup);
+		socket.removeEventListener('message', handleMessage);
+		socket.close();
+		controls.dispose();
+		group.traverse(function (object) {
+			if (object.geometry) object.geometry.dispose();
+			if (object.material) {
+				if (Array.isArray(object.material)) {
+					object.material.forEach(material => material.dispose());
+				} else {
+					object.material.dispose();
+				}
+			}
+		});
+		scene.clear();
+		renderer.dispose();
+		renderer.domElement.remove();
 	}
 }
 
