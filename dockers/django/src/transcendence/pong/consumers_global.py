@@ -8,6 +8,7 @@ class GlobalConsumer(AsyncWebsocketConsumer):
 
 	async def connect(self):
 		user = self.scope['user']
+		self.username = None
 		if not user.is_authenticated:
 			await self.close()
 			return
