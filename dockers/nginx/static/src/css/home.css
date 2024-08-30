@@ -241,6 +241,7 @@ button img {
 }
 
 #chat-header {
+	position: relative;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -249,12 +250,7 @@ button img {
     background: transparent;
     color: white;
     position: relative;
-    height: 45px;
-    box-sizing: border-box;
-}
-
-#chat-header > * {
-    min-height: 40px;
+    height: 65px;
 }
 
 #chat-header #chat-title {
@@ -272,6 +268,7 @@ button img {
 }
 
 #chat-header #close-chat-btn,
+#chat-header #manage-friends-btn,
 #chat-header #back-btn {
     width: 40px;
     height: 40px;
@@ -283,18 +280,19 @@ button img {
     background: none;
     border: none;
     color: white;
-}
-
-#chat-header #close-chat-btn {
     position: absolute;
-    top: 10px;
     right: 10px;
 }
 
 #chat-header #back-btn {
+    display: none;
+}
+
+#back-btn {
     position: absolute;
-    top: 10px;
     left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
     display: none;
 }
 
@@ -302,20 +300,39 @@ button img {
     display: flex !important;
 }
 
+#manage-friends-btn {
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+}
+
+#close-chat-btn {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+}
+
+#chat-title {
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#chat-header .hidden {
+    display: none !important;
+}
+
 #chat-header #back-btn i {
     font-size: 20px;
 }
 
-#chat-title.hidden {
-    display: none !important;
-}
-
 #chat-content {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    padding: 10px;
-    overflow-y: auto;
+    overflow-y: hidden;
 }
 
 #friend-list {
@@ -336,13 +353,29 @@ button img {
 }
 
 #chat-area {
-    display: none;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+}
+
+#chat-area:not(.hidden) {
+	display: block;
+}
+
+#messages {
+    flex-grow: 1;
+    overflow-y: auto;
+	height: 270px;
 }
 
 #message-input-area {
     display: flex;
     align-items: center;
     gap: 10px;
+	padding: 10px;
+    border-top: 1px solid rgba(255, 255, 255, 0.3);
+    background: transparent;
 }
 
 #chat-input {

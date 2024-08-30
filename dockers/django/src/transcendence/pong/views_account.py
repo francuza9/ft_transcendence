@@ -4,6 +4,7 @@ from .utils import is_valid_email, is_valid_password, is_valid_display_name
 from django.core.exceptions import ObjectDoesNotExist
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
+from django.contrib.auth import update_session_auth_hash
 from django.conf import settings
 import json
 
@@ -148,6 +149,8 @@ def password_update(request):
 			
 			user.set_password(new_password)
 			user.save()
+
+			update_session_auth_hash(request, user)
 
 			return JsonResponse({'success': True, 'message': 'Password updated successfully'})
 

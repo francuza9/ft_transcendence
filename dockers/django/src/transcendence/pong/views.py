@@ -32,5 +32,7 @@ from .views_leaderboard import (
 )
 
 from .views_friends import (
-    get_friends
+	get_friends,
+	get_messages,
 )
+

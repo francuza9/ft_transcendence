@@ -41,6 +41,7 @@ export const editField = (field) => {
             return;
         }
     }
+	
 };
 
 // JavaScript to handle the save button functionality only for text fields
@@ -73,6 +74,13 @@ export const saveField = async (field) => {
 				const modalInstance = bootstrap.Modal.getInstance(document.getElementById(`edit-${field}-modal`));
 				if (modalInstance)
 					modalInstance.hide();
+
+				setTimeout(() => {
+					const backdrop = document.querySelector('.modal-backdrop');
+					if (backdrop) {
+						backdrop.remove();  // Remove the lingering backdrop
+					}
+					}, 20);
 
                 console.log('Field updated successfully');
             } else {
@@ -128,11 +136,17 @@ export const savePasswordButton = async () => {
 			confirmPasswordInput.value = '';
 			errorElement.textContent = '';
 
-			// Hide the modal
-			const modalInstance = bootstrap.Modal.getInstance(document.getElementById('edit-password-modal'));
+			const modalInstance = bootstrap.Modal.getInstance(document.getElementById(`edit-password-modal`));
 			if (modalInstance)
 				modalInstance.hide();
-			
+
+			setTimeout(() => {
+				const backdrop = document.querySelector('.modal-backdrop');
+				if (backdrop) {
+					backdrop.remove();  // Remove the lingering backdrop
+				}
+				}, 20);
+
 			console.log('Password updated successfully');
 			alert('Password updated successfully');
 		} else {
@@ -251,6 +265,13 @@ export const saveAvatarButton = async () => {
 	const modalInstance = bootstrap.Modal.getInstance(document.getElementById('edit-avatar-modal'));
 	if (modalInstance)
 		modalInstance.hide();
+
+	setTimeout(() => {
+		const backdrop = document.querySelector('.modal-backdrop');
+		if (backdrop) {
+			backdrop.remove();  // Remove the lingering backdrop
+		}
+		}, 20);
 	
 	// Clear the file input
     fileInput.value = '';
