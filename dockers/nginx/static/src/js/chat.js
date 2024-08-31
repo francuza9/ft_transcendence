@@ -26,14 +26,16 @@ export const openChat = () => {
     chatWindow.classList.remove("hidden");
 	chatBtn.classList.add("hidden");
 
-	if (!checkLoginStatus()) {
-		friendList.innerHTML = '';
-		const noFriendsMessage = document.createElement("div");
-		noFriendsMessage.className = "no-friends-message";
-		noFriendsMessage.innerText = "Login to chat with friends";
-		friendList.appendChild(noFriendsMessage);
-	} else
-		loadFriends();
+	ensureUsername.then(() => {
+		if (isGuest(variables.username)) {
+			friendList.innerHTML = '';
+			const noFriendsMessage = document.createElement("div");
+			noFriendsMessage.className = "no-friends-message";
+			noFriendsMessage.innerText = "Login to chat with friends";
+			friendList.appendChild(noFriendsMessage);
+		} else
+			loadFriends();
+	});
 
     if (!chatInputListener) {
         chatInputListener = function(event) {
