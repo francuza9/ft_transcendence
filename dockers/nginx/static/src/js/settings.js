@@ -31,7 +31,7 @@ export const checkUserState = () => {
 
 	checkLoginStatus().then(loggedIn => {
 		if (loggedIn && !variables.is_guest) {
-			fetchAvatar();
+			fetchAvatar('settings-avatar');
 			authenticated.classList.remove('hidden');
 			unauthenticated.classList.add('hidden');
 			hello.textContent = `${variables.hello} ${variables.username}!`;

@@ -82,13 +82,7 @@ General Mandatory Todo {
 [Marijn] {
 	
 	Today {
-		Make chat and settings visible on all pages, update updatHTML function
-
-		Finish Chat {
-			Fix big messages not sending 
-			Online status
-			Make friends clickable to show profile popup
-		}
+		Make friends clickable to show profile popup
 
 		Profile modal (for leaderboard, lobby and endscreen) {
 			friend button / unfriend button
