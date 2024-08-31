@@ -59,6 +59,7 @@ export async function logoutButton() {
 			document.cookie = 'sessionid=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/; SameSite=None; Secure;';
 			checkUserState();
 			closeChat();
+			variables.username = undefined;
 			alert('You have been logged out successfully.');
         } else {
             console.error('Logout failed:', data.message);
