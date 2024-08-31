@@ -1,17 +1,19 @@
 import {getCookie} from '/static/src/js/cookies.js';
 import {getSocket} from '/static/src/js/socket_handling/global_socket.js';
-import {checkLoginStatus} from '/static/src/js/utils.js';
+import {checkLoginStatus, ensureUsername} from '/static/src/js/utils.js';
 import {variables} from '/static/src/js/variables.js';
 
 let chatInputListener = null;
 let currentFriend = null;
 
 export async function initChat() {
-	const body = document.getElementsByTagName('body')[0];
+	const section = document.getElementsByTagName('section')[0];
+	const chatDiv = document.createElement("div");
 	const response = await fetch('/static/src/html/chat.html');
 	if (!response.ok) throw new Error('Network response was not ok');
-	const htmlContent = await response.text();
-	body.insertAdjacentHTML('afterbegin', htmlContent);
+	chatDiv.innerHTML = await response.text();
+	chatDiv.id = "chat";
+	section.appendChild(chatDiv);
 }
 
 export const openChat = () => {
@@ -76,8 +78,6 @@ export const backToFriends = () => {
 };
 
 export const loadFriends = () => {
-	const friendList = document.getElementById("friend-list");
-
 	fetch('/api/friends/', {
 		method: 'POST',
 		headers: {
@@ -87,6 +87,8 @@ export const loadFriends = () => {
 	})
 	.then(response => response.json())
 	.then(data => {
+		const friendList = document.getElementById("friend-list");
+
 		friendList.innerHTML = '';
 		if (data.friends.length === 0) {
 			const noFriendsMessage = document.createElement("div");
@@ -94,20 +96,22 @@ export const loadFriends = () => {
 			noFriendsMessage.innerText = "Add friends to chat with them";
 			friendList.appendChild(noFriendsMessage);
 		} else {
-			data.friends.forEach(friend => {
-				const friendItem = document.createElement("div");
-				friendItem.className = "friend-item";
-				friendItem.dataset.username = friend.username;
-				friendItem.innerHTML = `
+			ensureUsername().then(() => {
+				data.friends.forEach(friend => {
+					const friendItem = document.createElement("div");
+					friendItem.className = "friend-item";
+					friendItem.dataset.username = friend.username;
+					friendItem.innerHTML = `
 					<div class="avatar-container">
 						<img src="${friend.avatar}" alt="${friend.name}" width="40" height="40" class="rounded-circle">
 						<span class="status-indicator"></span>
 					</div>
 					<span class="friend-name">${friend.name}</span>
 				`;
-				friendItem.addEventListener('click', () => openChatWithFriend(friend));
-				friendList.appendChild(friendItem);
-				updateFriendStatus(friend.username);
+					friendItem.addEventListener('click', () => openChatWithFriend(friend));
+					friendList.appendChild(friendItem);
+					updateFriendStatus(friend.username);
+				});
 			});
 		}
 	})
