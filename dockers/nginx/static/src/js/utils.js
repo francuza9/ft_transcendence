@@ -9,6 +9,17 @@ export async function replaceHTML(path)
 	const userLang = getCookie('userLang') || 'en';
 
     try {
+		if (path.includes('login') || path.includes('register')) {
+            const chatDiv = document.getElementById('chat');
+            const settingsDiv = document.getElementById('settings');
+            if (chatDiv) chatDiv.style.display = 'none';
+            if (settingsDiv) settingsDiv.style.display = 'none';
+        } else {
+            const chatDiv = document.getElementById('chat');
+            const settingsDiv = document.getElementById('settings');
+            if (chatDiv) chatDiv.style.display = '';
+            if (settingsDiv) settingsDiv.style.display = '';
+        }
 		/*
         let background = document.querySelector('.background');
 
@@ -50,8 +61,6 @@ export async function replaceHTML(path)
     } catch (error) {
         console.error('There was a problem with the fetch operation:', error);
     }
-
-	return body;
 }
 
 export function normalizePath(path)
@@ -106,27 +115,24 @@ export async function getUsername() {
 }
 
 export async function fetchAccountInfo() {
-    try {
-        const response = await fetch('/api/account_info/');
-        const result = await response.json();
+	try {
+		const response = await fetch('/api/account_info/');
+		const result = await response.json();
 
-        if (result.success) {
-            const data = result.data;
-            document.getElementById('username').innerText = data.username;
-            document.getElementById('email').innerText = data.email;
-            document.getElementById('bio').innerText = data.bio;
+		if (result.success) {
+			const data = result.data;
+			document.getElementById('username').innerText = data.username;
+			document.getElementById('email').innerText = data.email;
+			document.getElementById('bio').innerText = data.bio;
 			document.getElementById('displayName').innerText = data.displayName;
-            document.getElementById('avatar').src = data.avatarUrl || '/static/default-avatar.png';
-            // document.getElementById('gamesPlayed').innerText = data.gamesPlayed;
-            // document.getElementById('gamesWon').innerText = data.gamesWon;
-            // document.getElementById('gamesLost').innerText = data.gamesLost;
+			document.getElementById('avatar').src = data.avatarUrl || '/static/default-avatar.png';
 			
-        } else {
-            alert('Failed to fetch account info.');
-        }
-    } catch (error) {
-        console.error('Error fetching account info:', error);
-    }
+		} else {
+			alert('Failed to fetch account info.');
+		}
+	} catch (error) {
+		console.error('Error fetching account info:', error);
+	}
 }
 
 export async function fetchAvatar() {
@@ -191,7 +197,7 @@ export const ensureUsername = async () => {
 };
 
 export function isGuest(username) {
-    const guestPattern = /^Guest\d{4}$/;
+    const guestPattern = /^guest\d{6}$/;
     return guestPattern.test(username);
 }
 
