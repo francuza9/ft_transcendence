@@ -67,7 +67,7 @@ class Profile(models.Model):
 	user = models.OneToOneField('CustomUser', on_delete=models.CASCADE, related_name='profile')
 	displayName = models.CharField(max_length=50, default='displayName', blank=True)
 	avatarUrl = models.ImageField(upload_to=UploadTo('profile_pictures/'), blank=True, null=True)
-	bio = models.TextField(blank=True, default='')  # Just for testing
+	bio = models.TextField(blank=True, default='', max_length=50) #TODO: change max_length to 500
 	gamesPlayed = models.IntegerField(default=0)
 	gamesWon = models.IntegerField(default=0)
 	gamesLost = models.IntegerField(default=0)
