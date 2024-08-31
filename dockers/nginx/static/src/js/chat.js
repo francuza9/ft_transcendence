@@ -6,6 +6,14 @@ import {variables} from '/static/src/js/variables.js';
 let chatInputListener = null;
 let currentFriend = null;
 
+export async function initChat() {
+	const body = document.getElementsByTagName('body')[0];
+	const response = await fetch('/static/src/html/chat.html');
+	if (!response.ok) throw new Error('Network response was not ok');
+	const htmlContent = await response.text();
+	body.insertAdjacentHTML('afterbegin', htmlContent);
+}
+
 export const openChat = () => {
     const chatWindow = document.getElementById("chat-window");
     const chatInput = document.getElementById("chat-input");

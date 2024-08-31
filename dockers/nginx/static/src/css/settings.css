@@ -1,0 +1,152 @@
+.settings-btn {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    border: 2px solid rgba(255, 255, 255, 0.5);
+    border-radius: 50%;
+    backdrop-filter: blur(15px);
+    transition: background 0.3s ease, color 0.3s ease;
+    cursor: pointer;
+    z-index: 1000;
+}
+
+.settings-btn:hover {
+    background: rgba(255, 255, 255, 0.2);
+    color: #000;
+}
+
+#settings-btn.hidden {
+    display: none;
+}
+
+.settings-btn i {
+    font-size: 24px;
+    color: white;
+}
+
+#sidebar {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    width: 300px;
+    height: calc(100% - 40px);
+    background: transparent;
+    border: 2px solid rgba(255, 255, 255, 0.5);
+    border-radius: 20px;
+    backdrop-filter: blur(15px);
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    z-index: 9999;
+}
+
+#sidebar.hidden {
+    transform: translateX(110%);
+}
+
+#sidebar:not(.hidden) {
+    transform: translateX(0);
+}
+
+.close-btn {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    width: 40px;
+    height: 40px;
+    border: 2px solid rgba(255, 255, 255, 0.5);
+    border-radius: 50%;
+    background: transparent;
+    color: #fff;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(15px);
+    transition: background 0.3s ease, color 0.3s ease;
+    z-index: 10000;
+}
+
+.close-btn:hover {
+    background: rgba(255, 255, 255, 0.2);
+    color: #000;
+}
+
+#sidebar-content {
+    width: 100%;
+	margin-top: 80px;
+}
+
+#sidebar-content button {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 10px;
+    padding: 10px;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    border: none;
+    transition: background 0.3s ease;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+#sidebar-content .back-btn {
+    margin-bottom: 40px;
+}
+
+#sidebar-content button i {
+    font-size: 1.2em;
+}
+
+#language-menu {
+    display: flex;
+    flex-direction: column;
+}
+
+#language-menu.hidden {
+    display: none;
+}
+
+.back-btn {
+    font-size: 20px;
+    align-self: flex-start;
+}
+
+#authenticated img {
+	vertical-align: inherit;
+	margin-bottom: 15px;
+}
+
+button img {
+    width: 24px;
+    height: 24px;
+    margin-right: 10px;
+}
+
+#sidebar-content button.active {
+	background-color: rgba(96, 0, 128, 0.4);
+    color: white;
+}
+
+#sidebar-content button:hover {
+    background: rgba(255, 255, 255, 0.4);
+    color: #000;
+}
+
+#sidebar-content.hidden {
+    display: none;
+}
+
+.hidden {
+    display: none;
+}

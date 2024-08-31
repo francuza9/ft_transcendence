@@ -2,6 +2,14 @@ import {getCookie} from '/static/src/js/cookies.js';
 import {checkLoginStatus, fetchAvatar} from '/static/src/js/utils.js';
 import {variables} from '/static/src/js/variables.js';
 
+export async function initSettings() {
+	const body = document.getElementsByTagName('body')[0];
+	const response = await fetch('/static/src/html/settings.html');
+	if (!response.ok) throw new Error('Network response was not ok');
+	const htmlContent = await response.text();
+	body.insertAdjacentHTML('afterbegin', htmlContent);
+}
+
 export const settingsButton = () => {
     const sidebar = document.getElementById('sidebar');
     const settingsBtn = document.getElementById('settings-btn');
