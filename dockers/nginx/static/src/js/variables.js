@@ -16,6 +16,7 @@ export const variables = {
 	previousPage: '/',
 	admin: '',
 	players: [],
+	activeUsers: {},
 };
 
 export const resetVariables = () => {

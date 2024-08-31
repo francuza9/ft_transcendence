@@ -1,4 +1,3 @@
-import { handleButtonAction } from '/static/routers/buttons.js';
 import { Pong } from '../views/pong_view.js';
 import { Home } from '../views/home.js';
 import { Register } from '../views/register.js';
@@ -15,6 +14,9 @@ import { NotFound } from '/static/views/notfound.js';
 import { viewProfile, showPlayerPreview, hidePlayerPreview } from '/static/src/js/profile.js';
 import { goActive } from '/static/src/js/socket_handling/global_socket.js';
 import { moveModalBackdrops } from '/static/src/js/utils.js';
+import { initChat } from '/static/src/js/chat.js';
+import { initSettings } from '/static/src/js/settings.js'; 
+import { handleButtonAction } from '/static/routers/buttons.js';
 
 const router = [
     { path: /^\/$/, component: Home },
@@ -86,5 +88,7 @@ document.addEventListener('DOMContentLoaded', () => {
 	});
 
 	goActive();
+	initChat();
+	initSettings();
 	handleRouting();
 });
