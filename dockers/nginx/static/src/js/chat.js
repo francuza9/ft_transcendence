@@ -26,7 +26,7 @@ export const openChat = () => {
     chatWindow.classList.remove("hidden");
 	chatBtn.classList.add("hidden");
 
-	ensureUsername.then(() => {
+	ensureUsername().then(() => {
 		if (isGuest(variables.username)) {
 			friendList.innerHTML = '';
 			const noFriendsMessage = document.createElement("div");
