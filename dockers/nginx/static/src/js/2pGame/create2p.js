@@ -12,27 +12,28 @@ import { playerNames } from './objects/playerNames.js';
 import { initScore, updateScore } from './objects/score.js';
 import { replaceHTML } from '/static/src/js/utils.js'
 import { renderPlayerList } from '/static/src/js/end.js';
-import { initBackground, resumeAnimation} from '/static/src/js/background/background.js';
+import { endGame } from '/static/src/js/end.js';
 
-const group = new THREE.Group();
+let group;
 export let keys = {
 	"a": false,
 	"d": false,
 	"ArrowLeft": false,
 	"ArrowRight": false,
 };
-let score = [0, 0];
-export let scoremesh = 0;
-
-
-initScore(score).then(scorea => {
-    scoremesh = scorea;
-    group.add(scoremesh);
-}).catch(error => { console.error('Failed to load score:', error); })
+let score;
+export let scoremesh;
 
 export function create2Pgame(mappov, socket) {
+	group = new THREE.Group();
 	if (mappov > 2)
 		mappov = 0;
+	score = [0, 0];
+	scoremesh = 0;
+	initScore(score).then(scorea => {
+		scoremesh = scorea;
+		group.add(scoremesh);
+	}).catch(error => { console.error('Failed to load score:', error); })
     const scene = initScene();
     const camera = initCamera(mappov);
     const renderer = initRenderer();
@@ -126,7 +127,8 @@ export function create2Pgame(mappov, socket) {
 			const time = data.time;
 			const score = data.scores;
 			const names_list = data.players;
-			// cleanup();
+			cleanup();
+			endGame(score, renderer);
 			// initBackground();
 			// resumeAnimation();
 			replaceHTML('/static/src/html/end.html').then(() => {
@@ -205,19 +207,9 @@ export function create2Pgame(mappov, socket) {
 		socket.removeEventListener('message', handleMessage);
 		socket.close();
 		controls.dispose();
-		group.traverse(function (object) {
-			if (object.geometry) object.geometry.dispose();
-			if (object.material) {
-				if (Array.isArray(object.material)) {
-					object.material.forEach(material => material.dispose());
-				} else {
-					object.material.dispose();
-				}
-			}
-		});
+		group.clear();
 		scene.clear();
 		renderer.dispose();
-		renderer.domElement.remove();
 	}
 }
 

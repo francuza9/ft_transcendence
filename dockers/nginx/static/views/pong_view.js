@@ -10,9 +10,7 @@ const SPACE_MAP = 4;
 
 export async function Pong(content) {
 	const section = document.getElementsByTagName('section')[0];
-	if (section) {
-		section.remove();
-	}
+	section.classList.add('hidden');
 	cleanupBackground();
 
 	let roomId = content.roomID;
