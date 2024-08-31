@@ -166,7 +166,7 @@ h4 {
     align-self: flex-start;
 }
 
-img {
+#authenticated img {
 	vertical-align: inherit;
 	margin-bottom: 15px;
 }
@@ -327,8 +327,8 @@ button img {
     display: none !important;
 }
 
-#chat-header #back-btn i {
-    font-size: 20px;
+#chat-header i {
+    font-size: 24px;
 }
 
 #chat-content {
@@ -346,6 +346,7 @@ button img {
     border-bottom: 1px solid rgba(255, 255, 255, 0.2);
     cursor: pointer;
     color: white;
+	font-weight: bold;
 }
 
 .friend-item:hover {
@@ -364,10 +365,37 @@ button img {
 }
 
 #messages {
-    flex-grow: 1;
+	flex-grow: 1;
     overflow-y: auto;
-	height: 270px;
-	color: white;
+    height: 270px;
+    color: white;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.message-item {
+    max-width: 70%;
+    padding: 10px 15px;
+    border-radius: 20px;
+    margin-bottom: 10px;
+    display: inline-block;
+    word-wrap: break-word;
+    font-size: 14px;
+    line-height: 1.4;
+}
+
+.message-item.sender {
+    background-color: #DCF8C6;
+    color: #000;
+    align-self: flex-end;
+}
+
+.message-item.recipient {
+    background-color: #2A2A2A;
+    color: #FFF;
+    align-self: flex-start;
 }
 
 .no-friends-message, .error-message {
@@ -380,17 +408,53 @@ button img {
     align-items: center;
     gap: 10px;
 	padding: 10px;
-    border-top: 1px solid rgba(255, 255, 255, 0.3);
     background: transparent;
+}
+
+.avatar-container {
+    position: relative;
+    display: inline-block;
+}
+
+#friend-list .status-indicator {
+    position: absolute;
+    bottom: 5px;
+    right: 12px;
+    width: 12px;
+    height: 12px;
+    background-color: limegreen;
+    border-radius: 50%;
+    display: none;
+}
+
+#chat-header .status-indicator {
+    position: absolute;
+	left: 22px;
+	bottom: -2px;
+    width: 10px;
+    height: 10px;
+    background-color: limegreen;
+    border-radius: 50%;
+    display: none;
+}
+
+.status-indicator.online {
+    display: block !important;
+}
+
+.friend-item img {
+	vertical-align: inherit;
+	margin-right: 15px;
 }
 
 #chat-input {
     flex: 1;
     padding: 5px;
     border: 1px solid rgba(255, 255, 255, 0.3);
-    border-radius: 5px;
+    border-radius: 20px;
     background: transparent;
     color: white;
+	padding-left: 15px;
 }
 
 #send-btn {
