@@ -27,7 +27,7 @@ export const openChat = () => {
 	chatBtn.classList.add("hidden");
 
 	ensureUsername().then(() => {
-		if (isGuest(variables.username)) {
+		if (isGuest(variables.username) || !variables.username) {
 			friendList.innerHTML = '';
 			const noFriendsMessage = document.createElement("div");
 			noFriendsMessage.className = "no-friends-message";
