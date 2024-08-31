@@ -5,6 +5,7 @@ import {replaceHTML} from '/static/src/js/utils.js';
 import {checkLoginStatus} from '/static/src/js/utils.js';
 import {variables} from '/static/src/js/variables.js';
 import {getSocketAI} from '/static/src/js/local.js';
+import {initTournamentSocket} from '/static/src/js/socket_handling/tournament_socket.js';
 
 function updateLobbyDetails(variables) {
 	if (variables.roomName)
@@ -103,7 +104,13 @@ export const startButton = (self) => {
 			console.error('WebSocket is not open.');
 		}
 	} else {
-		// let tournament_socket = ; TODO: WORK HERE
+		initTournamentSocket(variables).then((socket) => {
+			tournament_socket = socket;
+			const lobbySocket = getSocket();
+			if (lobbySocket) {
+				lobbySocket.send(JSON.stringify({ type: 'start_tournament' }));
+			}
+		});
 	}
 };
 
@@ -120,7 +127,11 @@ export const addBot = (self) => {
 
     if (socket.readyState === WebSocket.OPEN) {
         socket.send(JSON.stringify({ type: 'add_bot', address: window.location.host }));
-    } else {
+	} else {
         console.error('WebSocket is not open.');
     }
+}
+
+export function getTournamentSocket() {
+	return tournament_socket;
 }

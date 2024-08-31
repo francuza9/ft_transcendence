@@ -108,14 +108,17 @@ class LobbyConsumer(AsyncWebsocketConsumer):
 					await self.addBot(address)
 
 			elif message_type == 'start':
-				if len(lobby_data[self.lobby_id]['players']) >= 2 and lobby_data[self.lobby_id]['is_tournament'] == False \
-				or len(lobby_data[self.lobby_id]['players']) == lobby_data[self.lobby_id]['max_users'] and lobby_data[self.lobby_id]['is_tournament'] == True:
+				if len(lobby_data[self.lobby_id]['players']) >= 2:
 					await self.send_start_message()
 				else:
 					await self.send(text_data=json.dumps({
 						'type': 'error',
 						'content': 'Not enough players to start the game'
 					}))
+
+			elif message_type == 'start_tournament':
+				if len(lobby_data[self.lobby_id]['players']) == lobby_data[self.lobby_id]['max_users']:
+					await self.send_tournament_message() 
 
 			elif message_type == 'exit':
 				username = content.get('username')
@@ -153,6 +156,39 @@ class LobbyConsumer(AsyncWebsocketConsumer):
 				}
 			)
 
+	async def addBot(self, address):
+		# Choose a random name from the list of bot names
+		available_names = [name for name in bot_names if name not in lobby_data[self.lobby_id]['players']]
+		logger.info(f"lobby: Available bot names: {available_names}")
+		if available_names:
+			bot_name = random.choice(available_names)
+			lobby_data[self.lobby_id]['players'].append(bot_name)
+			lobby_data[self.lobby_id]['is_bot'].append(True)
+			await self.send_refresh_message()
+			logger.info(f"lobby: Added bot with name {bot_name}")
+		else:
+			await self.send(text_data=json.dumps({
+				'type': 'error',
+				'content': 'No available bot names'
+			}))
+
+	async def send_tournament_message(self):
+		username_is_bot_map = dict(zip(lobby_data[self.lobby_id]['players'], lobby_data[self.lobby_id]['is_bot']))
+		await self.channel_layer.group_send(
+			self.lobby_group_name,
+			{
+				'type': 'tournament_message',
+				'message': username_is_bot_map,
+			}
+		)
+
+	async def tournament_message(self, event):
+		message = event['message']
+		await self.send(text_data=json.dumps({
+			'type': 'start_tournament',
+			'content': message,
+		}))
+
 	async def refresh_message(self, event):
 		message = event['message']
 		await self.send(text_data=json.dumps({
@@ -189,18 +225,3 @@ class LobbyConsumer(AsyncWebsocketConsumer):
 			'content': message,
 		}))
 
-	async def addBot(self, address):
-		# Choose a random name from the list of bot names
-		available_names = [name for name in bot_names if name not in lobby_data[self.lobby_id]['players']]
-		logger.info(f"lobby: Available bot names: {available_names}")
-		if available_names:
-			bot_name = random.choice(available_names)
-			lobby_data[self.lobby_id]['players'].append(bot_name)
-			lobby_data[self.lobby_id]['is_bot'].append(True)
-			await self.send_refresh_message()
-			logger.info(f"lobby: Added bot with name {bot_name}")
-		else:
-			await self.send(text_data=json.dumps({
-				'type': 'error',
-				'content': 'No available bot names'
-			}))
