@@ -89,13 +89,17 @@ const loadFriends = () => {
 			data.friends.forEach(friend => {
 				const friendItem = document.createElement("div");
 				friendItem.className = "friend-item";
+				friendItem.dataset.username = friend.username;
 				friendItem.innerHTML = `
-					<img src="${friend.avatar}" alt="${friend.name}" width="40" height="40" class="rounded-circle">
-					<span>${friend.name}</span>
+					<div class="avatar-container">
+						<img src="${friend.avatar}" alt="${friend.name}" width="40" height="40" class="rounded-circle">
+						<span class="status-indicator"></span>
+					</div>
+					<span class="friend-name">${friend.name}</span>
 				`;
-				friendItem.dataset.friendId = friend.name; // Add friend ID for future reference
 				friendItem.addEventListener('click', () => openChatWithFriend(friend));
 				friendList.appendChild(friendItem);
+				updateFriendStatus(friend.username);
 			});
 		}
 	})
@@ -119,6 +123,7 @@ export const openChatWithFriend = (friend) => {
 	settingsBtn.classList.add("hidden");
 
     chatTitle.classList.remove("hidden");
+	chatTitle.dataset.username = friend.username;
     chatTitle.style.display = "flex";
 
     backBtn.classList.remove("hidden");
@@ -129,11 +134,12 @@ export const openChatWithFriend = (friend) => {
 
     loadChatMessages(friend.username);
 	currentFriend = friend.username;
+	updateFriendStatus(friend.username);
 };
 
 const loadChatMessages = (friendUsername) => {
     const chatWindow = document.getElementById("messages");
-	console.log('Loading chat messages for:', friendUsername);
+	chatWindow.innerHTML = '';
 
     fetch(`/api/messages/${friendUsername}/`, {
         method: 'GET',
@@ -144,15 +150,12 @@ const loadChatMessages = (friendUsername) => {
     })
     .then(response => response.json())
     .then(data => {
-        chatWindow.innerHTML = '';
-
         if (data.success) {
             data.messages.forEach(message => {
                 const messageItem = document.createElement("div");
-                messageItem.className = "message-item";
-                messageItem.innerHTML = `
-                    <strong>${message.sender}:</strong> ${message.content}
-                `;
+                const messageClass = message.sender === variables.username ? 'sender' : 'recipient';
+                messageItem.className = `message-item ${messageClass}`;
+                messageItem.innerHTML = message.content;
                 chatWindow.appendChild(messageItem);
 				chatWindow.scrollTop = chatWindow.scrollHeight;
             });
@@ -173,21 +176,19 @@ export const sendMessage = () => {
 	const chatWindow = document.getElementById("messages");
 	const messageItem = document.createElement("div");
 
-	messageItem.className = "message-item";
-	messageItem.innerHTML = `<strong>${variables.username}:</strong> ${message}`;
-	chatWindow.appendChild(messageItem);
-	chatWindow.scrollTop = chatWindow.scrollHeight;
-
     if (message) {
+		messageItem.className = "message-item sender";
+		messageItem.innerHTML = message;
+		chatWindow.appendChild(messageItem);
+		chatWindow.scrollTop = chatWindow.scrollHeight;
+
         socket.send(JSON.stringify({
             'type': 'privmsg',
             'target': currentFriend,
             'message': message
         }));
         chatInput.value = '';
-    } else {
-        console.log('Tried to send an empty message');
-    }
+	}
 };
 
 export const sendInvitation = () => {
@@ -197,4 +198,28 @@ export const sendInvitation = () => {
 
     console.log('Sending invitation');
 	socket.send(JSON.stringify({type: 'game_invitation', target: targetUser, lobby: lobbyURL}));
+}
+
+function updateFriendStatus(username) {
+    const friendItem = document.querySelector(`.friend-item[data-username="${username}"]`);
+
+	const isOnline = true; //update logic
+    if (friendItem) {
+        const statusIndicator = friendItem.querySelector('.status-indicator');
+        if (isOnline) {
+            statusIndicator.classList.add('online');
+        } else {
+            statusIndicator.classList.remove('online');
+        }
+    }
+
+	const chatTitle = document.getElementById('chat-title');
+    if (chatTitle && chatTitle.dataset.username === username) {
+        const chatStatusIndicator = chatTitle.querySelector('#status-indicator');
+        if (isOnline) {
+            chatStatusIndicator.classList.add('online');
+        } else {
+            chatStatusIndicator.classList.remove('online');
+        }
+    }
 }
