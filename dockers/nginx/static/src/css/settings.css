@@ -15,6 +15,13 @@
     cursor: pointer;
 }
 
+h4 {
+	color: white;
+	padding-bottom: 1.2em;
+	font-weight: 600;
+	margin-bottom: revert;
+}
+
 .container, .container-md {
 	z-index: -1;
 }

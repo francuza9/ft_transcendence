@@ -138,14 +138,15 @@ export async function fetchAccountInfo() {
 	}
 }
 
-export async function fetchAvatar() {
+export async function fetchAvatar(id) {
+	if (!id) id = 'avatar';
 	try {
 		const response = await fetch('/api/account_info/');
 		const result = await response.json();
 
 		if (result.success) {
 			const data = result.data;
-			document.getElementById('avatar').src = data.avatarUrl || '/static/default-avatar.png';
+			document.getElementById(id).src = data.avatarUrl || '/static/default-avatar.png';
 		} else {
 			alert('Failed to fetch avatar.');
 		}
