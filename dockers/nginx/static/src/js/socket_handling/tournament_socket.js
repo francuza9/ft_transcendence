@@ -7,10 +7,7 @@ export async function initTournamentSocket(variables) {
 
 		socket.onopen = function() {
 			console.log('Tournament: WebSocket connection opened.');
-			ensureUsername().then(() => {
-			    // socket.send(JSON.stringify({ type: 'init', content: variables }));
-			    resolve(socket); // Return the socket when it's open and initialized
-			});
+			resolve(socket);
 		};
 
 		socket.onmessage = function(event) {

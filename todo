@@ -42,19 +42,13 @@ General Mandatory Todo {
 	}
 
 	Current {
-		Localgame {
-			localgame takes variables {
-				player names,
-				points to win,
-			}
+		Tournament {
+			Tournament logic,
 		},
 	}
 
 	Upcoming {
-
-		Tournament {
-			Tournament logic,
-		},
+		Spectator
 
 		42 Auth
 	}
@@ -64,6 +58,8 @@ General Mandatory Todo {
 
 	redirect login and register urls to account settings if user is logged in
 	successful login still displays login and register buttons
+	Logging out on account settings page should redirect to home page
+	toFix: elements id conflicts with sidebar
 
 	Account:
 		Check uploaded profile picture format and size
