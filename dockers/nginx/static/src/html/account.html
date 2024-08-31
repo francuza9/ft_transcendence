@@ -101,6 +101,7 @@
         </div>
     </div>
 </div> 
+
 <div class="modal fade" id="edit-avatar-modal" tabindex="-1" aria-labelledby="editAvatarModalLabel" aria-hidden="true">
 	<div class="modal-dialog modal-dialog-centered">
 		<div class="modal-content">
@@ -128,24 +129,7 @@
 		</div>
 	</div>
 </div>
-<div class="modal fade" id="edit-username-modal" tabindex="-1" aria-labelledby="editUsernameModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="editUsernameModalLabel" data-text="pages.account.editUsername">Edit Username</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <input type="text" id="username-input-modal" class="form-control" value="My Username">
-				<div id="username-error" class="text-danger mt-2" style="display: none;"></div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" data-variable="saveField" data-value="username" data-bs-dismiss="modal" class="btn btn-success" data-text="pages.account.saveButton">Save</button>
-                <button type="button" class="btn btn-danger ms-2" data-bs-dismiss="modal" data-text="pages.account.cancelButton">Cancel</button>
-            </div>
-        </div>
-    </div>
-</div>
+
 <div class="modal fade" id="edit-password-modal" tabindex="-1" aria-labelledby="editPasswordModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
@@ -185,6 +169,7 @@
             <div class="modal-body">
                 <input type="text" id="displayName-input-modal" class="form-control" value="My Display Name">
             </div>
+			<div id="displayName-error" class="text-danger" style="display: none;"></div>
             <div class="modal-footer">
                 <button type="button" data-variable="saveField" data-value="displayName" class="btn btn-success" data-text="pages.account.saveButton">Save</button>
                 <button type="button" class="btn btn-danger ms-2" data-bs-dismiss="modal" data-text="pages.account.cancelButton">Cancel</button>
@@ -202,6 +187,7 @@
             <div class="modal-body">
                 <input type="email" id="email-input-modal" class="form-control" value="My Email">
             </div>
+			<div id="email-error" class="text-danger" style="display: none;"></div>
             <div class="modal-footer">
                 <button type="button" data-variable="saveField" data-value="email" class="btn btn-success" data-text="pages.account.saveButton">Save</button>
                 <button type="button" class="btn btn-danger ms-2" data-bs-dismiss="modal" data-text="pages.account.cancelButton">Cancel</button>
@@ -219,6 +205,7 @@
             <div class="modal-body">
                 <textarea id="bio-input-modal" class="form-control" rows="3">Bio</textarea>
             </div>
+			<div id="bio-error" class="text-danger" style="display: none;"></div>
             <div class="modal-footer">
                 <button type="button" data-variable="saveField" data-value="bio" class="btn btn-success" data-text="pages.account.saveButton">Save</button>
                 <button type="button" class="btn btn-danger ms-2" data-bs-dismiss="modal" data-text="pages.account.cancelButton">Cancel</button>

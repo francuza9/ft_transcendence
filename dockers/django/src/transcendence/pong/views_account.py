@@ -95,6 +95,9 @@ def update_account_info(request):
 			
 			if field == 'bio':
 				valid, error_message = is_valid_bio(new_value)
+				if not valid:
+					return JsonResponse({'success': False, 'message': error_message})
+				
 				profile.bio = new_value
 				profile.save()
 				return JsonResponse({'success': True, 'message': 'Field updated successfully'})
