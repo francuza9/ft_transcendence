@@ -167,58 +167,89 @@ export const savePasswordButton = async () => {
 	}
 };
 
+let lastValidFile = null;
 
 export const uploadAvatarButton = () => {
-	const fileInput = document.getElementById('avatar-input-modal');
-	const avatarPreview = document.getElementById('avatar-preview-modal');
-	const removeButton = document.getElementById('remove-avatar-modal');
-	const saveButton = document.getElementById('save-avatar-modal');
-	const maxFileSize = 2 * 1024 * 1024; // 2MB in bytes
-	const allowedFormats = ['image/jpeg', 'image/png'];
+    const fileInput = document.getElementById('avatar-input-modal');
+    const avatarPreview = document.getElementById('avatar-preview-modal');
+    const removeButton = document.getElementById('remove-avatar-modal');
+    const saveButton = document.getElementById('save-avatar-modal');
+    const maxFileSize = 2 * 1024 * 1024; // 2MB in bytes
+    const allowedFormats = ['image/jpeg', 'image/png'];
 
     fileInput.onchange = function () {
         const file = fileInput.files[0];
 
         if (file) {
+            if (file.size > maxFileSize) {
+                alert('File size exceeds the limit of 2MB');
+                fileInput.value = '';
+                return;
+            }
+            if (!allowedFormats.includes(file.type)) {
+                alert('File format not supported. Please upload a JPEG or PNG image');
+                fileInput.value = '';
+                return;
+            }
 
-			if (file.size > maxFileSize) {
-				alert('File size exceeds the limit of 2MB');
-				fileInput.value = '';
-				return;
-			}
-			if (!allowedFormats.includes(file.type)) {
-				alert('File format not supported. Please upload a JPEG or PNG image');
-				fileInput.value = '';
-				return;
-			}
+            lastValidFile = file; // Store the last valid file
+
             const reader = new FileReader();
             reader.onload = function (e) {
-                
                 avatarPreview.src = e.target.result; // Show the preview
-				removeButton.style.display = 'inline-block'; // Show the remove button
-				saveButton.disabled = false; // Enable the save button
+                removeButton.style.display = 'inline-block'; // Show the remove button
+                saveButton.disabled = false; // Enable the save button
             };
             reader.readAsDataURL(file); // Read the file and trigger the onload event
+        } else if (lastValidFile) {
+            // If no file is selected, show the last valid file
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                avatarPreview.src = e.target.result;
+            };
+            reader.readAsDataURL(lastValidFile);
         }
     };
 
     fileInput.click(); // Trigger the file input dialog
 };
 
-
 export const saveAvatarButton = async () => {
     const fileInput = document.getElementById('avatar-input-modal');
-    const file = fileInput.files[0];  // Check if a new avatar was uploaded
-	const avatarPreview = document.getElementById('avatar-preview-modal');
+    const file = fileInput.files[0]; // Check if a new avatar was uploaded
+    const avatarPreview = document.getElementById('avatar-preview-modal');
     const avatarImage = document.getElementById('avatar');
 
     // Check if the current avatar is the default (meaning it was removed)
     const isAvatarRemoved = avatarPreview.src.includes('default-avatar.png');
 
-    if (file) {
-        // If a file is uploaded, call the update API
+    if (isAvatarRemoved) {
+        // If the avatar was removed, call the removal API
+        try {
+            const response = await fetch('/api/avatar_remove/', {
+                method: 'POST',
+                headers: {
+                    'X-CSRFToken': getCookie('csrftoken'),
+                },
+            });
+
+            const result = await response.json();
+
+            if (result.success) {
+                // Update the avatar image to the default
+                avatarImage.src = "/static/default-avatar.png";
+            } else {
+                console.error('Failed to remove avatar:', result.message);
+            }
+
+        } catch (error) {
+            console.error('Error removing avatar:', error);
+        }
+    } else if (file || lastValidFile) {
+        let fileToUpload = file || lastValidFile;
+
         const formData = new FormData();
-        formData.append('avatar', file);
+        formData.append('avatar', fileToUpload); // Append the correct file
 
         try {
             const response = await fetch('/api/avatar_update/', {
@@ -242,56 +273,34 @@ export const saveAvatarButton = async () => {
             console.error('Error updating avatar:', error);
         }
 
-    } else if (isAvatarRemoved) {
-        // If the avatar was removed, call the removal API
-        try {
-            const response = await fetch('/api/avatar_remove/', {
-                method: 'POST',
-                headers: {
-                    'X-CSRFToken': getCookie('csrftoken'),
-                },
-            });
-
-            const result = await response.json();
-
-            if (result.success) {
-                // Update the avatar image to the default
-                avatarImage.src = "/static/default-avatar.png";
-            } else {
-                console.error('Failed to remove avatar:', result.message);
-            }
-
-        } catch (error) {
-            console.error('Error removing avatar:', error);
-        }
     } else {
         // No changes were made; exit early
         console.log('No changes to avatar.');
     }
 
-	// Hide the modal
-	const modalInstance = bootstrap.Modal.getInstance(document.getElementById('edit-avatar-modal'));
-	if (modalInstance)
-		modalInstance.hide();
+    // Hide the modal
+    const modalInstance = bootstrap.Modal.getInstance(document.getElementById('edit-avatar-modal'));
+    if (modalInstance) {
+        modalInstance.hide();
+    }
 
-	setTimeout(() => {
-		const backdrop = document.querySelector('.modal-backdrop');
-		if (backdrop) {
-			backdrop.remove();  // Remove the lingering backdrop
-		}
-		}, 20);
-	
-	// Clear the file input
+    setTimeout(() => {
+        const backdrop = document.querySelector('.modal-backdrop');
+        if (backdrop) {
+            backdrop.remove(); // Remove the lingering backdrop
+        }
+    }, 20);
+
+    // Clear the file input
     fileInput.value = '';
 };
-
 
 export const removeAvatarButton = () => {
     const avatarImage = document.getElementById('avatar-preview-modal');
     const fileInput = document.getElementById('avatar-input-modal');
     const removeButton = document.getElementById('remove-avatar-modal');
-	const saveButton = document.getElementById('save-avatar-modal');
-    
+    const saveButton = document.getElementById('save-avatar-modal');
+
     // Show the default avatar in the preview
     avatarImage.src = '/static/default-avatar.png';
 
@@ -301,6 +310,6 @@ export const removeAvatarButton = () => {
     // Hide the remove button since the avatar is now the default
     removeButton.style.display = 'none';
 
-	// Enable the save button
-	saveButton.disabled = false;
+    // Enable the save button
+    saveButton.disabled = false;
 };
