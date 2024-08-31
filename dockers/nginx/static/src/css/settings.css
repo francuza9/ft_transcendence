@@ -15,6 +15,10 @@
     cursor: pointer;
 }
 
+.container, .container-md {
+	z-index: -1;
+}
+
 .settings-btn:hover {
     background: rgba(255, 255, 255, 0.2);
     color: #000;

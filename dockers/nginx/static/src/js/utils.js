@@ -9,6 +9,17 @@ export async function replaceHTML(path)
 	const userLang = getCookie('userLang') || 'en';
 
     try {
+		if (path.includes('login') || path.includes('register')) {
+            const chatDiv = document.getElementById('chat');
+            const settingsDiv = document.getElementById('settings');
+            if (chatDiv) chatDiv.style.display = 'none';
+            if (settingsDiv) settingsDiv.style.display = 'none';
+        } else {
+            const chatDiv = document.getElementById('chat');
+            const settingsDiv = document.getElementById('settings');
+            if (chatDiv) chatDiv.style.display = '';
+            if (settingsDiv) settingsDiv.style.display = '';
+        }
 		/*
         let background = document.querySelector('.background');
 
@@ -50,8 +61,6 @@ export async function replaceHTML(path)
     } catch (error) {
         console.error('There was a problem with the fetch operation:', error);
     }
-
-	return body;
 }
 
 export function normalizePath(path)
@@ -188,7 +197,7 @@ export const ensureUsername = async () => {
 };
 
 export function isGuest(username) {
-    const guestPattern = /^Guest\d{4}$/;
+    const guestPattern = /^guest\d{6}$/;
     return guestPattern.test(username);
 }
 

@@ -1,7 +1,8 @@
 import { refreshLobbyDetails } from '/static/src/js/lobby.js';
-import { checkLoginStatus, ensureUsername } from '/static/src/js/utils.js';
+import { ensureUsername } from '/static/src/js/utils.js';
 import { handleRouting } from '/static/routers/router.js';
 import { Pong } from '/static/views/pong_view.js';
+import { initTournamentSocket } from '/static/src/js/socket_handling/tournament_socket.js';
 
 export async function initLobbySocket(variables, aiGame = false) {
     return new Promise((resolve, reject) => {
@@ -42,6 +43,10 @@ export async function initLobbySocket(variables, aiGame = false) {
 			} else if (message.type === 'start') {
 				Pong(message.content);
 				socket.close();
+			} else if (message.type === 'start_tournament') {
+				initTournamentSocket(variables).then((tournamentSocket) => {
+					tournamentSocket.send(JSON.stringify({ type: 'init', content: message.content }));
+				});
 			} else if (message.type === 'error') {
 				console.error('Error:', message.content);
 			}
