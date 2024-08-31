@@ -1,6 +1,7 @@
 import {variables} from '/static/src/js/variables.js';
 import {getCookie, setCookie} from '/static/src/js/cookies.js';
 import {translateContent} from '/static/src/js/lang.js';
+import {removeGameRenderer} from '/static/src/js/end.js';
 
 export async function replaceHTML(path)
 {
@@ -20,6 +21,9 @@ export async function replaceHTML(path)
             if (chatDiv) chatDiv.style.display = '';
             if (settingsDiv) settingsDiv.style.display = '';
         }
+
+		if (variables.endView)
+			removeGameRenderer();
 		/*
         let background = document.querySelector('.background');
 
@@ -81,7 +85,6 @@ export async function checkLoginStatus() {
             const user = data.user;
 			variables.username = user.username;
 			variables.is_guest = user.is_guest;
-            console.log('Logged in as:', user.username);
 			return true;
         } else {
             console.log('User is not logged in');

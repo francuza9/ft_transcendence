@@ -8,34 +8,30 @@ let renderer;
 let transition;
 let canvas;
 
-init_background();
+initBackground();
 animate_background();
 
-export function init_background() {
+export function initBackground() {
 	const container = document.getElementById("background-container");
 
 	renderer = new THREE.WebGLRenderer({ antialias: true });
 	renderer.setPixelRatio(window.devicePixelRatio);
 	renderer.setSize(window.innerWidth, window.innerHeight);
-	canvas = renderer.domElement; // Save reference to canvas
+	canvas = renderer.domElement;
 	container.appendChild(canvas);
 
-	// Define the camera outside for reuse in resize event
 	const w = window.innerWidth;
 	const h = window.innerHeight;
 	const camera = new THREE.PerspectiveCamera(50, w / h, 1, 10000);
 	camera.position.z = 2000;
 
-	// Handle resize to keep objects' size consistent on screen
 	window.addEventListener('resize', () => {
 		const width = window.innerWidth;
 		const height = window.innerHeight;
 
-		// Update the camera's aspect ratio and projection matrix
 		camera.aspect = width / height;
 		camera.updateProjectionMatrix();
 
-		// Update the renderer size
 		renderer.setSize(width, height);
 	});
 
@@ -53,7 +49,7 @@ export function init_background() {
 
 	transition = {
 		render: (delta) => {
-			sceneB.render(delta, false); // Only render sceneB
+			sceneB.render(delta, false);
 		}
 	};
 }
@@ -62,15 +58,12 @@ function handleResize() {
     const width = window.innerWidth;
     const height = window.innerHeight;
 
-    // Update the camera's aspect ratio and projection matrix
     camera.aspect = width / height;
     camera.updateProjectionMatrix();
 
-    // Update the renderer size
     renderer.setSize(width, height);
 }
 
-// Animation loop function
 export function animate_background() {
 	if (!animationPaused) {
 		requestAnimationFrame(animate_background);
@@ -78,7 +71,6 @@ export function animate_background() {
 	}
 }
 
-// Pause animation and hide canvas
 function pauseAnimation() {
 	animationPaused = true;
 	if (canvas) {
@@ -86,8 +78,7 @@ function pauseAnimation() {
 	}
 }
 
-// Resume animation and show canvas
-function resumeAnimation() {
+export function resumeAnimation() {
 	animationPaused = false;
 	if (canvas) {
 		canvas.style.display = 'block';
@@ -95,15 +86,10 @@ function resumeAnimation() {
 	animate_background();
 }
 
-// Clean up and remove the Three.js scene
 export function cleanupBackground() {
-	// Stop the animation loop
 	animationPaused = true;
 
-	// Dispose of scene objects if they exist
 	if (sceneB) {
-		// Assuming sceneB.scene was incorrect, directly access the scene created in getFXScene
-		// Iterate over any meshes or other resources directly in sceneB
 		if (sceneB.mesh) {
 			sceneB.mesh.geometry.dispose();
 			if (sceneB.mesh.material) {
@@ -112,12 +98,10 @@ export function cleanupBackground() {
 		}
 	}
 
-	// Dispose of renderer
 	if (renderer) {
 		renderer.dispose();
 	}
 
-	// Remove canvas from DOM
 	if (canvas) {
 		canvas.remove();
 	}
@@ -125,13 +109,7 @@ export function cleanupBackground() {
 	// Remove event listeners (if any)
 	//window.removeEventListener('resize', onWindowResize);
 
-	// Set references to null to free up memory
 	sceneB = null;
 	renderer = null;
 	canvas = null;
-
-	console.log('background removed');
 }
-
-// Example of how to call cleanup when needed
-// cleanup();

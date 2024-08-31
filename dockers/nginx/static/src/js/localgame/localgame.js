@@ -11,6 +11,7 @@ import { Ball } from './objects/ball.js';
 import { playerNames } from './objects/playerNames.js';
 import { initScore } from './objects/score.js';
 import { updatePlayerPositions, checkCollision } from './local.js';
+import { endGame } from '/static/src/js/end.js';
 
 const group = new THREE.Group();
 export let keys = {
@@ -19,16 +20,20 @@ export let keys = {
 	"ArrowUp": false,
 	"ArrowDown": false,
 };
-let score = [0, 0];
-export let scoremesh = 0;
 
-initScore(score).then(scorea => {
-	scoremesh = scorea;
-	group.add(scoremesh);
-}).catch(error => {console.error('Failed to load score:', error);})
+let score;
+export let scoremesh = 0;
 
 export function startLocal(pointsToWin)
 {
+	score = [0, 0];
+	scoremesh = 0;
+
+	initScore(score).then(scorea => {
+		scoremesh = scorea;
+		group.add(scoremesh);
+	}).catch(error => {console.error('Failed to load score:', error);})
+
 	const scene = initScene();
 	const camera = initCamera(0);
 	const renderer = initRenderer();
@@ -93,7 +98,7 @@ export function startLocal(pointsToWin)
 		renderer.render(scene, camera);
 		let checker = checkCollision(ball, players, score, lights, scoremesh, pointsToWin);
 		if (checker) {
-			cleanup();
+			cleanup(score);
 		}
 		updatePlayerPositions(players);
 	}
@@ -104,25 +109,17 @@ export function startLocal(pointsToWin)
 		renderer.setSize(window.innerWidth, window.innerHeight);
 	}
 
-	function cleanup() {
+	function cleanup(score) {
 			renderer.setAnimationLoop(null);
 			window.removeEventListener('resize', onWindowResize);
 			document.removeEventListener('keydown', onKeydown);
 			document.removeEventListener('keyup', onKeyup);
 			controls.dispose();
-			group.traverse(function (object) {
-				if (object.geometry) object.geometry.dispose();
-				if (object.material) {
-					if (Array.isArray(object.material)) {
-						object.material.forEach(material => material.dispose());
-					} else {
-						object.material.dispose();
-					}
-				}
-			});
+			//cleanupGroup(group);
+			logGroupStructure(group);
 			scene.clear();
 			renderer.dispose();
-			renderer.domElement.remove();
+			endGame(score, renderer);
 	}
 }
 
@@ -138,4 +135,37 @@ function onKeyup(event) {
     }
 }
 
+function disposeObject(object) {
+    if (object.geometry) {
+        object.geometry.dispose();
+    }
+    if (object.material) {
+        if (Array.isArray(object.material)) {
+            object.material.forEach(material => material.dispose());
+        } else {
+            object.material.dispose();
+        }
+    }
+    if (object.texture) {
+        object.texture.dispose();
+    }
+}
 
+function cleanupGroup(group) {
+    group.traverse(function (object) {
+        disposeObject(object);
+        
+        if (object instanceof THREE.Group) {
+            cleanupGroup(object);
+        }
+    });
+}
+
+function logGroupStructure(group, level = 0) {
+    console.log(' '.repeat(level * 2) + group.name || 'Unnamed group');
+    group.children.forEach(child => {
+        if (child instanceof THREE.Group) {
+            logGroupStructure(child, level + 1);
+        }
+    });
+}
