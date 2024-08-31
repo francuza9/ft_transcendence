@@ -24,15 +24,23 @@ export async function replaceHTML(path)
         if (!response.ok) throw new Error('Network response was not ok');
         const htmlContent = await response.text();
 
+		/*
         if (!section) {
             section = document.createElement('section');
             section.className = 'min-vh-100 text-center';
             body.appendChild(section);
         } else {
-            section.innerHTML = '';
-        }
+		*/
+		const children = Array.from(section.children);
 
-        section.innerHTML = htmlContent;
+		children.forEach(child => {
+			if (child.id !== 'chat' && child.id !== 'settings') {
+				section.removeChild(child);
+			}
+		});
+		//}
+
+        section.innerHTML += htmlContent;
 
         const translationsResponse = await fetch(`/static/lang/${userLang}.json`);
         if (!translationsResponse.ok) throw new Error('Network response was not ok');
@@ -188,7 +196,7 @@ export function isGuest(username) {
 }
 
 export function moveModalBackdrops() {
-	const section = document.querySelector('.background');
+	const section = document.getElementsByTagName('section')[0];
 
 	if (section) {
 		const backdrops = document.querySelectorAll('.modal-backdrop');
