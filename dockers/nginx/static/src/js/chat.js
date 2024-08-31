@@ -75,7 +75,7 @@ export const backToFriends = () => {
     backBtn.classList.remove("show");
 };
 
-const loadFriends = () => {
+export const loadFriends = () => {
 	const friendList = document.getElementById("friend-list");
 
 	fetch('/api/friends/', {
@@ -211,7 +211,8 @@ export const sendInvitation = () => {
 function updateFriendStatus(username) {
     const friendItem = document.querySelector(`.friend-item[data-username="${username}"]`);
 
-	const isOnline = true; //update logic
+	const isOnline = variables.activeUsers[username];
+
     if (friendItem) {
         const statusIndicator = friendItem.querySelector('.status-indicator');
         if (isOnline) {

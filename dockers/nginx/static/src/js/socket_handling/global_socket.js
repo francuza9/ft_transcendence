@@ -1,4 +1,6 @@
 import { getUsername } from '/static/src/js/utils.js';
+import { variables } from '/static/src/js/variables.js';
+import { loadFriends } from '/static/src/js/chat.js';
 
 let socket;
 
@@ -13,7 +15,8 @@ export function goActive() {
 	socket.onmessage = function(e) {
 		const data = JSON.parse(e.data);
 		if (data.type === 'online_status') {
-			console.log(data.active_users);
+			variables.activeUsers = data.active_users;
+			loadFriends();
 		} else if (data.type === 'privmsg') {
 			const chatWindow = document.getElementById("messages");
 			const messageItem = document.createElement("div");
