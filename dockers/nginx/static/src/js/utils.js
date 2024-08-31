@@ -26,7 +26,7 @@ export async function replaceHTML(path)
 
         if (!section) {
             section = document.createElement('section');
-            section.className = 'background min-vh-100 text-center';
+            section.className = 'min-vh-100 text-center';
             body.appendChild(section);
         } else {
             section.innerHTML = '';

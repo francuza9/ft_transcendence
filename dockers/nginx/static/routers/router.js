@@ -1,3 +1,4 @@
+import { handleButtonAction } from '/static/routers/buttons.js';
 import { Pong } from '../views/pong_view.js';
 import { Home } from '../views/home.js';
 import { Register } from '../views/register.js';
@@ -8,7 +9,6 @@ import { Create } from '../views/create.js';
 import { Join } from '../views/join.js';
 import { Lobby } from '../views/lobby.js';
 import { Account } from '../views/account.js';
-import { handleButtonAction } from './buttons.js';
 import { updateVariable } from '/static/src/js/variables.js';
 import { normalizePath } from '/static/src/js/utils.js';
 import { NotFound } from '/static/views/notfound.js';
