@@ -1,6 +1,9 @@
 import { fetchAccountInfo } from '/static/src/js/utils.js';
 import { handleRouting } from '/static/routers/router.js';
 import { getCookie } from '/static/src/js/cookies.js';
+import { checkUserState } from '/static/src/js/settings.js';
+
+let lastValidFile = null;
 
 export const accountButton = (e) => {
 	e.preventDefault();
@@ -30,7 +33,18 @@ export const editField = (field) => {
             removeButton.style.display = 'inline-block';
         }
 
-    } else if (field !== 'password') {
+    } else if (field === 'password') {
+		const currentPasswordInput = document.getElementById('current-password-input-modal');
+		const newPasswordInput = document.getElementById('new-password-input-modal');
+		const confirmPasswordInput = document.getElementById('confirm-password-input-modal');
+		const errorElement = document.getElementById('password-error');
+
+		// Clear the input fields
+		currentPasswordInput.value = '';
+		newPasswordInput.value = '';
+		confirmPasswordInput.value = '';
+		errorElement.textContent = '';	
+	} else {
         // For text fields, set the input value to the current display value
         const titleInput = document.getElementById(`${field}-input-modal`);
         const displayTitle = document.getElementById(field);
@@ -138,11 +152,6 @@ export const savePasswordButton = async () => {
 		const result = await response.json();
 
 		if (result.success) {
-			// Clear the input fields
-			currentPasswordInput.value = '';
-			newPasswordInput.value = '';
-			confirmPasswordInput.value = '';
-			errorElement.textContent = '';
 
 			const modalInstance = bootstrap.Modal.getInstance(document.getElementById(`edit-password-modal`));
 			if (modalInstance)
@@ -167,7 +176,6 @@ export const savePasswordButton = async () => {
 	}
 };
 
-let lastValidFile = null;
 
 export const uploadAvatarButton = () => {
     const fileInput = document.getElementById('avatar-input-modal');
@@ -292,6 +300,7 @@ export const saveAvatarButton = async () => {
     }, 20);
 
     // Clear the file input
+	checkUserState();
     fileInput.value = '';
 };
 

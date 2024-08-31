@@ -68,7 +68,7 @@ export async function logoutButton() {
     }
 }
 
-export const closeButton = () => {
+export const closeSettingsButton = () => {
     const sidebar = document.getElementById('sidebar');
     const settingsBtn = document.getElementById('settings-btn');
 	sidebar.classList.add('hidden');

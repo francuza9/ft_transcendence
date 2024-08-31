@@ -1,5 +1,6 @@
 import {handleRouting} from '/static/routers/router.js';
 import {getCookie} from '/static/src/js/cookies.js';
+import {closeSettingsButton} from '/static/src/js/settings.js';
 
 const commonUsernames = [
 	'administrator', 'guest', 'system', 'support', 'superuser', 'moderator', 'operator', 'service', 'manager', 'staff',
@@ -241,6 +242,7 @@ export const registerButton = () => {
         if (data.success) {
             console.log('Registration successful');
             alert('Registration successful! You can now log in.');
+			closeSettingsButton();
             history.pushState(null, '', '/login');
             handleRouting();
         } else {
