@@ -42,19 +42,13 @@ General Mandatory Todo {
 	}
 
 	Current {
-		Localgame {
-			localgame takes variables {
-				player names,
-				points to win,
-			}
+		Tournament {
+			Tournament logic,
 		},
 	}
 
 	Upcoming {
-
-		Tournament {
-			Tournament logic,
-		},
+		Spectator
 
 		42 Auth
 	}
