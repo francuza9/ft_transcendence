@@ -1,6 +1,6 @@
 import {getCookie} from '/static/src/js/cookies.js';
 import {getSocket} from '/static/src/js/socket_handling/global_socket.js';
-import {checkLoginStatus, ensureUsername} from '/static/src/js/utils.js';
+import {isGuest, ensureUsername} from '/static/src/js/utils.js';
 import {variables} from '/static/src/js/variables.js';
 
 let chatInputListener = null;
