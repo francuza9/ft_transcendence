@@ -104,13 +104,10 @@ export const startButton = (self) => {
 			console.error('WebSocket is not open.');
 		}
 	} else {
-		initTournamentSocket(variables).then((socket) => {
-			tournament_socket = socket;
-			const lobbySocket = getSocket();
-			if (lobbySocket) {
-				lobbySocket.send(JSON.stringify({ type: 'start_tournament' }));
-			}
-		});
+		const lobbySocket = getSocket();
+		if (lobbySocket) {
+			lobbySocket.send(JSON.stringify({ type: 'start_tournament' }));
+		}
 	}
 };
 
