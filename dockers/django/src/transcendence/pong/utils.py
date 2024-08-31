@@ -66,8 +66,13 @@ def is_valid_email(email):
 def is_valid_display_name(display_name):
 	if len(display_name) < 3 or len(display_name) > 12:
 		return False, "Display name must be between 3 and 12 characters long."
-	if ' ' in display_name:
-		return False, "Display name cannot contain spaces."
+	# if ' ' in display_name:
+	# 	return False, "Display name cannot contain spaces."
 	if not any(char.isalpha() for char in display_name):
 		return False, "Display name must contain at least one letter."
+	return True, None
+
+def is_valid_bio(bio): #TODO: change max_length to 500
+	if len(bio) > 50:
+		return False, "Bio cannot be longer than 50 characters."
 	return True, None

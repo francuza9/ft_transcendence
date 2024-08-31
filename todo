@@ -62,6 +62,9 @@ General Mandatory Todo {
 
 [Youssef] {
 
+	redirect login and register urls to account settings if user is logged in
+	successful login still displays login and register buttons
+
 	Account:
 		Check uploaded profile picture format and size
 		Button placement in avatar edit modal
