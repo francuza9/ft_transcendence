@@ -1,6 +1,6 @@
 from .models import CustomUser, Profile
 from django.contrib.auth.decorators import login_required
-from .utils import is_valid_email, is_valid_password, is_valid_display_name
+from .utils import is_valid_email, is_valid_password, is_valid_display_name, is_valid_bio
 from django.core.exceptions import ObjectDoesNotExist
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
@@ -94,6 +94,7 @@ def update_account_info(request):
 				return JsonResponse({'success': True, 'message': 'Field updated successfully'})
 			
 			if field == 'bio':
+				valid, error_message = is_valid_bio(new_value)
 				profile.bio = new_value
 				profile.save()
 				return JsonResponse({'success': True, 'message': 'Field updated successfully'})
