@@ -2,7 +2,7 @@ from channels.generic.websocket import AsyncWebsocketConsumer
 
 class TournamentConsumer(AsyncWebsocketConsumer):
 	async def connect(self):
-		pass
+		await self.accept()
 
 	async def disconnect(self, close_code):
 		pass
