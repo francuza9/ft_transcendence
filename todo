@@ -50,12 +50,13 @@ General Mandatory Todo {
 [Youssef] {
 
 	successful login still displays login and register buttons
-	Logging out on account settings page should redirect to home page
+	Logging out on account settings page should redirect to home page	
 	toFix: elements id conflicts with sidebar
 
 	Account:
 		Button placement in avatar edit modal - probably for Marijn
 		Enter Button should save changes in account page
+		fix long word in bio in account page
 
 	Leaderboard (not important at all):
 		Add Tournaments won and multiplayer games won, along with buttons to sort by them
