@@ -21,12 +21,10 @@ export function goActive() {
 			const chatWindow = document.getElementById("messages");
 			const messageItem = document.createElement("div");
 
-			messageItem.className = "message-item";
-			messageItem.innerHTML = `<strong>${data.sender}:</strong> ${data.message}`;
+			messageItem.className = "message-item recipient";
+			messageItem.innerHTML = data.message;
 			chatWindow.appendChild(messageItem);
 			chatWindow.scrollTop = chatWindow.scrollHeight;
-			console.log(chatWindow);
-			console.log(`${data.sender}, ${data.message}`);
 		} else if (data.type === 'friend_request') {
 			console.log(data.sender, "wants to be your friend");
 		} else if (data.type === 'friend_removal') {

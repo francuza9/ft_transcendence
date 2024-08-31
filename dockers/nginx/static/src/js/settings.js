@@ -3,11 +3,13 @@ import {checkLoginStatus, fetchAvatar} from '/static/src/js/utils.js';
 import {variables} from '/static/src/js/variables.js';
 
 export async function initSettings() {
-	const body = document.getElementsByTagName('body')[0];
+	const section = document.getElementsByTagName('section')[0];
+	const settingsDiv = document.createElement("div");
 	const response = await fetch('/static/src/html/settings.html');
 	if (!response.ok) throw new Error('Network response was not ok');
-	const htmlContent = await response.text();
-	body.insertAdjacentHTML('afterbegin', htmlContent);
+	settingsDiv.innerHTML = await response.text();
+	settingsDiv.id = "settings";
+	section.appendChild(settingsDiv);
 }
 
 export const settingsButton = () => {
