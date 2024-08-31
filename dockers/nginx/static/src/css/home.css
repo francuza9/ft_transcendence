@@ -327,6 +327,10 @@ button img {
     display: none !important;
 }
 
+#chat-btn .hidden {
+	display: none !important;
+}
+
 #chat-header i {
     font-size: 24px;
 }
