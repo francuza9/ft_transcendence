@@ -13,7 +13,6 @@
     backdrop-filter: blur(15px);
     transition: background 0.3s ease, color 0.3s ease;
     cursor: pointer;
-    z-index: 1;
 }
 
 .settings-btn:hover {
@@ -46,7 +45,6 @@
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
-    z-index: 1;
 }
 
 #sidebar.hidden {
@@ -73,7 +71,6 @@
     justify-content: center;
     backdrop-filter: blur(15px);
     transition: background 0.3s ease, color 0.3s ease;
-    z-index: 1;
 }
 
 .close-btn:hover {
