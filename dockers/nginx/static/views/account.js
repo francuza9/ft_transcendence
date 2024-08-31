@@ -1,7 +1,7 @@
 import {variables} from '/static/src/js/variables.js';
 import {handleRouting} from '/static/routers/router.js';
 import {replaceHTML, checkLoginStatus, fetchAccountInfo} from '/static/src/js/utils.js';
-import {closeButton} from '/static/src/js/settings.js';
+import {closeSettingsButton} from '/static/src/js/settings.js';
 
 export async function Account() {
 	
@@ -12,7 +12,7 @@ export async function Account() {
 		} else {
 			replaceHTML('/static/src/html/account.html', false);
 			fetchAccountInfo();
-			closeButton();
+			closeSettingsButton();
 		}
 	})
 	

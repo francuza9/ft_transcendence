@@ -5,7 +5,7 @@ import {createRoomButton, playerCountDropdownButton, pointsDropdownButton, editN
 import {loadRooms} from '/static/src/js/join.js';
 import {saveAvatarButton, removeAvatarButton, uploadAvatarButton, savePasswordButton} from '/static/src/js/account.js';
 import {startButton, leaveRoom, addBot} from '/static/src/js/lobby.js';
-import {settingsButton, closeButton, langButton, backButton, logoutButton} from '/static/src/js/settings.js';
+import {settingsButton, closeSettingsButton, langButton, backButton, logoutButton} from '/static/src/js/settings.js';
 import {openChat, closeChat, sendMessage, backToFriends, sendInvitation} from '/static/src/js/chat.js';
 import {startLocalButton, difficultyDropdown} from '/static/src/js/local.js'
 
@@ -34,7 +34,7 @@ const actionsMap = {
 	start: startButton,
 	startLocal: startLocalButton,
 	settings: settingsButton,
-	close: closeButton,
+	close: closeSettingsButton,
 	langButton: langButton,
 	back: backButton,
 	savePassword: savePasswordButton,

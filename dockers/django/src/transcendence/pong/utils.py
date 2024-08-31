@@ -72,7 +72,7 @@ def is_valid_display_name(display_name):
 		return False, "Display name must contain at least one letter."
 	return True, None
 
-def is_valid_bio(bio): #TODO: change max_length to 500
+def is_valid_bio(bio): 
 	if len(bio) > 200:
 		return False, "Bio cannot be longer than 200 characters."
 	if bio.count('\n') > 4:

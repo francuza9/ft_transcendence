@@ -53,6 +53,7 @@ export const loginButton = () => {
         .then(data => {
             if (data.success) {
                 console.log('Login successful');
+				// closeSettingsButton(); # TODO: fix this
 				goActive();
 				if (variables.nextPage == 'room') {
 					history.pushState(null, '', '/');
