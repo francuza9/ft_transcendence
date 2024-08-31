@@ -13,7 +13,7 @@ import { initScore } from './objects/score.js';
 import { updatePlayerPositions, checkCollision } from './local.js';
 import { endGame } from '/static/src/js/end.js';
 
-const group = new THREE.Group();
+let group;
 export let keys = {
 	"w": false,
 	"s": false,
@@ -26,6 +26,7 @@ export let scoremesh = 0;
 
 export function startLocal(pointsToWin)
 {
+	group = new THREE.Group();
 	score = [0, 0];
 	scoremesh = 0;
 
@@ -115,24 +116,23 @@ export function startLocal(pointsToWin)
 			document.removeEventListener('keydown', onKeydown);
 			document.removeEventListener('keyup', onKeyup);
 			controls.dispose();
-			//cleanupGroup(group);
-			logGroupStructure(group);
+			group.clear();
 			scene.clear();
 			renderer.dispose();
 			endGame(score, renderer);
 	}
 }
 
-function onKeydown(event) {
-    if (event.key in keys) {
-        keys[event.key] = true;
-    }
-}
-
-function onKeyup(event) {
-    if (event.key in keys) {
-        keys[event.key] = false;
-    }
+function logGroupStructure(group, level = 0) {
+    console.log(' '.repeat(level * 2) + group.name || 'Unnamed group');
+    group.children.forEach(child => {
+        if (child instanceof THREE.Group) {
+            logGroupStructure(child, level + 1);
+        }
+		else {
+			console.log('item');
+		}
+    });
 }
 
 function disposeObject(object) {
@@ -161,11 +161,15 @@ function cleanupGroup(group) {
     });
 }
 
-function logGroupStructure(group, level = 0) {
-    console.log(' '.repeat(level * 2) + group.name || 'Unnamed group');
-    group.children.forEach(child => {
-        if (child instanceof THREE.Group) {
-            logGroupStructure(child, level + 1);
-        }
-    });
+
+function onKeydown(event) {
+    if (event.key in keys) {
+        keys[event.key] = true;
+    }
+}
+
+function onKeyup(event) {
+    if (event.key in keys) {
+        keys[event.key] = false;
+    }
 }
