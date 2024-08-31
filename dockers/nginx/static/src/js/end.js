@@ -1,5 +1,8 @@
-import {replaceHTML} from '/static/src/js/utils.js';
+import {replaceHTML} from '/static/src/js/utils.js'
 import {variables} from '/static/src/js/variables.js';
+import {initBackground, resumeAnimation} from '/static/src/js/background/background.js';
+
+let gameRenderer;
 
 export function renderPlayerList(times, players, scores) {
 	const playerListElement = document.getElementsByClassName('playerList')[0];
@@ -32,10 +35,7 @@ export function renderPlayerList(times, players, scores) {
 		return b.time - a.time;
 	});
 
-	console.log('playerData:', playerData);
-
 	playerData.forEach((player, rank) => {
-		console.log('rank:', rank);
 		const row = document.createElement('tr');
 		row.classList.add('player-row');
 		row.setAttribute('data-player-id', player.name);
@@ -58,4 +58,21 @@ export function renderPlayerList(times, players, scores) {
 		const lastRow = playerListElement.lastElementChild;
 		lastRow.classList.add('no-bottom-border');
 	}
+}
+
+export const removeGameRenderer = () => {
+	gameRenderer.domElement.remove();
+	variables.endView = false;
+	initBackground();
+	resumeAnimation();
+}
+
+export const endGame = (score, renderer) => {
+	const section = document.getElementsByTagName('section')[0];
+	section.classList.remove('hidden');
+	gameRenderer = renderer
+	replaceHTML('/static/src/html/end.html').then(() => {
+		renderPlayerList([0, 0], ['Player 1', 'Player 2'], score);
+		variables.endView = true;
+	});
 }
