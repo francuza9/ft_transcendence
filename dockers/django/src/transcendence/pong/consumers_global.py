@@ -34,7 +34,7 @@ class GlobalConsumer(AsyncWebsocketConsumer):
 			target = text_data_json.get('target', None)
 			senderDB = await self.getUserDB(self.username)
 			recipientDB = await self.getUserDB(target)
-			if message and target and len(message) < 100 and len(target) <= 12:
+			if message and target and len(message) < 1000 and len(target) <= 12:
 				await sync_to_async(Message.objects.create)(sender=senderDB, recipient=recipientDB, content=message)
 				await self.send_privmsg(message, target)
 		elif type == 'friend_request':
@@ -56,7 +56,7 @@ class GlobalConsumer(AsyncWebsocketConsumer):
 		elif type == 'game_invitation':
 			target = text_data_json.get('target', None)
 			url = text_data_json.get('url', None)
-			if target and url and 0 < len(target) <= 12 and 0 < len(url) <= 100:
+			if target and url and 0 < len(target) <= 12 and 0 < len(url) <= 40:
 				await self.send_game_invitation(target, url)
 
 	async def send_friend_request(self, target):

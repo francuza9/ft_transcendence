@@ -17,6 +17,7 @@ export const variables = {
 	admin: '',
 	players: [],
 	activeUsers: {},
+	players_dict: {},
 };
 
 export const resetVariables = () => {
@@ -28,6 +29,7 @@ export const resetVariables = () => {
     variables.roomName = '';
     variables.admin = '';
     variables.players = [];
+	variables.players_dict = {}; // maybe remove
 }
 
 export function updateVariable(document, variableName, value) {
