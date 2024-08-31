@@ -8,7 +8,6 @@ const commonUsernames = [
 	'user1', 'user123', 'anonymous', 'nobody', 'default', 'unknown', 'hacker', 'cracker', 'password', 'security',
 ]
 
-
 var alertMessage = 'Alert Message';
 
 // Validation logic for username

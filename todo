@@ -56,14 +56,14 @@ General Mandatory Todo {
 
 [Youssef] {
 
-	redirect login and register urls to account settings if user is logged in
+	redirect login and register urls to account settings if user is logged in - DONE
 	successful login still displays login and register buttons
 	Logging out on account settings page should redirect to home page
 	toFix: elements id conflicts with sidebar
 
 	Account:
 		Check uploaded profile picture format and size
-		Button placement in avatar edit modal
+		Button placement in avatar edit modal - probably for Marijn
 		Add scrollbar for Bio
 		Enter Button should save changes in account page
 
