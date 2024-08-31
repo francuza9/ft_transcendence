@@ -1,3 +1,4 @@
+import { fetchAccountInfo } from '/static/src/js/utils.js';
 import { handleRouting } from '/static/routers/router.js';
 import { getCookie } from '/static/src/js/cookies.js';
 
@@ -33,25 +34,28 @@ export const editField = (field) => {
         // For text fields, set the input value to the current display value
         const titleInput = document.getElementById(`${field}-input-modal`);
         const displayTitle = document.getElementById(field);
-        
+		const errorElement = document.getElementById(`${field}-error`);
+
+		errorElement.textContent = ''; // Clear any previous error messages
+		errorElement.style.display = 'none';
+
         if (displayTitle && titleInput) {
-            titleInput.value = displayTitle.textContent;
+            titleInput.value = displayTitle.innerHTML.replace(/<br\s*[\/]?>/gi, "\n");
         } else {
             console.error(`Element with ID ${field} or input not found`);
             return;
         }
     }
-	
 };
 
 // JavaScript to handle the save button functionality only for text fields
 export const saveField = async (field) => {
 	const titleInput = document.getElementById(`${field}-input-modal`);
-	const displayTitle = document.getElementById(field);
+	const errorElement = document.getElementById(`${field}-error`);
 
     const newTitle = titleInput.value.trim();
 
-    if (newTitle) {
+    if (newTitle || field === 'bio') {
         try {
             const response = await fetch('/api/account_update/', {
                 method: 'POST',
@@ -68,8 +72,6 @@ export const saveField = async (field) => {
             const result = await response.json();
 
             if (result.success) {
-                displayTitle.textContent = newTitle;
-
 				// Hide the modal
 				const modalInstance = bootstrap.Modal.getInstance(document.getElementById(`edit-${field}-modal`));
 				if (modalInstance)
@@ -82,10 +84,16 @@ export const saveField = async (field) => {
 					}
 					}, 20);
 
+				// Clear the input field
+				titleInput.value = '';
+				errorElement.textContent = '';
+				fetchAccountInfo();
+
                 console.log('Field updated successfully');
             } else {
-				// TODO: create an error element to show the error message
-				alert(result.message);
+				errorElement.textContent = result.message;
+				errorElement.style.display = 'block';
+				// alert(result.message);
                 console.error('Failed to update field:', result.message);
             }
         } catch (error) {

@@ -73,6 +73,8 @@ def is_valid_display_name(display_name):
 	return True, None
 
 def is_valid_bio(bio): #TODO: change max_length to 500
-	if len(bio) > 50:
-		return False, "Bio cannot be longer than 50 characters."
+	if len(bio) > 200:
+		return False, "Bio cannot be longer than 200 characters."
+	if bio.count('\n') > 4:
+		return False, "Bio cannot be longer than 5 lines."
 	return True, None

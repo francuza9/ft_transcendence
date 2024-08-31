@@ -1,6 +1,7 @@
 import {getCookie} from '/static/src/js/cookies.js';
 import {checkLoginStatus, fetchAvatar} from '/static/src/js/utils.js';
 import {variables} from '/static/src/js/variables.js';
+import {closeChat} from '/static/src/js/chat.js';
 
 export async function initSettings() {
 	const section = document.getElementsByTagName('section')[0];
@@ -57,7 +58,7 @@ export async function logoutButton() {
         if (data.success) {
 			document.cookie = 'sessionid=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/; SameSite=None; Secure;';
 			checkUserState();
-			//replace this with a popup
+			closeChat();
 			alert('You have been logged out successfully.');
         } else {
             console.error('Logout failed:', data.message);

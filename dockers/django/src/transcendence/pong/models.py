@@ -67,7 +67,7 @@ class Profile(models.Model):
 	user = models.OneToOneField('CustomUser', on_delete=models.CASCADE, related_name='profile')
 	displayName = models.CharField(max_length=50, default='displayName', blank=True)
 	avatarUrl = models.ImageField(upload_to=UploadTo('profile_pictures/'), blank=True, null=True)
-	bio = models.TextField(blank=True, default='', max_length=50) #TODO: change max_length to 500
+	bio = models.TextField(blank=True, default='', max_length=200) 
 	gamesPlayed = models.IntegerField(default=0)
 	gamesWon = models.IntegerField(default=0)
 	gamesLost = models.IntegerField(default=0)
@@ -81,7 +81,7 @@ class Profile(models.Model):
 
 	def save(self, *args, **kwargs):
 		# Check if the bio length exceeds 10 characters
-		if len(self.bio) > 10:
+		if len(self.bio) > 500:
 			raise ValueError("Bio cannot exceed 10 characters.")
 
 		# Check if displayName is empty or default, and assign the user's username
