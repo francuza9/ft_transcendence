@@ -12,7 +12,7 @@ import { playerNames } from './objects/playerNames.js';
 import { initScore, updateScore } from './objects/score.js';
 import { replaceHTML } from '/static/src/js/utils.js'
 import { renderPlayerList } from '/static/src/js/end.js';
-import { init_background, animate_background } from '/static/src/js/background/background.js';
+import { initBackground, resumeAnimation} from '/static/src/js/background/background.js';
 
 const group = new THREE.Group();
 export let keys = {
@@ -127,8 +127,8 @@ export function create2Pgame(mappov, socket) {
 			const score = data.scores;
 			const names_list = data.players;
 			// cleanup();
-			// init_background();
-			// animate_background();
+			// initBackground();
+			// resumeAnimation();
 			replaceHTML('/static/src/html/end.html').then(() => {
 				renderPlayerList(time, names_list, score);
 			});

@@ -18,6 +18,7 @@ export const variables = {
 	players: [],
 	activeUsers: {},
 	players_dict: {},
+	endView: false,
 };
 
 export const resetVariables = () => {

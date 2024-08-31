@@ -21,7 +21,7 @@ export const isAI = (value) => {
 
 export const startLocalButton = () => {
 	const section = document.getElementsByTagName('section')[0];
-	section.remove();
+	section.classList.add('hidden');
 	cleanupBackground();
 
 	const element = document.createElement('div');
