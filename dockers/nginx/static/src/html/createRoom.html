@@ -1,5 +1,5 @@
 <link rel="stylesheet" href="/static/src/css/create.css">
-<div class="container sm position-relative">
+<div class="container sm position-relative multiplayer">
 	<button class="back-btn position-absolute top-0 start-0 m-3" data-action="cancel">
         <i class="ri-arrow-left-line text-white"></i>
     </button>
@@ -45,12 +45,12 @@
             </div>
 
 			<!-- Players Section -->
-			<div class="mb-3">
+			<div id="playerCount" class="mb-3">
 				<div class="btn-group w-100">
 					<button id="btnGroupDrop1" type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" data-action='playerCountDropdown' aria-expanded="false">
 						2 Players
 					</button>
-					<ul class="dropdown-menu w-100" aria-labelledby="btnGroupDrop1">
+					<ul id="player-dropdown" class="dropdown-menu w-100" aria-labelledby="btnGroupDrop1">
 						<li><button class="dropdown-item" type="button" data-variable="playerCount" data-value="2">2</button></li>
 						<li><button class="dropdown-item" type="button" data-variable="playerCount" data-value="3">3</button></li>
 						<li><button class="dropdown-item" type="button" data-variable="playerCount" data-value="4">4</button></li>
@@ -58,12 +58,12 @@
 						<li><button class="dropdown-item" type="button" data-variable="playerCount" data-value="6">6</button></li>
 						<li><button class="dropdown-item" type="button" data-variable="playerCount" data-value="7">7</button></li>
 						<li><button class="dropdown-item" type="button" data-variable="playerCount" data-value="8">8</button></li>
-					  </ul>
+					</ul>
                 </div>
             </div>
 
             <!-- Map Section -->
-            <div class="mb-3">
+            <div id="map" class="mb-3">
                 <h4 id="display-map" class="text-white">Classic</h4>
                 <button type="button" class="btn btn-primary w-100" data-bs-toggle="modal" data-bs-target="#mapSelectionModal" data-text="pages.createRoom.chooseMapButton">
                     Choose Map
@@ -71,7 +71,7 @@
             </div>
 
             <!-- Create Room Button -->
-            <div class="text-center">
+            <div class="bottom-btn-container">
                 <button type="button" class="btn btn-success px-5 py-2 fw-bold" data-action="createRoom" data-text="pages.createRoom.createRoomButton">Create Room</button>
             </div>
         </div>

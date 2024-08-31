@@ -29,7 +29,19 @@ export const updatePointsToWin = (document, value) => {
 }
 
 export const updateIsTournament = (document, value) => {
-    variables.isTournament = value;
+	const mapSection = document.getElementById('map');
+	const dropdownButton = document.getElementById('btnGroupDrop1');
+    variables.isTournament = value === 'true';
+
+	if (variables.isTournament) {
+		variables.maxPlayerCount = 4;
+		dropdownButton.textContent = `${variables.maxPlayerCount} Players`;
+		mapSection.classList.add('hidden');
+	} else {
+		variables.maxPlayerCount = 2;
+		dropdownButton.textContent = `${variables.maxPlayerCount} Players`;
+		mapSection.classList.remove('hidden');
+	}
 }
 
 export const editNameButton = () => {
@@ -44,7 +56,7 @@ export const editNameButton = () => {
 
 export const saveNameEditButton = (event) => {
     const displayMode = document.querySelector('.display-mode');
-    const titleInput = document.getElementById('title-input');
+	const titleInput = document.getElementById('title-input');
     const displayTitle = document.getElementById('display-title');
 
 	event.preventDefault();
@@ -64,6 +76,24 @@ export const cancelNameEditButton = () => {
 }
 
 export const playerCountDropdownButton = () => {
+    const dropdownMenu = document.getElementById('player-dropdown');
+    const isTournament = variables.isTournament;
+
+    if (dropdownMenu) {
+        dropdownMenu.querySelectorAll('.dropdown-item').forEach(item => {
+            item.classList.remove('d-none');
+        });
+
+        if (isTournament) {
+            dropdownMenu.querySelectorAll('.dropdown-item').forEach(item => {
+                const value = item.getAttribute('data-value');
+                if (value !== '4' && value !== '8') {
+                    item.classList.add('d-none');
+                }
+            });
+        }
+    }
+
 	var dropdown = new bootstrap.Dropdown(document.getElementById('btnGroupDrop1'));
 	dropdown.toggle();
 }
