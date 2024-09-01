@@ -63,13 +63,23 @@ class GlobalConsumer(AsyncWebsocketConsumer):
 		senderDB = await self.getUserDB(self.username)
 		userDB = await self.getUserDB(target)
 		userWS = await self.getUserWS(target)
+		if not userDB:
+			await self.send(text_data=json.dumps({
+				'type': 'friend_request_sent',
+				'content': False,
+			}))
 		if senderDB and userDB:
 			if not await sync_to_async(senderDB.friends.filter(id=userDB.id).exists)() \
 				and not await sync_to_async(userDB.blocked_list.filter(id=senderDB.id).exists)() \
 				and not await sync_to_async(senderDB.blocked_list.filter(id=userDB.id).exists)():
+				
 				await userWS.send(text_data=json.dumps({
 					'type': 'friend_request',
 					'sender': self.username,
+				}))
+				await self.send(text_data=json.dumps({
+					'type': 'friend_request_sent',
+					'content': True,
 				}))
 
 	async def send_game_invitation(self, target, url):
