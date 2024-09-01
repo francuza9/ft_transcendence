@@ -49,11 +49,12 @@ General Mandatory Todo {
 
 [Youssef] {
 
-	successful login still displays login and register buttons
-	Logging out on account settings page should redirect to home page	
-	toFix: elements id conflicts with sidebar
+	successful login still displays login and register buttons - DONE
+	Logging out on account settings page should redirect to home page - DONE
+	toFix: elements id conflicts with sidebar - DONE
 
 	Account:
+		Make displayName unique 
 		Button placement in avatar edit modal - probably for Marijn
 		Enter Button should save changes in account page
 		fix long word in bio in account page
@@ -66,6 +67,7 @@ General Mandatory Todo {
 		When lobby doesnt exist, redirect to join page and show error popup to client
 		
 		IMPORTANT: check if csrf exemptions should be removed
+		
 	Fix missing translation keys in account page
 }
 
