@@ -20,6 +20,7 @@ class LobbyConsumer(AsyncWebsocketConsumer):
 	async def connect(self):
 		try:
 			self.lobby_id = self.scope['url_route']['kwargs']['lobbyId']
+			
 			self.lobby_group_name = f"lobby_{self.lobby_id}"
 
 			if self.lobby_id not in lobby_data:
@@ -104,10 +105,12 @@ class LobbyConsumer(AsyncWebsocketConsumer):
 
 			elif message_type == 'add_bot':	
 				address = data.get('address')
+				botName = data.get('botName')
 				if len(lobby_data[self.lobby_id]['players']) < lobby_data[self.lobby_id]['max_users']:
-					await self.addBot(address)
+					await self.addBot(address, botName)
 
 			elif message_type == 'start':
+				logger.info(f"THIS: {self.lobby_id}")
 				if len(lobby_data[self.lobby_id]['players']) >= 2:
 					await self.send_start_message()
 				else:
@@ -156,12 +159,13 @@ class LobbyConsumer(AsyncWebsocketConsumer):
 				}
 			)
 
-	async def addBot(self, address):
-		# Choose a random name from the list of bot names
+	async def addBot(self, address, botName):
 		available_names = [name for name in bot_names if name not in lobby_data[self.lobby_id]['players']]
 		logger.info(f"lobby: Available bot names: {available_names}")
 		if available_names:
 			bot_name = random.choice(available_names)
+			if botName != None:
+				bot_name = botName
 			lobby_data[self.lobby_id]['players'].append(bot_name)
 			lobby_data[self.lobby_id]['is_bot'].append(True)
 			await self.send_refresh_message()

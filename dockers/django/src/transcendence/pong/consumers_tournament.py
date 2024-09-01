@@ -14,6 +14,7 @@ class TournamentConsumer(AsyncWebsocketConsumer):
 	async def connect(self):
 		try:
 			self.lobby_id = self.scope['url_route']['kwargs'].get('lobbyId')
+			logger.info(f"tournament: WebSocket connection accepted for lobby {self.lobby_id}")
 			query_params = self.scope['query_string'].decode()
 			self.username = next((param.split('=')[1] for param in query_params.split('&') if param.startswith('username=')), None)
 
@@ -96,9 +97,16 @@ class TournamentConsumer(AsyncWebsocketConsumer):
 			else:
 				lobby_id = await self.generate_lobby_id()
 				logger.info(f'Generated lobby_id: {lobby_id} for pair: {usernames}')
-				await self.send_to_pair(usernames, lobby_id)
+				aiGame = False
+				botName = None
+				for i in range(2):
+					if is_bots[i]:
+						botName = usernames[i]
+						aiGame = True
+						break
+				await self.send_to_pair(usernames, lobby_id, aiGame, botName)
 
-	async def send_to_pair(self, usernames, lobby_id):
+	async def send_to_pair(self, usernames, lobby_id, aiGame, botName=None):
 		tournament_state = tournament_states[self.lobby_id]
 		for username in usernames:
 			if username in tournament_state['player_connections']:
@@ -108,7 +116,8 @@ class TournamentConsumer(AsyncWebsocketConsumer):
 					'content': {
 						'lobbyId': lobby_id,
 						'players': usernames,
-						
+						'aiGame': aiGame,
+						'botName': botName,
 					}
 				}))
 
