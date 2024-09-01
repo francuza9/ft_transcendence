@@ -89,7 +89,7 @@ General Mandatory Todo {
 			Blocked Users
 		}
 
-		Center create page settings
+		Fix create page settings css
 
 	}
 	
@@ -98,7 +98,6 @@ General Mandatory Todo {
 	Fix Github Auth to not reload SPA
 	
 	Low priority {
-		Create pages button placement
 		Center avatar modal buttons in account page
 		Update map preview images
 

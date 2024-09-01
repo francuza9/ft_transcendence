@@ -124,5 +124,22 @@
 			"continue": "Continue",
 			"again": "Play Again"
 		}
-    }
+    },
+	"chat": {
+		"noFriends": "Add friends to chat with them",
+		"loginMessage": "Login to chat with friends",
+		"fail": "Failed to load messages. Please try again later."
+	},
+	"friends": {
+		"addRequestSuccess": "Friend Request sent succesfully!",
+		"addRequestFail": "Couldn't find user!",
+		"add": "Add Friends",
+		"manage": "Manage Friends",
+		"requests": "Friend Requests",
+		"blocked": "Blocked Users",
+		"addInputFieldPlaceholder": "Enter friend username...",
+		"noFriends": "You have no friends!",
+		"noRequests": "You have no friend requests.",
+		"noBlockedUsers": "You have no blocked users."
+	}
 }
