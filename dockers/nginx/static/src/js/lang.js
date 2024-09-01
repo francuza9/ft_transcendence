@@ -1,11 +1,17 @@
 import {setCookie, getCookie} from '/static/src/js/cookies.js';
 import {highlightCurrentLanguage} from '/static/src/js/settings.js';
 
+let translations;
+
 export async function setLanguage(lang) {
     setCookie('userLang', lang, 365);
-    const translations = await fetch(`/static/lang/${lang}.json`).then(response => response.json());
+    translations = await fetch(`/static/lang/${lang}.json`).then(response => response.json());
     translateContent(translations);
 	highlightCurrentLanguage(lang);
+}
+
+export const setTranslations = (translationFile) => {
+	translations = translationFile;
 }
 
 export function translateContent(translations) {
@@ -40,8 +46,10 @@ export function translateContent(translations) {
     });
 }
 
-function getTranslation(key, translations) {
-    return key.split('.').reduce((obj, i) => obj?.[i], translations);
+export function getTranslation(key, translationsFile) {
+	if (!translationsFile)
+		translationsFile = translations;
+    return key.split('.').reduce((obj, i) => obj?.[i], translationsFile);
 }
 
 async function getDefaultTranslations() {
