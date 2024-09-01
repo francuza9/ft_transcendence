@@ -136,10 +136,6 @@ class GlobalConsumer(AsyncWebsocketConsumer):
 		if senderDB and userDB and userWS:
 			if await sync_to_async(senderDB.friends.filter(id=userDB.id).exists)():
 				await sync_to_async(senderDB.friends.remove)(userDB)
-				await userWS.send(text_data=json.dumps({
-					'type': 'friend_removal',
-					'sender': self.username,
-				}))
 
 	async def broadcast_active_users(self):
 		for client in GlobalConsumer.connected_clients:
