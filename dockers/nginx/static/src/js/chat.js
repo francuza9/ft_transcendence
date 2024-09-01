@@ -3,6 +3,7 @@ import {getSocket} from '/static/src/js/socket_handling/global_socket.js';
 import {isGuest, ensureUsername} from '/static/src/js/utils.js';
 import {variables} from '/static/src/js/variables.js';
 import {getTranslation} from '/static/src/js/lang.js';
+import {addFriend, unfriendUser, blockUser, unblockUser, acceptFriendRequest, declineFriendRequest} from '/static/src/js/friends.js';
 
 let chatInputListener = null;
 let currentFriend = null;
@@ -256,6 +257,16 @@ export const switchTab = (value) => {
 	if (selectedTab) {
 		selectedTab.classList.add('show', 'active');
 		selectedTab.classList.remove('hidden');
+		switch(value) {
+			case 'add':
+				break;
+			case 'manage':
+				loadFriendsTab();
+			case 'requests':
+				loadFriendRequestsTab();
+			case 'blocked':
+				loadBlockedUsersTab();
+		}
 	}
 }
 
@@ -266,12 +277,11 @@ export const loadFriendsModal = (value) => {
     usernameInput.placeholder = getTranslation('friends.addInputFieldPlaceholder');
 	loadEventListeners();
 	loadFriendsTab();
-	//load friend requests into friend requests tab
-	//load blocked users in blocked users tab
+	loadFriendRequestsTab();
+	loadBlockedUsersTab();
 }
 
 const loadEventListeners = () => {
-	console.log('loaded event listeners');
 	document.querySelectorAll('input[data-tab-value]').forEach(element => {
         element.addEventListener('click', (e) => {
             const value = e.target.getAttribute('data-tab-value');
@@ -296,10 +306,36 @@ const loadEventListeners = () => {
     const addFriendBtn = document.getElementById('add-friend-btn');
     if (addFriendBtn) {
         addFriendBtn.addEventListener('click', () => {
-            const username = document.getElementById('search-users-input').value;
-            sendFriendRequest(username);
+            const username = document.getElementById('add-friend-input').value;
+            //sendFriendRequest(username);
+			addFriend(username);
         });
     }
+}
+
+function attachFriendRequestListeners() {
+    document.querySelectorAll('button[data-accept]').forEach(button => {
+        button.addEventListener('click', (e) => {
+            const username = e.target.closest('button').getAttribute('data-accept');
+            acceptFriendRequest(username);
+        });
+    });
+
+    document.querySelectorAll('button[data-decline]').forEach(button => {
+        button.addEventListener('click', (e) => {
+            const username = e.target.closest('button').getAttribute('data-decline');
+            declineFriendRequest(username);
+        });
+    });
+}
+
+function attachBlockedUserListeners() {
+    document.querySelectorAll('button[data-unblock]').forEach(button => {
+        button.addEventListener('click', (e) => {
+            const username = e.target.closest('button').getAttribute('data-unblock');
+            unblockUser(username);
+        });
+    });
 }
 
 export const sendFriendRequest = () => {
@@ -327,13 +363,12 @@ const loadFriendsTab = () => {
     .then(response => response.json())
     .then(data => {
         const friendsList = document.getElementById("friends-list");
+		const noFriendsMessage = document.getElementById('noFriendsMessage');
 
         friendsList.innerHTML = '';
         if (data.friends.length === 0) {
-			const noFriendsMessage = document.getElementById('noFriendsMessage');
 			noFriendsMessage.classList.remove('hidden');
         } else {
-			const noFriendsMessage = document.getElementById('noFriendsMessage');
 			noFriendsMessage.classList.add('hidden');
             data.friends.forEach(friend => {
                 const friendItem = document.createElement("tr");
@@ -356,5 +391,96 @@ const loadFriendsTab = () => {
     })
     .catch(error => {
         console.error("Error loading manage friends:", error);
+    });
+};
+
+const loadFriendRequestsTab = () => {
+    fetch('/api/friend_requests/', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': getCookie('csrftoken')
+        }
+    })
+    .then(response => response.json())
+    .then(data => {
+        const friendRequestsList = document.getElementById("friend-requests-list");
+		const noRequestsMessage = document.getElementById('noRequestsMessage');
+		const blockedTable = document.getElementById('blockedTable');
+
+        friendRequestsList.innerHTML = '';
+        if (data.friend_requests.length === 0) {
+			noRequestsMessage.classList.remove('hidden');
+			blockedTable.classList.add('hidden');
+        } else {
+			noRequestsMessage.classList.add('hidden');
+			blockedTable.classList.remove('hidden');
+            data.friend_requests.forEach(request => {
+                const requestItem = document.createElement("div");
+                requestItem.className = "request-item";
+                requestItem.innerHTML = `
+                    <div class="avatar-container">
+                        <img src="${request.avatar}" alt="${request.name}" width="40" height="40" class="rounded-circle">
+                    </div>
+                    <span class="request-name">${request.name} (@${request.username})</span>
+                    <div class="request-actions">
+                        <button class="btn btn-success btn-sm" data-accept="${request.username}">
+                            <i class="ri-user-add-fill"></i>
+                        </button>
+                        <button class="btn btn-danger btn-sm" data-decline="${request.username}">
+                            <i class="ri-user-unfollow-fill"></i>
+                        </button>
+                    </div>
+                `;
+                friendRequestsList.appendChild(requestItem);
+            });
+            attachFriendRequestListeners();
+        }
+    })
+    .catch(error => {
+        console.error("Error loading friend requests:", error);
+    });
+};
+
+const loadBlockedUsersTab = () => {
+    fetch('/api/blocked/', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': getCookie('csrftoken')
+        }
+    })
+    .then(response => response.json())
+    .then(data => {
+        const blockedUsersList = document.getElementById("blocked-users-list");
+		const noBlockedUsersMessage = document.getElementById('noBlockedUsersMessage');
+		const blockedTable = document.getElementById('blockedTable');
+
+        blockedUsersList.innerHTML = '';
+        if (data.blocked.length === 0) {
+			blockedTable.classList.add('hidden');
+			noBlockedUsersMessage.classList.remove('hidden');
+        } else {
+			blockedTable.classList.remove('hidden');
+			noBlockedUsersMessage.classList.add('hidden');
+            data.blocked.forEach(blockedUser => {
+                const blockedItem = document.createElement("tr");
+                blockedItem.className = "blocked-user-row";
+                blockedItem.innerHTML = `
+                    <td><img src="${blockedUser.avatar}" alt="${blockedUser.username}" class="player-img"></td>
+                    <td>${blockedUser.name}</td>
+                    <td>
+                        <button class="btn btn-danger btn-sm" data-unblock="${blockedUser.username}">
+                            <i class="ri-close-fill"></i>
+                        </button>
+                    </td>
+                `;
+                blockedUsersList.appendChild(blockedItem);
+            });
+            attachBlockedUserListeners();
+        }
+    })
+    .catch(error => {
+        console.error("Error loading blocked users:", error);
     });
 };
