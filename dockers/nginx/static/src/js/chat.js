@@ -23,6 +23,7 @@ export const openChat = () => {
 	const chatBtn = document.getElementById("chat-btn");
     const sendBtn = document.getElementById("send-btn");
     const friendList = document.getElementById("friend-list");
+	const manageFriendsBtn = document.getElementById("manage-friends-btn");
     
     chatWindow.classList.remove("hidden");
 	chatBtn.classList.add("hidden");
@@ -35,8 +36,11 @@ export const openChat = () => {
 			noFriendsMessage.innerText = getTranslation('chat.loginMessage');
 			noFriendsMessage.dataset.text = "chat.loginMessage";
 			friendList.appendChild(noFriendsMessage);
-		} else
+			manageFriendsBtn.classList.add('hidden');
+		} else {
+			manageFriendsBtn.classList.remove('hidden');
 			loadFriends();
+		}
 	});
 
     if (!chatInputListener) {
@@ -245,22 +249,57 @@ function updateFriendStatus(username) {
 export const switchTab = (value) => {
 	document.querySelectorAll('.tab-pane').forEach(tabPane => {
 		tabPane.classList.remove('show', 'active');
+		tabPane.classList.add('hidden');
 	});
 
 	const selectedTab = document.querySelector(`#tab-pane-${value}`);
 	if (selectedTab) {
 		selectedTab.classList.add('show', 'active');
+		selectedTab.classList.remove('hidden');
 	}
 }
 
 
 export const loadFriendsModal = (value) => {
 	const usernameInput = document.getElementById('add-friend-input');
-    usernameInput.placeholder = getTranslation('friends.addInputFieldPlaceholder');
 
+    usernameInput.placeholder = getTranslation('friends.addInputFieldPlaceholder');
+	loadEventListeners();
 	loadFriendsTab();
 	//load friend requests into friend requests tab
 	//load blocked users in blocked users tab
+}
+
+const loadEventListeners = () => {
+	console.log('loaded event listeners');
+	document.querySelectorAll('input[data-tab-value]').forEach(element => {
+        element.addEventListener('click', (e) => {
+            const value = e.target.getAttribute('data-tab-value');
+            switchTab(value);
+        });
+    });
+
+    document.querySelectorAll('button[data-unfriend]').forEach(button => {
+        button.addEventListener('click', (e) => {
+            const username = e.target.closest('button').getAttribute('data-unfriend');
+            unfriendUser(username);
+        });
+    });
+
+    document.querySelectorAll('button[data-block]').forEach(button => {
+        button.addEventListener('click', (e) => {
+            const username = e.target.closest('button').getAttribute('data-block');
+            blockUser(username);
+        });
+    });
+
+    const addFriendBtn = document.getElementById('add-friend-btn');
+    if (addFriendBtn) {
+        addFriendBtn.addEventListener('click', () => {
+            const username = document.getElementById('search-users-input').value;
+            sendFriendRequest(username);
+        });
+    }
 }
 
 export const sendFriendRequest = () => {
@@ -303,11 +342,11 @@ const loadFriendsTab = () => {
                     <td><img src="${friend.avatar}" alt="${friend.username}" class="player-img"></td>
                     <td>${friend.username}</td>
                     <td>
-                        <button class="btn btn-danger btn-sm" data-variable="unfriend" data-value="${friend.username}">
+                        <button class="btn btn-danger btn-sm" data-unfriend="${friend.username}">
                             <i class="ri-user-unfollow-fill"></i>
                         </button>
-                        <button class="btn btn-warning btn-sm" data-variable="block" data-value="${friend.username}">
-                            <i class="ri-user-forbid-fill"></i>
+                        <button class="btn btn-warning btn-sm" data-block="${friend.username}">
+                            <i class="ri-user-unfollow-fill"></i>
                         </button>
                     </td>
                 `;

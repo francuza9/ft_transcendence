@@ -69,9 +69,6 @@ export function updateVariable(document, variableName, value) {
 		case 'AIDifficulty':
 			setDifficulty(value);
 			break;
-		case 'tab':
-			switchTab(value);
-			break;
 		default:
 			console.warn(`Unknown variable: ${variableName}`);
 	}
