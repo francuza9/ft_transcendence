@@ -13,6 +13,7 @@ import { initScore, updateScore } from './objects/score.js';
 import { replaceHTML } from '/static/src/js/utils.js'
 import { renderPlayerList } from '/static/src/js/end.js';
 import { endGame } from '/static/src/js/end.js';
+import { variables } from '/static/src/js/variables.js';
 
 let group;
 export let keys = {
@@ -82,7 +83,6 @@ export function create2Pgame(mappov, socket) {
 		console.error('WebSocket error observed:', event);
 	};
 
-    // Wrap the event handlers to pass the additional arguments
     const boundOnKeydown = (event) => onKeydown(event, camera);
     const boundOnKeyup = (event) => onKeyup(event);
 
@@ -101,8 +101,8 @@ export function create2Pgame(mappov, socket) {
 				players.children[1].position.z = bytes[5];
 				ball.speed = bytes[6];
 				const scoremeshIndex = group.children.findIndex(child => child === scoremesh);
-				const score1 = new DataView(event.data).getInt32(28, true);  // Correctly reading the integer
-				const score2 = new DataView(event.data).getInt32(32, true);  // Correctly reading the integer
+				const score1 = new DataView(event.data).getInt32(28, true);
+				const score2 = new DataView(event.data).getInt32(32, true);
 				updateScore([score1, score2], group.children[scoremeshIndex]);
 			} else if (bytes.length >= 5) {
 				ball.direction.x = bytes[0];
@@ -121,7 +121,7 @@ export function create2Pgame(mappov, socket) {
 			} else {
 				console.error(`Unexpected data length received: ${bytes.length}. Data:`, bytes);
 			}
-		} else {
+		} else if (variables.partOfTournament == false) {
 			const data = JSON.parse(event.data);
 			
 			const time = data.time;
@@ -129,25 +129,24 @@ export function create2Pgame(mappov, socket) {
 			const names_list = data.players;
 			cleanup();
 			endGame(score, renderer);
-			// initBackground();
-			// resumeAnimation();
 			replaceHTML('/static/src/html/end.html').then(() => {
 				renderPlayerList(time, names_list, score);
 			});
+		} else if (variables.partOfTournament == true) {
+			cleanup();
+			renderer.domElement.remove();
 		}
 	};
 
 	socket.addEventListener('message', handleMessage);
 
-
-    // add objects to scene
     initText().then(text => {
         playerNames(mappov, "player 1", "player 2").then(names => {
-            group.add(text); // Add text mesh to the group
+            group.add(text);
             group.add(names);
             scene.add(light);
-            scene.add(group); // Add group to the scene after text is loaded
-            animate(); // Start animation loop after everything is set up
+            scene.add(group);
+            animate();
         })
     }).catch(error => {
         console.error('Failed to load text:', error);
@@ -155,10 +154,8 @@ export function create2Pgame(mappov, socket) {
 
 	socket.binaryType = 'arraybuffer';
     function animate() {
-		
 		if (mappov > 0)
 		{
-			// console.log(players.children[0].position.z);
 			const buffer = serializeData(mappov - 1, players.children[mappov - 1].position.x, players.children[mappov - 1].position.z);
 			socket.send(buffer);
 		}
@@ -169,8 +166,6 @@ export function create2Pgame(mappov, socket) {
 		groupCornerLights.children[9].color.setHex(ball.color);
 
         ball.animate();
-        // render
-
 		if (mappov > 0)
 			updatePlayerPosition(players.children[mappov - 1]);
 
@@ -184,18 +179,13 @@ export function create2Pgame(mappov, socket) {
         renderer.setSize(window.innerWidth, window.innerHeight);
     }
 
-	// Function to serialize player data into a binary format
 	function serializeData(playerID, positionX, positionY) {
-	    const buffer = new ArrayBuffer(9); // 1 byte (playerID) + 4 bytes (positionX) + 4 bytes (positionY)
+	    const buffer = new ArrayBuffer(9);
 		const view = new DataView(buffer);
 
-	    // Write playerID as a boolean (0 or 1) into the first byte
 	    view.setUint8(0, playerID ? 1 : 0); // 1 byte
-
-	    // Write positionX and positionY as 32-bit floats into the next 8 bytes
-	    view.setFloat32(1, positionX, true); // 4 bytes (little-endian)
-	    view.setFloat32(5, positionY, true); // 4 bytes (little-endian)
-
+	    view.setFloat32(1, positionX, true); // 4 bytes 
+	    view.setFloat32(5, positionY, true); // 4 bytes
 		return buffer;
 	}
 

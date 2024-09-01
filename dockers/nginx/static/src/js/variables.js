@@ -20,6 +20,7 @@ export const variables = {
 	activeUsers: {},
 	players_dict: {},
 	endView: false,
+	partOfTournament: false
 };
 
 export const resetVariables = () => {
@@ -32,6 +33,7 @@ export const resetVariables = () => {
     variables.admin = '';
     variables.players = [];
 	variables.players_dict = {}; // maybe remove
+	variables.partOfTournament = false;
 }
 
 export function updateVariable(document, variableName, value) {

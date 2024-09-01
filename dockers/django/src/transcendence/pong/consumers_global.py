@@ -69,8 +69,8 @@ class GlobalConsumer(AsyncWebsocketConsumer):
 			if not await sync_to_async(senderDB.friends.filter(id=userDB.id).exists)() \
 				and not await sync_to_async(userDB.sent_friend_requests.filter(id=senderDB.id).exists)() \
 				and not await sync_to_async(userDB.received_friend_requests.filter(id=senderDB.id).exists)() \
-				and not await sync_to_async(userDB.blocked_list.filter(id=senderDB.id).exists)() \
-				and not await sync_to_async(senderDB.blocked_list.filter(id=userDB.id).exists)():
+				and not await sync_to_async(userDB.blocked_users.filter(id=senderDB.id).exists)() \
+				and not await sync_to_async(senderDB.blocked_users.filter(id=userDB.id).exists)():
 				await sync_to_async(senderDB.sent_friend_requests.add)(userDB)
 				await userWS.send(text_data=json.dumps({
 					'type': 'friend_request',

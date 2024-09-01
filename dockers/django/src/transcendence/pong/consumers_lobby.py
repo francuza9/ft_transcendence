@@ -36,7 +36,8 @@ class LobbyConsumer(AsyncWebsocketConsumer):
 					'connected_clients': set(),
 					'winning_score': 999,
 					'difficulty': None,
-					'aiGame': False
+					'aiGame': False,
+					'partOfTournament': False,
 				}
 
 			lobby_data[self.lobby_id]['connected_clients'].add(self.channel_name)
@@ -101,6 +102,7 @@ class LobbyConsumer(AsyncWebsocketConsumer):
 					lobby_data[self.lobby_id]['winning_score'] = content.get('pointsToWin')
 					lobby_data[self.lobby_id]['difficulty'] = content.get('AIDifficulty')
 					lobby_data[self.lobby_id]['aiGame'] = content.get('aiGame')
+					lobby_data[self.lobby_id]['partOfTournament'] = content.get('partOfTournament')
 				await self.send_refresh_message()
 
 			elif message_type == 'add_bot':	
@@ -154,7 +156,8 @@ class LobbyConsumer(AsyncWebsocketConsumer):
 						'isTournament': lobby_data[self.lobby_id]['is_tournament'],
 						'winning_score': lobby_data[self.lobby_id]['winning_score'],
 						'connected_clients': connected_clients,
-						'aiGame': lobby_data[self.lobby_id]['aiGame']
+						'aiGame': lobby_data[self.lobby_id]['aiGame'],
+						'partOfTournament': lobby_data[self.lobby_id]['partOfTournament'],
 					},
 				}
 			)
@@ -218,6 +221,7 @@ class LobbyConsumer(AsyncWebsocketConsumer):
 					'player_names': lobby_data[self.lobby_id]['players'],
 					'is_bot': lobby_data[self.lobby_id]['is_bot'],
 					'difficulty': lobby_data[self.lobby_id]['difficulty'],
+					'partOfTournament': lobby_data[self.lobby_id]['partOfTournament'],
 				}
 			}
 		)
