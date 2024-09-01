@@ -67,6 +67,7 @@
     font-weight: bold;
 }
 
+#close-modal-btn,
 #chat-header #close-chat-btn,
 #chat-header #manage-friends-btn,
 #chat-header #back-btn {
@@ -202,7 +203,7 @@
     align-self: flex-start;
 }
 
-.no-friends-message, .error-message {
+.error-message {
 	padding-top: 125px;
 	color: white;
 }
@@ -272,11 +273,93 @@
     font-size: 20px;
 }
 
-.modal-content {
+.hidden {
+    display: none;
+}
+
+/*
+.btn-group .btn-check:checked + .btn {
+    background-color: rgba(255, 255, 255, 0.2);
+    color: white;
+    border-color: rgba(255, 255, 255, 0.3);
+}*/
+
+.tab-content .tab-pane {
+    display: none;
+}
+
+.tab-content .tab-pane.active {
+    display: block;
+}
+
+#friendsModal .modal-content {
+    background-color: rgba(0, 0, 0, 0.9);
+    border-radius: 20px;
+	height: 600px;
+    position: relative;
+    border: 2px solid rgba(255, 255, 255, 0.5);
+    backdrop-filter: blur(15px);
+    padding: 20px;
+    margin: auto;
     background: transparent;
     color: white;
 }
 
-.hidden {
-    display: none;
+.modal-dialog {
+    top: 15%;
+}
+
+.btn-outline-primary {
+    color: white;
+    border-color: rgba(255, 255, 255, 0.5);
+}
+
+.btn-outline-primary:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+    color: white;
+}
+
+.btn-primary, .btn-success, .btn-danger {
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+.modal-header, .modal-body, .modal-footer {
+    color: #ffffff;
+}
+
+#close-modal-btn {
+    position: absolute;
+    right: 42px;
+    top: 28px;
+	font-size: 28px;
+}
+
+.w-95 {
+	width: 95% !important;
+}
+
+#manageFriendsModalLabel {
+	margin-top: 8px;
+}
+
+.container.sm {
+    background: transparent;
+    border: 2px solid rgba(255, 255, 255, 0.5);
+    border-radius: 20px;
+    width: 400px;
+    height: 400px;
+    justify-content: center;
+    align-items: center;
+    backdrop-filter: blur(15px);
+    padding: 20px;
+    max-width: 500px;
+    margin: auto;
+}
+
+#add-request-success {
+	color: limegreen;
+}
+
+#add-request-fail {
+	color: red;
 }

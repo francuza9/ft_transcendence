@@ -3,6 +3,7 @@ import {setLanguage} from '/static/src/js/lang.js';
 import {editField, saveField} from '/static/src/js/account.js';
 import {addFriend, unfriendUser, blockUser} from '/static/src/js/friends.js';
 import {isAI, setDifficulty} from '/static/src/js/local.js';
+import {switchTab} from '/static/src/js/chat.js';
 
 export const variables = {
 	isTournament: false,
@@ -65,10 +66,11 @@ export function updateVariable(document, variableName, value) {
 		case 'AI':
 			isAI(value);
 			break;
-		case 'noAI':
-			isAI
 		case 'AIDifficulty':
 			setDifficulty(value);
+			break;
+		case 'tab':
+			switchTab(value);
 			break;
 		default:
 			console.warn(`Unknown variable: ${variableName}`);
