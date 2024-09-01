@@ -86,11 +86,14 @@ export const leaveRoom = () => {
 
 let tournament_socket;
 
-export const startButton = (self) => {
+export const startButton = (self, tournamentSocket) => {
 	if (!variables.isTournament) {
 		let socket = getSocket();
 		if (!socket) {
 			socket = getSocketAI();
+		}
+		if (tournamentSocket != undefined) {
+			socket = tournamentSocket;
 		}
 
 		if (!socket) {
@@ -111,10 +114,13 @@ export const startButton = (self) => {
 	}
 };
 
-export const addBot = (self) => {
+export const addBot = (self, tournamentSocket, botName=undefined) => {
 	let socket = getSocket();
 	if (!socket) {
 		socket = getSocketAI();
+	}
+	if (tournamentSocket != undefined) {
+		socket = tournamentSocket;
 	}
 
 	if (!socket) {
@@ -123,7 +129,7 @@ export const addBot = (self) => {
     }
 
     if (socket.readyState === WebSocket.OPEN) {
-        socket.send(JSON.stringify({ type: 'add_bot', address: window.location.host }));
+        socket.send(JSON.stringify({ type: 'add_bot', address: window.location.host, botName: botName }));
 	} else {
         console.error('WebSocket is not open.');
     }
