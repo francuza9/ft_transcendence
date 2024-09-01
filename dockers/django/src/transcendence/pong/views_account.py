@@ -85,6 +85,11 @@ def update_account_info(request):
 			profile, created = Profile.objects.get_or_create(user=user)
 
 			if field == 'displayName':
+				if CustomUser.objects.filter(username=new_value).exclude(id=user.id).exists():
+					return JsonResponse({'success': False, 'message': 'Username is already in use'})
+				if Profile.objects.filter(displayName=new_value).exclude(user=user).exists():
+					return JsonResponse({'success': False, 'message': 'Display Name is already in use'})
+				
 				valid, error_message = is_valid_display_name(new_value)
 				if not valid:
 					return JsonResponse({'success': False, 'message': error_message})
