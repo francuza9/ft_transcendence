@@ -2,6 +2,7 @@ import {getCookie} from '/static/src/js/cookies.js';
 import {checkLoginStatus, fetchAvatar} from '/static/src/js/utils.js';
 import {variables} from '/static/src/js/variables.js';
 import {closeChat} from '/static/src/js/chat.js';
+import {handleRouting} from '/static/routers/router.js';
 
 export async function initSettings() {
 	const section = document.getElementsByTagName('section')[0];
@@ -60,6 +61,12 @@ export async function logoutButton() {
 			checkUserState();
 			closeChat();
 			variables.username = undefined;
+			// TODO: logging out redirects you to home page only if you're on account page. Should this be the case?
+			if ( window.location.pathname === '/account' ) {
+				history.pushState(null, '', '/');
+				handleRouting();
+			}
+			closeSettingsButton();
 			alert('You have been logged out successfully.');
         } else {
             console.error('Logout failed:', data.message);
