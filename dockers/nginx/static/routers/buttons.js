@@ -6,7 +6,7 @@ import {loadRooms} from '/static/src/js/join.js';
 import {saveAvatarButton, removeAvatarButton, uploadAvatarButton, savePasswordButton} from '/static/src/js/account.js';
 import {startButton, leaveRoom, addBot} from '/static/src/js/lobby.js';
 import {settingsButton, closeSettingsButton, langButton, backButton, logoutButton} from '/static/src/js/settings.js';
-import {openChat, closeChat, sendMessage, backToFriends, sendInvitation, loadFriendsModal, sendFriendRequest} from '/static/src/js/chat.js';
+import {openChat, closeChat, sendMessage, backToFriends, sendInvitation, loadFriendsModal} from '/static/src/js/chat.js';
 import {startLocalButton, difficultyDropdown} from '/static/src/js/local.js'
 
 const actionsMap = {
@@ -52,7 +52,6 @@ const actionsMap = {
 	backToFriends: backToFriends,
 	sendInvitation: sendInvitation,
 	loadFriendsModal: loadFriendsModal,
-	sendFriendRequest: sendFriendRequest,
 };
 
 export const handleButtonAction = (e, action) => {

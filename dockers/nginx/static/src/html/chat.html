@@ -41,28 +41,28 @@
 				<button id="close-modal-btn" type="button" data-bs-dismiss="modal" aria-label="Close">
 					<i class="ri-close-fill"></i>
 				</button>
-                <div class="mb-4">
-                    <div class="btn-group w-95" role="group" aria-label="Tab selection">
-                        <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" checked data-variable="tab" data-value="1">
-                        <label class="btn btn-outline-primary" for="btnradio1" data-text="friends.add">Add Friends</label>
+				<div class="mb-4">
+					<div class="btn-group w-95" role="group" aria-label="Tab selection">
+						<input type="radio" class="btn-check" name="btnradio" id="add" autocomplete="off" checked data-tab-value="add">
+						<label class="btn btn-outline-primary" for="add" data-text="friends.add">Add Friends</label>
 
-                        <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off" data-variable="tab" data-value="2">
-						<label class="btn btn-outline-primary" for="btnradio2" data-text="friends.manage">Manage Friends</label>
+						<input type="radio" class="btn-check" name="btnradio" id="manage" autocomplete="off" data-tab-value="manage">
+						<label class="btn btn-outline-primary" for="manage" data-text="friends.manage">Manage Friends</label>
 
-                        <input type="radio" class="btn-check" name="btnradio" id="btnradio3" autocomplete="off" data-variable="tab" data-value="3">
-                        <label class="btn btn-outline-primary" for="btnradio3" data-text="friends.requests">Friend Requests</label>
+						<input type="radio" class="btn-check" name="btnradio" id="requests" autocomplete="off" data-tab-value="requests">
+						<label class="btn btn-outline-primary" for="requests" data-text="friends.requests">Friend Requests</label>
 
-                        <input type="radio" class="btn-check" name="btnradio" id="btnradio4" autocomplete="off" data-variable="tab" data-value="4">
-                        <label class="btn btn-outline-primary" for="btnradio4" data-text="friends.blocked">Blocked Users</label>
-                    </div>
-                </div>
+						<input type="radio" class="btn-check" name="btnradio" id="blocked" autocomplete="off" data-tab-value="blocked">
+						<label class="btn btn-outline-primary" for="blocked" data-text="friends.blocked">Blocked Users</label>
+					</div>
+				</div>
 			</div>
-			<div class="modal-body">
+			<div class="modal-body w-100">
                 <!-- Add Friends Tab -->
-                <div class="tab-pane fade show active" id="tab-pane-1" role="tabpanel">
+                <div class="tab-pane fade show active" id="tab-pane-add" role="tabpanel">
                     <div class="input-group mb-3">
                         <input type="text" class="form-control" id="add-friend-input">
-                        <button class="btn btn-primary" type="button" data-action="sendFriendRequest">
+                        <button class="btn btn-primary" type="button" id="add-friend-btn">
                             <i class="ri-add-fill"></i>
                         </button>
                     </div>
@@ -73,7 +73,7 @@
                 </div>
 
                 <!-- Manage Friends Tab -->
-                <div class="tab-pane fade" id="tab-pane-2" role="tabpanel">
+                <div class="tab-pane fade" id="tab-pane-manage" role="tabpanel">
                     <div class="table-responsive">
                         <table class="table table-centered">
                             <tbody id="friends-list">
@@ -85,7 +85,7 @@
                 </div>
 
                 <!-- Friend Requests Tab -->
-                <div class="tab-pane fade" id="tab-pane-3" role="tabpanel">
+                <div class="tab-pane fade" id="tab-pane-requests" role="tabpanel">
                     <div id="friend-requests-list">
                         <!-- Dynamic friend requests will go here -->
                     </div>
@@ -93,7 +93,7 @@
                 </div>
 
                 <!-- Blocked Users Tab -->
-                <div class="tab-pane fade" id="tab-pane-4" role="tabpanel">
+                <div class="tab-pane fade" id="tab-pane-blocked" role="tabpanel">
                     <div class="table-responsive">
                         <table class="table table-centered">
                             <tbody id="blocked-users-list">
