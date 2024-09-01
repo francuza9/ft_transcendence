@@ -22,6 +22,7 @@ export async function initTournamentSocket(variables) {
 					variables.aiGame = message.content.aiGame;
 					variables.isTournament = false;
 					variables.maxPlayerCount = 2;
+					variables.partOfTournament = true;
 					console.log("received id: ", variables.lobbyId);
 					if (message.content.aiGame === true) {
 						let botName = message.content.botName;

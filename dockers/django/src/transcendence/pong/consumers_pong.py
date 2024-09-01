@@ -109,6 +109,7 @@ class PongConsumer(AsyncWebsocketConsumer):
 					game_state['room_size'] = room_size
 					game_state['2_P'] = game_state.get('2_P', {})
 					game_state['2_P']['winning_score'] = winning_score
+					game_state['partOfTournament'] = data.get('partOfTournament', False)
 					logger.info(f"pong: Room size set to {room_size}")
 				else:
 					await self.send(text_data=json.dumps({'error': 'Invalid room size'}))
@@ -267,4 +268,5 @@ class PongConsumer(AsyncWebsocketConsumer):
 			},
 			'room_size': 2,
 			'player_data': {},  # Changed to dictionary format
+			'partOfTournament': False,
 		}
