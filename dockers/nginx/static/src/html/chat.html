@@ -13,7 +13,7 @@
 			</div>
 			<span id="chat-name"></span>
 		</div>
-		<button id="manage-friends-btn" class="manage-friends-btn" data-bs-toggle="modal" data-bs-target="#manage-friends-modal">
+		<button id="manage-friends-btn" class="manage-friends-btn" data-action="loadFriendsModal" data-bs-toggle="modal" data-bs-target="#manage-friends-modal">
 			<i class="ri-group-line"></i>
 		</button>
         <button id="close-chat-btn" class="close-chat-btn" data-action="closeChat">
@@ -34,34 +34,76 @@
     </div>
 </div>
 <div class="modal fade" id="manage-friends-modal" tabindex="-1" aria-labelledby="manageFriendsModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
+    <div id="friendsModal" class="modal-dialog modal-lg">
         <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="manageFriendsModalLabel">Manage Friends</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <ul class="nav nav-tabs" id="myTab" role="tablist">
-                    <li class="nav-item" role="presentation">
-                        <a class="nav-link active" id="add-friends-tab" data-bs-toggle="tab" href="#add-friends" role="tab">Add Friends</a>
-                    </li>
-                    <li class="nav-item" role="presentation">
-                        <a class="nav-link" id="manage-friends-tab" data-bs-toggle="tab" href="#manage-friends" role="tab">Manage Friends</a>
-                    </li>
-                    <li class="nav-item" role="presentation">
-                        <a class="nav-link" id="friend-requests-tab" data-bs-toggle="tab" href="#friend-requests" role="tab">Friend Requests</a>
-                    </li>
-                    <li class="nav-item" role="presentation">
-                        <a class="nav-link" id="blocked-users-tab" data-bs-toggle="tab" href="#blocked-users" role="tab">Blocked Users</a>
-                    </li>
-                </ul>
-                <div class="tab-content mt-3">
-                    <div class="tab-pane fade show active" id="add-friends" role="tabpanel"></div>
-                    <div class="tab-pane fade" id="manage-friends" role="tabpanel"></div>
-                    <div class="tab-pane fade" id="friend-requests" role="tabpanel"></div>
-                    <div class="tab-pane fade" id="blocked-users" role="tabpanel"></div>
+			<div class="header w-100">
+                <h4 class="modal-title" id="manageFriendsModalLabel">Friends</h4>
+				<button id="close-modal-btn" type="button" data-bs-dismiss="modal" aria-label="Close">
+					<i class="ri-close-fill"></i>
+				</button>
+                <div class="mb-4">
+                    <div class="btn-group w-95" role="group" aria-label="Tab selection">
+                        <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" checked data-variable="tab" data-value="1">
+                        <label class="btn btn-outline-primary" for="btnradio1" data-text="friends.add">Add Friends</label>
+
+                        <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off" data-variable="tab" data-value="2">
+						<label class="btn btn-outline-primary" for="btnradio2" data-text="friends.manage">Manage Friends</label>
+
+                        <input type="radio" class="btn-check" name="btnradio" id="btnradio3" autocomplete="off" data-variable="tab" data-value="3">
+                        <label class="btn btn-outline-primary" for="btnradio3" data-text="friends.requests">Friend Requests</label>
+
+                        <input type="radio" class="btn-check" name="btnradio" id="btnradio4" autocomplete="off" data-variable="tab" data-value="4">
+                        <label class="btn btn-outline-primary" for="btnradio4" data-text="friends.blocked">Blocked Users</label>
+                    </div>
                 </div>
-            </div>
+			</div>
+			<div class="modal-body">
+                <!-- Add Friends Tab -->
+                <div class="tab-pane fade show active" id="tab-pane-1" role="tabpanel">
+                    <div class="input-group mb-3">
+                        <input type="text" class="form-control" id="add-friend-input">
+                        <button class="btn btn-primary" type="button" data-action="sendFriendRequest">
+                            <i class="ri-add-fill"></i>
+                        </button>
+                    </div>
+					<div>
+						<p id="add-request-success" class="hidden" data-text="friends.addRequestSuccess">Friend Request sent succesfully!</p>
+						<p id="add-request-fail" class="hidden" data-text="friends.addRequestFail">Couldn't find user!</p>
+					</div>
+                </div>
+
+                <!-- Manage Friends Tab -->
+                <div class="tab-pane fade" id="tab-pane-2" role="tabpanel">
+                    <div class="table-responsive">
+                        <table class="table table-centered">
+                            <tbody id="friends-list">
+                                <!-- Dynamic friend list will go here -->
+                            </tbody>
+                        </table>
+                    </div>
+					<div id="noFriendsMessage" class="hidden error-message" data-text="friends.noFriends">You have no friends!</div>
+                </div>
+
+                <!-- Friend Requests Tab -->
+                <div class="tab-pane fade" id="tab-pane-3" role="tabpanel">
+                    <div id="friend-requests-list">
+                        <!-- Dynamic friend requests will go here -->
+                    </div>
+					<div id="noRequestsMessage" class="hidden error-message" data-text="friends.noRequests">You have no friend requests.</div>
+                </div>
+
+                <!-- Blocked Users Tab -->
+                <div class="tab-pane fade" id="tab-pane-4" role="tabpanel">
+                    <div class="table-responsive">
+                        <table class="table table-centered">
+                            <tbody id="blocked-users-list">
+                                <!-- Dynamic blocked users list will go here -->
+                            </tbody>
+                        </table>
+                    </div>
+					<div id="noBlockedUsersMessage" class="hidden error-message" data-text="friends.noBlockedUsers">You have no blocked users.</div>
+                </div>
+			</div>
         </div>
     </div>
 </div>

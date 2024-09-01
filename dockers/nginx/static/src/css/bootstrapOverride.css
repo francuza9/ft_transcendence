@@ -60,7 +60,7 @@
 .btn:first-child:active,
 :not(.btn-check) + .btn:active {
 	color: #fff;
-	background: transparent;
+	background: black; /*transparent better?*/
 	border: 1px solid white;
 }
 
