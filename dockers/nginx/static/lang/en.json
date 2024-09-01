@@ -139,7 +139,7 @@
 		"blocked": "Blocked Users",
 		"addInputFieldPlaceholder": "Enter friend username...",
 		"noFriends": "You have no friends!",
-		"noRequests": "You have no friend requests.",
+		"noRequests": "You have no pending friend requests.",
 		"noBlockedUsers": "You have no blocked users."
 	}
 }

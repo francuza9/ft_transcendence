@@ -31,3 +31,11 @@ export function unblockUser(player) {
 
 	socket.send(JSON.stringify({type: 'unblock', target: player}));
 }
+
+export function acceptFriendRequest(player) {
+	console.log('accepted friend request from', player);
+}
+
+export function declineFriendRequest(player) {
+	console.log('declined friend request from', player);
+}
