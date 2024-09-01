@@ -307,8 +307,7 @@ const loadEventListeners = () => {
     if (addFriendBtn) {
         addFriendBtn.addEventListener('click', () => {
             const username = document.getElementById('add-friend-input').value;
-            //sendFriendRequest(username);
-			addFriend(username);
+            sendFriendRequest(username);
         });
     }
 }
@@ -318,6 +317,7 @@ function attachFriendRequestListeners() {
         button.addEventListener('click', (e) => {
             const username = e.target.closest('button').getAttribute('data-accept');
             acceptFriendRequest(username);
+			loadFriendsTab();
         });
     });
 
@@ -325,6 +325,7 @@ function attachFriendRequestListeners() {
         button.addEventListener('click', (e) => {
             const username = e.target.closest('button').getAttribute('data-decline');
             declineFriendRequest(username);
+			loadFriendsTab();
         });
     });
 }
@@ -334,6 +335,7 @@ function attachBlockedUserListeners() {
         button.addEventListener('click', (e) => {
             const username = e.target.closest('button').getAttribute('data-unblock');
             unblockUser(username);
+			loadBlockedUsersTab();
         });
     });
 }
@@ -341,15 +343,8 @@ function attachBlockedUserListeners() {
 export const sendFriendRequest = () => {
 	const usernameInput = document.getElementById('add-friend-input');
 	const username = usernameInput.value;
-	const successMessage = document.getElementById('add-request-success');
-	const failMessage = document.getElementById('add-request-fail');
-	//send friend request
-	if (success) {
-		successMessage.classList.remove('hidden');
-		usernameInput.value = '';
-	} else {
-		failMessage.classList.remove('hidden');
-	}
+
+	addFriend(username);
 }
 
 const loadFriendsTab = () => {

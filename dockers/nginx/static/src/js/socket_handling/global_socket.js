@@ -14,6 +14,8 @@ export function goActive() {
 
 	socket.onmessage = function(e) {
 		const data = JSON.parse(e.data);
+
+		console.log(data);
 		if (data.type === 'online_status') {
 			variables.activeUsers = data.active_users;
 			loadFriends();
@@ -37,7 +39,16 @@ export function goActive() {
 			const url = data.link;
 			console.log(data.sender, "Invited you to a game, link: ", url);
 		} else if (data.type === 'friend_request_sent') {
-			console.log("Friend request sent: ", data.content);
+			const successMessage = document.getElementById('add-request-success');
+			const failMessage = document.getElementById('add-request-fail');
+			
+			console.log(failMessage, successMessage, document);
+			if (data.content) {
+				successMessage.classList.remove('hidden');
+				usernameInput.value = '';
+			} else {
+				failMessage.classList.remove('hidden');
+			}
 		}
 	};
 
