@@ -49,6 +49,15 @@ class Command(BaseCommand):
 		user2.friends.add(user5)
 		user3.friends.add(user6)
 
+		user1.blocked_users.add(user5)
+		user6.blocked_users.add(user1)
+
+		user2.blocked_users.add(user6)
+		user4.blocked_users.add(user2)
+
+		user3.blocked_users.add(user4)
+		user5.blocked_users.add(user3)
+
 		avatar1_path = os.path.join(settings.MEDIA_ROOT, 'Geo.png')
 		avatar2_path = os.path.join(settings.MEDIA_ROOT, 'Marijn.png')
 		avatar3_path = os.path.join(settings.MEDIA_ROOT, 'Joe.png')

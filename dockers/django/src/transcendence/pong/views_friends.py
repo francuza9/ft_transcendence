@@ -27,6 +27,49 @@ def get_friends(request):
 
     except Exception as e:
         return JsonResponse({'success': False, 'error': str(e)}, status=500)
+    
+@login_required
+@csrf_exempt
+def get_friend_requests(request):
+	try:
+		user = request.user
+
+		friend_requests = user.received_friend_requests.all()
+
+		friend_requests_data = []
+		for friend_request in friend_requests:
+			friend_requests_data.append({
+				'username': friend_request.username,
+				'name': friend_request.profile.displayName,
+				'avatar': friend_request.profile.avatarUrl.url if friend_request.profile.avatarUrl else None,
+				})
+
+		return JsonResponse({'success': True, 'friend_requests': friend_requests_data}, status=200)
+
+	except Exception as e:
+		return JsonResponse({'success': False, 'error': str(e)}, status=500)
+    
+@login_required
+@csrf_exempt
+def get_blocked(request):
+	try:
+		user = request.user
+
+		blocked = user.blocked_users.all()
+
+		blocked_data = []
+		for block in blocked:
+			blocked_data.append({
+				'username': block.username,
+				'name': block.profile.displayName,
+				'avatar': block.profile.avatarUrl.url if block.profile.avatarUrl else None,
+				})
+
+		return JsonResponse({'success': True, 'blocked': blocked_data}, status=200)
+
+	except Exception as e:
+		return JsonResponse({'success': False, 'error': str(e)}, status=500)
+
 
 @login_required
 @csrf_exempt

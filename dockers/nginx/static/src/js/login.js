@@ -4,6 +4,7 @@ import {replaceHTML} from '/static/src/js/utils.js';
 import {getCookie} from '/static/src/js/cookies.js';
 import {removeRegisterListeners} from '/static/src/js/register.js';
 import {goActive} from '/static/src/js/socket_handling/global_socket.js';
+import { closeSettingsButton } from '/static/src/js/settings.js';
 
 export const goBackFromLogin = () => {
 	if (!variables.previousPage) {
@@ -53,7 +54,7 @@ export const loginButton = () => {
         .then(data => {
             if (data.success) {
                 console.log('Login successful');
-				// closeSettingsButton(); # TODO: fix this
+				closeSettingsButton(); // TODO: fix this
 				goActive();
 				if (variables.nextPage == 'room') {
 					history.pushState(null, '', '/');
