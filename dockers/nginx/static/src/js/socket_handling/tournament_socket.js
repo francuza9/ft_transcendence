@@ -1,5 +1,8 @@
 
 import { ensureUsername } from '/static/src/js/utils.js';
+import {checkLoginStatus, guestLogin} from '/static/src/js/utils.js';
+import {initLobbySocket} from '/static/src/js/socket_handling/lobby_socket.js';
+import {addBot,startButton} from '/static/src/js/lobby.js';
 
 export async function initTournamentSocket(variables) {
 	return new Promise((resolve, reject) => {
@@ -13,7 +16,18 @@ export async function initTournamentSocket(variables) {
 
 			socket.onmessage = function(event) {
 				const message = JSON.parse(event.data);
-				console.log('type: ', message.type, " content: ", message.content);
+				if (message.type === 'start') {
+					console.log("start received");
+					variables.lobbyId = message.content.lobbyId;
+					variables.aiGame = message.content.aiGame;
+					variables.isTournament = false;
+					variables.maxPlayerCount = 2;
+					console.log("received id: ", variables.lobbyId);
+					if (message.content.aiGame === true) {
+						let botName = message.content.botName;
+						play_with_ai(variables, botName);
+					}
+				}
 			};
 
 			socket.onerror = function(error) {
@@ -26,4 +40,32 @@ export async function initTournamentSocket(variables) {
 			};
 		});
 	});
+}
+
+async function play_with_ai(variables, botName) {
+	if (!variables.username) {
+		try {
+			const loggedIn = await checkLoginStatus();
+			if (!loggedIn) {
+				await guestLogin();
+			}
+		} catch (error) {
+			console.error('Error checking login status:', error); 
+		}
+	}
+
+	history.pushState(null, '', `/${variables.lobbyId}`);
+	variables.players = [variables.username];
+	console.log("variables: ", variables);
+	try {
+		const socket = await initLobbySocket(variables, true);
+		if (socket) {
+			addBot(self, socket, botName);
+			startButton(self, socket);
+		} else {
+			console.error('Failed to initialize socket.');
+		}
+	} catch (error) {
+		console.error('Failed to initialize WebSocket:', error);
+	}
 }

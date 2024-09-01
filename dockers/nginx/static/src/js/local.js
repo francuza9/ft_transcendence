@@ -44,7 +44,7 @@ export const difficultyDropdown = () => {
 	dropdown.toggle();
 }
 
-async function play_with_ai() {
+export async function play_with_ai() {
 	if (!variables.username) {
 		try {
 			const loggedIn = await checkLoginStatus();
