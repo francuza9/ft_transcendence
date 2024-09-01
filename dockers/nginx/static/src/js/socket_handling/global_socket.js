@@ -15,7 +15,6 @@ export function goActive() {
 	socket.onmessage = function(e) {
 		const data = JSON.parse(e.data);
 
-		console.log(data);
 		if (data.type === 'online_status') {
 			variables.activeUsers = data.active_users;
 			loadFriends();
