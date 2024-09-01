@@ -106,11 +106,12 @@ class GlobalConsumer(AsyncWebsocketConsumer):
 			if not await sync_to_async(senderDB.blocked_users.filter(id=userDB.id).exists)() \
 				and not await sync_to_async(userDB.blocked_users.filter(id=senderDB.id).exists)():
 				await sync_to_async(senderDB.blocked_users.add)(userDB)
-				await sync_to_async(senderDB.friends.remove)(userDB)
-				await userWS.send(text_data=json.dumps({
-					'type': 'block',
-					'sender': self.username,
-				}))
+				if await sync_to_async(senderDB.friends.filter(id=userDB.id).exists)():
+					await sync_to_async(senderDB.friends.remove)(userDB)
+				if await sync_to_async(userDB.sent_friend_requests.filter(id=senderDB.id).exists)():
+					await sync_to_async(userDB.sent_friend_requests.remove)(senderDB)
+				if await sync_to_async(userDB.received_friend_requests.filter(id=senderDB.id).exists)():
+					await sync_to_async(userDB.received_friend_requests.remove)(senderDB)
 
 	async def send_privmsg(self, message, target):
 		target_client = await self.getUserWS(target)
