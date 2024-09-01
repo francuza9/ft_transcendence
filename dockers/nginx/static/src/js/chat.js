@@ -2,6 +2,7 @@ import {getCookie} from '/static/src/js/cookies.js';
 import {getSocket} from '/static/src/js/socket_handling/global_socket.js';
 import {isGuest, ensureUsername} from '/static/src/js/utils.js';
 import {variables} from '/static/src/js/variables.js';
+import {getTranslation} from '/static/src/js/lang.js';
 
 let chatInputListener = null;
 let currentFriend = null;
@@ -30,8 +31,9 @@ export const openChat = () => {
 		if (isGuest(variables.username) || !variables.username) {
 			friendList.innerHTML = '';
 			const noFriendsMessage = document.createElement("div");
-			noFriendsMessage.className = "no-friends-message";
-			noFriendsMessage.innerText = "Login to chat with friends";
+			noFriendsMessage.className = "error-message";
+			noFriendsMessage.innerText = getTranslation('chat.loginMessage');
+			noFriendsMessage.dataset.text = "chat.loginMessage";
 			friendList.appendChild(noFriendsMessage);
 		} else
 			loadFriends();
@@ -94,8 +96,9 @@ export const loadFriends = () => {
 		friendList.innerHTML = '';
 		if (data.friends.length === 0) {
 			const noFriendsMessage = document.createElement("div");
-			noFriendsMessage.className = "no-friends-message";
-			noFriendsMessage.innerText = "Add friends to chat with them";
+			noFriendsMessage.className = "error-message";
+			noFriendsMessage.innerText = getTranslation('chat.noFriends');
+			noFriendsMessage.dataset.text = "chat.noFriends";
 			friendList.appendChild(noFriendsMessage);
 		} else {
 			ensureUsername().then(() => {
@@ -179,7 +182,7 @@ const loadChatMessages = (friendUsername) => {
     })
     .catch(error => {
         console.error("Error loading chat messages:", error);
-        chatWindow.innerHTML = `<div class="error-message">Failed to load messages. Please try again later.</div>`;
+        chatWindow.innerHTML = `<div class="error-message" data-text="chat.fail">Failed to load messages. Please try again later.</div>`;
     });
 };
 
@@ -238,3 +241,81 @@ function updateFriendStatus(username) {
         }
     }
 }
+
+export const switchTab = (value) => {
+	document.querySelectorAll('.tab-pane').forEach(tabPane => {
+		tabPane.classList.remove('show', 'active');
+	});
+
+	const selectedTab = document.querySelector(`#tab-pane-${value}`);
+	if (selectedTab) {
+		selectedTab.classList.add('show', 'active');
+	}
+}
+
+
+export const loadFriendsModal = (value) => {
+	const usernameInput = document.getElementById('add-friend-input');
+    usernameInput.placeholder = getTranslation('friends.addInputFieldPlaceholder');
+
+	loadFriendsTab();
+	//load friend requests into friend requests tab
+	//load blocked users in blocked users tab
+}
+
+export const sendFriendRequest = () => {
+	const usernameInput = document.getElementById('add-friend-input');
+	const username = usernameInput.value;
+	const successMessage = document.getElementById('add-request-success');
+	const failMessage = document.getElementById('add-request-fail');
+	//send friend request
+	if (success) {
+		successMessage.classList.remove('hidden');
+		usernameInput.value = '';
+	} else {
+		failMessage.classList.remove('hidden');
+	}
+}
+
+const loadFriendsTab = () => {
+    fetch('/api/friends/', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': getCookie('csrftoken')
+        }
+    })
+    .then(response => response.json())
+    .then(data => {
+        const friendsList = document.getElementById("friends-list");
+
+        friendsList.innerHTML = '';
+        if (data.friends.length === 0) {
+			const noFriendsMessage = document.getElementById('noFriendsMessage');
+			noFriendsMessage.classList.remove('hidden');
+        } else {
+			const noFriendsMessage = document.getElementById('noFriendsMessage');
+			noFriendsMessage.classList.add('hidden');
+            data.friends.forEach(friend => {
+                const friendItem = document.createElement("tr");
+                friendItem.className = "player-row";
+                friendItem.innerHTML = `
+                    <td><img src="${friend.avatar}" alt="${friend.username}" class="player-img"></td>
+                    <td>${friend.username}</td>
+                    <td>
+                        <button class="btn btn-danger btn-sm" data-variable="unfriend" data-value="${friend.username}">
+                            <i class="ri-user-unfollow-fill"></i>
+                        </button>
+                        <button class="btn btn-warning btn-sm" data-variable="block" data-value="${friend.username}">
+                            <i class="ri-user-forbid-fill"></i>
+                        </button>
+                    </td>
+                `;
+                friendsList.appendChild(friendItem);
+            });
+        }
+    })
+    .catch(error => {
+        console.error("Error loading manage friends:", error);
+    });
+};

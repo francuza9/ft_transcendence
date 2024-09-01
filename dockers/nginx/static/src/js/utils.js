@@ -2,6 +2,7 @@ import {variables} from '/static/src/js/variables.js';
 import {getCookie, setCookie} from '/static/src/js/cookies.js';
 import {translateContent} from '/static/src/js/lang.js';
 import {removeGameRenderer} from '/static/src/js/end.js';
+import {setTranslations} from '/static/src/js/lang.js';
 
 export async function replaceHTML(path)
 {
@@ -24,28 +25,9 @@ export async function replaceHTML(path)
 
 		if (variables.endView)
 			removeGameRenderer();
-		/*
-        let background = document.querySelector('.background');
-
-		if (!background) {
-			const backgroundResponse = await fetch('/static/src/html/background.html');
-			if (!backgroundResponse.ok) throw new Error('Network response was not ok');
-			const backgroundContent = await backgroundResponse.text();
-			body.insertAdjacentHTML('afterbegin', backgroundContent);
-			background = document.querySelector('.background');
-		}*/
-
         const response = await fetch(path);
         if (!response.ok) throw new Error('Network response was not ok');
         const htmlContent = await response.text();
-
-		/*
-        if (!section) {
-            section = document.createElement('section');
-            section.className = 'min-vh-100 text-center';
-            body.appendChild(section);
-        } else {
-		*/
 		const children = Array.from(section.children);
 
 		children.forEach(child => {
@@ -53,13 +35,13 @@ export async function replaceHTML(path)
 				section.removeChild(child);
 			}
 		});
-		//}
 
         section.innerHTML += htmlContent;
 
         const translationsResponse = await fetch(`/static/lang/${userLang}.json`);
         if (!translationsResponse.ok) throw new Error('Network response was not ok');
         const translations = await translationsResponse.json();
+		setTranslations(translations);
         translateContent(translations);
 
     } catch (error) {
