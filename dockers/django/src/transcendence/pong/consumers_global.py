@@ -60,11 +60,12 @@ class GlobalConsumer(AsyncWebsocketConsumer):
 		senderDB = await self.getUserDB(self.username)
 		userDB = await self.getUserDB(target)
 		userWS = await self.getUserWS(target)
-		if not userDB:
+		if not userDB or self.username == target:
 			await self.send(text_data=json.dumps({
 				'type': 'friend_request_sent',
 				'content': False,
 			}))
+			return
 		if senderDB and userDB:
 			if not await sync_to_async(senderDB.friends.filter(id=userDB.id).exists)() \
 				and not await sync_to_async(userDB.sent_friend_requests.filter(id=senderDB.id).exists)() \
@@ -72,20 +73,20 @@ class GlobalConsumer(AsyncWebsocketConsumer):
 				and not await sync_to_async(userDB.blocked_users.filter(id=senderDB.id).exists)() \
 				and not await sync_to_async(senderDB.blocked_users.filter(id=userDB.id).exists)():
 				await sync_to_async(senderDB.sent_friend_requests.add)(userDB)
-				await userWS.send(text_data=json.dumps({
-					'type': 'friend_request',
-					'sender': self.username,
-				}))
+				if userWS:
+					await userWS.send(text_data=json.dumps({
+						'type': 'friend_request',
+						'sender': self.username,
+					}))
 				await self.send(text_data=json.dumps({
 					'type': 'friend_request_sent',
 					'content': True,
 				}))
 
 	async def send_game_invitation(self, target, url):
-		userWS = await self.getUserWS(target)
 		userDB = await self.getUserDB(target)
 		senderDB = await self.getUserDB(self.username)
-		if userWS and userDB and senderDB:
+		if userDB and senderDB:
 			if not await sync_to_async(senderDB.blocked_users.filter(id=userDB.id).exists)() \
 				and not await sync_to_async(userDB.blocked_users.filter(id=senderDB.id).exists)() \
 				and await sync_to_async(senderDB.friends.filter(id=userDB.id).exists)():
@@ -101,8 +102,7 @@ class GlobalConsumer(AsyncWebsocketConsumer):
 	async def send_block(self, target):
 		senderDB = await self.getUserDB(self.username)
 		userDB = await self.getUserDB(target)
-		userWS = await self.getUserWS(target)
-		if senderDB and userDB and userWS:
+		if senderDB and userDB:
 			if not await sync_to_async(senderDB.blocked_users.filter(id=userDB.id).exists)() \
 				and not await sync_to_async(userDB.blocked_users.filter(id=senderDB.id).exists)():
 				await sync_to_async(senderDB.blocked_users.add)(userDB)
@@ -117,23 +117,23 @@ class GlobalConsumer(AsyncWebsocketConsumer):
 		target_client = await self.getUserWS(target)
 		senderDB = await self.getUserDB(self.username)
 		userDB = await self.getUserDB(target)
-		if target_client and senderDB and userDB:
+		if senderDB and userDB:
 			if await sync_to_async(senderDB.friends.filter(id=userDB.id).exists)() \
 				and not await sync_to_async(senderDB.blocked_users.filter(id=userDB.id).exists)() \
 				and not await sync_to_async(userDB.blocked_users.filter(id=senderDB.id).exists)():
 				await sync_to_async(Message.objects.create)(sender=senderDB, recipient=userDB, content=message)
-				await target_client.send(text_data=json.dumps({
-					'type': 'privmsg',
-					'message': message,
-					'sender': self.username,
-					'recipient': target,
-				}))
+				if target_client:
+					await target_client.send(text_data=json.dumps({
+						'type': 'privmsg',
+						'message': message,
+						'sender': self.username,
+						'recipient': target,
+					}))
 
 	async def send_friend_removal(self, target):
 		senderDB = await self.getUserDB(self.username)
 		userDB = await self.getUserDB(target)
-		userWS = await self.getUserWS(target)
-		if senderDB and userDB and userWS:
+		if senderDB and userDB:
 			if await sync_to_async(senderDB.friends.filter(id=userDB.id).exists)():
 				await sync_to_async(senderDB.friends.remove)(userDB)
 
@@ -145,7 +145,12 @@ class GlobalConsumer(AsyncWebsocketConsumer):
 			}))
 
 	async def getUserDB(self, target):
-		return await sync_to_async(CustomUser.objects.get)(username=target)
+		try:
+			result = await sync_to_async(CustomUser.objects.get)(username=target)
+		except:
+			result = None
+		return result
+
 
 	async def getUserWS(self, target):
 		for client in GlobalConsumer.connected_clients:
