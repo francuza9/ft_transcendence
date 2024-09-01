@@ -36,6 +36,8 @@ export function goActive() {
 		} else if (data.type === 'game_invitation') {
 			const url = data.link;
 			console.log(data.sender, "Invited you to a game, link: ", url);
+		} else if (data.type === 'friend_request_sent') {
+			console.log("Friend request sent: ", data.content);
 		}
 	};
 

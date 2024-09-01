@@ -33,6 +33,8 @@ from .views_leaderboard import (
 
 from .views_friends import (
 	get_friends,
+	get_blocked,
+	get_friend_requests,
 	get_messages,
 )
 
