@@ -5,15 +5,15 @@ export async function initPongSocket(content) {
 	let player_names = content.player_names;
 	let is_bot = content.is_bot;
 	let difficulty = content.difficulty;
+	let tournamentID = content.tournamentID;
 
     return new Promise((resolve, reject) => {
 
-		console.log("roomId: ", roomId);
         const socket = new WebSocket(`wss://${window.location.host}/ws/pong/${roomId}/`);
 		let pov;
 
         socket.onopen = function() {
-            console.log('WebSocket connection opened.');
+            console.log('Pong WebSocket connection opened.');
             if (socket.readyState === WebSocket.OPEN) {
 				socket.send(JSON.stringify({
 					type: 'initial_data',
@@ -21,10 +21,12 @@ export async function initPongSocket(content) {
 					'winning_score': winning_score,
 					'player_names': player_names,
 					'is_bot': is_bot,
-					'difficulty': difficulty
+					'difficulty': difficulty,
+					'partOfTournament': content.partOfTournament,
+					'tournamentID': tournamentID,
 				}));
 			} else {
-				console.error('WebSocket is not open yet.');
+				console.error('Pong WebSocket is not open yet.');
 			}
         };
 
@@ -38,19 +40,19 @@ export async function initPongSocket(content) {
 						resolve({ pov, socket });
 					}
 				} catch (e) {
-					console.error('Failed to parse JSON:', e, 'Received data:', event.data);
+					console.error('Pong Failed to parse JSON:', e, 'Received data:', event.data);
 				}
 			}
 		};
 
 
         socket.onerror = function(error) {
-            console.error('WebSocket error:', error);
+            console.error('Pong WebSocket error:', error);
             setTimeout(() => initPongSocket(content).then(resolve).catch(reject), 2000); // retry every 2 seconds
         };
 
         socket.onclose = function() {
-            console.log('WebSocket connection closed.');
+            console.log('Pong WebSocket connection closed.');
         };
     });
 }
