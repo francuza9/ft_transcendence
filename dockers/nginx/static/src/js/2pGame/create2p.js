@@ -23,6 +23,8 @@ export let keys = {
 	"ArrowRight": false,
 };
 let score;
+let cameraIndex = 2;
+let cameraFollow = false;
 export let scoremesh;
 
 export function create2Pgame(mappov, socket, names) {
@@ -167,6 +169,14 @@ export function create2Pgame(mappov, socket, names) {
 		groupCornerLights.children[9].color.setHex(ball.color);
 
         ball.animate();
+
+		if (cameraFollow) {
+			if (mappov === 1)
+				camera.position.set(players.children[0].position.x - 4, players.children[0].position.y + 3.5, players.children[0].position.z);
+			else if (mappov === 2)
+				camera.position.set(players.children[1].position.x + 4, players.children[1].position.y + 3.5, players.children[1].position.z);
+		}
+
 		if (mappov > 0)
 			updatePlayerPosition(players.children[mappov - 1]);
 
@@ -240,14 +250,32 @@ function onKeydown(event, camera) {
 		keys[event.key] = true;
 	}
 	else if (event.key === ' ') {
-		if (camera.position.x < -7)
-			camera.position.set(-0.1, 12, 0);
-		else if (camera.position.x < 0)
-			camera.position.set(-10, 3, 6.123233995736766e-16);
-		else if (camera.position.x > 7)
-			camera.position.set(0.1, 12, 0);
-		else
-			camera.position.set(10, 3, 6.123233995736766e-16);
+		if (camera.position.x < 0) {
+			if (cameraIndex % 3 === 0) {
+				cameraFollow = false;
+				camera.position.set(-0.1, 12, 0);
+			} else if (cameraIndex % 3 === 1) {
+				cameraFollow = false;
+				camera.position.set(-10, 3, 6.123233995736766e-16);
+			} else if (cameraIndex % 3 === 2) {
+				cameraFollow = true;
+			}
+		} else {
+			if (cameraIndex % 3 === 0) {
+				cameraFollow = false;
+				camera.position.set(0.1, 12, 0);
+			} else if (cameraIndex % 3 === 1) {
+				cameraFollow = false;
+				camera.position.set(10, 3, 6.123233995736766e-16);
+			} else if (cameraIndex % 3 === 2) {
+				cameraFollow = true;
+			}
+		}
+		if (cameraIndex > 100000) {
+			cameraIndex = 1;
+		} else {
+			cameraIndex++;
+		}
 	}
 }
 
