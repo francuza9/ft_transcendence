@@ -125,9 +125,13 @@ class PongConsumer(AsyncWebsocketConsumer):
 		await asyncio.sleep(3)
 		game_length = time.time()
 		game_state = await self.get_game_state()
+		# game_state['multi']['ball_direction'] = {
+		# 	'x': random.choice([1.5, -1.5]),
+		# 	'y': 0
+		# }
 		game_state['multi']['ball_direction'] = {
-			'x': random.choice([1.5, -1.5]),
-			'y': 0
+			'x': 0,
+			'y': -1.0,
 		}
 		game_state['2_P']['ball_direction'] = {
 			'x': random.choice([1.5, -1.5]),
@@ -218,6 +222,7 @@ class PongConsumer(AsyncWebsocketConsumer):
 				result = update_ball_position_multi(game_state)
 				json_message = json.dumps({
 					'ball': {
+							'ball_position': game_state['multi']['ball_position'], #TODO: remove later
 							'ball_direction': game_state['multi']['ball_direction'],
 							'ball_speed': game_state['multi']['ball_speed'],
 						},
