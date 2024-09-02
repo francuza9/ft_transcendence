@@ -6,7 +6,7 @@ import logging
 
 logger = logging.getLogger(__name__)
 
-tournament_states = {}  # Global dictionary to store tournament states per lobbyId
+tournament_states = {}
 
 class TournamentConsumer(AsyncWebsocketConsumer):
 	max_connections = 8
@@ -18,19 +18,16 @@ class TournamentConsumer(AsyncWebsocketConsumer):
 			query_params = self.scope['query_string'].decode()
 			self.username = next((param.split('=')[1] for param in query_params.split('&') if param.startswith('username=')), None)
 
-			# Initialize tournament state if it doesn't exist
 			if self.lobby_id not in tournament_states:
 				tournament_states[self.lobby_id] = {
 					'connections': 0,
-					'players': None,
+					'players': None, # was None previously
 					'pairs': [],
 					'results': [],
 					'player_connections': {},
 				}
 
-			# Access the state for the current lobby
 			tournament_state = tournament_states[self.lobby_id]
-
 			if tournament_state['connections'] >= self.max_connections:
 				await self.close()
 			else:
@@ -68,7 +65,7 @@ class TournamentConsumer(AsyncWebsocketConsumer):
 		if message_type == 'init':
 			if tournament_states[self.lobby_id]['players'] is None:
 				tournament_states[self.lobby_id]['players'] = content
-			if tournament_states[self.lobby_id]['pairs'] == []:
+			if not tournament_states[self.lobby_id]['pairs']:
 				tournament_states[self.lobby_id]['pairs'] = self.generate_pairs(content)
 			if len([player for player, is_bot in tournament_states[self.lobby_id]['players'].items() if not is_bot]) == tournament_states[self.lobby_id]['connections']:
 				await self.start_tournament()

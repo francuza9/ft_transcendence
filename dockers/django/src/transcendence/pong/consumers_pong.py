@@ -2,6 +2,7 @@ from channels.generic.websocket import AsyncWebsocketConsumer
 from .backend_pong.collisions import update_ball_position
 from .backend_pong.collisions_multi import update_ball_position_multi
 from .ai import AI
+from .consumers_tournament import tournament_states
 import json
 import logging
 import asyncio
@@ -110,7 +111,8 @@ class PongConsumer(AsyncWebsocketConsumer):
 					game_state['2_P'] = game_state.get('2_P', {})
 					game_state['2_P']['winning_score'] = winning_score
 					game_state['partOfTournament'] = data.get('partOfTournament', False)
-					logger.info(f"pong: Room size set to {room_size}")
+					game_state['tournamentID'] = data.get('tournamentID', None)
+					logger.info(f"init data received: {data}")
 				else:
 					await self.send(text_data=json.dumps({'error': 'Invalid room size'}))
 			elif message_type == 'init':
@@ -187,12 +189,19 @@ class PongConsumer(AsyncWebsocketConsumer):
 					times.append(time_length)
 					times.append(time_length)
 					names_list = list(game_state.get('player_data', {}).keys())
+					winner_username = names_list[0] if score[0] > score[1] else names_list[1]
+					if game_state.get('partOfTournament', False):
+						id = game_state.get('tournamentID', None)
+						if id in tournament_states:
+							tournament = tournament_states[id]
+							winner_data = {winner_username: game_state['player_data'][winner_username]}
+							tournament['results'].append(winner_data)
+							# maybe notify clients that someone won
 					packed_data = {
 						'scores': score,
 						'time': times,
 						'players': names_list,
 					}
-
 					await self.send(text_data=json.dumps(packed_data))
 					break
 				await self.channel_layer.group_send(
@@ -269,4 +278,5 @@ class PongConsumer(AsyncWebsocketConsumer):
 			'room_size': 2,
 			'player_data': {},  # Changed to dictionary format
 			'partOfTournament': False,
+			'tournamentID': None,
 		}
