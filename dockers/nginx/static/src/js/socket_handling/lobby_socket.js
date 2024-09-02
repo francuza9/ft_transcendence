@@ -6,7 +6,6 @@ import { initTournamentSocket } from '/static/src/js/socket_handling/tournament_
 
 export async function initLobbySocket(variables, aiGame = false) {
     return new Promise((resolve, reject) => {
-		console.log("IMPORTANT: ", variables.lobbyId);
         const socket = new WebSocket(`wss://${window.location.host}/ws/${variables.lobbyId}`);
 
         socket.onopen = function() {
@@ -14,7 +13,7 @@ export async function initLobbySocket(variables, aiGame = false) {
             ensureUsername().then(() => {
 				variables.aiGame = aiGame;
                 socket.send(JSON.stringify({ type: 'init', content: variables }));
-                resolve(socket); // Return the socket when it's open and initialized
+                resolve(socket);
             });
         };
 

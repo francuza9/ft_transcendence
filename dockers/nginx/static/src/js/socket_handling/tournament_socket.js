@@ -8,6 +8,7 @@ export async function initTournamentSocket(variables) {
 	return new Promise((resolve, reject) => {
 		ensureUsername().then(() => {
 			const socket = new WebSocket(`wss://${window.location.host}/ws/tournament/${variables.lobbyId}/?username=${variables.username}`);
+			variables.tournamentID = variables.lobbyId;
 
 			socket.onopen = function() {
 				console.log('Tournament: WebSocket connection opened.');
@@ -23,10 +24,13 @@ export async function initTournamentSocket(variables) {
 					variables.isTournament = false;
 					variables.maxPlayerCount = 2;
 					variables.partOfTournament = true;
-					console.log("received id: ", variables.lobbyId);
 					if (message.content.aiGame === true) {
 						let botName = message.content.botName;
 						play_with_ai(variables, botName);
+					} else if (message.content.aiGame === false && message.content.admin === true) {
+						pvp_create(variables);
+					} else if (message.content.aiGame === false && message.content.admin === false) {
+						pvp_start(variables);
 					}
 				}
 			};
@@ -57,11 +61,55 @@ async function play_with_ai(variables, botName) {
 
 	history.pushState(null, '', `/${variables.lobbyId}`);
 	variables.players = [variables.username];
-	console.log("variables: ", variables);
 	try {
 		const socket = await initLobbySocket(variables, true);
 		if (socket) {
 			addBot(self, socket, botName);
+			startButton(self, socket);
+		} else {
+			console.error('Failed to initialize socket.');
+		}
+	} catch (error) {
+		console.error('Failed to initialize WebSocket:', error);
+	}
+}
+
+async function pvp_create(variables) {
+	if (!variables.username) {
+		try {
+			const loggedIn = await checkLoginStatus();
+			if (!loggedIn) {
+				await guestLogin();
+			}
+		} catch (error) {
+			console.error('Error checking login status:', error); 
+		}
+	}
+	history.pushState(null, '', `/${variables.lobbyId}`);
+	variables.players = [variables.username];
+	try {
+		const socket = await initLobbySocket(variables, false);
+	} catch (error) {
+		console.error('Failed to initialize WebSocket:', error);
+	}
+}
+
+async function pvp_start(variables) {
+	if (!variables.username) {
+		try {
+			const loggedIn = await checkLoginStatus();
+			if (!loggedIn) {
+				await guestLogin();
+			}
+		} catch (error) {
+			console.error('Error checking login status:', error); 
+		}
+	}
+	history.pushState(null, '', `/${variables.lobbyId}`);
+	variables.players = [variables.username];
+	try {
+		const socket = await initLobbySocket(variables, false);
+		if (socket) {
 			startButton(self, socket);
 		} else {
 			console.error('Failed to initialize socket.');
