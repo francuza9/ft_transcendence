@@ -135,6 +135,7 @@ export function create2Pgame(mappov, socket) {
 		} else if (variables.partOfTournament == true) {
 			cleanup();
 			renderer.domElement.remove();
+			variables.partOfTournament = false;
 		}
 	};
 
