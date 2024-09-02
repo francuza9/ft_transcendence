@@ -66,11 +66,9 @@ class TournamentConsumer(AsyncWebsocketConsumer):
 		if message_type == 'init':
 			if tournament_states[self.lobby_id]['players'] is None:
 				tournament_states[self.lobby_id]['players'] = content
-			if not tournament_states[self.lobby_id]['pairs']:
-				tournament_states[self.lobby_id]['pairs'] = self.generate_pairs(tournament_states[self.lobby_id]['players'])
-			
 			while True:
-				tournament_states[self.lobby_id]['pairs'] = self.generate_pairs(tournament_states[self.lobby_id]['players'])
+				if not tournament_states[self.lobby_id]['pairs']:
+					tournament_states[self.lobby_id]['pairs'] = self.generate_pairs(tournament_states[self.lobby_id]['players'])
 				if len([player for player, is_bot in tournament_states[self.lobby_id]['players'].items() if not is_bot]) <= tournament_states[self.lobby_id]['connections']:
 					await self.start_tournament()
 				while True:
