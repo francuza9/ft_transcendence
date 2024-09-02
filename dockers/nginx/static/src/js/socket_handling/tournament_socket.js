@@ -110,6 +110,8 @@ async function pvp_start(variables) {
 	try {
 		const socket = await initLobbySocket(variables, false);
 		if (socket) {
+			sleep(1);
+			console.log("players: ", variables.players);
 			startButton(self, socket);
 		} else {
 			console.error('Failed to initialize socket.');
@@ -117,4 +119,8 @@ async function pvp_start(variables) {
 	} catch (error) {
 		console.error('Failed to initialize WebSocket:', error);
 	}
+}
+
+function sleep(ms, callback) {
+    setTimeout(callback, ms);
 }
