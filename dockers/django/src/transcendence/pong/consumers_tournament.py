@@ -66,27 +66,28 @@ class TournamentConsumer(AsyncWebsocketConsumer):
 		if message_type == 'init':
 			if tournament_states[self.lobby_id]['players'] is None:
 				tournament_states[self.lobby_id]['players'] = content
-			logger.info(f"players: {tournament_states[self.lobby_id]['players']}")
+			if not tournament_states[self.lobby_id]['pairs']:
+				tournament_states[self.lobby_id]['pairs'] = self.generate_pairs(tournament_states[self.lobby_id]['players'])
+			
 			while True:
-				if not tournament_states[self.lobby_id]['pairs']:
-					tournament_states[self.lobby_id]['pairs'] = self.generate_pairs(tournament_states[self.lobby_id]['players'])
-				
+				tournament_states[self.lobby_id]['pairs'] = self.generate_pairs(tournament_states[self.lobby_id]['players'])
 				if len([player for player, is_bot in tournament_states[self.lobby_id]['players'].items() if not is_bot]) <= tournament_states[self.lobby_id]['connections']:
 					await self.start_tournament()
 				while True:
 					if len(tournament_states[self.lobby_id]['results']) == len(tournament_states[self.lobby_id]['pairs']):
 						temp_list = {}
+						if len(tournament_states[self.lobby_id]['results']) == 1:
+							break
 						for i in tournament_states[self.lobby_id]['results']:
 							temp_list.update(i)
 						tournament_states[self.lobby_id]['players'] = temp_list
 						tournament_states[self.lobby_id]['pairs'] = []
 						tournament_states[self.lobby_id]['results'] = []
-						logger.info(f"players: {tournament_states[self.lobby_id]['players']}")
 						break
 					else:
 						await asyncio.sleep(1)
-				if len(tournament_states[self.lobby_id]['players'].items()) == 1:
-					logger.info(f"Winner: {tournament_states[self.lobby_id]['players'][0]}")
+				if len(tournament_states[self.lobby_id]['results']) == 1:
+					logger.info(f"Winner: {tournament_states[self.lobby_id]['results']}")
 					break
 
 
