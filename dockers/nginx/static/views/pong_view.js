@@ -41,7 +41,7 @@ export async function Pong(content) {
 		if (room_size < 2 || room_size > 8 || room_size < pov) {
 			throw new Error('Invalid room size');
 		}
-        startGame(room_size, pov, map, socket);
+        startGame(room_size, pov, map, socket, content.player_names);
 	} catch (error) {
         console.error('Failed to initialize WebSocket:', error);
     }
