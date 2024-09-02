@@ -98,6 +98,10 @@ export function createMultigame(pcount, pov, map, socket) {
 			ball.direction.x = data.ball.ball_direction.x;
 			ball.direction.z = data.ball.ball_direction.y;
 
+			//TODO: remove later
+			ball.ball.position.x = data.ball.ball_position.x;
+			ball.ball.position.z = data.ball.ball_position.y;
+
 			let i;
 			for (i = 0; i < pov - 1 && i < players_array.length; i++) {
 				players.children[i + 1].position.set(players_array[i].x, 0.75, players_array[i].y);
@@ -167,6 +171,10 @@ export function createMultigame(pcount, pov, map, socket) {
 	function onKeydown(event) {
 		if (event.key in keys) {
 			keys[event.key] = true;
+		}
+		else if (event.key === 'r') {
+			// Reset the ball
+			ball.reset();
 		}
 	}
 
