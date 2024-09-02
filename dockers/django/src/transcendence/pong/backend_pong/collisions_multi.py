@@ -3,29 +3,10 @@ import logging
 
 logger = logging.getLogger(__name__)
 
-def cross_product(x1, y1, x2, y2, x3, y3):
-	"""Calculate the cross product of vectors (x2-x1, y2-y1) and (x3-x1, y3-y1)."""
-	return (x2 - x1) * (y3 - y1) - (y2 - y1) * (x3 - x1)
-
-def is_inside(ball, edge):
-	"""Check if the point (ball_x, ball_y) is on the same side of the line defined by vertex1 and vertex2 relative to the origin."""
-	ball_x, ball_y = ball['x'], ball['y']
-	corner_1_x, corner_1_y = edge[0]['x'], edge[0]['y']
-	corner_2_x, corner_2_y = edge[1]['x'], edge[1]['y']
-
-	# Cross product with the origin (0, 0)
-	cross_origin = cross_product(corner_1_x, corner_1_y, corner_2_x, corner_2_y, 0, 0)
-
-	# Cross product with the ball position (ball_x, ball_y)
-	cross_ball = cross_product(corner_1_x, corner_1_y, corner_2_x, corner_2_y, ball_x, ball_y)
-
-	# Compare signs to determine if on the same side
-	return cross_origin * cross_ball >= 0
-
 def update_ball_position_multi(game_state):
 	ball = game_state['multi']['ball_position']
 	direction = game_state['multi']['ball_direction']
-	speed = game_state['multi']['ball_speed'] * 0.2 # just for testing
+	speed = game_state['multi']['ball_speed'] * 0.2 # just for testing, TODO: remove later
 	players = game_state['multi']['players']
 	corners = game_state['multi']['edges']
 
@@ -135,3 +116,22 @@ def reflect_ball(ball, player, direction, edge, paddle_length=2, max_angle=math.
 	direction_y = math.sin(new_angle)
 
 	return {'x': direction_x, 'y': direction_y}
+
+def cross_product(x1, y1, x2, y2, x3, y3):
+	"""Calculate the cross product of vectors (x2-x1, y2-y1) and (x3-x1, y3-y1)."""
+	return (x2 - x1) * (y3 - y1) - (y2 - y1) * (x3 - x1)
+
+def is_inside(ball, edge):
+	"""Check if the point (ball_x, ball_y) is on the same side of the line defined by vertex1 and vertex2 relative to the origin."""
+	ball_x, ball_y = ball['x'], ball['y']
+	corner_1_x, corner_1_y = edge[0]['x'], edge[0]['y']
+	corner_2_x, corner_2_y = edge[1]['x'], edge[1]['y']
+
+	# Cross product with the origin (0, 0)
+	cross_origin = cross_product(corner_1_x, corner_1_y, corner_2_x, corner_2_y, 0, 0)
+
+	# Cross product with the ball position (ball_x, ball_y)
+	cross_ball = cross_product(corner_1_x, corner_1_y, corner_2_x, corner_2_y, ball_x, ball_y)
+
+	# Compare signs to determine if on the same side
+	return cross_origin * cross_ball >= 0
