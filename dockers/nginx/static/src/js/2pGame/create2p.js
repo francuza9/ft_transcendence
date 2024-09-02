@@ -25,7 +25,7 @@ export let keys = {
 let score;
 export let scoremesh;
 
-export function create2Pgame(mappov, socket) {
+export function create2Pgame(mappov, socket, names) {
 	group = new THREE.Group();
 	if (mappov > 2)
 		mappov = 0;
@@ -142,7 +142,7 @@ export function create2Pgame(mappov, socket) {
 	socket.addEventListener('message', handleMessage);
 
     initText().then(text => {
-        playerNames(mappov, "player 1", "player 2").then(names => {
+        playerNames(mappov, names[0], names[1]).then(names => {
             group.add(text);
             group.add(names);
             scene.add(light);

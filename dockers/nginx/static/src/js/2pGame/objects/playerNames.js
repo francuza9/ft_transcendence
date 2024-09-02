@@ -82,6 +82,11 @@ export function playerNames(pov, p1Name, p2Name) {
                     bevelOffset: 0,
                     bevelSegments: 5
                 });
+				geometry1.computeBoundingBox();
+				geometry2.computeBoundingBox();
+
+				const length1 = geometry1.boundingBox.max.x - geometry1.boundingBox.min.x;
+				const length2 = geometry2.boundingBox.max.x - geometry2.boundingBox.min.x;
 
                 // Create material
                 const material1 = new THREE.MeshBasicMaterial({ color: 0xff0000 });
@@ -91,12 +96,13 @@ export function playerNames(pov, p1Name, p2Name) {
                 const p1Mesh = new THREE.Mesh(geometry1, material1);
 				p1Mesh.rotation.y = 3 * PI / 2;
                 p1Mesh.position.x = -6.1;
-				p1Mesh.position.z = -1.35;
+				
+				p1Mesh.position.z = 0 - length1 / 2;
                 p1Mesh.position.y = -0.25;
 
                 const p2Mesh = new THREE.Mesh(geometry2, material2);
 				p2Mesh.rotation.y = -(PI / 2);
-				p2Mesh.position.z = -3;
+				p2Mesh.position.z = 0 - length2 / 2;
                 p2Mesh.position.x = 4;
                 p2Mesh.position.y = 3;
 				
@@ -132,6 +138,11 @@ export function playerNames(pov, p1Name, p2Name) {
                     bevelOffset: 0,
                     bevelSegments: 5
                 });
+				geometry1.computeBoundingBox();
+				geometry2.computeBoundingBox();
+
+				const length1 = geometry1.boundingBox.max.x - geometry1.boundingBox.min.x;
+				const length2 = geometry2.boundingBox.max.x - geometry2.boundingBox.min.x;
 
                 // Create material
                 const material1 = new THREE.MeshBasicMaterial({ color: 0xff0000 });
@@ -140,15 +151,15 @@ export function playerNames(pov, p1Name, p2Name) {
                 // Create mesh
                 const p1Mesh = new THREE.Mesh(geometry1, material1);
 				p1Mesh.rotation.y = PI / 2;
-                p1Mesh.position.z = 3;
+                p1Mesh.position.z = 0 + length1 / 2;
                 p1Mesh.position.x = -4;
                 p1Mesh.position.y = 3;
 
                 const p2Mesh = new THREE.Mesh(geometry2, material2);
 				p2Mesh.rotation.y = -(3 * PI / 2);
                 p2Mesh.position.x = 6.1;
-				p2Mesh.position.z = 1.5;
-                p2Mesh.position.y = -0.25;
+				p2Mesh.position.z = 0 + length2 / 2;
+				p2Mesh.position.y = -0.25;
 				
                 // Create group and add meshes
                 const group = new THREE.Group();
