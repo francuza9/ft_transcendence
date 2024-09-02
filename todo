@@ -35,14 +35,14 @@ General Mandatory Todo {
 	}
 
 	Current {
-		Tournament {
-			Tournament logic,
-		},
+		Minor {
+			make ai better
+
+			Spectator
+		}
 	}
 
 	Upcoming {
-		Spectator
-
 		42 Auth
 	}
 }
