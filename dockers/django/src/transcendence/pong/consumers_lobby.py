@@ -89,9 +89,11 @@ class LobbyConsumer(AsyncWebsocketConsumer):
 				username = content.get('username')
 				if lobby_data[self.lobby_id]['admin'] is None:
 					lobby_data[self.lobby_id]['admin'] = username
+				logger.info(f"my user: {username}, players: {lobby_data[self.lobby_id]['players']}")
 				if username not in lobby_data[self.lobby_id]['players'] and len(lobby_data[self.lobby_id]['players']) < lobby_data[self.lobby_id]['max_users']:
 					lobby_data[self.lobby_id]['players'].append(username)
 					lobby_data[self.lobby_id]['is_bot'].append(False)  # Assuming the player is not a bot
+				
 				else:
 					self.redirect_message()
 
@@ -115,6 +117,10 @@ class LobbyConsumer(AsyncWebsocketConsumer):
 					await self.addBot(address, botName)
 
 			elif message_type == 'start':
+				logger.info(f"here lobby: players: {lobby_data[self.lobby_id]['players']}")
+				if len(lobby_data[self.lobby_id]['players']) < 2:
+					await asyncio.sleep(0.5)
+				logger.info(f"here lobby: players: {lobby_data[self.lobby_id]['players']}")
 				if len(lobby_data[self.lobby_id]['players']) >= 2:
 					await self.send_start_message()
 				else:

@@ -110,7 +110,6 @@ async function pvp_start(variables) {
 	try {
 		const socket = await initLobbySocket(variables, false);
 		if (socket) {
-			sleep(1);
 			startButton(self, socket);
 		} else {
 			console.error('Failed to initialize socket.');
