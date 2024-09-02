@@ -99,6 +99,7 @@ class TournamentConsumer(AsyncWebsocketConsumer):
 				logger.info(f'Generated lobby_id: {lobby_id} for pair: {usernames}')
 				aiGame = False
 				botName = None
+				admin = None
 				for i in range(2):
 					if is_bots[i]:
 						botName = usernames[i]
@@ -106,8 +107,9 @@ class TournamentConsumer(AsyncWebsocketConsumer):
 						break
 				await self.send_to_pair(usernames, lobby_id, aiGame, botName)
 
-	async def send_to_pair(self, usernames, lobby_id, aiGame, botName=None):
+	async def send_to_pair(self, usernames, lobby_id, aiGame, botName):
 		tournament_state = tournament_states[self.lobby_id]
+		admin = True
 		for username in usernames:
 			if username in tournament_state['player_connections']:
 				connection = tournament_state['player_connections'][username]
@@ -118,8 +120,10 @@ class TournamentConsumer(AsyncWebsocketConsumer):
 						'players': usernames,
 						'aiGame': aiGame,
 						'botName': botName,
+						'admin': admin,
 					}
 				}))
+			admin = False
 
 	async def generate_lobby_id(self):
 		return ''.join(random.choices(string.ascii_letters + string.digits, k=8))

@@ -60,28 +60,68 @@ class GlobalConsumer(AsyncWebsocketConsumer):
 		senderDB = await self.getUserDB(self.username)
 		userDB = await self.getUserDB(target)
 		userWS = await self.getUserWS(target)
-		if not userDB or self.username == target:
+
+		SUCCESS = 0
+		YOURE_USER = 1
+		USER_DOESNT_EXIST = 2
+		ALREADY_FRIENDS = 3
+		ALREADY_SENT = 4
+		ALREADY_RECEIVED = 5
+		BLOCKED = 6
+		BLOCKED_YOU = 7
+
+		if not userDB:
 			await self.send(text_data=json.dumps({
 				'type': 'friend_request_sent',
-				'content': False,
+				'content': USER_DOESNT_EXIST,
 			}))
 			return
-		if senderDB and userDB:
-			if not await sync_to_async(senderDB.friends.filter(id=userDB.id).exists)() \
-				and not await sync_to_async(userDB.sent_friend_requests.filter(id=senderDB.id).exists)() \
-				and not await sync_to_async(userDB.received_friend_requests.filter(id=senderDB.id).exists)() \
-				and not await sync_to_async(userDB.blocked_users.filter(id=senderDB.id).exists)() \
-				and not await sync_to_async(senderDB.blocked_users.filter(id=userDB.id).exists)():
-				await sync_to_async(senderDB.sent_friend_requests.add)(userDB)
-				if userWS:
-					await userWS.send(text_data=json.dumps({
-						'type': 'friend_request',
-						'sender': self.username,
-					}))
-				await self.send(text_data=json.dumps({
-					'type': 'friend_request_sent',
-					'content': True,
-				}))
+		if self.username == target:
+			await self.send(text_data=json.dumps({
+				'type': 'friend_request_sent',
+				'content': YOURE_USER,
+			}))
+			return
+		if await sync_to_async(senderDB.friends.filter(id=userDB.id).exists)():
+			await self.send(text_data=json.dumps({
+				'type': 'friend_request_sent',
+				'content': ALREADY_FRIENDS,
+			}))
+			return
+		if await sync_to_async(senderDB.sent_friend_requests.filter(id=userDB.id).exists)():
+			await self.send(text_data=json.dumps({
+				'type': 'friend_request_sent',
+				'content': ALREADY_SENT,
+			}))
+			return
+		if await sync_to_async(userDB.received_friend_requests.filter(id=senderDB.id).exists)():
+			await self.send(text_data=json.dumps({
+				'type': 'friend_request_sent',
+				'content': ALREADY_RECEIVED,
+			}))
+			return
+		if await sync_to_async(senderDB.blocked_users.filter(id=userDB.id).exists)():
+			await self.send(text_data=json.dumps({
+				'type': 'friend_request_sent',
+				'content': BLOCKED,
+			}))
+			return
+		if await sync_to_async(userDB.blocked_users.filter(id=senderDB.id).exists)():
+			await self.send(text_data=json.dumps({
+				'type': 'friend_request_sent',
+				'content': BLOCKED_YOU,
+			}))
+			return
+		await sync_to_async(senderDB.sent_friend_requests.add)(userDB)
+		await self.send(text_data=json.dumps({
+			'type': 'friend_request_sent',
+			'content': SUCCESS,
+		}))
+		if userWS:
+			await userWS.send(text_data=json.dumps({
+				'type': 'friend_request',
+				'sender': self.username,
+			}))
 
 	async def send_game_invitation(self, target, url):
 		userDB = await self.getUserDB(target)

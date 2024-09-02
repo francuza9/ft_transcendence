@@ -7,6 +7,8 @@ import {variables} from '/static/src/js/variables.js';
 import {getSocketAI} from '/static/src/js/local.js';
 import {initTournamentSocket} from '/static/src/js/socket_handling/tournament_socket.js';
 
+let tournament_socket;
+
 function updateLobbyDetails(variables) {
 	if (variables.roomName)
 		document.getElementById('lobbyTitle').innerText = variables.roomName;
@@ -84,7 +86,6 @@ export const leaveRoom = () => {
 	}
 };
 
-let tournament_socket;
 
 export const startButton = (self, tournamentSocket) => {
 	if (!variables.isTournament) {
