@@ -199,8 +199,9 @@ class PongConsumer(AsyncWebsocketConsumer):
 						if id in tournament_states:
 							tournament = tournament_states[id]
 							winner_data = {winner_username: game_state['player_data'][winner_username]}
-							tournament['results'].append(winner_data)
-							# maybe notify clients that someone won
+							if winner_data not in tournament['results']:
+								tournament['results'].append(winner_data)
+								# maybe notify clients that someone won
 					packed_data = {
 						'scores': score,
 						'time': times,

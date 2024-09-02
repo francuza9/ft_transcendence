@@ -3,6 +3,7 @@ import json
 import random
 import string
 import logging
+import asyncio
 
 logger = logging.getLogger(__name__)
 
@@ -65,10 +66,28 @@ class TournamentConsumer(AsyncWebsocketConsumer):
 		if message_type == 'init':
 			if tournament_states[self.lobby_id]['players'] is None:
 				tournament_states[self.lobby_id]['players'] = content
-			if not tournament_states[self.lobby_id]['pairs']:
-				tournament_states[self.lobby_id]['pairs'] = self.generate_pairs(content)
-			if len([player for player, is_bot in tournament_states[self.lobby_id]['players'].items() if not is_bot]) == tournament_states[self.lobby_id]['connections']:
-				await self.start_tournament()
+			while True:
+				if not tournament_states[self.lobby_id]['pairs']:
+					tournament_states[self.lobby_id]['pairs'] = self.generate_pairs(tournament_states[self.lobby_id]['players'])
+				if len([player for player, is_bot in tournament_states[self.lobby_id]['players'].items() if not is_bot]) <= tournament_states[self.lobby_id]['connections']:
+					await self.start_tournament()
+				while True:
+					if len(tournament_states[self.lobby_id]['results']) == len(tournament_states[self.lobby_id]['pairs']):
+						temp_list = {}
+						if len(tournament_states[self.lobby_id]['results']) == 1:
+							break
+						for i in tournament_states[self.lobby_id]['results']:
+							temp_list.update(i)
+						tournament_states[self.lobby_id]['players'] = temp_list
+						tournament_states[self.lobby_id]['pairs'] = []
+						tournament_states[self.lobby_id]['results'] = []
+						break
+					else:
+						await asyncio.sleep(1)
+				if len(tournament_states[self.lobby_id]['results']) == 1:
+					logger.info(f"Winner: {tournament_states[self.lobby_id]['results']}")
+					break
+
 
 	def generate_pairs(self, players):
 		player_list = [(username, is_bot) for username, is_bot in players.items()]
@@ -89,14 +108,15 @@ class TournamentConsumer(AsyncWebsocketConsumer):
 			is_bots = [pair[username] for username in usernames]
 
 			if all(is_bots):
-				winner = random.choice(usernames)
-				tournament_state['results'].append(winner)
+				winner_username = random.choice(usernames)
+				winner = {winner_username: pair[winner_username]}
+				if winner not in tournament_state['results']:
+					tournament_state['results'].append(winner)
 			else:
 				lobby_id = await self.generate_lobby_id()
 				logger.info(f'Generated lobby_id: {lobby_id} for pair: {usernames}')
 				aiGame = False
 				botName = None
-				admin = None
 				for i in range(2):
 					if is_bots[i]:
 						botName = usernames[i]

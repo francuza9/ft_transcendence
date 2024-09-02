@@ -118,3 +118,7 @@ async function pvp_start(variables) {
 		console.error('Failed to initialize WebSocket:', error);
 	}
 }
+
+function sleep(ms, callback) {
+    setTimeout(callback, ms);
+}
