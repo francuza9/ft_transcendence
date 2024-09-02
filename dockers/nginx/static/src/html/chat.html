@@ -58,7 +58,6 @@
 				</div>
 			</div>
 			<div class="modal-body w-100">
-                <!-- Add Friends Tab -->
                 <div class="tab-pane fade show active" id="tab-pane-add" role="tabpanel">
                     <div class="input-group mb-3">
                         <input type="text" class="form-control" id="add-friend-input">
@@ -71,33 +70,28 @@
 						<p id="add-request-fail" class="hidden" data-text="friends.addRequestFail">Couldn't find user!</p>
 					</div>
                 </div>
-
-                <!-- Manage Friends Tab -->
                 <div class="tab-pane fade" id="tab-pane-manage" role="tabpanel">
                     <div id="friendsTable" class="table-responsive">
                         <table class="table table-centered">
                             <tbody id="friends-list">
-                                <!-- Dynamic friend list will go here -->
                             </tbody>
                         </table>
                     </div>
 					<div id="noFriendsMessage" class="hidden error-message" data-text="friends.noFriends">You have no friends!</div>
                 </div>
-
-                <!-- Friend Requests Tab -->
                 <div class="tab-pane fade" id="tab-pane-requests" role="tabpanel">
-                    <div id="friend-requests-list">
-                        <!-- Dynamic friend requests will go here -->
+                    <div id="requestsTable" class="table-responsive">
+                        <table class="table table-centered">
+                            <tbody id="requests-list">
+                            </tbody>
+                        </table>
                     </div>
 					<div id="noRequestsMessage" class="hidden error-message" data-text="friends.noRequests">You have no pending friend requests.</div>
                 </div>
-
-                <!-- Blocked Users Tab -->
                 <div class="tab-pane fade" id="tab-pane-blocked" role="tabpanel">
                     <div id="blockedTable" class="table-responsive">
                         <table class="table table-centered">
                             <tbody id="blocked-users-list">
-                                <!-- Dynamic blocked users list will go here -->
                             </tbody>
                         </table>
                     </div>
