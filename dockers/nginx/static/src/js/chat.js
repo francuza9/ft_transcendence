@@ -399,33 +399,31 @@ const loadFriendRequestsTab = () => {
     })
     .then(response => response.json())
     .then(data => {
-        const friendRequestsList = document.getElementById("friend-requests-list");
+        const friendRequestsList = document.getElementById("requests-list");
 		const noRequestsMessage = document.getElementById('noRequestsMessage');
-		const blockedTable = document.getElementById('blockedTable');
+		const requestsTable = document.getElementById('requestsTable');
 
         friendRequestsList.innerHTML = '';
         if (data.friend_requests.length === 0) {
 			noRequestsMessage.classList.remove('hidden');
-			blockedTable.classList.add('hidden');
+			requestsTable.classList.add('hidden');
         } else {
 			noRequestsMessage.classList.add('hidden');
-			blockedTable.classList.remove('hidden');
+			requestsTable.classList.remove('hidden');
             data.friend_requests.forEach(request => {
-                const requestItem = document.createElement("div");
-                requestItem.className = "request-item";
+                const requestItem = document.createElement("tr");
+                requestItem.className = "player-row";
                 requestItem.innerHTML = `
-                    <div class="avatar-container">
-                        <img src="${request.avatar}" alt="${request.name}" width="40" height="40" class="rounded-circle">
-                    </div>
-                    <span class="request-name">${request.name} (@${request.username})</span>
-                    <div class="request-actions">
-                        <button class="btn btn-success btn-sm" data-accept="${request.username}">
+                    <td><img src="${request.avatar}" alt="${request.name}" class="player-img"></td>
+                    <td>${request.name}</td>
+                    <td>
+                        <button class="btn btn-danger btn-sm" data-unfriend="${request.username}">
                             <i class="ri-user-add-fill"></i>
                         </button>
-                        <button class="btn btn-danger btn-sm" data-decline="${request.username}">
+                        <button class="btn btn-warning btn-sm" data-block="${request.username}">
                             <i class="ri-user-unfollow-fill"></i>
                         </button>
-                    </div>
+                    </td>
                 `;
                 friendRequestsList.appendChild(requestItem);
             });
