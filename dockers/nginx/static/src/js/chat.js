@@ -3,7 +3,7 @@ import {getSocket} from '/static/src/js/socket_handling/global_socket.js';
 import {isGuest, ensureUsername} from '/static/src/js/utils.js';
 import {variables} from '/static/src/js/variables.js';
 import {getTranslation} from '/static/src/js/lang.js';
-import {addFriend, unfriendUser, blockUser, unblockUser, acceptFriendRequest, declineFriendRequest} from '/static/src/js/friends.js';
+import {addFriend, unfriendUser, blockUser, unblockUser, acceptFriendRequest, declineFriendRequest, unsendFriendRequest} from '/static/src/js/friends.js';
 
 let chatInputListener = null;
 let currentFriend = null;
@@ -313,8 +313,10 @@ function attachFriendListeners() {
         button.addEventListener('click', (e) => {
             const username = e.target.closest('button').getAttribute('data-unfriend');
             unfriendUser(username);
-			loadFriendsTab();
-			loadFriends();
+			setTimeout(() => {
+				loadFriendsTab();
+                loadFriends();
+            }, 300);
         });
     });
 
@@ -322,8 +324,10 @@ function attachFriendListeners() {
         button.addEventListener('click', (e) => {
             const username = e.target.closest('button').getAttribute('data-block');
             blockUser(username);
-			loadFriendsTab();
-			loadFriends();
+			setTimeout(() => {
+				loadFriendsTab();
+                loadFriends();
+            }, 300);
         });
     });
 }
@@ -333,8 +337,10 @@ function attachFriendRequestListeners() {
         button.addEventListener('click', (e) => {
             const username = e.target.closest('button').getAttribute('data-accept');
             acceptFriendRequest(username);
-			loadFriendsTab();
-			loadFriends();
+			setTimeout(() => {
+				loadFriendRequestsTab();
+                loadFriends();
+            }, 300);
         });
     });
 
@@ -342,8 +348,21 @@ function attachFriendRequestListeners() {
         button.addEventListener('click', (e) => {
             const username = e.target.closest('button').getAttribute('data-decline');
             declineFriendRequest(username);
-			loadFriendsTab();
-			loadFriends();
+			setTimeout(() => {
+				loadFriendRequestsTab();
+                loadFriends();
+            }, 300);
+        });
+    });
+
+    document.querySelectorAll('button[data-unsend]').forEach(button => {
+        button.addEventListener('click', (e) => {
+            const username = e.target.closest('button').getAttribute('data-unsend');
+            unsendFriendRequest(username);
+			setTimeout(() => {
+				loadFriendRequestsTab();
+                loadFriends();
+            }, 300);
         });
     });
 }
@@ -353,8 +372,10 @@ function attachBlockedUserListeners() {
         button.addEventListener('click', (e) => {
             const username = e.target.closest('button').getAttribute('data-unblock');
             unblockUser(username);
-			loadBlockedUsersTab();
-			loadFriends();
+			setTimeout(() => {
+				loadBlockedUsersTab();
+                loadFriends();
+            }, 300);
         });
     });
 }
@@ -480,8 +501,7 @@ const loadFriendRequestsTab = () => {
 		const requestsTable = document.getElementById('requestsTable');
 
         friendRequestsList.innerHTML = '';
-		console.log(data);
-        if (data.friend_requests.length === 0) {
+        if (data.friend_requests.length === 0 && data.sent_requests.length === 0) {
 			noRequestsMessage.classList.remove('hidden');
 			requestsTable.classList.add('hidden');
         } else {
@@ -494,13 +514,28 @@ const loadFriendRequestsTab = () => {
                     <td><img src="${request.avatar}" alt="${request.name}" class="player-img"></td>
                     <td class="align-middle">${request.name}</td>
 					<td class="align-middle text-center">
-                        <button class="btn btn-success btn-sm me-2" data-unfriend="${request.username}">
+                        <button class="btn btn-success btn-sm me-2" data-accept="${request.username}">
 							<i class="ri-check-fill"></i>
 							<span class="ms-1">Accept</span>
                         </button>
-                        <button class="btn btn-danger btn-sm" data-block="${request.username}">
+                        <button class="btn btn-danger btn-sm" data-decline="${request.username}">
                             <i class="ri-close-fill"></i>
 							<span class="ms-1">Decline</span>
+                        </button>
+                    </td>
+                `;
+                friendRequestsList.appendChild(requestItem);
+            });
+            data.sent_requests.forEach(request => {
+                const requestItem = document.createElement("tr");
+                requestItem.className = "player-row";
+                requestItem.innerHTML += `
+                    <td><img src="${request.avatar}" alt="${request.name}" class="player-img"></td>
+                    <td class="align-middle">${request.name}</td>
+					<td class="align-middle text-center">
+                        <button class="btn btn-danger btn-sm" data-unsend="${request.username}">
+                            <i class="ri-close-fill"></i>
+							<span class="ms-1">Cancel</span>
                         </button>
                     </td>
                 `;
