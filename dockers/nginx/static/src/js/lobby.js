@@ -30,7 +30,8 @@ export const showAdminButtons = () => {
 	const botButton = document.getElementById('bot');
 
 	startButton.classList.remove('hidden');
-	botButton.classList.remove('hidden');
+	if (variables.isTournament)
+		botButton.classList.remove('hidden');
 }
 
 function renderPlayerList(variables) {

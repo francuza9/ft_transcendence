@@ -72,10 +72,6 @@
 	z-index: auto;
 }
 
-.modal-dialog {
-    margin: 30px auto;
-}
-
 .form-control {
     border: 1px solid rgba(255, 255, 255, 0.5);
     background: transparent;
@@ -96,4 +92,12 @@ h1 {
 
 .center {
 	justify-content: center;
+}
+
+#save-avatar-modal {
+	padding-inline: 22px;
+}
+
+#cancel-avatar-modal {
+	padding-inline: 17px;
 }
