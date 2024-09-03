@@ -49,6 +49,9 @@ General Mandatory Todo {
 
 [Youssef] {
 	
+	Check max chars for every input field
+	Put char limit check on emails (back and front)
+
 	Leaderboard (not important at all):
 		Add Tournaments won and multiplayer games won, along with buttons to sort by them
 	
