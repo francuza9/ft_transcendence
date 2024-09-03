@@ -63,7 +63,6 @@ General Mandatory Todo {
 
 [Marijn] {
 	
-	Button placement/alignment in avatar edit modal - probably for Marijn (thank you <3)
 
 	Today {
 		Make friends clickable to show profile popup
@@ -76,13 +75,14 @@ General Mandatory Todo {
 			online status
 		}
 
-		Manage Friends Modal {
-			Friend Requests
-			Improve Css	
-		}
+		Fix Friend Requests
 
 		Fix create page css
 		Make settings scrollable
+		Event listener for add friend button
+		Button placement/alignment in avatar edit modal
+
+		Fix 404 page go back button to be SPA
 
 	}
 	
@@ -91,6 +91,7 @@ General Mandatory Todo {
 	Fix window resize stretching background
 	
 	Fix Github Auth to not reload SPA
+
 	
 	Low priority {
 		Center avatar modal buttons in account page

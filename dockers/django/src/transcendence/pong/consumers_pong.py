@@ -128,7 +128,7 @@ class PongConsumer(AsyncWebsocketConsumer):
 		game_state = await self.get_game_state()
 		game_state['multi']['ball_direction'] = {
 			'x': 0,
-			'y': -1,
+			'y': 1,
 		}
 		game_state['2_P']['ball_direction'] = {
 			'x': random.choice([1.5, -1.5]),
