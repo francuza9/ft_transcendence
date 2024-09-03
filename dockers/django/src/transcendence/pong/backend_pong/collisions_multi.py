@@ -6,7 +6,7 @@ logger = logging.getLogger(__name__)
 def update_ball_position_multi(game_state):
 	ball = game_state['multi']['ball_position']
 	direction = game_state['multi']['ball_direction']
-	speed = game_state['multi']['ball_speed'] * 0.2 # just for testing, TODO: remove later
+	speed = game_state['multi']['ball_speed']
 	players = game_state['multi']['players']
 	corners = game_state['multi']['edges']
 
@@ -22,23 +22,20 @@ def update_ball_position_multi(game_state):
 		if collision_with_player:
 			# reflect the ball
 			game_state['multi']['ball_direction'] = reflect_ball(ball, player, direction, edge)
+			if speed < 0.1:
+				game_state['multi']['ball_speed'] += 0.004
 			return None
 		elif collision_with_wall or not is_inside(ball, edge):
 			# player loses
 			ball['x'] = 0
 			ball['y'] = 0
 			game_state['multi']['ball_position'] = ball
+			game_state['multi']['ball_speed'] = 0.02
 			return i
-
-
-	# Update the game state
-	game_state['multi']['ball_position'] = ball # TODO: remove later
-	game_state['multi']['ball_direction'] = direction
 
 	return None
 
 def check_collision(ball, player, edge, paddle_length=2, ball_radius=0.25):
-	"""Check if the ball collides with the player's paddle."""
 	player_x, player_y = player['x'], player['y']
 	ball_x, ball_y = ball['x'], ball['y']
 	corner_1_x, corner_1_y = edge[0]['x'], edge[0]['y']
@@ -76,7 +73,6 @@ def check_collision(ball, player, edge, paddle_length=2, ball_radius=0.25):
 	return True, collision_with_player
 
 def reflect_ball(ball, player, direction, edge, paddle_length=2, max_angle=math.pi/3):
-	"""Reflect the ball's direction off the player's paddle."""
 	player_x, player_y = player['x'], player['y']
 	ball_x, ball_y = ball['x'], ball['y']
 	corner_1_x, corner_1_y = edge[0]['x'], edge[0]['y']
@@ -118,11 +114,9 @@ def reflect_ball(ball, player, direction, edge, paddle_length=2, max_angle=math.
 	return {'x': direction_x, 'y': direction_y}
 
 def cross_product(x1, y1, x2, y2, x3, y3):
-	"""Calculate the cross product of vectors (x2-x1, y2-y1) and (x3-x1, y3-y1)."""
 	return (x2 - x1) * (y3 - y1) - (y2 - y1) * (x3 - x1)
 
 def is_inside(ball, edge):
-	"""Check if the point (ball_x, ball_y) is on the same side of the line defined by vertex1 and vertex2 relative to the origin."""
 	ball_x, ball_y = ball['x'], ball['y']
 	corner_1_x, corner_1_y = edge[0]['x'], edge[0]['y']
 	corner_2_x, corner_2_y = edge[1]['x'], edge[1]['y']

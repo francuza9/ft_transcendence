@@ -125,13 +125,9 @@ class PongConsumer(AsyncWebsocketConsumer):
 		await asyncio.sleep(3)
 		game_length = time.time()
 		game_state = await self.get_game_state()
-		# game_state['multi']['ball_direction'] = {
-		# 	'x': random.choice([1.5, -1.5]),
-		# 	'y': 0
-		# }
 		game_state['multi']['ball_direction'] = {
 			'x': 0,
-			'y': -1.0,
+			'y': -1,
 		}
 		game_state['2_P']['ball_direction'] = {
 			'x': random.choice([1.5, -1.5]),
@@ -145,7 +141,7 @@ class PongConsumer(AsyncWebsocketConsumer):
 					direction = ai_instance.ai_move(game_state['2_P'])
 					if direction == 'down':
 						if player_id == 0 and game_state['2_P']['players']['player_1']['y'] < 3.4:
-							game_state['2_P']['players']['player_1']['y'] += 0.2  # Adjust value as needed
+							game_state['2_P']['players']['player_1']['y'] += 0.2
 						elif player_id == 1 and game_state['2_P']['players']['player_2']['y'] < 3.4:
 							game_state['2_P']['players']['player_2']['y'] += 0.2
 					elif direction == 'up':
@@ -207,7 +203,10 @@ class PongConsumer(AsyncWebsocketConsumer):
 						'time': times,
 						'players': names_list,
 					}
-					await self.send(text_data=json.dumps(packed_data))
+					try:
+						await self.send(text_data=json.dumps(packed_data))
+					except:
+						logger.info("Tried to send data to a closed connection")
 					break
 				await self.channel_layer.group_send(
 					self.room_group_name,
@@ -220,14 +219,17 @@ class PongConsumer(AsyncWebsocketConsumer):
 				if result == FINISH:
 					break
 			else:
+				if len(game_state['multi']['players']) > len(game_state['multi']['edges']) - 1:
+					continue
 				result = update_ball_position_multi(game_state)
 				json_message = json.dumps({
 					'ball': {
-							'ball_position': game_state['multi']['ball_position'], #TODO: remove later
+							'ball_position': game_state['multi']['ball_position'],
 							'ball_direction': game_state['multi']['ball_direction'],
 							'ball_speed': game_state['multi']['ball_speed'],
 						},
 					'players': game_state['multi']['players'],
+					'result': result,
 				})
 				await self.channel_layer.group_send(
 					self.room_group_name,
@@ -278,7 +280,7 @@ class PongConsumer(AsyncWebsocketConsumer):
 				'players': [],
 				'ball_position': {'x': 0, 'y': 0},
 				'ball_direction': {'x': 1.5, 'y': 0},
-				'ball_speed': 0.05,
+				'ball_speed': 0.02,
 				'finished': False,
 			},
 			'room_size': 2,

@@ -4,8 +4,10 @@ export function createPlayers(pcount, pov, vectorObjects)
 {
 	const group = new THREE.Group();
 	
-	const me = createMe(pov, vectorObjects);
-	group.add(me);
+	if (pov > 0) {
+		const me = createMe(pov, vectorObjects);
+		group.add(me);
+	}
 
 	createOthers(pcount, pov, vectorObjects, group);
 	
