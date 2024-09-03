@@ -33,9 +33,17 @@ export function unblockUser(player) {
 }
 
 export function acceptFriendRequest(player) {
-	console.log('accepted friend request from', player);
+	const socket = getSocket();
+
+	console.log('accepting friend request from', player);
+
+	socket.send(JSON.stringify({type: 'friend_accept', target: player}));
 }
 
 export function declineFriendRequest(player) {
-	console.log('declined friend request from', player);
+	const socket = getSocket();
+
+	console.log('declining friend request from', player);
+
+	socket.send(JSON.stringify({type: 'friend_decline', target: player}));
 }
