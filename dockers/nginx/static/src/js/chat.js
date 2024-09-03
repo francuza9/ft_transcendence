@@ -98,7 +98,9 @@ export const loadFriends = () => {
 	.then(response => response.json())
 	.then(data => {
 		const friendList = document.getElementById("friend-list");
+		const manageFriendsBtn = document.getElementById("manage-friends-btn");
 
+		manageFriendsBtn.classList.remove('hidden');
 		friendList.innerHTML = '';
 		if (data.friends.length === 0) {
 			const noFriendsMessage = document.createElement("div");
@@ -177,8 +179,11 @@ const loadChatMessages = (friendUsername) => {
             data.messages.forEach(message => {
                 const messageItem = document.createElement("div");
                 const messageClass = message.sender === variables.username ? 'sender' : 'recipient';
+				const paragraph = document.createElement("p");
+
+				paragraph.innerText = message.content;
                 messageItem.className = `message-item ${messageClass}`;
-                messageItem.innerHTML = message.content;
+                messageItem.appendChild(paragraph);
                 chatWindow.appendChild(messageItem);
 				chatWindow.scrollTop = chatWindow.scrollHeight;
             });
@@ -198,10 +203,12 @@ export const sendMessage = () => {
     const socket = getSocket();
 	const chatWindow = document.getElementById("messages");
 	const messageItem = document.createElement("div");
+	const paragraph = document.createElement("p");
 
     if (message) {
+		paragraph.innerText = message;
 		messageItem.className = "message-item sender";
-		messageItem.innerHTML = message;
+		messageItem.appendChild(paragraph);
 		chatWindow.appendChild(messageItem);
 		chatWindow.scrollTop = chatWindow.scrollHeight;
 
@@ -486,12 +493,14 @@ const loadFriendRequestsTab = () => {
                 requestItem.innerHTML = `
                     <td><img src="${request.avatar}" alt="${request.name}" class="player-img"></td>
                     <td class="align-middle">${request.name}</td>
-                    <td>
-                        <button class="btn btn-danger btn-sm" data-unfriend="${request.username}">
-                            <i class="ri-user-add-fill"></i>
+					<td class="align-middle text-center">
+                        <button class="btn btn-success btn-sm me-2" data-unfriend="${request.username}">
+							<i class="ri-check-fill"></i>
+							<span class="ms-1">Accept</span>
                         </button>
-                        <button class="btn btn-warning btn-sm" data-block="${request.username}">
-                            <i class="ri-user-unfollow-fill"></i>
+                        <button class="btn btn-danger btn-sm" data-block="${request.username}">
+                            <i class="ri-close-fill"></i>
+							<span class="ms-1">Decline</span>
                         </button>
                     </td>
                 `;
