@@ -131,8 +131,6 @@
 		"fail": "Failed to load messages. Please try again later."
 	},
 	"friends": {
-		"addRequestSuccess": "Friend Request sent succesfully!",
-		"addRequestFail": "Couldn't find user!",
 		"add": "Add Friends",
 		"manage": "Manage Friends",
 		"requests": "Friend Requests",
@@ -140,6 +138,13 @@
 		"addInputFieldPlaceholder": "Enter friend username...",
 		"noFriends": "You have no friends!",
 		"noRequests": "You have no pending friend requests.",
-		"noBlockedUsers": "You have no blocked users."
+		"noBlockedUsers": "You have no blocked users.",
+		"requestSuccess": "Friend Request sent succesfully!",
+		"yourself": "You can not send a friend request to yourself!",
+		"unknownUser": "Couldn't find user!",
+		"alreadyFriends": "You are already friends with this user!",
+		"alreadyReceived" : "You already have a pending friend request with that user!",
+		"userIsBlocked": "You can't send a friend request to a blocked user!",
+		"userBlockedYou": "You can't send this user a friend request because the user blocked you!"
 	}
 }
