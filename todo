@@ -34,6 +34,10 @@ General Mandatory Todo {
 		}
 	}
 
+	Reconnect client to global websocket every 3 seconds, and remove errors, only show when successfull
+
+	Cancel sent friend request backend
+
 	Current {
 		Minor {
 			make ai better
@@ -77,8 +81,6 @@ General Mandatory Todo {
 			online status
 		}
 
-		Fix Friend Requests
-
 	}
 
 	CSS {
@@ -87,7 +89,9 @@ General Mandatory Todo {
 
 		Fix settings name disappearing on replaceHTML call
 
-		Fix chat not being refreshd after login
+		Fix modal close buttons on account page
+
+		Fix chat not being refreshed after login
 
 	}
 
