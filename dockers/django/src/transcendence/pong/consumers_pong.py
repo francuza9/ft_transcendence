@@ -219,8 +219,8 @@ class PongConsumer(AsyncWebsocketConsumer):
 				if result == FINISH:
 					break
 			else:
-				logger.info(f"players len: {len(game_state['multi']['players'])}, edges len: {len(game_state['multi']['edges'])}")
-				logger.info(f"finished: {game_state['multi']['finished']}")
+				# logger.info(f"players len: {len(game_state['multi']['players'])}, edges len: {len(game_state['multi']['edges'])}")
+				# logger.info(f"finished: {game_state['multi']['finished']}")
 				if len(game_state['multi']['players']) != len(game_state['multi']['edges']) - 1 :
 				# or game_state['multi']['finished']:
 					await asyncio.sleep(1 / 30)
