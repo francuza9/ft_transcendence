@@ -18,8 +18,6 @@ export function createMultigame(pcount, pov, map, socket) {
 	const renderer = initRenderer();
 	renderer.setAnimationLoop(animate);
 
-	console.log("my pov: ", pov);
-
 	const group = new THREE.Group();
 
 	const plane = new initPlane(pcount);
@@ -38,7 +36,9 @@ export function createMultigame(pcount, pov, map, socket) {
 	const light = new THREE.AmbientLight(0xffffff, 1);
 	const lights = createLights(pcount, ballMesh, vectorObjects);
 
+	
 	const players = createPlayers(pcount, pov, vectorObjects);
+	
 
 	// Attach direction vectors and side lengths to each player
 	players.children.forEach((player, i) => {
@@ -53,7 +53,7 @@ export function createMultigame(pcount, pov, map, socket) {
 		};
 	});
 
-	sendInitialData(socket, vectorObjects);
+	sendInitialData(socket, vectorObjects, players);
 
 	// Controls
 	const controls = new OrbitControls(camera, renderer.domElement);
@@ -84,35 +84,61 @@ export function createMultigame(pcount, pov, map, socket) {
 
 	const boundOnKeydown = (event) => onKeydown(event);
 	const boundOnKeyup = (event) => onKeyup(event);
+	
+	if (pov != 0) {
+		window.addEventListener('keydown', boundOnKeydown, false);
+		window.addEventListener('keyup', boundOnKeyup, false);
+	}
 
-	window.addEventListener('keydown', boundOnKeydown, false);
-	window.addEventListener('keyup', boundOnKeyup, false);
 
-	socket.addEventListener('message', event => {
+	const handleMessage = (event) => {
 		if (event.data instanceof ArrayBuffer) {
 		} else {
 			let data = JSON.parse(event.data);
-			let players_array = data.players;
+			if (pov != 0) {
+				let players_array = data.players;
 
-			ball.speed = data.ball.ball_speed;
-			ball.direction.x = data.ball.ball_direction.x;
-			ball.direction.z = data.ball.ball_direction.y;
+				ball.speed = data.ball.ball_speed;
+				ball.direction.x = data.ball.ball_direction.x;
+				ball.direction.z = data.ball.ball_direction.y;
 
-			//TODO: remove later
-			ball.ball.position.x = data.ball.ball_position.x;
-			ball.ball.position.z = data.ball.ball_position.y;
+				ball.ball.position.x = data.ball.ball_position.x;
+				ball.ball.position.z = data.ball.ball_position.y;
 
-			let i;
-			for (i = 0; i < pov - 1 && i < players_array.length; i++) {
-				players.children[i + 1].position.set(players_array[i].x, 0.75, players_array[i].y);
-			}
-			i++;
-			while (i < players_array.length) {
-				players.children[i].position.set(players_array[i].x, 0.75, players_array[i].y);
+				let i;
+				for (i = 0; i < pov - 1 && i < players_array.length; i++) {
+					players.children[i + 1].position.set(players_array[i].x, 0.75, players_array[i].y);
+				}
 				i++;
+				while (i < players.children.length/* players_array.length */) {
+					players.children[i].position.set(players_array[i].x, 0.75, players_array[i].y);
+					i++;
+				}
+			}
+			if (data.result != undefined && data.result != null) {
+				if (pcount === 2) {
+					alert("move to 2 p! ");
+					cleanup();
+					socket.removeEventListener('message', handleMessage);
+					socket.close();
+				}
+				if (data.result === pov - 1) {
+					cleanup();
+					createMultigame(pcount - 1, 0, map, socket);
+					return ;
+				}
+				else {
+					cleanup();
+					if (pov - 1 > data.result) {
+						pov--;
+					}
+					createMultigame(pcount - 1, pov, map, socket);
+					return ;
+				}
 			}
 		}
-	});
+	}
+	socket.addEventListener('message', handleMessage);
 
 	function animate() {
 		// Send player positions over the socket
@@ -125,14 +151,15 @@ export function createMultigame(pcount, pov, map, socket) {
 			socket.send(buffer);
 		}
 
-		// Update only the player with index 0 on the correct side of the polygon
-		updatePlayerPosition(
-			players.children[0], 
-			players.children[pov - 1].userData.directionVector, 
-			players.children[pov - 1].userData.sideLength,
-			vectorObjects[pov - 1],
-			vectorObjects[pov % pcount]
-		);
+		if (pov > 0) {
+			updatePlayerPosition(
+				players.children[0], 
+				players.children[pov - 1].userData.directionVector, 
+				players.children[pov - 1].userData.sideLength,
+				vectorObjects[pov - 1],
+				vectorObjects[pov % pcount]
+			);
+		}
 
 		ball.animate();
 		controls.update();
@@ -140,17 +167,13 @@ export function createMultigame(pcount, pov, map, socket) {
 	}
 
 	function updatePlayerPosition(player, directionVector, length, v1, v2) {
-		// Check the keys pressed and move along the direction vector
 		if (keys.a || keys.ArrowLeft) {
-			// Move in the negative direction
 			player.position.addScaledVector(directionVector, -0.2);
 		}
 		if (keys.d || keys.ArrowRight) {
-			// Move in the positive direction
 			player.position.addScaledVector(directionVector, 0.2);
 		}
 
-		// Ensure the player stays within the boundaries of their side
 		let halfPaddleLength = 1.0; // Assuming the paddle length is 2, so half is 1
 		let playerToV1 = new THREE.Vector3().subVectors(player.position, v1);
 		let projectionLength = playerToV1.dot(directionVector);
@@ -171,10 +194,6 @@ export function createMultigame(pcount, pov, map, socket) {
 	function onKeydown(event) {
 		if (event.key in keys) {
 			keys[event.key] = true;
-		}
-		else if (event.key === 'r') {
-			// Reset the ball
-			ball.reset();
 		}
 	}
 
@@ -208,6 +227,18 @@ export function createMultigame(pcount, pov, map, socket) {
 			}
 		};
 		socket.send(JSON.stringify(data));
+	}
+
+	function cleanup() {
+		renderer.setAnimationLoop(null);
+		window.removeEventListener('resize', onWindowResize);
+		window.removeEventListener('keydown', boundOnKeydown);
+		window.removeEventListener('keyup', boundOnKeyup);
+		controls.dispose();
+		group.clear();
+		scene.clear();
+		renderer.dispose();
+		renderer.domElement.remove();
 	}
 
 }

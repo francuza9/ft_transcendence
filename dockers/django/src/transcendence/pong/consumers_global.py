@@ -140,6 +140,7 @@ class GlobalConsumer(AsyncWebsocketConsumer):
 			}))
 			return
 		await sync_to_async(senderDB.sent_friend_requests.add)(userDB)
+		await sync_to_async(userDB.received_friend_requests.add)(senderDB)
 		await self.send(text_data=json.dumps({
 			'type': 'friend_request_sent',
 			'content': SUCCESS,
