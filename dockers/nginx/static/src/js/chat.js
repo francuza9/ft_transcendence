@@ -434,7 +434,7 @@ const loadFriendsTab = () => {
                 friendItem.className = "player-row";
                 friendItem.innerHTML = `
 					<td><img src="${friend.avatar}" alt="${friend.username}" class="player-img"></td>
-					<td>${friend.username}</td>
+					<td class="align-middle">${friend.username}</td>
 					<td class="align-middle text-center">
 						<div class="d-inline-flex align-items-center">
 							<button class="btn btn-danger btn-sm me-2" data-unfriend="${friend.username}">
@@ -485,7 +485,7 @@ const loadFriendRequestsTab = () => {
                 requestItem.className = "player-row";
                 requestItem.innerHTML = `
                     <td><img src="${request.avatar}" alt="${request.name}" class="player-img"></td>
-                    <td>${request.name}</td>
+                    <td class="align-middle">${request.name}</td>
                     <td>
                         <button class="btn btn-danger btn-sm" data-unfriend="${request.username}">
                             <i class="ri-user-add-fill"></i>
@@ -531,10 +531,11 @@ const loadBlockedUsersTab = () => {
                 blockedItem.className = "blocked-user-row";
                 blockedItem.innerHTML = `
                     <td><img src="${blockedUser.avatar}" alt="${blockedUser.username}" class="player-img"></td>
-                    <td>${blockedUser.name}</td>
-                    <td>
+                    <td class="align-middle">${blockedUser.name}</td>
+					<td class="align-middle text-center">
                         <button class="btn btn-danger btn-sm" data-unblock="${blockedUser.username}">
                             <i class="ri-close-fill"></i>
+							<span class="ms-1">Unblock</span>
                         </button>
                     </td>
                 `;
