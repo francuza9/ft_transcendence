@@ -259,7 +259,7 @@ export const switchTab = (value) => {
 		selectedTab.classList.remove('hidden');
 		switch(value) {
 			case 'add':
-				break;
+				loadAddFriendTab();
 			case 'manage':
 				loadFriendsTab();
 			case 'requests':
@@ -272,10 +272,8 @@ export const switchTab = (value) => {
 
 
 export const loadFriendsModal = (value) => {
-	const usernameInput = document.getElementById('add-friend-input');
-
-    usernameInput.placeholder = getTranslation('friends.addInputFieldPlaceholder');
 	loadEventListeners();
+	loadAddFriendTab();
 	loadFriendsTab();
 	loadFriendRequestsTab();
 	loadBlockedUsersTab();
@@ -289,20 +287,6 @@ const loadEventListeners = () => {
         });
     });
 
-    document.querySelectorAll('button[data-unfriend]').forEach(button => {
-        button.addEventListener('click', (e) => {
-            const username = e.target.closest('button').getAttribute('data-unfriend');
-            unfriendUser(username);
-        });
-    });
-
-    document.querySelectorAll('button[data-block]').forEach(button => {
-        button.addEventListener('click', (e) => {
-            const username = e.target.closest('button').getAttribute('data-block');
-            blockUser(username);
-        });
-    });
-
     const addFriendBtn = document.getElementById('add-friend-btn');
     if (addFriendBtn) {
         addFriendBtn.addEventListener('click', () => {
@@ -312,12 +296,33 @@ const loadEventListeners = () => {
     }
 }
 
+function attachFriendListeners() {
+    document.querySelectorAll('button[data-unfriend]').forEach(button => {
+        button.addEventListener('click', (e) => {
+            const username = e.target.closest('button').getAttribute('data-unfriend');
+            unfriendUser(username);
+			loadFriendsTab();
+			loadFriends();
+        });
+    });
+
+    document.querySelectorAll('button[data-block]').forEach(button => {
+        button.addEventListener('click', (e) => {
+            const username = e.target.closest('button').getAttribute('data-block');
+            blockUser(username);
+			loadFriendsTab();
+			loadFriends();
+        });
+    });
+}
+
 function attachFriendRequestListeners() {
     document.querySelectorAll('button[data-accept]').forEach(button => {
         button.addEventListener('click', (e) => {
             const username = e.target.closest('button').getAttribute('data-accept');
             acceptFriendRequest(username);
 			loadFriendsTab();
+			loadFriends();
         });
     });
 
@@ -326,6 +331,7 @@ function attachFriendRequestListeners() {
             const username = e.target.closest('button').getAttribute('data-decline');
             declineFriendRequest(username);
 			loadFriendsTab();
+			loadFriends();
         });
     });
 }
@@ -336,6 +342,7 @@ function attachBlockedUserListeners() {
             const username = e.target.closest('button').getAttribute('data-unblock');
             unblockUser(username);
 			loadBlockedUsersTab();
+			loadFriends();
         });
     });
 }
@@ -344,7 +351,33 @@ export const sendFriendRequest = () => {
 	const usernameInput = document.getElementById('add-friend-input');
 	const username = usernameInput.value;
 
+	hideFriendRequestMessages();
 	addFriend(username);
+}
+
+const loadAddFriendTab = () => {
+	const usernameInput = document.getElementById('add-friend-input');
+
+    usernameInput.placeholder = getTranslation('friends.addInputFieldPlaceholder');
+	hideFriendRequestMessages();
+}
+
+const hideFriendRequestMessages = () => {
+	const successMessage = document.getElementById('request-success');
+	const failMessage1 = document.getElementById('request-fail1');
+	const failMessage2 = document.getElementById('request-fail2');
+	const failMessage3 = document.getElementById('request-fail3');
+	const failMessage4 = document.getElementById('request-fail4');
+	const failMessage5 = document.getElementById('request-fail5');
+	const failMessage6 = document.getElementById('request-fail6');
+
+	successMessage.classList.add('hidden');
+	failMessage1.classList.add('hidden');
+	failMessage2.classList.add('hidden');
+	failMessage3.classList.add('hidden');
+	failMessage4.classList.add('hidden');
+	failMessage5.classList.add('hidden');
+	failMessage6.classList.add('hidden');
 }
 
 const loadFriendsTab = () => {
@@ -382,6 +415,7 @@ const loadFriendsTab = () => {
                 `;
                 friendsList.appendChild(friendItem);
             });
+			attachFriendListeners();
         }
     })
     .catch(error => {
@@ -404,6 +438,7 @@ const loadFriendRequestsTab = () => {
 		const requestsTable = document.getElementById('requestsTable');
 
         friendRequestsList.innerHTML = '';
+		console.log(data.friend_requests);
         if (data.friend_requests.length === 0) {
 			noRequestsMessage.classList.remove('hidden');
 			requestsTable.classList.add('hidden');
