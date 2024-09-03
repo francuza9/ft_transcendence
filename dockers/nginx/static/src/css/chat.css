@@ -381,3 +381,11 @@
     background: black;
 	border: 1px solid white;
 }
+
+#add-friend-input {
+	background: white !important;
+}
+
+.message-item p {
+	margin: 0;
+}

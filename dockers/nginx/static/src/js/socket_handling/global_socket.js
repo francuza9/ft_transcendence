@@ -30,9 +30,11 @@ export function goActive() {
 		} else if (data.type === 'privmsg') {
 			const chatWindow = document.getElementById("messages");
 			const messageItem = document.createElement("div");
+			const paragraph = document.createElement("p");
 
+			paragraph.innerText = data.message;
 			messageItem.className = "message-item recipient";
-			messageItem.innerHTML = data.message;
+			messageItem.appendChild(paragraph);
 			chatWindow.appendChild(messageItem);
 			chatWindow.scrollTop = chatWindow.scrollHeight;
 		} else if (data.type === 'friend_request') {

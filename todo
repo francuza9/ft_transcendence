@@ -66,7 +66,7 @@ General Mandatory Todo {
 	Today {
 		Make friends clickable to show profile popup
 
-		Profile modal (for leaderboard, lobby and endscreen) {
+		Profile modal (for leaderboard, lobby, endscreen, chat and friends modal) {
 			friend button / unfriend button
 			invite to game
 			chat button
@@ -84,10 +84,9 @@ General Mandatory Todo {
 
 		Fix settings name disappearing on replaceHTML call
 
-		Fix chat buttons missing after login
+		Fix chat not being refreshd after login
 
 	}
-
 
 	Fix window resize stretching background
 	
@@ -97,7 +96,6 @@ General Mandatory Todo {
 
 	Spectator
 	
-
 
 	Low priority {
 		Update map preview images
