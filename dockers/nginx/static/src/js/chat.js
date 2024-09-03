@@ -259,23 +259,25 @@ export const switchTab = (value) => {
 		selectedTab.classList.remove('hidden');
 		switch(value) {
 			case 'add':
+				loadAddFriendTab();
 				break;
 			case 'manage':
 				loadFriendsTab();
+				break;
 			case 'requests':
 				loadFriendRequestsTab();
+				break;
 			case 'blocked':
 				loadBlockedUsersTab();
+				break;
 		}
 	}
 }
 
 
 export const loadFriendsModal = (value) => {
-	const usernameInput = document.getElementById('add-friend-input');
-
-    usernameInput.placeholder = getTranslation('friends.addInputFieldPlaceholder');
 	loadEventListeners();
+	loadAddFriendTab();
 	loadFriendsTab();
 	loadFriendRequestsTab();
 	loadBlockedUsersTab();
@@ -289,20 +291,6 @@ const loadEventListeners = () => {
         });
     });
 
-    document.querySelectorAll('button[data-unfriend]').forEach(button => {
-        button.addEventListener('click', (e) => {
-            const username = e.target.closest('button').getAttribute('data-unfriend');
-            unfriendUser(username);
-        });
-    });
-
-    document.querySelectorAll('button[data-block]').forEach(button => {
-        button.addEventListener('click', (e) => {
-            const username = e.target.closest('button').getAttribute('data-block');
-            blockUser(username);
-        });
-    });
-
     const addFriendBtn = document.getElementById('add-friend-btn');
     if (addFriendBtn) {
         addFriendBtn.addEventListener('click', () => {
@@ -312,12 +300,33 @@ const loadEventListeners = () => {
     }
 }
 
+function attachFriendListeners() {
+    document.querySelectorAll('button[data-unfriend]').forEach(button => {
+        button.addEventListener('click', (e) => {
+            const username = e.target.closest('button').getAttribute('data-unfriend');
+            unfriendUser(username);
+			loadFriendsTab();
+			loadFriends();
+        });
+    });
+
+    document.querySelectorAll('button[data-block]').forEach(button => {
+        button.addEventListener('click', (e) => {
+            const username = e.target.closest('button').getAttribute('data-block');
+            blockUser(username);
+			loadFriendsTab();
+			loadFriends();
+        });
+    });
+}
+
 function attachFriendRequestListeners() {
     document.querySelectorAll('button[data-accept]').forEach(button => {
         button.addEventListener('click', (e) => {
             const username = e.target.closest('button').getAttribute('data-accept');
             acceptFriendRequest(username);
 			loadFriendsTab();
+			loadFriends();
         });
     });
 
@@ -326,6 +335,7 @@ function attachFriendRequestListeners() {
             const username = e.target.closest('button').getAttribute('data-decline');
             declineFriendRequest(username);
 			loadFriendsTab();
+			loadFriends();
         });
     });
 }
@@ -336,6 +346,7 @@ function attachBlockedUserListeners() {
             const username = e.target.closest('button').getAttribute('data-unblock');
             unblockUser(username);
 			loadBlockedUsersTab();
+			loadFriends();
         });
     });
 }
@@ -344,7 +355,33 @@ export const sendFriendRequest = () => {
 	const usernameInput = document.getElementById('add-friend-input');
 	const username = usernameInput.value;
 
+	hideFriendRequestMessages();
 	addFriend(username);
+}
+
+const loadAddFriendTab = () => {
+	const usernameInput = document.getElementById('add-friend-input');
+
+    usernameInput.placeholder = getTranslation('friends.addInputFieldPlaceholder');
+	hideFriendRequestMessages();
+}
+
+const hideFriendRequestMessages = () => {
+	const successMessage = document.getElementById('request-success');
+	const failMessage1 = document.getElementById('request-fail1');
+	const failMessage2 = document.getElementById('request-fail2');
+	const failMessage3 = document.getElementById('request-fail3');
+	const failMessage4 = document.getElementById('request-fail4');
+	const failMessage5 = document.getElementById('request-fail5');
+	const failMessage6 = document.getElementById('request-fail6');
+
+	successMessage.classList.add('hidden');
+	failMessage1.classList.add('hidden');
+	failMessage2.classList.add('hidden');
+	failMessage3.classList.add('hidden');
+	failMessage4.classList.add('hidden');
+	failMessage5.classList.add('hidden');
+	failMessage6.classList.add('hidden');
 }
 
 const loadFriendsTab = () => {
@@ -359,29 +396,37 @@ const loadFriendsTab = () => {
     .then(data => {
         const friendsList = document.getElementById("friends-list");
 		const noFriendsMessage = document.getElementById('noFriendsMessage');
+		const friendsTable = document.getElementById('friendsTable');
 
         friendsList.innerHTML = '';
         if (data.friends.length === 0) {
 			noFriendsMessage.classList.remove('hidden');
+			friendsTable.classList.add('hidden');
         } else {
 			noFriendsMessage.classList.add('hidden');
+			friendsTable.classList.remove('hidden');
             data.friends.forEach(friend => {
                 const friendItem = document.createElement("tr");
                 friendItem.className = "player-row";
                 friendItem.innerHTML = `
-                    <td><img src="${friend.avatar}" alt="${friend.username}" class="player-img"></td>
-                    <td>${friend.username}</td>
-                    <td>
-                        <button class="btn btn-danger btn-sm" data-unfriend="${friend.username}">
-                            <i class="ri-user-unfollow-fill"></i>
-                        </button>
-                        <button class="btn btn-warning btn-sm" data-block="${friend.username}">
-                            <i class="ri-user-unfollow-fill"></i>
-                        </button>
-                    </td>
+					<td><img src="${friend.avatar}" alt="${friend.username}" class="player-img"></td>
+					<td>${friend.username}</td>
+					<td class="align-middle text-center">
+						<div class="d-inline-flex align-items-center">
+							<button class="btn btn-danger btn-sm me-2" data-unfriend="${friend.username}">
+								<i class="ri-user-unfollow-fill"></i>
+								<span class="ms-1">Unfriend</span>
+							</button>
+							<button class="btn btn-warning btn-sm" data-block="${friend.username}">
+								<i class="ri-user-forbid-fill"></i>
+								<span class="ms-1">Block</span>
+							</button>
+						</div>
+					</td>
                 `;
                 friendsList.appendChild(friendItem);
             });
+			attachFriendListeners();
         }
     })
     .catch(error => {
@@ -404,6 +449,7 @@ const loadFriendRequestsTab = () => {
 		const requestsTable = document.getElementById('requestsTable');
 
         friendRequestsList.innerHTML = '';
+		console.log(data.friend_requests);
         if (data.friend_requests.length === 0) {
 			noRequestsMessage.classList.remove('hidden');
 			requestsTable.classList.add('hidden');

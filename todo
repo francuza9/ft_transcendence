@@ -77,13 +77,12 @@ General Mandatory Todo {
 		}
 
 		Manage Friends Modal {
-			Add Friends
-			Manage friends
 			Friend Requests
-			Blocked Users
+			Improve Css	
 		}
 
-		Fix create page settings css
+		Fix create page css
+		Make settings scrollable
 
 	}
 	
