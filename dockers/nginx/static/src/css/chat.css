@@ -365,3 +365,13 @@
 #request-fail1, #request-fail2, #request-fail3, #request-fail4, #request-fail5, #request-fail6 {
 	color: red;
 }
+
+#add-friend-btn {
+    background: transparent;
+    backdrop-filter: blur(15px);
+}
+
+#add-friend-btn:hover {
+    background: black;
+	border: 1px solid white;
+}
