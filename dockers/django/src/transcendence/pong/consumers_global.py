@@ -55,6 +55,33 @@ class GlobalConsumer(AsyncWebsocketConsumer):
 			url = text_data_json.get('url', None)
 			if target and url and 0 < len(target) <= 12 and 0 < len(url) <= 40:
 				await self.send_game_invitation(target, url)
+		elif type == 'friend_accept':
+			target = text_data_json.get('target', None)
+			if target and 0 < len(target) <= 12:
+				await self.friend_accept(target)
+		elif type == 'friend_decline':
+			target = text_data_json.get('target', None)
+			if target and 0 < len(target) <= 12:
+				await self.friend_decline(target)
+
+	async def friend_accept(self, target):
+		senderDB = await self.getUserDB(self.username)
+		userDB = await self.getUserDB(target)
+		if senderDB and userDB:
+			if await sync_to_async(senderDB.received_friend_requests.filter(id=userDB.id).exists)() \
+			and not await sync_to_async(userDB.blocked_users.filter(id=senderDB.id).exists)() \
+			and not await sync_to_async(senderDB.blocked_users.filter(id=userDB.id).exists)():
+				await sync_to_async(senderDB.received_friend_requests.remove)(userDB)
+				await sync_to_async(senderDB.friends.add)(userDB)
+				await sync_to_async(userDB.sent_friend_requests.remove)(senderDB)
+
+	async def friend_decline(self, target):
+		senderDB = await self.getUserDB(self.username)
+		userDB = await self.getUserDB(target)
+		if senderDB and userDB:
+			if await sync_to_async(senderDB.received_friend_requests.filter(id=userDB.id).exists)():
+				await sync_to_async(senderDB.received_friend_requests.remove)(userDB)
+				await sync_to_async(userDB.sent_friend_requests.remove)(senderDB)
 
 	async def send_friend_request(self, target):
 		senderDB = await self.getUserDB(self.username)
