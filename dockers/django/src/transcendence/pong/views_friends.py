@@ -35,7 +35,8 @@ def get_friend_requests(request):
 		user = request.user
 
 		friend_requests = user.received_friend_requests.all()
-
+		sent_requests = user.sent_friend_requests.all()
+			
 		friend_requests_data = []
 		for friend_request in friend_requests:
 			friend_requests_data.append({
@@ -43,8 +44,15 @@ def get_friend_requests(request):
 				'name': friend_request.profile.displayName,
 				'avatar': friend_request.profile.avatarUrl.url if friend_request.profile.avatarUrl else None,
 				})
-
-		return JsonResponse({'success': True, 'friend_requests': friend_requests_data}, status=200)
+		sent_requests_data = []
+		for sent_request in sent_requests:
+			sent_requests_data.append({
+				'username': sent_request.username,
+				'name': sent_request.profile.displayName,
+				'avatar': sent_request.profile.avatarUrl.url if sent_request.profile.avatarUrl else None,
+				})
+					
+		return JsonResponse({'success': True, 'friend_requests': friend_requests_data, 'sent_requests': sent_requests_data}, status=200)
 
 	except Exception as e:
 		return JsonResponse({'success': False, 'error': str(e)}, status=500)
