@@ -15,13 +15,6 @@
     cursor: pointer;
 }
 
-h4 {
-	color: white;
-	padding-bottom: 1.2em;
-	font-weight: 600;
-	margin-bottom: revert;
-}
-
 .container, .container-md {
 	z-index: -1;
 }
@@ -56,6 +49,8 @@ h4 {
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
+    overflow-y: auto;
+	line-height: 1.7;
 }
 
 #sidebar.hidden {
@@ -92,6 +87,14 @@ h4 {
 #sidebar-content {
     width: 100%;
 	margin-top: 80px;
+	flex: 1;
+    overflow-y: auto;
+}
+
+#hello {
+	color: white;
+	padding-bottom: 1.2em;
+	font-weight: 600;
 }
 
 #sidebar-content button {
