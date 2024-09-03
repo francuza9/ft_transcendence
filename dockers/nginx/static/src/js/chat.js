@@ -62,6 +62,7 @@ export const closeChat = () => {
 
     chatWindow.classList.add("hidden");
 	chatBtn.classList.remove("hidden");
+	removeEnterListener();
 
     if (chatInputListener) {
         chatInput.removeEventListener("keypress", chatInputListener);
@@ -213,6 +214,14 @@ export const sendMessage = () => {
 	}
 };
 
+export const loadFriendsModal = () => {
+	loadEventListeners();
+	loadAddFriendTab();
+	loadFriendsTab();
+	loadFriendRequestsTab();
+	loadBlockedUsersTab();
+}
+
 export const sendInvitation = () => {
     const socket = getSocket();
     const targetUser = 'b'; // You need to set the target user dynamically
@@ -253,6 +262,7 @@ export const switchTab = (value) => {
 		tabPane.classList.add('hidden');
 	});
 
+	removeEnterListener();
 	const selectedTab = document.querySelector(`#tab-pane-${value}`);
 	if (selectedTab) {
 		selectedTab.classList.add('show', 'active');
@@ -272,15 +282,6 @@ export const switchTab = (value) => {
 				break;
 		}
 	}
-}
-
-
-export const loadFriendsModal = (value) => {
-	loadEventListeners();
-	loadAddFriendTab();
-	loadFriendsTab();
-	loadFriendRequestsTab();
-	loadBlockedUsersTab();
 }
 
 const loadEventListeners = () => {
@@ -364,7 +365,30 @@ const loadAddFriendTab = () => {
 
     usernameInput.placeholder = getTranslation('friends.addInputFieldPlaceholder');
 	hideFriendRequestMessages();
+	addEnterListener();
 }
+
+const handleEnterKey = (event) => {
+	if (event.key === 'Enter') {
+		event.preventDefault();
+		sendFriendRequest();
+	}
+}
+
+const addEnterListener = () => {
+    const usernameInput = document.getElementById('add-friend-input');
+
+    if (usernameInput) {
+        usernameInput.addEventListener('keyup', handleEnterKey);
+    }
+};
+
+const removeEnterListener = () => {
+    const usernameInput = document.getElementById('add-friend-input');
+    if (usernameInput) {
+        usernameInput.removeEventListener('keyup', handleEnterKey);
+    }
+};
 
 const hideFriendRequestMessages = () => {
 	const successMessage = document.getElementById('request-success');
@@ -449,7 +473,7 @@ const loadFriendRequestsTab = () => {
 		const requestsTable = document.getElementById('requestsTable');
 
         friendRequestsList.innerHTML = '';
-		console.log(data.friend_requests);
+		console.log(data);
         if (data.friend_requests.length === 0) {
 			noRequestsMessage.classList.remove('hidden');
 			requestsTable.classList.add('hidden');
