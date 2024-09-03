@@ -11,6 +11,7 @@ import { createPlayers } from './objects/players.js';
 import { buildMap } from './scene/maps/chooseMap.js';
 
 export function createMultigame(pcount, pov, map, socket) {
+	console.log("pong socket: ", socket);
 	if (pov > pcount)
 		pov = 0;
 	const scene = initScene();
@@ -53,7 +54,9 @@ export function createMultigame(pcount, pov, map, socket) {
 		};
 	});
 
-	sendInitialData(socket, vectorObjects, players);
+	if (pov === 1) {
+		sendInitialData(socket, vectorObjects);
+	}
 
 	// Controls
 	const controls = new OrbitControls(camera, renderer.domElement);
@@ -95,32 +98,13 @@ export function createMultigame(pcount, pov, map, socket) {
 		if (event.data instanceof ArrayBuffer) {
 		} else {
 			let data = JSON.parse(event.data);
-			if (pov != 0) {
-				let players_array = data.players;
-
-				ball.speed = data.ball.ball_speed;
-				ball.direction.x = data.ball.ball_direction.x;
-				ball.direction.z = data.ball.ball_direction.y;
-
-				ball.ball.position.x = data.ball.ball_position.x;
-				ball.ball.position.z = data.ball.ball_position.y;
-
-				let i;
-				for (i = 0; i < pov - 1 && i < players_array.length; i++) {
-					players.children[i + 1].position.set(players_array[i].x, 0.75, players_array[i].y);
-				}
-				i++;
-				while (i < players.children.length/* players_array.length */) {
-					players.children[i].position.set(players_array[i].x, 0.75, players_array[i].y);
-					i++;
-				}
-			}
 			if (data.result != undefined && data.result != null) {
 				if (pcount === 2) {
 					alert("move to 2 p! ");
 					cleanup();
 					socket.removeEventListener('message', handleMessage);
 					socket.close();
+					renderer.domElement.remove();
 				}
 				if (data.result === pov - 1) {
 					cleanup();
@@ -136,13 +120,34 @@ export function createMultigame(pcount, pov, map, socket) {
 					return ;
 				}
 			}
+			if (pov != 0) {
+				let players_array = data.players;
+
+				ball.speed = data.ball.ball_speed;
+				ball.direction.x = data.ball.ball_direction.x;
+				ball.direction.z = data.ball.ball_direction.y;
+
+				ball.ball.position.x = data.ball.ball_position.x;
+				ball.ball.position.z = data.ball.ball_position.y;
+
+				let i;
+				for (i = 0; i < pov - 1 && i < players_array.length; i++) {
+					players.children[i + 1].position.set(players_array[i].x, 0.75, players_array[i].y);
+				}
+				i++;
+				while (i < players.children.length && i < players_array.length) {
+					console.log("i: ", i, "players.children len: ", players.children.length, "players_array len: ", players_array.length);
+					players.children[i].position.set(players_array[i].x, 0.75, players_array[i].y);
+					i++;
+				}
+			}
 		}
 	}
 	socket.addEventListener('message', handleMessage);
 
 	function animate() {
 		// Send player positions over the socket
-		if (pov > 0) {
+		if (pov > 0 && pov - 1 <= pcount) {
 			const buffer = serializeData(
 				pov,
 				players.children[0].position.x,
