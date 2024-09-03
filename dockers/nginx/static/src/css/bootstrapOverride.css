@@ -69,3 +69,8 @@
 	background-color: black;
 	border: 1px solid white;
 }
+
+
+.modal-dialog {
+	position: initial;
+}
