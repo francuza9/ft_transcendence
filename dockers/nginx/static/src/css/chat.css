@@ -358,10 +358,10 @@
     margin: auto;
 }
 
-#add-request-success {
+#request-success {
 	color: limegreen;
 }
 
-#add-request-fail {
+#request-fail1, #request-fail2, #request-fail3, #request-fail4, #request-fail5, #request-fail6 {
 	color: red;
 }
