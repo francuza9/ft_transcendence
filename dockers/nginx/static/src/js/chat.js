@@ -260,12 +260,16 @@ export const switchTab = (value) => {
 		switch(value) {
 			case 'add':
 				loadAddFriendTab();
+				break;
 			case 'manage':
 				loadFriendsTab();
+				break;
 			case 'requests':
 				loadFriendRequestsTab();
+				break;
 			case 'blocked':
 				loadBlockedUsersTab();
+				break;
 		}
 	}
 }
@@ -392,26 +396,33 @@ const loadFriendsTab = () => {
     .then(data => {
         const friendsList = document.getElementById("friends-list");
 		const noFriendsMessage = document.getElementById('noFriendsMessage');
+		const friendsTable = document.getElementById('friendsTable');
 
         friendsList.innerHTML = '';
         if (data.friends.length === 0) {
 			noFriendsMessage.classList.remove('hidden');
+			friendsTable.classList.add('hidden');
         } else {
 			noFriendsMessage.classList.add('hidden');
+			friendsTable.classList.remove('hidden');
             data.friends.forEach(friend => {
                 const friendItem = document.createElement("tr");
                 friendItem.className = "player-row";
                 friendItem.innerHTML = `
-                    <td><img src="${friend.avatar}" alt="${friend.username}" class="player-img"></td>
-                    <td>${friend.username}</td>
-                    <td>
-                        <button class="btn btn-danger btn-sm" data-unfriend="${friend.username}">
-                            <i class="ri-user-unfollow-fill"></i>
-                        </button>
-                        <button class="btn btn-warning btn-sm" data-block="${friend.username}">
-                            <i class="ri-user-unfollow-fill"></i>
-                        </button>
-                    </td>
+					<td><img src="${friend.avatar}" alt="${friend.username}" class="player-img"></td>
+					<td>${friend.username}</td>
+					<td class="align-middle text-center">
+						<div class="d-inline-flex align-items-center">
+							<button class="btn btn-danger btn-sm me-2" data-unfriend="${friend.username}">
+								<i class="ri-user-unfollow-fill"></i>
+								<span class="ms-1">Unfriend</span>
+							</button>
+							<button class="btn btn-warning btn-sm" data-block="${friend.username}">
+								<i class="ri-user-forbid-fill"></i>
+								<span class="ms-1">Block</span>
+							</button>
+						</div>
+					</td>
                 `;
                 friendsList.appendChild(friendItem);
             });
