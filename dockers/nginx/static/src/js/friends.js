@@ -47,3 +47,11 @@ export function declineFriendRequest(player) {
 
 	socket.send(JSON.stringify({type: 'friend_decline', target: player}));
 }
+
+export function unsendFriendRequest(player) {
+	const socket = getSocket();
+
+	console.log('unsending friend request from', player);
+
+	socket.send(JSON.stringify({type: 'friend_unsend', target: player}));
+}

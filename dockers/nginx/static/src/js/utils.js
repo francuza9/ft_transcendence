@@ -2,7 +2,7 @@ import {variables} from '/static/src/js/variables.js';
 import {getCookie, setCookie} from '/static/src/js/cookies.js';
 import {translateContent} from '/static/src/js/lang.js';
 import {removeGameRenderer} from '/static/src/js/end.js';
-import {setTranslations} from '/static/src/js/lang.js';
+import {setTranslations, getTranslation} from '/static/src/js/lang.js';
 
 export async function replaceHTML(path)
 {
@@ -42,6 +42,8 @@ export async function replaceHTML(path)
         if (!translationsResponse.ok) throw new Error('Network response was not ok');
         const translations = await translationsResponse.json();
 		setTranslations(translations);
+		const hello = document.getElementById('hello');
+		hello.textContent = `${getTranslation('pages.settings.hello')} ${variables.username}!`;
         translateContent(translations);
 
     } catch (error) {
