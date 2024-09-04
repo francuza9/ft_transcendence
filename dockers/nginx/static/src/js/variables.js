@@ -8,7 +8,7 @@ import {switchTab} from '/static/src/js/chat.js';
 export const variables = {
 	isTournament: false,
 	localAI: false,
-	AIDifficulty: 'Insane', // 'Novice' 'Moderate' 'Brutal' 'Insane'
+	AIDifficulty: 'Brutal', // 'Novice' 'Moderate' 'Brutal'
 	pointsToWin: 3,
     maxPlayerCount: 2,
 	map: 'Classic',

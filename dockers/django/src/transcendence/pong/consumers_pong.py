@@ -68,14 +68,6 @@ class PongConsumer(AsyncWebsocketConsumer):
 						if player_key in game_state.get('2_P', {}).get('players', {}):
 							game_state['2_P']['players'][player_key]['x'] = positionX
 							game_state['2_P']['players'][player_key]['y'] = positionY
-					else:
-						playerID -= 1
-						if playerID < game_state['room_size']:
-							players_list = game_state.setdefault('multi', {}).setdefault('players', [])
-							while len(players_list) <= playerID:
-								players_list.append({})
-							players_list[playerID]['x'] = positionX
-							players_list[playerID]['y'] = positionY
 				else:
 					logger.info(f"pong: Received buffer size mismatch: {len(bytes_data)} bytes")
 			except KeyError as e:
@@ -123,6 +115,16 @@ class PongConsumer(AsyncWebsocketConsumer):
 				edges = content.get('vectors', [])
 				multi = game_state.setdefault('multi', {})
 				multi['edges'] = edges
+			
+			elif message_type == 'player_info':
+				content = data.get('content', {})
+				playerID = content.get('ID') - 1
+				players_list = game_state.setdefault('multi', {}).setdefault('players', [])
+				while len(players_list) <= playerID:
+					players_list.append({})
+				players_list[playerID]['x'] = content.get('x')
+				players_list[playerID]['y'] = content.get('y')
+				players_list[playerID]['name'] = content.get('name')
 
 	async def game_update_loop(self):
 		await asyncio.sleep(3)
@@ -193,6 +195,8 @@ class PongConsumer(AsyncWebsocketConsumer):
 					times.append(time_length)
 					times.append(time_length)
 					names_list = list(game_state.get('player_data', {}).keys())
+					if not names_list:
+						names_list = game_state.get('multi_winners', ['player_1', 'player_2'])
 					winner_username = names_list[0] if score[0] > score[1] else names_list[1]
 					if game_state.get('partOfTournament', False):
 						id = game_state.get('tournamentID', None)
@@ -235,9 +239,13 @@ class PongConsumer(AsyncWebsocketConsumer):
 					continue
 				result_multi = update_ball_position_multi(game_state)
 				if result_multi != None:
+					game_state['room_size'] -= 1
+					if game_state['room_size'] == 2:
+						winners = game_state['multi']['players'].copy()
+						winners.pop(result_multi)
+						game_state['multi_winners'] = winners
 					game_state['multi']['players'] = []
 					game_state['multi']['finished'] = True
-					game_state['room_size'] -= 1
 					game_state['loop_count'] -= 1
 					logger.info(f"ongoing loop count: {game_state['loop_count']}")
 					await asyncio.sleep(1)
@@ -250,6 +258,7 @@ class PongConsumer(AsyncWebsocketConsumer):
 						'players': game_state['multi']['players'],
 						'result': result_multi,
 						'pcount': game_state['room_size'],
+						'winners': winners,
 					})
 					await self.channel_layer.group_send(
 						self.room_group_name,
@@ -259,7 +268,6 @@ class PongConsumer(AsyncWebsocketConsumer):
 							'json': True
 						}
 					)
-					# break
 				else:
 					json_message = json.dumps({
 						'ball': {
@@ -330,4 +338,5 @@ class PongConsumer(AsyncWebsocketConsumer):
 			'partOfTournament': False,
 			'tournamentID': None,
 			'loop_count': 0,
+			'multi_winners': [],
 		}
