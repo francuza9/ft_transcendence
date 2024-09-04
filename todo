@@ -3,20 +3,15 @@ General Mandatory Todo {
 	Mandatory Part:
 	- Not push Passwords on git
 	- Fix history
-	- Tournament
+	- Tournament Display
 
 	Remote Authentication:
 	- 42 Authentication
 
 	Multiple Players:
-	- Fix Math
 	- Add end logic (detailed in todo)
 
-	User Management:
-	- Friends system
-
 	Chat:
-	- Block / Unblock users
 	- Invitation to the game
 	- Tournament Should warn users about the start of the game
 	- Access Users Profiles through Chat
@@ -43,6 +38,8 @@ General Mandatory Todo {
 
 		42 Auth
 	}
+
+	REMOVE CAMERA CONTROL BEFORE PUSHING
 }
 
 [Youssef] {
