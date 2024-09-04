@@ -27,23 +27,20 @@ General Mandatory Todo {
 
 [George] {
 
-	Multiplayer Game {
-		return values correctly
-	}
-
-	Reconnect client to global websocket every 3 seconds, and remove errors, only show when successfull
-
-	Cancel sent friend request backend
-
 	Current {
-		Minor {
-			make ai better
-
-			Spectator
+		Multiplayer Game {
+			return values correctly
 		}
 	}
 
 	Upcoming {
+
+		Reconnect client to global websocket every 3 seconds, and remove errors, only show when successfull
+
+		Cancel sent friend request backend
+
+		Spectator (manage lobbies differently)
+
 		42 Auth
 	}
 }
