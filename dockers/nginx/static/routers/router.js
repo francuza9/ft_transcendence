@@ -81,7 +81,7 @@ document.addEventListener('DOMContentLoaded', () => {
 		else if (e.target.closest('tr[data-player-id]')) {
 			const targetRow = e.target.closest('tr[data-player-id]');
 			const playerId = targetRow.dataset.playerId;
-			viewProfile(playerId);
+			viewProfile(null, playerId);
 		}
 		moveModalBackdrops();
 	});
