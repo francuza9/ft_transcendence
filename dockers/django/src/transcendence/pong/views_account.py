@@ -8,6 +8,7 @@ from django.contrib.auth import update_session_auth_hash
 from django.conf import settings
 import json
 
+
 def get_profile_info(request, username):
 	try:
 		user = CustomUser.objects.get(username=username)
@@ -24,6 +25,26 @@ def get_profile_info(request, username):
 			'gamesWon': profile.gamesWon,
 			'gamesLost': profile.gamesLost,
 		}
+
+		if request.user.is_authenticated:
+			requesting_user = request.user
+
+			are_friends = requesting_user.friends.filter(id=user.id).exists()
+
+			friend_request_sent = requesting_user.sent_friend_requests.filter(id=user.id).exists()
+			friend_request_received = requesting_user.received_friend_requests.filter(id=user.id).exists()
+
+			is_blocked = requesting_user.blocked_users.filter(id=user.id).exists()
+			has_blocked = requesting_user.blocked_by.filter(id=user.id).exists()
+
+			user_info.update({
+				'areFriends': are_friends,
+				'friendRequestSent': friend_request_sent,
+				'friendRequestReceived': friend_request_received,
+				'isBlocked': is_blocked,
+				'hasBlocked': has_blocked,
+			})
+
 		return JsonResponse(user_info, status=200)
 
 	except ObjectDoesNotExist:
@@ -31,6 +52,7 @@ def get_profile_info(request, username):
 
 	except Exception as e:
 		return JsonResponse({'error': str(e)}, status=500)
+
 
 @login_required
 def get_account_info(request):
