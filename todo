@@ -27,11 +27,8 @@ General Mandatory Todo {
 
 [George] {
 
-	Given to Youssef (probably) {
-		Multiplayer Game {
-			fix backend pong logic,
-			moving to next rounds (8 >> 7 >> 6 >> 5 >> 4 >> 3 >> 2 >> winner)	
-		}
+	Multiplayer Game {
+		return values correctly
 	}
 
 	Reconnect client to global websocket every 3 seconds, and remove errors, only show when successfull
