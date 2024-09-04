@@ -67,51 +67,29 @@ General Mandatory Todo {
 	Fix missing translation keys in account page
 }
 
-
 [Marijn] {
 
-	Today {
-		Make friends clickable to show profile popup
-
-		Profile modal (for leaderboard, lobby, endscreen, chat and friends modal) {
-			friend button / unfriend button
-			invite to game
-			chat button
-			block button
-			online status
-		}
-
+	Profile modal {
+		friend / unfriend button
+		block / unblock button
+		invite to game if in lobby and friends
+		online status
+		open player profile from chat messages
 	}
 
-	CSS {
-
-		Fix profile modal backdrop
-
-		Fix settings name disappearing on replaceHTML call
-
-		Fix modal close buttons on account page
-
-		Fix chat not being refreshed after login
-
-	}
-
-	Fix window resize stretching background
-	
 	Fix Github Auth to not reload SPA
+
+	Update map preview images
 
 	Tournament View
 
-	Spectator
-	
+	Fix window resize stretching background
 
-	Low priority {
-		Update map preview images
+	Add all languages in translations (only at end)
 
-		Add all languages in translations (only at end)
-
-		Extra {
-			Animations for smooth transition between pages
-			Easter egg(s)
-		}
+	Extra {
+		Game transition animations
+		Animations for smooth transition between pages
+		Easter egg(s)
 	}
 }

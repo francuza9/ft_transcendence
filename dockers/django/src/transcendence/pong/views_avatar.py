@@ -14,13 +14,9 @@ def update_avatar(request):
 		
 		avatar_file = request.FILES['avatar']
 
-		# If there is an existing avatar, delete the old file
 		if user_profile.avatarUrl:
 			user_profile.avatarUrl.delete(save=False)
 		
-		# Assign the new file to the avatarUrl field
-		# user_profile.avatarUrl = avatar_file
-		# user_profile.save()
 		user_profile.avatarUrl.save(avatar_file.name, avatar_file, save=True)
 
 		return JsonResponse({'success': True, 'avatarUrl': user_profile.avatarUrl.url})
@@ -31,9 +27,8 @@ def update_avatar(request):
 @csrf_exempt
 def remove_avatar(request):
 	if request.method == 'POST':
-		user_profile = Profile.objects.get(user=request.user)  # Get the user profile
+		user_profile = Profile.objects.get(user=request.user)
 
-		# If there is an avatar, delete the file
 		if user_profile.avatarUrl:
 			user_profile.avatarUrl.delete(save=False)
 			user_profile.avatarUrl = None

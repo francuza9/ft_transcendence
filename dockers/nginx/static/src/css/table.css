@@ -1,6 +1,7 @@
 .player-row {
     border-radius: 10px;
     overflow: hidden;
+	cursor: pointer;
 }
 
 .player-row.no-bottom-border {
@@ -103,3 +104,34 @@
     background-color: rgba(255, 255, 255, 0.1);
 }
 
+/* PROFILES */
+
+#playerProfileModal .modal-body .btn {
+    margin-right: 10px;
+}
+
+#playerProfileModal .modal-body .btn:last-child {
+    margin-right: 0;
+}
+
+.username-text {
+    color: rgba(255, 255, 255, 0.5);
+    margin-left: 5px;
+}
+
+#profile-modal {
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    justify-content: center;
+    align-items: center;
+    backdrop-filter: blur(15px);
+    border-radius: 10px;
+    color: white;
+}
+
+#close-profile {
+	font-size: inherit;
+	margin-top: inherit !important;
+	top: 28px !important;
+	right: 30px !important;
+}

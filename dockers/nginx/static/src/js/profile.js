@@ -1,4 +1,4 @@
-import {ensureUsername, isGuest} from '/static/src/js/utils.js';
+import {ensureUsername, isGuest, moveModalBackdrops} from '/static/src/js/utils.js';
 import {variables} from '/static/src/js/variables.js';
 import {addFriend, unfriendUser, blockUser} from '/static/src/js/friends.js';
 
@@ -19,6 +19,7 @@ export async function viewProfile(player) {
 
 			const closeButton = document.createElement('button');
 			closeButton.type = 'button';
+			closeButton.id = 'close-profile';
 			closeButton.className = 'btn-close btn-close-white';
 			closeButton.setAttribute('data-bs-dismiss', 'modal');
 			closeButton.setAttribute('aria-label', 'Close');
@@ -98,14 +99,33 @@ export async function viewProfile(player) {
 				}
 			});
 
-			const modal = new bootstrap.Modal(document.getElementById('playerProfileModal'));
-			modal.show();
+			const manageFriendsModal = document.getElementById('manage-friends-modal');
+			const profileModalElement = document.getElementById('playerProfileModal');
+			const profileModal = new bootstrap.Modal(document.getElementById('playerProfileModal'));
+
+			manageFriendsModal.setAttribute('aria-hidden', 'true');
+			manageFriendsModal.style.pointerEvents = 'none';
+			manageFriendsModal.hide(); //fix this
+			setTimeout(() => {
+				profileModal.show();
+			}, 100);
+			manageFriendsModal.style.zIndex = 'auto';
+			moveModalBackdrops();
+			attachProfileHideEventListener(profileModalElement, manageFriendsModal);
 		} else {
 			console.log('No data for', player);
 		}
 	} catch (error) {
 		console.error('Error displaying player profile:', error);
 	}
+}
+
+function attachProfileHideEventListener(profileModal, manageFriendsModal) {
+	profileModal.addEventListener('hidden.bs.modal', () => {
+		manageFriendsModal.removeAttribute('aria-hidden');
+		manageFriendsModal.style.pointerEvents = '';
+		manageFriendsModal.style.zIndex = '';
+	}, { once: true });
 }
 
 function createStatColumn(label, value) {
@@ -137,6 +157,7 @@ async function getPlayerData(player) {
 	}
 }
 
+/*
 export function showPlayerPreview(row, playerId) {
 	const preview = document.createElement('div');
 	preview.className = 'player-preview-tooltip';
@@ -162,3 +183,4 @@ export function hidePlayerPreview(row) {
 		row._previewTooltip = null;
 	}
 }
+*/

@@ -35,20 +35,15 @@ def login_view(request):
 def guest_login_view(request):
 	if request.method == 'POST':
 		try:
-			# Create the guest user
 			user = CustomUser.create_guest_user()
 
-			# Log the guest user in, specifying the backend manually
 			user.backend = 'django.contrib.auth.backends.ModelBackend'
 			login(request, user, backend=user.backend)
 
-			# Return success response with the guest username
 			return JsonResponse({'success': True, 'username': user.username})
 		except Exception as e:
-			# Handle any errors that occur
 			return JsonResponse({'success': False, 'message': str(e)})
 	else:
-		# Invalid request method
 		return JsonResponse({'success': False, 'message': 'Invalid request method'})
 
 @csrf_exempt
@@ -64,22 +59,18 @@ def register_view(request):
 			if not username or not email or not password or not password_confirm:
 				return JsonResponse({'success': False, 'message': 'All fields are required'})
 
-			# Username validation
 			valid, error_message = is_valid_username(username)
 			if not valid:
 				return JsonResponse({'success': False, 'message': error_message})
 
-			# Email validation
 			valid, error_message = is_valid_email(email)
 			if not valid:
 				return JsonResponse({'success': False, 'message': error_message})
 
-			# Password validation
 			valid, error_message = is_valid_password(password, password_confirm, username)
 			if not valid:
 				return JsonResponse({'success': False, 'message': error_message})
 
-			# Check for existing users with the same username or email
 			if CustomUser.objects.filter(username=username).exists():
 				return JsonResponse({'success': False, 'message': 'Username already exists'})
 
