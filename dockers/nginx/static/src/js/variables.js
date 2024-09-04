@@ -28,6 +28,7 @@ export const resetVariables = () => {
 	variables.isTournament = false;
 	variables.localAI = false,
     variables.pointsToWin = 3;
+	variables.AIDifficulty = 'Insane';
     variables.maxPlayerCount = 2;
     variables.map = 'classic';
     variables.roomName = '';
