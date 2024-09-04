@@ -96,8 +96,8 @@ class PongConsumer(AsyncWebsocketConsumer):
 				game_state['player_data'] = player_data
 				if message_type == 'initial_data': # maybe needs to be removed (test with 1v1 after)
 					game_state['loop_count'] += 1
-					logger.info(f"ongoing loop count: {game_state['loop_count']}")
-					asyncio.create_task(self.game_update_loop())
+					if (game_state['loop_count'] == 1):
+						asyncio.create_task(self.game_update_loop())
 
 			# Initialize AI instances based on player_data
 			if message_type == 'initial_data':
@@ -225,6 +225,7 @@ class PongConsumer(AsyncWebsocketConsumer):
 					logger.info(f"ongoing loop count: {game_state['loop_count']}")
 					break
 			else:
+				# logger.info("stuck")
 				if len(game_state['multi']['players']) == len(game_state['multi']['edges']) \
 				and game_state['room_size'] <= len(game_state['multi']['players']):
 					game_state['multi']['players'].pop(len(game_state['multi']['players']) - 1)
@@ -239,6 +240,7 @@ class PongConsumer(AsyncWebsocketConsumer):
 					game_state['room_size'] -= 1
 					game_state['loop_count'] -= 1
 					logger.info(f"ongoing loop count: {game_state['loop_count']}")
+					await asyncio.sleep(1)
 					json_message = json.dumps({
 					'ball': {
 							'ball_position': game_state['multi']['ball_position'],
@@ -257,8 +259,7 @@ class PongConsumer(AsyncWebsocketConsumer):
 							'json': True
 						}
 					)
-					await asyncio.sleep(1)
-					break
+					# break
 				else:
 					json_message = json.dumps({
 						'ball': {
@@ -311,7 +312,7 @@ class PongConsumer(AsyncWebsocketConsumer):
 				},
 				'ball_position': {'x': 0, 'y': 0},
 				'ball_direction': {'x': 1.5, 'y': 0},
-				'ball_speed': 0.05,
+				'ball_speed': 0.08,
 				'score': [0, 0],
 				'winning_score': 999,
 				'finished': False,
@@ -321,12 +322,12 @@ class PongConsumer(AsyncWebsocketConsumer):
 				'players': [],
 				'ball_position': {'x': 0, 'y': 0},
 				'ball_direction': {'x': 1.5, 'y': 0},
-				'ball_speed': 0.02,
+				'ball_speed': 0.08,
 				'finished': False,
 			},
 			'room_size': 2,
 			'player_data': {},  # Changed to dictionary format
 			'partOfTournament': False,
 			'tournamentID': None,
-			'loop_count': 0, # TODO: remove later
+			'loop_count': 0,
 		}
