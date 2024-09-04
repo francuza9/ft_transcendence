@@ -63,6 +63,17 @@ class GlobalConsumer(AsyncWebsocketConsumer):
 			target = text_data_json.get('target', None)
 			if target and 0 < len(target) <= 12:
 				await self.friend_decline(target)
+		elif type == 'friend_unsend':
+			target = text_data_json.get('target', None)
+			if target and 0 < len(target) <= 12:
+				await self.friend_unsend(target)
+
+	async def friend_unsend(self, target):
+		senderDB = await self.getUserDB(self.username)
+		userDB = await self.getUserDB(target)
+		if senderDB and userDB:
+			if await sync_to_async(senderDB.sent_friend_requests.filter(id=userDB.id).exists)():
+				await sync_to_async(senderDB.sent_friend_requests.remove)(userDB)
 
 	async def friend_accept(self, target):
 		senderDB = await self.getUserDB(self.username)

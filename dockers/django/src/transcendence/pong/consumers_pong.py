@@ -83,7 +83,6 @@ class PongConsumer(AsyncWebsocketConsumer):
 			except struct.error as e:
 				logger.info(f"pong: StructError: {e}")
 		elif text_data:
-			logger.info(f"text data received: {text_data}")
 			data = json.loads(text_data)
 			message_type = data.get('type')
 			game_state = PongConsumer.game_states.setdefault(self.room_id, {})
@@ -95,7 +94,10 @@ class PongConsumer(AsyncWebsocketConsumer):
 				for i in range(len(player_names)):
 					player_data[player_names[i]] = is_bot[i]
 				game_state['player_data'] = player_data
-				asyncio.create_task(self.game_update_loop())
+				if message_type == 'initial_data': # maybe needs to be removed (test with 1v1 after)
+					game_state['loop_count'] += 1
+					logger.info(f"ongoing loop count: {game_state['loop_count']}")
+					asyncio.create_task(self.game_update_loop())
 
 			# Initialize AI instances based on player_data
 			if message_type == 'initial_data':
@@ -219,10 +221,10 @@ class PongConsumer(AsyncWebsocketConsumer):
 					}
 				)
 				if result == FINISH:
+					game_state['loop_count'] -= 1
+					logger.info(f"ongoing loop count: {game_state['loop_count']}")
 					break
 			else:
-				logger.info(f"players len: {len(game_state['multi']['players'])}, edges len: {len(game_state['multi']['edges'])}")
-				logger.info(f"room_size: {game_state['room_size']}")
 				if len(game_state['multi']['players']) == len(game_state['multi']['edges']) \
 				and game_state['room_size'] <= len(game_state['multi']['players']):
 					game_state['multi']['players'].pop(len(game_state['multi']['players']) - 1)
@@ -235,30 +237,49 @@ class PongConsumer(AsyncWebsocketConsumer):
 					game_state['multi']['players'] = []
 					game_state['multi']['finished'] = True
 					game_state['room_size'] -= 1
-					# if game_state['room_size'] == 2:
-						# break 
-					await asyncio.sleep(1)
-				else:
-					game_state['multi']['finished'] = False
-				json_message = json.dumps({
+					game_state['loop_count'] -= 1
+					logger.info(f"ongoing loop count: {game_state['loop_count']}")
+					json_message = json.dumps({
 					'ball': {
 							'ball_position': game_state['multi']['ball_position'],
 							'ball_direction': game_state['multi']['ball_direction'],
 							'ball_speed': game_state['multi']['ball_speed'],
 						},
-					'players': game_state['multi']['players'],
-					'result': result_multi,
-					'pcount': game_state['room_size'],
-				})
-				await self.channel_layer.group_send(
-					self.room_group_name,
-					{
-						'type': 'pong_message',
-						'message': json_message,
-						'json': True
-					}
-				)
-				result_multi = None
+						'players': game_state['multi']['players'],
+						'result': result_multi,
+						'pcount': game_state['room_size'],
+					})
+					await self.channel_layer.group_send(
+						self.room_group_name,
+						{
+							'type': 'pong_message',
+							'message': json_message,
+							'json': True
+						}
+					)
+					await asyncio.sleep(1)
+					break
+				else:
+					json_message = json.dumps({
+						'ball': {
+								'ball_position': game_state['multi']['ball_position'],
+								'ball_direction': game_state['multi']['ball_direction'],
+								'ball_speed': game_state['multi']['ball_speed'],
+							},
+						'players': game_state['multi']['players'],
+						'result': result_multi,
+						'pcount': game_state['room_size'],
+					})
+					game_state['multi']['finished'] = False
+					await self.channel_layer.group_send(
+						self.room_group_name,
+						{
+							'type': 'pong_message',
+							'message': json_message,
+							'json': True
+						}
+					)
+					result_multi = None
 
 			await asyncio.sleep(1 / 30)  # 30 updates per second
 
@@ -307,4 +328,5 @@ class PongConsumer(AsyncWebsocketConsumer):
 			'player_data': {},  # Changed to dictionary format
 			'partOfTournament': False,
 			'tournamentID': None,
+			'loop_count': 0, # TODO: remove later
 		}
