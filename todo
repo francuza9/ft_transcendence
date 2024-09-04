@@ -68,6 +68,8 @@ General Mandatory Todo {
 		open player profile from chat messages
 	}
 
+	when localgame finishes endgame popup should output "Profile Picture"s
+
 	Fix Github Auth to not reload SPA
 
 	Update map preview images
