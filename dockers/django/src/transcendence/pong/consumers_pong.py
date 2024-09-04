@@ -126,9 +126,11 @@ class PongConsumer(AsyncWebsocketConsumer):
 		await asyncio.sleep(3)
 		game_length = time.time()
 		game_state = await self.get_game_state()
+		# get a random float between 0 and 1
+		ra = random.uniform(-1, 1)
 		game_state['multi']['ball_direction'] = {
-			'x': 0,
-			'y': 1,
+			'x': ra,
+			'y': (1 - ra**2) ** 0.5,
 		}
 		game_state['2_P']['ball_direction'] = {
 			'x': random.choice([1.5, -1.5]),
@@ -219,18 +221,24 @@ class PongConsumer(AsyncWebsocketConsumer):
 				if result == FINISH:
 					break
 			else:
-				# logger.info(f"players len: {len(game_state['multi']['players'])}, edges len: {len(game_state['multi']['edges'])}")
-				# logger.info(f"finished: {game_state['multi']['finished']}")
+				logger.info(f"players len: {len(game_state['multi']['players'])}, edges len: {len(game_state['multi']['edges'])}")
+				logger.info(f"room_size: {game_state['room_size']}")
+				if len(game_state['multi']['players']) == len(game_state['multi']['edges']) \
+				and game_state['room_size'] <= len(game_state['multi']['players']):
+					game_state['multi']['players'].pop(len(game_state['multi']['players']) - 1)
 				if len(game_state['multi']['players']) != len(game_state['multi']['edges']) - 1 :
 				# or game_state['multi']['finished']:
 					await asyncio.sleep(1 / 30)
 					continue
-				result = update_ball_position_multi(game_state)
-				if result != None and result > 0:
+				result_multi = update_ball_position_multi(game_state)
+				if result_multi != None:
 					game_state['multi']['players'] = []
 					game_state['multi']['finished'] = True
 					game_state['room_size'] -= 1
-				if not result:
+					# if game_state['room_size'] == 2:
+						# break 
+					await asyncio.sleep(1)
+				else:
 					game_state['multi']['finished'] = False
 				json_message = json.dumps({
 					'ball': {
@@ -239,7 +247,8 @@ class PongConsumer(AsyncWebsocketConsumer):
 							'ball_speed': game_state['multi']['ball_speed'],
 						},
 					'players': game_state['multi']['players'],
-					'result': result,
+					'result': result_multi,
+					'pcount': game_state['room_size'],
 				})
 				await self.channel_layer.group_send(
 					self.room_group_name,
@@ -249,6 +258,7 @@ class PongConsumer(AsyncWebsocketConsumer):
 						'json': True
 					}
 				)
+				result_multi = None
 
 			await asyncio.sleep(1 / 30)  # 30 updates per second
 

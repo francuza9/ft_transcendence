@@ -64,12 +64,12 @@ def update_ball_position_multi(game_state):
 			# player loses
 			ball['x'] = 0
 			ball['y'] = 0
-			direction['x'] = 0
-			direction['y'] = 1
+			# direction['x'] = 0
+			# direction['y'] = 1
 			game_state['multi']['ball_position'] = ball
 			game_state['multi']['ball_speed'] = 0.02
 			logger.info(f"Player {i} loses")
-			return None
+			return i
 
 	return None
 
