@@ -10,9 +10,11 @@ import { createLights } from './objects/lights.js';
 import { createPlayers } from './objects/players.js';
 import { buildMap } from './scene/maps/chooseMap.js';
 import { variables } from '/static/src/js/variables.js';
+import { create2Pgame } from '/static/src/js/2pGame/create2p.js';
 
 export function createMultigame(pcount, pov, map, socket) {
-	console.log("pong socket: ", socket);
+	console.log("My name: ", variables.username);
+
 	if (pov > pcount)
 		pov = 0;
 	const scene = initScene();
@@ -38,9 +40,7 @@ export function createMultigame(pcount, pov, map, socket) {
 	const light = new THREE.AmbientLight(0xffffff, 1);
 	const lights = createLights(pcount, ballMesh, vectorObjects);
 
-	
 	const players = createPlayers(pcount, pov, vectorObjects);
-	
 
 	// Attach direction vectors and side lengths to each player
 	players.children.forEach((player, i) => {
@@ -56,7 +56,6 @@ export function createMultigame(pcount, pov, map, socket) {
 	});
 
 	if (pov === 1) {
-		console.log("im the dickhead (", variables.username, ")");
 		sendInitialData(socket, vectorObjects);
 	}
 
@@ -109,7 +108,6 @@ export function createMultigame(pcount, pov, map, socket) {
 					if (pcountNew != 2) {
 						createMultigame(pcountNew, 0, map, socket);
 					} else {
-						console.log("hell yeah");
 						cleanup();
 						socket.removeEventListener('message', handleMessage);
 						socket.close();
@@ -118,18 +116,22 @@ export function createMultigame(pcount, pov, map, socket) {
 					return ;
 				}
 				else {
+					if (pov - 1 > data.result) {
+						pov--;
+					}
 					if (pcountNew > 2) {
 						cleanup();
-						if (pov - 1 > data.result) {
-							pov--;
-						}
 						createMultigame(pcountNew, pov, map, socket);
 						return ;
 					} else {
-						console.log("hell yeah");
 						cleanup();
 						socket.removeEventListener('message', handleMessage);
-						socket.close();
+						console.log(data.winners);
+						if (pov === 2)
+							create2Pgame(pov, socket, [data.winners[pov % 2].name, data.winners[pov - 1].name]);
+						else
+							create2Pgame(pov, socket, [data.winners[pov - 1].name, data.winners[pov % 2].name]);
+						// socket.close();
 						return ;
 					}
 				}
@@ -159,12 +161,16 @@ export function createMultigame(pcount, pov, map, socket) {
 	function animate() {
 		// Send player positions over the socket
 		if (pov > 0 && pov - 1 <= pcount) {
-			const buffer = serializeData(
-				pov,
-				players.children[0].position.x,
-				players.children[0].position.z
-			);
-			socket.send(buffer);
+			const data = JSON.stringify({
+				type: 'player_info',
+				content: {
+					ID: pov,
+					x: players.children[0].position.x,
+					y: players.children[0].position.z,
+					name: variables.username,
+				}
+			});
+			socket.send(data);
 		}
 
 		if (pov > 0) {
