@@ -20,12 +20,16 @@ General Mandatory Todo {
 	- Github should be SPA
 }
 
+GAME RESULTS SHOULD GO TO DATABASE
+
 [George] {
 	
 	Lobby (important):
 		When lobby doesnt exist, redirect to join page and show error popup to client
 
 	Current {
+		wrong users during game
+
 		Multiplayer Game {
 			return values correctly
 		}
