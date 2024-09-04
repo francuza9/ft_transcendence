@@ -190,7 +190,7 @@ export function createMultigame(pcount, pov, map, socket) {
 			player.position.addScaledVector(directionVector, 0.2);
 		}
 
-		let halfPaddleLength = 1.0; // Assuming the paddle length is 2, so half is 1
+		let halfPaddleLength = 1.0;
 		let playerToV1 = new THREE.Vector3().subVectors(player.position, v1);
 		let projectionLength = playerToV1.dot(directionVector);
 
@@ -246,6 +246,7 @@ export function createMultigame(pcount, pov, map, socket) {
 	}
 
 	function cleanup() {
+		console.log("cleanup called: ", renderer);
 		renderer.setAnimationLoop(null);
 		window.removeEventListener('resize', onWindowResize);
 		window.removeEventListener('keydown', boundOnKeydown);
