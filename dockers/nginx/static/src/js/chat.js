@@ -1,6 +1,6 @@
 import {getCookie} from '/static/src/js/cookies.js';
 import {getSocket} from '/static/src/js/socket_handling/global_socket.js';
-import {isGuest, ensureUsername} from '/static/src/js/utils.js';
+import {isGuest, checkLoginStatus, ensureUsername} from '/static/src/js/utils.js';
 import {variables} from '/static/src/js/variables.js';
 import {getTranslation} from '/static/src/js/lang.js';
 import {addFriend, unfriendUser, blockUser, unblockUser, acceptFriendRequest, declineFriendRequest, unsendFriendRequest} from '/static/src/js/friends.js';
@@ -29,7 +29,7 @@ export const openChat = () => {
     chatWindow.classList.remove("hidden");
 	chatBtn.classList.add("hidden");
 
-	ensureUsername().then(() => {
+	checkLoginStatus().then(() => {
 		if (isGuest(variables.username) || !variables.username) {
 			friendList.innerHTML = '';
 			const noFriendsMessage = document.createElement("div");
@@ -460,6 +460,7 @@ const loadFriendsTab = () => {
             data.friends.forEach(friend => {
                 const friendItem = document.createElement("tr");
                 friendItem.className = "player-row";
+				friendItem.setAttribute('data-player-id', friend.username);
                 friendItem.innerHTML = `
 					<td><img src="${friend.avatar}" alt="${friend.username}" class="player-img"></td>
 					<td class="align-middle">${friend.username}</td>
@@ -510,6 +511,7 @@ const loadFriendRequestsTab = () => {
             data.friend_requests.forEach(request => {
                 const requestItem = document.createElement("tr");
                 requestItem.className = "player-row";
+				requestItem.setAttribute('data-player-id', request.username);
                 requestItem.innerHTML = `
                     <td><img src="${request.avatar}" alt="${request.name}" class="player-img"></td>
                     <td class="align-middle">${request.name}</td>
@@ -529,6 +531,7 @@ const loadFriendRequestsTab = () => {
             data.sent_requests.forEach(request => {
                 const requestItem = document.createElement("tr");
                 requestItem.className = "player-row";
+				requestItem.setAttribute('data-player-id', request.username);
                 requestItem.innerHTML += `
                     <td><img src="${request.avatar}" alt="${request.name}" class="player-img"></td>
                     <td class="align-middle">${request.name}</td>
@@ -573,6 +576,7 @@ const loadBlockedUsersTab = () => {
             data.blocked.forEach(blockedUser => {
                 const blockedItem = document.createElement("tr");
                 blockedItem.className = "blocked-user-row";
+				blockedItem.setAttribute('data-player-id', blockedUser.username);
                 blockedItem.innerHTML = `
                     <td><img src="${blockedUser.avatar}" alt="${blockedUser.username}" class="player-img"></td>
                     <td class="align-middle">${blockedUser.name}</td>

@@ -16,11 +16,9 @@ def fetch_and_save_avatar(user, avatar_url):
 		response = requests.get(avatar_url)
 		response.raise_for_status()
 
-		# Create a file name based on the URL
 		file_name = os.path.basename(avatar_url)
 		file_content = ContentFile(response.content, file_name)
 
-		# Get or create the profile
 		profile, created = Profile.objects.get_or_create(
 			user=user,
 			defaults={'displayName': user.username}
@@ -29,7 +27,6 @@ def fetch_and_save_avatar(user, avatar_url):
 		if created or profile.avatarUrl.name == '':
 			profile.avatarUrl.save(file_name, file_content, save=True)
 		else:
-			# Optionally update the avatar if it's different
 			profile.avatarUrl.save(file_name, file_content, save=True)
 		
 		return profile.avatarUrl.url
@@ -49,7 +46,6 @@ def github(request):
     logger.info(f'Authorization code received: {code}')
 
     try:
-        # Exchange code for access token
         token_response = requests.post(
             'https://github.com/login/oauth/access_token',
             data={
@@ -72,7 +68,6 @@ def github(request):
             logger.error(f'Error receiving access token: {error_description}')
             return JsonResponse({'error': 'Failed to get access token'}, status=400)
 
-        # Fetch user data from GitHub
         user_response = requests.get(
             'https://api.github.com/user',
             headers={'Authorization': f'token {access_token}'}
@@ -92,18 +87,15 @@ def github(request):
             logger.error('Failed to retrieve GitHub user data: missing ID')
             return JsonResponse({'error': 'Failed to get user data'}, status=400)
 
-        # Create or get the user, allow email to be None
         user, created = User.objects.get_or_create(
             github_id=github_id,
             username=username,
             defaults={'email': email}
         )
 
-        # Update the GitHub token
         user.github_token = access_token
         user.save()
 
-        # Fetch and save the GitHub avatar
         fetch_and_save_avatar(user, avatar_url)
 
         if created:
@@ -111,13 +103,10 @@ def github(request):
         else:
             logger.info('Existing user logged in')
 
-        # Specify the backend for the user
         user.backend = 'django.contrib.auth.backends.ModelBackend'
 
-        # Log in the user
         django_login(request, user, backend=user.backend)
 
-        # Redirect to the home page or a desired page
         return redirect('/')
 
     except requests.RequestException as e:
