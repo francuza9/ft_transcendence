@@ -55,8 +55,8 @@ def update_ball_position_multi(game_state):
 				# reflect the ball
 				game_state['multi']['ball_direction'] = reflect_ball(ball, player, direction, edge)
 
-			if speed < 0.1:
-				game_state['multi']['ball_speed'] += 0.004
+			if speed < 0.3:
+				game_state['multi']['ball_speed'] += 0.02
 
 			return None
 		
@@ -64,10 +64,8 @@ def update_ball_position_multi(game_state):
 			# player loses
 			ball['x'] = 0
 			ball['y'] = 0
-			# direction['x'] = 0
-			# direction['y'] = 1
 			game_state['multi']['ball_position'] = ball
-			game_state['multi']['ball_speed'] = 0.02
+			game_state['multi']['ball_speed'] = 0.08
 			logger.info(f"Player {i} loses")
 			return i
 
