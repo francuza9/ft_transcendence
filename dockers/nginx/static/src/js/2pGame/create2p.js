@@ -88,8 +88,10 @@ export function create2Pgame(mappov, socket, names) {
     const boundOnKeydown = (event) => onKeydown(event, camera);
     const boundOnKeyup = (event) => onKeyup(event);
 
-    window.addEventListener('keydown', boundOnKeydown, false);
-    window.addEventListener('keyup', boundOnKeyup, false);
+	if (mappov > 0) {
+		window.addEventListener('keydown', boundOnKeydown, false);
+		window.addEventListener('keyup', boundOnKeyup, false);
+	}
 
 	const handleMessage = (event) => {
 		if (event.data instanceof ArrayBuffer) {

@@ -248,6 +248,7 @@ class PongConsumer(AsyncWebsocketConsumer):
 				result_multi = update_ball_position_multi(game_state)
 				if result_multi != None:
 					game_state['room_size'] -= 1
+					winners = None
 					if game_state['room_size'] == 2:
 						winners = game_state['multi']['players'].copy()
 						winners.pop(result_multi)
