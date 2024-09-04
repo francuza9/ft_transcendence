@@ -91,17 +91,29 @@ export function startLocal(pointsToWin)
 	});
 
 
-	function animate() {
-		ball.animate();
-		// render
-		
-		controls.update();
-		renderer.render(scene, camera);
-		let checker = checkCollision(ball, players, score, lights, scoremesh, pointsToWin);
-		if (checker) {
-			cleanup(score);
+	let previousTime = 0;
+	const fps = 45;
+	const interval = 1000 / fps;
+
+	function animate(currentTime) {
+		const deltaTime = currentTime - previousTime;
+
+		if (deltaTime >= interval) {
+			previousTime = currentTime - (deltaTime % interval);
+
+			ball.animate();
+			controls.update();
+			renderer.render(scene, camera);
+
+			let checker = checkCollision(ball, players, score, lights, scoremesh, pointsToWin);
+			if (checker) {
+				cleanup(score);
+				return ;
+			}
+			updatePlayerPositions(players);
 		}
-		updatePlayerPositions(players);
+
+		renderer.setAnimationLoop(animate);
 	}
 
 	function onWindowResize() {
