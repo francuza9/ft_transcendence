@@ -73,7 +73,10 @@ class LobbyConsumer(AsyncWebsocketConsumer):
 		)
 
 		if self.lobby_id in lobby_data:
-			await self.send_refresh_message()
+			try:
+				await self.send_refresh_message()
+			except:
+				pass
 
 		logger.info(f"lobby: WebSocket connection closed with code: {close_code} for lobby {self.lobby_id}")
 
@@ -108,7 +111,10 @@ class LobbyConsumer(AsyncWebsocketConsumer):
 					lobby_data[self.lobby_id]['partOfTournament'] = content.get('partOfTournament')
 					lobby_data[self.lobby_id]['tournamentSocket'] = content.get('tournamentSocket')
 				lobby_data[self.lobby_id]['tournamentID'] = content.get('tournamentID')
-				await self.send_refresh_message()
+				try:
+					await self.send_refresh_message()
+				except:
+					pass
 
 			elif message_type == 'add_bot':	
 				address = data.get('address')
@@ -180,7 +186,10 @@ class LobbyConsumer(AsyncWebsocketConsumer):
 				bot_name = botName
 			lobby_data[self.lobby_id]['players'].append(bot_name)
 			lobby_data[self.lobby_id]['is_bot'].append(True)
-			await self.send_refresh_message()
+			try:
+				await self.send_refresh_message()
+			except:
+				pass
 			logger.info(f"lobby: Added bot with name {bot_name}")
 		else:
 			await self.send(text_data=json.dumps({
