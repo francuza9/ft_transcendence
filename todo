@@ -20,12 +20,15 @@ General Mandatory Todo {
 	- Invitation to the game
 	- Tournament Should warn users about the start of the game
 	- Access Users Profiles through Chat
-
+	
 	Extra Features That affect mandatory:
 	- Github should be SPA
 }
 
 [George] {
+	
+	Lobby (important):
+		When lobby doesnt exist, redirect to join page and show error popup to client
 
 	Given to Youssef (probably) {
 		Multiplayer Game {
@@ -53,14 +56,13 @@ General Mandatory Todo {
 
 [Youssef] {
 
-	Lobby (important):
-		When lobby doesnt exist, redirect to join page and show error popup to client
 	
 	Check max chars for every input field
 	Put char limit check on emails (back and front)
-
+	reset variables when creating a new local game
+	
 	Leaderboard (not important at all):
-		Add Tournaments won and multiplayer games won, along with buttons to sort by them
+	Add Tournaments won and multiplayer games won, along with buttons to sort by them
 	
 	IMPORTANT: check if csrf exemptions should be removed
 	
@@ -68,6 +70,9 @@ General Mandatory Todo {
 }
 
 [Marijn] {
+	
+	Lobby (important):
+	When lobby doesnt exist, redirect to join page and show error popup to client
 
 	Profile modal {
 		friend / unfriend button
