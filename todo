@@ -34,6 +34,10 @@ General Mandatory Todo {
 		}
 	}
 
+	Reconnect client to global websocket every 3 seconds, and remove errors, only show when successfull
+
+	Cancel sent friend request backend
+
 	Current {
 		Minor {
 			make ai better
@@ -69,15 +73,13 @@ General Mandatory Todo {
 	Today {
 		Make friends clickable to show profile popup
 
-		Profile modal (for leaderboard, lobby and endscreen) {
+		Profile modal (for leaderboard, lobby, endscreen, chat and friends modal) {
 			friend button / unfriend button
 			invite to game
 			chat button
 			block button
 			online status
 		}
-
-		Fix Friend Requests
 
 	}
 
@@ -87,10 +89,11 @@ General Mandatory Todo {
 
 		Fix settings name disappearing on replaceHTML call
 
-		Fix chat buttons missing after login
+		Fix modal close buttons on account page
+
+		Fix chat not being refreshed after login
 
 	}
-
 
 	Fix window resize stretching background
 	
@@ -100,7 +103,6 @@ General Mandatory Todo {
 
 	Spectator
 	
-
 
 	Low priority {
 		Update map preview images
