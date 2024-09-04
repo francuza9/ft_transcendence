@@ -11,7 +11,7 @@ import { Account } from '../views/account.js';
 import { updateVariable } from '/static/src/js/variables.js';
 import { normalizePath } from '/static/src/js/utils.js';
 import { NotFound } from '/static/views/notfound.js';
-import { viewProfile, showPlayerPreview, hidePlayerPreview } from '/static/src/js/profile.js';
+import { viewProfile} from '/static/src/js/profile.js';
 import { goActive } from '/static/src/js/socket_handling/global_socket.js';
 import { moveModalBackdrops } from '/static/src/js/utils.js';
 import { initChat } from '/static/src/js/chat.js';
@@ -50,7 +50,6 @@ export const handleRouting = () => {
     component(params);
 };
 
-// Event listener for URL changes
 window.addEventListener('popstate', handleRouting);
 
 document.addEventListener('DOMContentLoaded', () => {

@@ -3,6 +3,7 @@ import {checkLoginStatus, fetchAvatar} from '/static/src/js/utils.js';
 import {variables} from '/static/src/js/variables.js';
 import {closeChat} from '/static/src/js/chat.js';
 import {handleRouting} from '/static/routers/router.js';
+import {getTranslation} from '/static/src/js/lang.js';
 
 export async function initSettings() {
 	const section = document.getElementsByTagName('section')[0];
@@ -27,15 +28,13 @@ export const checkUserState = () => {
 	const authenticated = document.getElementById('authenticated');
 	const unauthenticated = document.getElementById('unauthenticated');
 	const hello = document.getElementById('hello');
-	if (!variables.hello)
-		variables.hello = hello.textContent;
 
 	checkLoginStatus().then(loggedIn => {
 		if (loggedIn && !variables.is_guest) {
 			fetchAvatar('settings-avatar');
 			authenticated.classList.remove('hidden');
 			unauthenticated.classList.add('hidden');
-			hello.textContent = `${variables.hello} ${variables.username}!`;
+			hello.textContent = `${getTranslation('pages.settings.hello')} ${variables.username}!`;
 		} else {
 			unauthenticated.classList.remove('hidden');
 			authenticated.classList.add('hidden');
@@ -61,7 +60,6 @@ export async function logoutButton() {
 			checkUserState();
 			closeChat();
 			variables.username = undefined;
-			// TODO: logging out redirects you to home page only if you're on account page. Should this be the case?
 			if ( window.location.pathname === '/account' ) {
 				history.pushState(null, '', '/');
 				handleRouting();

@@ -1,5 +1,6 @@
 import {setCookie, getCookie} from '/static/src/js/cookies.js';
 import {highlightCurrentLanguage} from '/static/src/js/settings.js';
+import {variables} from '/static/src/js/variables.js';
 
 let translations;
 
@@ -44,6 +45,9 @@ export function translateContent(translations) {
             element.innerHTML = translation;
         }
     });
+
+	const hello = document.getElementById('hello');
+	hello.textContent = `${getTranslation('pages.settings.hello')} ${variables.username}!`;
 }
 
 export function getTranslation(key, translationsFile) {
