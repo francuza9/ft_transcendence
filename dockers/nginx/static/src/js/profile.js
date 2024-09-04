@@ -2,8 +2,11 @@ import {ensureUsername, isGuest, moveModalBackdrops} from '/static/src/js/utils.
 import {variables} from '/static/src/js/variables.js';
 import {addFriend, unfriendUser, blockUser} from '/static/src/js/friends.js';
 
-export async function viewProfile(player) {
+export async function viewProfile(event, player) {
 	try {
+		if (!player)
+			player = variables.username;
+
 		const playerData = await getPlayerData(player);
 
 		if (playerData) {
@@ -105,10 +108,7 @@ export async function viewProfile(player) {
 
 			manageFriendsModal.setAttribute('aria-hidden', 'true');
 			manageFriendsModal.style.pointerEvents = 'none';
-			manageFriendsModal.hide(); //fix this
-			setTimeout(() => {
-				profileModal.show();
-			}, 100);
+			profileModal.show();
 			manageFriendsModal.style.zIndex = 'auto';
 			moveModalBackdrops();
 			attachProfileHideEventListener(profileModalElement, manageFriendsModal);
@@ -156,31 +156,3 @@ async function getPlayerData(player) {
 		return null;
 	}
 }
-
-/*
-export function showPlayerPreview(row, playerId) {
-	const preview = document.createElement('div');
-	preview.className = 'player-preview-tooltip';
-	preview.textContent = `Preview for ${playerId}`;
-	document.body.appendChild(preview);
-
-	const rect = row.getBoundingClientRect();
-	preview.style.position = 'absolute';
-	preview.style.top = `${rect.top - preview.offsetHeight}px`;
-	preview.style.left = `${rect.left}px`;
-	preview.style.zIndex = '1000';
-	preview.style.backgroundColor = '#fff';
-	preview.style.border = '1px solid #ccc';
-	preview.style.padding = '5px';
-	preview.style.boxShadow = '0px 0px 10px rgba(0, 0, 0, 0.1)';
-
-	row._previewTooltip = preview;
-}
-
-export function hidePlayerPreview(row) {
-	if (row._previewTooltip) {
-		row._previewTooltip.remove();
-		row._previewTooltip = null;
-	}
-}
-*/

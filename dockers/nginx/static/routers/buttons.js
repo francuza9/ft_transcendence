@@ -8,6 +8,7 @@ import {startButton, leaveRoom, addBot} from '/static/src/js/lobby.js';
 import {settingsButton, closeSettingsButton, langButton, backButton, logoutButton} from '/static/src/js/settings.js';
 import {openChat, closeChat, sendMessage, backToFriends, sendInvitation, loadFriendsModal} from '/static/src/js/chat.js';
 import {startLocalButton, difficultyDropdown} from '/static/src/js/local.js'
+import {viewProfile} from '/static/src/js/profile.js';
 
 const actionsMap = {
     login: loginButton,
@@ -52,6 +53,7 @@ const actionsMap = {
 	backToFriends: backToFriends,
 	sendInvitation: sendInvitation,
 	loadFriendsModal: loadFriendsModal,
+	profileButton: viewProfile,
 };
 
 export const handleButtonAction = (e, action) => {

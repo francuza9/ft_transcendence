@@ -72,7 +72,6 @@ export async function play_with_ai() {
 			history.pushState(null, '', `/${data.join_code}`);
 			variables.players = [variables.username];
 
-			// Inline the logic from the Lobby function
 			try {
 				socket = await initLobbySocket(variables, true);
 				if (socket) {
