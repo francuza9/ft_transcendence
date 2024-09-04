@@ -3,20 +3,15 @@ General Mandatory Todo {
 	Mandatory Part:
 	- Not push Passwords on git
 	- Fix history
-	- Tournament
+	- Tournament Display
 
 	Remote Authentication:
 	- 42 Authentication
 
 	Multiple Players:
-	- Fix Math
 	- Add end logic (detailed in todo)
 
-	User Management:
-	- Friends system
-
 	Chat:
-	- Block / Unblock users
 	- Invitation to the game
 	- Tournament Should warn users about the start of the game
 	- Access Users Profiles through Chat
@@ -30,28 +25,24 @@ General Mandatory Todo {
 	Lobby (important):
 		When lobby doesnt exist, redirect to join page and show error popup to client
 
-	Given to Youssef (probably) {
-		Multiplayer Game {
-			fix backend pong logic,
-			moving to next rounds (8 >> 7 >> 6 >> 5 >> 4 >> 3 >> 2 >> winner)	
-		}
-	}
-
-	Reconnect client to global websocket every 3 seconds, and remove errors, only show when successfull
-
-	Cancel sent friend request backend
-
 	Current {
-		Minor {
-			make ai better
-
-			Spectator
+		Multiplayer Game {
+			return values correctly
 		}
 	}
 
 	Upcoming {
+
+		Reconnect client to global websocket every 3 seconds, and remove errors, only show when successfull
+
+		Cancel sent friend request backend
+
+		Spectator (manage lobbies differently)
+
 		42 Auth
 	}
+
+	REMOVE CAMERA CONTROL BEFORE PUSHING
 }
 
 [Youssef] {
@@ -81,6 +72,8 @@ General Mandatory Todo {
 		online status
 		open player profile from chat messages
 	}
+
+	when localgame finishes endgame popup should output "Profile Picture"s
 
 	Fix Github Auth to not reload SPA
 
