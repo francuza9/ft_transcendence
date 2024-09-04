@@ -9,6 +9,7 @@ import { Ball } from './objects/ball.js';
 import { createLights } from './objects/lights.js';
 import { createPlayers } from './objects/players.js';
 import { buildMap } from './scene/maps/chooseMap.js';
+import { variables } from '/static/src/js/variables.js';
 
 export function createMultigame(pcount, pov, map, socket) {
 	console.log("pong socket: ", socket);
@@ -55,6 +56,7 @@ export function createMultigame(pcount, pov, map, socket) {
 	});
 
 	if (pov === 1) {
+		console.log("im the dickhead (", variables.username, ")");
 		sendInitialData(socket, vectorObjects);
 	}
 
@@ -96,50 +98,59 @@ export function createMultigame(pcount, pov, map, socket) {
 
 	const handleMessage = (event) => {
 		if (event.data instanceof ArrayBuffer) {
+		} else if (event.data instanceof Blob) {
 		} else {
 			let data = JSON.parse(event.data);
+			let pcountNew = data.pcount;
 			if (data.result != undefined && data.result != null) {
-				if (pcount === 2) {
-					alert("move to 2 p! ");
-					cleanup();
-					socket.removeEventListener('message', handleMessage);
-					socket.close();
-					renderer.domElement.remove();
-				}
+				console.log("data result: ", data.result);
 				if (data.result === pov - 1) {
 					cleanup();
-					createMultigame(pcount - 1, 0, map, socket);
+					if (pcountNew != 2) {
+						createMultigame(pcountNew, 0, map, socket);
+					} else {
+						console.log("hell yeah");
+						cleanup();
+						socket.removeEventListener('message', handleMessage);
+						socket.close();
+						return ;
+					}
 					return ;
 				}
 				else {
-					cleanup();
-					if (pov - 1 > data.result) {
-						pov--;
+					if (pcountNew > 2) {
+						cleanup();
+						if (pov - 1 > data.result) {
+							pov--;
+						}
+						createMultigame(pcountNew, pov, map, socket);
+						return ;
+					} else {
+						console.log("hell yeah");
+						cleanup();
+						socket.removeEventListener('message', handleMessage);
+						socket.close();
+						return ;
 					}
-					createMultigame(pcount - 1, pov, map, socket);
-					return ;
 				}
 			}
-			if (pov != 0) {
-				let players_array = data.players;
+			let players_array = data.players;
 
-				ball.speed = data.ball.ball_speed;
-				ball.direction.x = data.ball.ball_direction.x;
-				ball.direction.z = data.ball.ball_direction.y;
+			ball.speed = data.ball.ball_speed;
+			ball.direction.x = data.ball.ball_direction.x;
+			ball.direction.z = data.ball.ball_direction.y;
 
-				ball.ball.position.x = data.ball.ball_position.x;
-				ball.ball.position.z = data.ball.ball_position.y;
+			ball.ball.position.x = data.ball.ball_position.x;
+			ball.ball.position.z = data.ball.ball_position.y;
 
-				let i;
-				for (i = 0; i < pov - 1 && i < players_array.length; i++) {
-					players.children[i + 1].position.set(players_array[i].x, 0.75, players_array[i].y);
-				}
+			let i;
+			for (i = 0; i < pov - 1 && i < players_array.length; i++) {
+				players.children[i + 1].position.set(players_array[i].x, 0.75, players_array[i].y);
+			}
+			i++;
+			while (i < players.children.length && i < players_array.length) {
+				players.children[i].position.set(players_array[i].x, 0.75, players_array[i].y);
 				i++;
-				while (i < players.children.length && i < players_array.length) {
-					console.log("i: ", i, "players.children len: ", players.children.length, "players_array len: ", players_array.length);
-					players.children[i].position.set(players_array[i].x, 0.75, players_array[i].y);
-					i++;
-				}
 			}
 		}
 	}
