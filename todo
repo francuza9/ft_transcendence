@@ -20,9 +20,14 @@ General Mandatory Todo {
 	- Github should be SPA
 }
 
+GAME RESULTS SHOULD GO TO DATABASE
+
 [George] {
 
 	Current {
+		wrong users during game
+		endgame doesnt work on one user
+
 		Multiplayer Game {
 			return values correctly
 		}
