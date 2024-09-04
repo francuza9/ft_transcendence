@@ -29,7 +29,6 @@ GAME RESULTS SHOULD GO TO DATABASE
 
 	Current {
 		wrong users during game
-		endgame doesnt work on one user
 
 		Multiplayer Game {
 			return values correctly
