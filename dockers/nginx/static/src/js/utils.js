@@ -42,10 +42,7 @@ export async function replaceHTML(path)
         if (!translationsResponse.ok) throw new Error('Network response was not ok');
         const translations = await translationsResponse.json();
 		setTranslations(translations);
-		const hello = document.getElementById('hello');
-		hello.textContent = `${getTranslation('pages.settings.hello')} ${variables.username}!`;
         translateContent(translations);
-
     } catch (error) {
         console.error('There was a problem with the fetch operation:', error);
     }

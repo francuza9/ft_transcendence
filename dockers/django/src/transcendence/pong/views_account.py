@@ -10,12 +10,10 @@ import json
 
 def get_profile_info(request, username):
 	try:
-		# Retrieve the user based on the username
 		user = CustomUser.objects.get(username=username)
 		profile, created = Profile.objects.get_or_create(user=user)
 		avatar_url = profile.avatarUrl.url if profile.avatarUrl else None
 
-		# Collect the user information you want to return
 		user_info = {
 			'username': user.username,
 			'email': user.email,
@@ -26,15 +24,12 @@ def get_profile_info(request, username):
 			'gamesWon': profile.gamesWon,
 			'gamesLost': profile.gamesLost,
 		}
-		# Return user info as a JSON response
 		return JsonResponse(user_info, status=200)
 
 	except ObjectDoesNotExist:
-		# Return an error if the user does not exist
 		return JsonResponse({'error': 'User not found'}, status=404)
 
 	except Exception as e:
-		# Handle any other errors
 		return JsonResponse({'error': str(e)}, status=500)
 
 @login_required
@@ -42,7 +37,7 @@ def get_account_info(request):
 	user = request.user
 	profile, created = Profile.objects.get_or_create(user=user)
 
-	avatar_url = profile.avatarUrl.url if profile.avatarUrl else None  # Get the URL of the image
+	avatar_url = profile.avatarUrl.url if profile.avatarUrl else None
 
 	data = {
 		'username': user.username,
@@ -69,7 +64,6 @@ def update_account_info(request):
 			user = request.user
 
 			if field == 'email':
-				# Convert email to lowercase and check for uniqueness
 				new_value = new_value.lower()
 				if CustomUser.objects.filter(email=new_value).exclude(id=user.id).exists():
 					return JsonResponse({'success': False, 'message': 'Email is already in use'})
