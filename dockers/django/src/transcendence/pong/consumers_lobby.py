@@ -216,10 +216,13 @@ class LobbyConsumer(AsyncWebsocketConsumer):
 
 	async def refresh_message(self, event):
 		message = event['message']
-		await self.send(text_data=json.dumps({
-			'type': 'refresh',
-			'content': message
-		}))
+		try:
+			await self.send(text_data=json.dumps({
+				'type': 'refresh',
+				'content': message
+			}))
+		except:
+			logger.info("lobby: Error sending refresh message")
 
 	async def redirect_message(self):
 		await self.send(text_data=json.dumps({
