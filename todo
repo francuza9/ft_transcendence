@@ -29,17 +29,9 @@ GAME RESULTS SHOULD GO TO DATABASE
 
 	Current {
 		wrong users during game
-
-		Multiplayer Game {
-			return values correctly
-		}
 	}
 
 	Upcoming {
-
-		Reconnect client to global websocket every 3 seconds, and remove errors, only show when successfull
-
-		Cancel sent friend request backend
 
 		Spectator (manage lobbies differently)
 
