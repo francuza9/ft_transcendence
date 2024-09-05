@@ -1,9 +1,10 @@
 from channels.generic.websocket import AsyncWebsocketConsumer
+from asgiref.sync import sync_to_async
 from .backend_pong.collisions import update_ball_position
 from .backend_pong.collisions_multi import update_ball_position_multi
-from .ai import AI
 from .consumers_tournament import tournament_states
-from .models import Game
+from .ai import AI
+from .models import Game, Profile, CustomUser
 import json
 import logging
 import asyncio
@@ -224,18 +225,31 @@ class PongConsumer(AsyncWebsocketConsumer):
 					botGame = False
 					if True in game_state.get('player_data', {}).values():
 						botGame = True
-					Game.objects.create(
-						id=self.room_id,
-						player1=names_list[0],
-						player2=names_list[1],
-						winner=winner_username,
-						is_tournament=game_state.get('partOfTournament', False),
-						player1Score=score[0],
-						player2Score=score[1],
-						createdAt=time.time() - game_length,
-						updatedAt=time.time(),
-						has_bots=botGame
-					)
+					# Option 1: Incrementing values directly
+					# p1 = await self.getUserDB(names_list[0])
+					# p2 = await self.getUserDB(names_list[1])
+					# pwin = await self.getUserDB(winner_username)
+					# if not botGame:
+					# 	if p1:
+					# 		if pwin and pwin == p1:
+					# 			p1.gamesWon += 1
+					# 		p1.gamesPlayed += 1
+					# 	if p2:
+					# 		if pwin and pwin == p2:
+					# 			p2.gamesWon += 1
+					# 		p2.gamesPlayed += 1
+					
+					# Option 2: Using the Game model
+					# if p1 and p2 and pwin:
+						# sync_to_async(Game.objects.create)(
+						# 	player1=p1,
+						# 	player2=p2,
+						# 	winner=pwin,
+						# 	is_tournament=game_state.get('partOfTournament', False),
+						# 	player1Score=score[0],
+						# 	player2Score=score[1],
+						# 	has_bots=botGame
+						# )
 					break
 				await self.channel_layer.group_send(
 					self.room_group_name,
@@ -364,3 +378,20 @@ class PongConsumer(AsyncWebsocketConsumer):
 			'loop_count': 0,
 			'multi_winners': [],
 		}
+
+	async def getUserDB(self, target):
+		try:
+			user = await sync_to_async(CustomUser.objects.get)(username=target)
+			
+			profile = await sync_to_async(Profile.objects.get)(user=user)
+		except CustomUser.DoesNotExist:
+			logger.info("User not found")
+			profile = None
+		except Profile.DoesNotExist:
+			logger.info("Profile not found for user")
+			profile = None
+		except Exception as e:
+			logger.error(f"Error fetching profile: {e}")
+			profile = None
+			
+		return profile
