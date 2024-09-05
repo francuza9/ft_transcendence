@@ -48,6 +48,10 @@ export const editNameButton = () => {
     const displayMode = document.querySelector('.display-mode');
     const editForm = document.getElementById('edit-form');
     const titleInput = document.getElementById('title-input');
+	const errorElement = document.getElementById('title-error');
+
+	errorElement.textContent = '';
+	errorElement.style.display = 'none';
 
 	displayMode.style.display = 'none';
 	editForm.style.display = 'block';
@@ -58,13 +62,33 @@ export const saveNameEditButton = (event) => {
     const displayMode = document.querySelector('.display-mode');
 	const titleInput = document.getElementById('title-input');
     const displayTitle = document.getElementById('display-title');
+	const errorElement = document.getElementById('title-error');
 
 	event.preventDefault();
+	errorElement.textContent = '';
+	errorElement.style.display = 'none';
+	
 	const newTitle = titleInput.value.trim();
 	if (newTitle) {
+		if (newTitle.length > 20) {
+			const errorElement = document.getElementById('title-error');
+			errorElement.textContent = 'Room name is too long';
+			errorElement.style.display = 'block';
+			return;
+		}
 		displayTitle.textContent = newTitle;
+		variables.roomName = newTitle;
+		const modalInstance = bootstrap.Modal.getInstance(document.getElementById('editNameModal'));
+		if (modalInstance) {
+			modalInstance.hide();
+		}
+		setTimeout(() => {
+			const backdrop = document.querySelector('.modal-backdrop');
+			if (backdrop) {
+				backdrop.remove();
+			}
+			}, 20);
 	}
-	variables.roomName = newTitle;
 }
 
 export const cancelNameEditButton = () => {

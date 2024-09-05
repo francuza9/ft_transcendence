@@ -67,6 +67,8 @@ def is_valid_email(email):
 		return False, "Email cannot be empty."
 	if ' ' in email:
 		return False, "Email cannot contain spaces."
+	if len(email) > 64:
+		return False, "Email cannot be longer than 64 characters."
 	if not re.match(r'^[A-Za-z0-9._%-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$', email):
 		return False, "Invalid email format."
 

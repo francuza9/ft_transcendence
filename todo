@@ -20,12 +20,16 @@ General Mandatory Todo {
 	- Github should be SPA
 }
 
+GAME RESULTS SHOULD GO TO DATABASE
+
 [George] {
 	
 	Lobby (important):
 		When lobby doesnt exist, redirect to join page and show error popup to client
 
 	Current {
+		wrong users during game
+
 		Multiplayer Game {
 			return values correctly
 		}
@@ -46,14 +50,9 @@ General Mandatory Todo {
 }
 
 [Youssef] {
-
-	
-	Check max chars for every input field
-	Put char limit check on emails (back and front)
-	reset variables when creating a new local game
 	
 	Leaderboard (not important at all):
-	Add Tournaments won and multiplayer games won, along with buttons to sort by them
+		Add Tournaments won and multiplayer games won, along with buttons to sort by them
 	
 	IMPORTANT: check if csrf exemptions should be removed
 	
@@ -67,9 +66,13 @@ General Mandatory Todo {
 	Add online status on player profile modals
 
 
+	Fix profile pictures at endgame
+
+	Add some padding to the error element in the create lobby page, the one that appears when the lobby name is too long?
+
 	When lobby doesnt exist, redirect to join page and show error popup to client
 
-	Fix profile pictures at endgame
+
 
 	Fix Github Auth to not reload SPA
 

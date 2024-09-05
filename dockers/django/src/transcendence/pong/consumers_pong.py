@@ -196,7 +196,8 @@ class PongConsumer(AsyncWebsocketConsumer):
 					times.append(time_length)
 					names_list = list(game_state.get('player_data', {}).keys())
 					if not names_list:
-						names_list = game_state.get('multi_winners', ['player_1', 'player_2'])
+						names_list = game_state.get('multi_winners')
+						names_list = [names_list[0].get('name', 'player_1'), names_list[1].get('name', 'player_2')]
 					winner_username = names_list[0] if score[0] > score[1] else names_list[1]
 					if game_state.get('partOfTournament', False):
 						id = game_state.get('tournamentID', None)
@@ -212,6 +213,13 @@ class PongConsumer(AsyncWebsocketConsumer):
 						'players': names_list,
 					}
 					try:
+						await self.channel_layer.group_send(
+							self.room_group_name,
+							{
+								'type': 'finish',
+								'message': packed_data,
+							}
+						)
 						await self.send(text_data=json.dumps(packed_data))
 					except:
 						logger.info("Tried to send data to a closed connection")
@@ -240,6 +248,7 @@ class PongConsumer(AsyncWebsocketConsumer):
 				result_multi = update_ball_position_multi(game_state)
 				if result_multi != None:
 					game_state['room_size'] -= 1
+					winners = None
 					if game_state['room_size'] == 2:
 						winners = game_state['multi']['players'].copy()
 						winners.pop(result_multi)
@@ -291,6 +300,12 @@ class PongConsumer(AsyncWebsocketConsumer):
 					result_multi = None
 
 			await asyncio.sleep(1 / 30)  # 30 updates per second
+
+	async def finish(self, event):
+		packed_data = event['message']
+
+		await self.send(text_data=json.dumps(packed_data))
+
 
 	async def pong_message(self, event):
 		packed_data = event['message']
