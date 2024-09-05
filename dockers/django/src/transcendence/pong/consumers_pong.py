@@ -3,6 +3,7 @@ from .backend_pong.collisions import update_ball_position
 from .backend_pong.collisions_multi import update_ball_position_multi
 from .ai import AI
 from .consumers_tournament import tournament_states
+from .models import Game
 import json
 import logging
 import asyncio
@@ -91,11 +92,9 @@ class PongConsumer(AsyncWebsocketConsumer):
 					if (game_state['loop_count'] == 1):
 						asyncio.create_task(self.game_update_loop())
 
-			# Initialize AI instances based on player_data
 			if message_type == 'initial_data':
 				for player_name, bot_status in player_data.items():
 					if bot_status:
-						# Determine player ID
 						player_id = player_names.index(player_name)
 						difficulty = data.get('difficulty', 'Novice')
 						PongConsumer.ai_instances.setdefault(self.room_id, {})[player_id] = AI(player_id, game_state, difficulty)
@@ -130,7 +129,6 @@ class PongConsumer(AsyncWebsocketConsumer):
 		await asyncio.sleep(3)
 		game_length = time.time()
 		game_state = await self.get_game_state()
-		# get a random float between 0 and 1
 		ra = random.uniform(-1, 1)
 		game_state['multi']['ball_direction'] = {
 			'x': ra,
@@ -223,6 +221,21 @@ class PongConsumer(AsyncWebsocketConsumer):
 						await self.send(text_data=json.dumps(packed_data))
 					except:
 						logger.info("Tried to send data to a closed connection")
+					botGame = False
+					if True in game_state.get('player_data', {}).values():
+						botGame = True
+					Game.objects.create(
+						id=self.room_id,
+						player1=names_list[0],
+						player2=names_list[1],
+						winner=winner_username,
+						is_tournament=game_state.get('partOfTournament', False),
+						player1Score=score[0],
+						player2Score=score[1],
+						createdAt=time.time() - game_length,
+						updatedAt=time.time(),
+						has_bots=botGame
+					)
 					break
 				await self.channel_layer.group_send(
 					self.room_group_name,
@@ -234,15 +247,12 @@ class PongConsumer(AsyncWebsocketConsumer):
 				)
 				if result == FINISH:
 					game_state['loop_count'] -= 1
-					logger.info(f"ongoing loop count: {game_state['loop_count']}")
 					break
 			else:
-				# logger.info("stuck")
 				if len(game_state['multi']['players']) == len(game_state['multi']['edges']) \
 				and game_state['room_size'] <= len(game_state['multi']['players']):
 					game_state['multi']['players'].pop(len(game_state['multi']['players']) - 1)
 				if len(game_state['multi']['players']) != len(game_state['multi']['edges']) - 1 :
-				# or game_state['multi']['finished']:
 					await asyncio.sleep(1 / 30)
 					continue
 				result_multi = update_ball_position_multi(game_state)
@@ -256,7 +266,6 @@ class PongConsumer(AsyncWebsocketConsumer):
 					game_state['multi']['players'] = []
 					game_state['multi']['finished'] = True
 					game_state['loop_count'] -= 1
-					logger.info(f"ongoing loop count: {game_state['loop_count']}")
 					await asyncio.sleep(1)
 					json_message = json.dumps({
 					'ball': {
