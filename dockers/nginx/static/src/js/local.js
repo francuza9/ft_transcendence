@@ -24,9 +24,6 @@ export const startLocalButton = () => {
 	section.classList.add('hidden');
 	cleanupBackground();
 
-	console.log("pouints to win, difficulty");
-	console.log(variables.pointsToWin);
-	console.log(variables.AIDifficulty);
 	const element = document.createElement('div');
 	element.innerHTML = `
 		<h1>${variables.isAI ? "Pong Against AI!" : "Pong Local Game!"}</h1>

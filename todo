@@ -61,25 +61,25 @@ General Mandatory Todo {
 }
 
 [Marijn] {
+
+	Invite to game if in lobby and friends
 	
-	Lobby (important):
+	Add online status on player profile modals
+
+
 	When lobby doesnt exist, redirect to join page and show error popup to client
 
-	Profile modal {
-		friend / unfriend button
-		block / unblock button
-		invite to game if in lobby and friends
-		online status
-		open player profile from chat messages
-	}
-
-	when localgame finishes endgame popup should output "Profile Picture"s
+	Fix profile pictures at endgame
 
 	Fix Github Auth to not reload SPA
 
 	Update map preview images
 
 	Tournament View
+
+
+
+
 
 	Fix window resize stretching background
 

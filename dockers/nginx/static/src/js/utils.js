@@ -58,7 +58,7 @@ export function normalizePath(path)
 export async function checkLoginStatus() {
     return fetch('/api/check_login_status/', {
         method: 'GET',
-        credentials: 'include',  // Include cookies in the request
+        credentials: 'include',
     })
     .then(response => response.json())
     .then(data => {
@@ -81,7 +81,7 @@ export async function checkLoginStatus() {
 export async function getUsername() {
     return fetch('/api/check_login_status/', {
         method: 'GET',
-        credentials: 'include',  // Include cookies in the request
+        credentials: 'include',
     })
     .then(response => response.json())
     .then(data => {
@@ -121,6 +121,7 @@ export async function fetchAccountInfo() {
 
 export async function fetchAvatar(id) {
 	if (!id) id = 'avatar';
+	console.log('id', id);
 	try {
 		const response = await fetch('/api/account_info/');
 		const result = await response.json();
