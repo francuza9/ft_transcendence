@@ -97,7 +97,7 @@ export function goActive() {
 	};
 
 	socket.onerror = function(e) {
-		console.error('WebSocket error 🔴:', e);
+		setTimeout(() => goActive().then(resolve).catch(reject), 1000);
 	};
 
 	socket.onclose = function(e) {
