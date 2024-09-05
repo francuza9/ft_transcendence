@@ -1,9 +1,10 @@
 import {updatePlayerCount, updatePointsToWin, updateIsTournament} from '/static/src/js/create.js';
 import {setLanguage} from '/static/src/js/lang.js';
 import {editField, saveField} from '/static/src/js/account.js';
-import {addFriend, unfriendUser, blockUser} from '/static/src/js/friends.js';
+import {addFriend, unfriendUser, blockUser, unblockUser, acceptFriendRequest, unsendFriendRequest} from '/static/src/js/friends.js';
 import {isAI, setDifficulty} from '/static/src/js/local.js';
 import {switchTab} from '/static/src/js/chat.js';
+import {viewProfile} from '/static/src/js/profile.js';
 
 export const variables = {
 	isTournament: false,
@@ -68,11 +69,23 @@ export function updateVariable(document, variableName, value) {
 		case 'blockUser':
 			blockUser(value);
 			break;
+		case 'unblockUser':
+			unblockUser(value);
+			break;
+		case 'unsendFriendRequest':
+			unsendFriendRequest(value);
+			break;
+		case 'acceptFriendRequest':
+			acceptFriendRequest(value);
+			break;
 		case 'AI':
 			isAI(value);
 			break;
 		case 'AIDifficulty':
 			setDifficulty(value);
+			break;
+		case 'viewFriendProfile':
+			viewProfile(null, value);
 			break;
 		default:
 			console.warn(`Unknown variable: ${variableName}`);

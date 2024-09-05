@@ -1,6 +1,5 @@
 import {ensureUsername, isGuest, moveModalBackdrops} from '/static/src/js/utils.js';
 import {variables} from '/static/src/js/variables.js';
-import {addFriend, unfriendUser, blockUser} from '/static/src/js/friends.js';
 
 export async function viewProfile(event, player) {
 	try {
@@ -58,21 +57,36 @@ export async function viewProfile(event, player) {
 			buttonsRow.className = 'd-flex justify-content-around py-3';
 
 			const friendButton = document.createElement('button');
-			friendButton.className = `btn ${playerData.isFriend ? 'btn-danger' : 'btn-success'}`;
-			friendButton.setAttribute('data-variable', playerData.isFriend ? 'unfriendUser' : 'addFriend');
 			friendButton.setAttribute('data-value', playerData.username);
-			friendButton.innerHTML = `
-				<i class="${playerData.isFriend ? 'ri-user-unfollow-line' : 'ri-user-add-line'}"></i>
-				${playerData.isFriend ? 'Unfriend' : 'Add Friend'}
-			`;
+			if (playerData.friendRequestSent || playerData.friendRequestReceived) {
+				friendButton.className = `btn ${playerData.friendRequestSent ? 'btn-danger' : 'btn-success'}`;
+				friendButton.setAttribute('data-variable', playerData.friendRequestSent ? 'unsendFriendRequest' : 'acceptFriendRequest');
+				friendButton.innerHTML = `
+					<i class="${playerData.friendRequestSent ? 'ri-subtract-fill' : 'ri-user-add-line'}"></i>
+					${playerData.friendRequestSent ? 'Unsend Friend Request' : 'Accept Friend Request'}
+				`;
+			} else {
+				friendButton.className = `btn ${playerData.areFriends ? 'btn-danger' : 'btn-success'}`;
+				friendButton.setAttribute('data-variable', playerData.areFriends ? 'unfriendUser' : 'addFriend');
+				friendButton.innerHTML = `
+					<i class="${playerData.areFriends ? 'ri-user-unfollow-line' : 'ri-user-add-line'}"></i>
+					${playerData.areFriends ? 'Unfriend' : 'Add Friend'}
+				`;
+			}
 
 			const blockButton = document.createElement('button');
 			blockButton.className = 'btn btn-primary';
-			blockButton.setAttribute('data-variable', 'blockUser');
+			blockButton.setAttribute('data-variable', playerData.isBlocked ? 'unblockUser' : 'blockUser');
 			blockButton.setAttribute('data-value', playerData.username);
-			blockButton.innerHTML = `<i class="ri-user-forbid-line"></i> Block`;
+			blockButton.innerHTML = `<i class="${playerData.isBlocked ? 'ri-close-fill' : 'ri-user-forbid-line'}"></i>
+				${playerData.isBlocked ? 'Unblock' : 'Block'}
+			`;
 
-			buttonsRow.appendChild(friendButton);
+			friendButton.setAttribute('data-bs-dismiss', 'modal');
+			blockButton.setAttribute('data-bs-dismiss', 'modal');
+
+			if (!(playerData.isBlocked || playerData.hasBlocked))
+				buttonsRow.appendChild(friendButton);
 			buttonsRow.appendChild(blockButton);
 
 			const statsRow = document.createElement('div');

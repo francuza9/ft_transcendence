@@ -142,6 +142,7 @@ export const openChatWithFriend = (friend) => {
     const chatAvatar = document.getElementById("chat-avatar");
     const backBtn = document.getElementById("back-btn");
 	const settingsBtn = document.getElementById("manage-friends-btn");
+	const friendContainer = document.getElementById("friend-container");
 
     friendList.classList.add("hidden");
     chatArea.classList.remove("hidden");
@@ -160,6 +161,9 @@ export const openChatWithFriend = (friend) => {
     loadChatMessages(friend.username);
 	currentFriend = friend.username;
 	updateFriendStatus(friend.username);
+
+	friendContainer.setAttribute('data-variable', 'viewFriendProfile');
+	friendContainer.setAttribute('data-value', friend.username);
 };
 
 const loadChatMessages = (friendUsername) => {
@@ -222,6 +226,8 @@ export const sendMessage = () => {
 };
 
 export const loadFriendsModal = () => {
+	backToFriends();
+	loadFriends();
 	loadEventListeners();
 	loadAddFriendTab();
 	loadFriendsTab();
@@ -277,6 +283,7 @@ export const switchTab = (value) => {
 		switch(value) {
 			case 'add':
 				loadAddFriendTab();
+				hideFriendRequestMessages();
 				break;
 			case 'manage':
 				loadFriendsTab();
@@ -313,10 +320,6 @@ function attachFriendListeners() {
         button.addEventListener('click', (e) => {
             const username = e.target.closest('button').getAttribute('data-unfriend');
             unfriendUser(username);
-			setTimeout(() => {
-				loadFriendsTab();
-                loadFriends();
-            }, 300);
         });
     });
 
@@ -324,10 +327,6 @@ function attachFriendListeners() {
         button.addEventListener('click', (e) => {
             const username = e.target.closest('button').getAttribute('data-block');
             blockUser(username);
-			setTimeout(() => {
-				loadFriendsTab();
-                loadFriends();
-            }, 300);
         });
     });
 }
@@ -337,10 +336,6 @@ function attachFriendRequestListeners() {
         button.addEventListener('click', (e) => {
             const username = e.target.closest('button').getAttribute('data-accept');
             acceptFriendRequest(username);
-			setTimeout(() => {
-				loadFriendRequestsTab();
-                loadFriends();
-            }, 300);
         });
     });
 
@@ -348,10 +343,6 @@ function attachFriendRequestListeners() {
         button.addEventListener('click', (e) => {
             const username = e.target.closest('button').getAttribute('data-decline');
             declineFriendRequest(username);
-			setTimeout(() => {
-				loadFriendRequestsTab();
-                loadFriends();
-            }, 300);
         });
     });
 
@@ -359,10 +350,6 @@ function attachFriendRequestListeners() {
         button.addEventListener('click', (e) => {
             const username = e.target.closest('button').getAttribute('data-unsend');
             unsendFriendRequest(username);
-			setTimeout(() => {
-				loadFriendRequestsTab();
-                loadFriends();
-            }, 300);
         });
     });
 }
@@ -372,10 +359,6 @@ function attachBlockedUserListeners() {
         button.addEventListener('click', (e) => {
             const username = e.target.closest('button').getAttribute('data-unblock');
             unblockUser(username);
-			setTimeout(() => {
-				loadBlockedUsersTab();
-                loadFriends();
-            }, 300);
         });
     });
 }
@@ -392,7 +375,6 @@ const loadAddFriendTab = () => {
 	const usernameInput = document.getElementById('add-friend-input');
 
     usernameInput.placeholder = getTranslation('friends.addInputFieldPlaceholder');
-	hideFriendRequestMessages();
 	addEnterListener();
 }
 
@@ -418,7 +400,7 @@ const removeEnterListener = () => {
     }
 };
 
-const hideFriendRequestMessages = () => {
+export const hideFriendRequestMessages = () => {
 	const successMessage = document.getElementById('request-success');
 	const failMessage1 = document.getElementById('request-fail1');
 	const failMessage2 = document.getElementById('request-fail2');

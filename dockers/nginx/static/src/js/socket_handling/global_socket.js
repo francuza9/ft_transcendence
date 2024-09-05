@@ -1,6 +1,6 @@
 import { getUsername } from '/static/src/js/utils.js';
 import { variables } from '/static/src/js/variables.js';
-import { loadFriends } from '/static/src/js/chat.js';
+import { loadFriendsModal, hideFriendRequestMessages } from '/static/src/js/chat.js';
 
 let socket;
 
@@ -26,7 +26,7 @@ export function goActive() {
 
 		if (data.type === 'online_status') {
 			variables.activeUsers = data.active_users;
-			loadFriends();
+			loadFriendsModal();
 		} else if (data.type === 'privmsg') {
 			const chatWindow = document.getElementById("messages");
 			const messageItem = document.createElement("div");
@@ -37,17 +37,23 @@ export function goActive() {
 			messageItem.appendChild(paragraph);
 			chatWindow.appendChild(messageItem);
 			chatWindow.scrollTop = chatWindow.scrollHeight;
+			loadFriendsModal();
 		} else if (data.type === 'friend_request') {
 			console.log(data.sender, "wants to be your friend");
+			loadFriendsModal();
 		} else if (data.type === 'friend_removal') {
 			console.log(data.sender, "Removed you from their friends list");
+			loadFriendsModal();
 		} else if (data.type === 'block') {
 			console.log(data.sender, "Blocked you");
+			loadFriendsModal();
 		} else if (data.type === 'unblock') {
 			console.log(data.sender, "Unblocked you");
+			loadFriendsModal();
 		} else if (data.type === 'game_invitation') {
 			const url = data.link;
 			console.log(data.sender, "Invited you to a game, link: ", url);
+			loadFriendsModal();
 		} else if (data.type === 'friend_request_sent') {
 			const usernameInput = document.getElementById('add-friend-input');
 			const successMessage = document.getElementById('request-success');
@@ -58,6 +64,7 @@ export function goActive() {
 			const failMessage5 = document.getElementById('request-fail5');
 			const failMessage6 = document.getElementById('request-fail6');
 
+			hideFriendRequestMessages();
 			switch(data.content) {
 				case SUCCESS:
 					successMessage.classList.remove('hidden');
@@ -85,6 +92,7 @@ export function goActive() {
 					failMessage6.classList.remove('hidden');
 					break;
 			}
+			loadFriendsModal();
 		}
 	};
 

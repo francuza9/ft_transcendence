@@ -7,6 +7,7 @@ let sceneB;
 let renderer;
 let transition;
 let canvas;
+let camera;
 
 initBackground();
 animate_background();
@@ -22,18 +23,10 @@ export function initBackground() {
 
 	const w = window.innerWidth;
 	const h = window.innerHeight;
-	const camera = new THREE.PerspectiveCamera(50, w / h, 1, 10000);
+	camera = new THREE.PerspectiveCamera(50, w / h, 1, 10000);
 	camera.position.z = 2000;
 
-	window.addEventListener('resize', () => {
-		const width = window.innerWidth;
-		const height = window.innerHeight;
-
-		camera.aspect = width / height;
-		camera.updateProjectionMatrix();
-
-		renderer.setSize(width, height);
-	});
+	window.addEventListener('resize', onWindowResize);
 
 	const materialB = new THREE.MeshStandardMaterial({
 		color: 0xFF9900,
@@ -52,6 +45,16 @@ export function initBackground() {
 			sceneB.render(delta, false);
 		}
 	};
+}
+
+function onWindowResize() {
+	const width = window.innerWidth;
+	const height = window.innerHeight;
+
+	camera.aspect = width / height;
+	camera.updateProjectionMatrix();
+
+	renderer.setSize(width, height);
 }
 
 function handleResize() {
@@ -106,8 +109,7 @@ export function cleanupBackground() {
 		canvas.remove();
 	}
 
-	// Remove event listeners (if any)
-	//window.removeEventListener('resize', onWindowResize);
+	window.removeEventListener('resize', onWindowResize);
 
 	sceneB = null;
 	renderer = null;

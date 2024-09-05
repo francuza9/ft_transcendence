@@ -1,4 +1,4 @@
-import {replaceHTML} from '/static/src/js/utils.js'
+import {replaceHTML, fetchAvatar} from '/static/src/js/utils.js'
 import {variables} from '/static/src/js/variables.js';
 import {initBackground, resumeAnimation} from '/static/src/js/background/background.js';
 
@@ -44,14 +44,16 @@ export function renderPlayerList(times, players, scores) {
 			row.classList.add('highlighted-row');
 		}
 
+
 		row.innerHTML = `
 			<td>${rank + 1}</td>
-			<td><img src="path_to_profile_pictures/${player.name}.png" alt="Profile Picture" class="profile-pic" /></td>
+			<td><img id="${player.name}" alt="Profile Picture" class="player-img" /></td>
 			<td>${player.name}</td>
 			<td>${player.score !== null ? `Score: ${player.score}` : `Eliminated at ${player.time} seconds`}</td>
 		`;
-
+		
 		playerListElement.appendChild(row);
+		fetchAvatar(player.name);
 	});
 
 	if (playerData.length > 0) {

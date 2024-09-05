@@ -389,3 +389,7 @@
 .message-item p {
 	margin: 0;
 }
+
+#friend-container {
+	cursor: pointer;
+}
