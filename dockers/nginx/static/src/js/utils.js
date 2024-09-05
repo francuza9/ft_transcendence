@@ -119,19 +119,32 @@ export async function fetchAccountInfo() {
 	}
 }
 
-export async function fetchAvatar(id) {
+export async function fetchAvatar(id, player) {
 	if (!id) id = 'avatar';
-	console.log('id', id);
 	try {
-		const response = await fetch('/api/account_info/');
-		const result = await response.json();
+		let result;
+		let avatarUrl;
 
-		if (result.success) {
-			const data = result.data;
-			document.getElementById(id).src = data.avatarUrl || '/static/default-avatar.png';
-		} else {
-			alert('Failed to fetch avatar.');
+		if (player) {
+			const response = await fetch(`/api/profile_info/${player}`);
+			result = await response.json();
+
+			console.log(result);
+			if (result.avatarUrl)
+				avatarUrl = result.avatarUrl;
 		}
+		else {
+			const response = await fetch('/api/account_info/');
+			result = await response.json();
+
+			if (result.success) {
+				avatarUrl = result.data;
+			} else {
+				console.error('Failed to fetch avatar.');
+			}
+		}
+		if (avatarUrl)
+			document.getElementById(id).src = avatarUrl || '/static/default-avatar.png';
 	} catch (error) {
 		console.error('Error fetching avatar:', error);
 	}
