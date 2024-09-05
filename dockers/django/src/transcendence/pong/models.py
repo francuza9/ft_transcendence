@@ -193,7 +193,7 @@ class Message(models.Model):
 	createdAt = models.DateTimeField(auto_now_add=True)
 
 	class Meta:
-		db_table = 'messages'  # Set a custom table name
+		db_table = 'messages'
 
 	def __str__(self):
 		return f"Message from {self.sender} to {self.recipient} at {self.createdAt}"
