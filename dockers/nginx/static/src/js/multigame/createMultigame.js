@@ -110,8 +110,7 @@ export function createMultigame(pcount, pov, map, socket) {
 					} else {
 						cleanup();
 						socket.removeEventListener('message', handleMessage);
-						socket.close();
-						return ;
+						create2Pgame(0, socket, [data.winners[0].name, data.winners[1].name]);
 					}
 					return ;
 				}
@@ -131,7 +130,6 @@ export function createMultigame(pcount, pov, map, socket) {
 							create2Pgame(pov, socket, [data.winners[pov % 2].name, data.winners[pov - 1].name]);
 						else
 							create2Pgame(pov, socket, [data.winners[pov - 1].name, data.winners[pov % 2].name]);
-						// socket.close();
 						return ;
 					}
 				}

@@ -73,6 +73,12 @@ function validateEmail() {
 		return false; 
 	}
 
+	if (email.length > 64) {
+		emailError.textContent = 'Cannot exceed 64 characters';
+		alertMessage = 'Email cannot exceed 64 characters';
+		return false;
+	}
+
 	if (!emailRegex.test(email)) {
 		emailError.textContent = 'Please enter a valid email address';
 		alertMessage = 'Please enter a valid email address';
