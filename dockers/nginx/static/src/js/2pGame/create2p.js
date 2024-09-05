@@ -133,10 +133,7 @@ export function create2Pgame(mappov, socket, names) {
 			const names_list = data.players;
 			console.log("non tournament game finished for : ", variables.username);
 			cleanup();
-			endGame(score, renderer);
-			replaceHTML('/static/src/html/end.html').then(() => {
-				renderPlayerList(time, names_list, score);
-			});
+			endGame(time, names_list, score, renderer);
 		} else if (variables.partOfTournament == true) {
 			console.log("tournament game finished");
 			cleanup();

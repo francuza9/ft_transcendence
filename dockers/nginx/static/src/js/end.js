@@ -43,7 +43,8 @@ export function renderPlayerList(times, players, scores) {
 		if (player.name === variables.username) {
 			row.classList.add('highlighted-row');
 		}
-
+		
+		console.log(player);
 
 		row.innerHTML = `
 			<td>${rank + 1}</td>
@@ -53,7 +54,7 @@ export function renderPlayerList(times, players, scores) {
 		`;
 		
 		playerListElement.appendChild(row);
-		fetchAvatar(player.name);
+		fetchAvatar(player.name, player.name);
 	});
 
 	if (playerData.length > 0) {
@@ -69,12 +70,12 @@ export const removeGameRenderer = () => {
 	resumeAnimation();
 }
 
-export const endGame = (score, renderer) => {
+export const endGame = (time, names_list, score, renderer) => {
 	const section = document.getElementsByTagName('section')[0];
 	section.classList.remove('hidden');
 	gameRenderer = renderer
 	replaceHTML('/static/src/html/end.html').then(() => {
-		renderPlayerList([0, 0], ['Player 1', 'Player 2'], score);
+		renderPlayerList(time, names_list, score);
 		variables.endView = true;
 	});
 }
