@@ -210,7 +210,7 @@ class GlobalConsumer(AsyncWebsocketConsumer):
 						'message': message,
 						'sender': self.username,
 						'recipient': target,
-						'senderDisplay': await self.getUserProfile(self.username).display_name,
+						'senderDisplay': await self.getUserProfile(self.username).displayName,
 					}))
 
 	async def send_friend_removal(self, target):

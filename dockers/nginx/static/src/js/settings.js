@@ -2,9 +2,10 @@ import {getSocket} from '/static/views/lobby.js';
 import {getCookie} from '/static/src/js/cookies.js';
 import {checkLoginStatus, fetchAvatar} from '/static/src/js/utils.js';
 import {variables} from '/static/src/js/variables.js';
-import {closeChat} from '/static/src/js/chat.js';
 import {handleRouting} from '/static/routers/router.js';
 import {getTranslation} from '/static/src/js/lang.js';
+import {closeChat} from '/static/src/js/chat.js';
+import {closeGlobalSocket} from '/static/src/js/socket_handling/global_socket.js';
 
 export async function initSettings() {
 	const section = document.getElementsByTagName('section')[0];
@@ -69,6 +70,8 @@ export async function logoutButton() {
 			if (socket) {
 				socket.close();
 			}
+			closeGlobalSocket();
+			closeChat();
 			closeSettingsButton();
 			alert('You have been logged out successfully.');
         } else {
