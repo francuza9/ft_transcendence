@@ -4,9 +4,12 @@ import { handleRouting } from '/static/routers/router.js';
 import { Pong } from '/static/views/pong_view.js';
 import { initTournamentSocket } from '/static/src/js/socket_handling/tournament_socket.js';
 
+export let lobby_open = {};
+
 export async function initLobbySocket(variables, aiGame = false) {
     return new Promise((resolve, reject) => {
         const socket = new WebSocket(`wss://${window.location.host}/ws/${variables.lobbyId}`);
+		lobby_open[variables.lobbyId] = true;
 
         socket.onopen = function() {
             ensureUsername().then(() => {
@@ -30,10 +33,14 @@ export async function initLobbySocket(variables, aiGame = false) {
 					variables.roomName = content.roomName;
 					variables.isTournament = content.isTournament;
 					variables.pointsToWin = content.winning_score;
+					if (variables.players.length < variables.maxPlayerCount) {
+						lobby_open[variables.lobbyId] = true;
+					} else {
+						lobby_open[variables.lobbyId] = false;
+					}
 					if (!content.aiGame) {
 						refreshLobbyDetails(variables);
 					}
-					console.log("refreshing")
 				} else {
 					console.error('Lobby: Content or players undefined!', content);
 				}
@@ -42,10 +49,11 @@ export async function initLobbySocket(variables, aiGame = false) {
 				handleRouting();
 			} else if (message.type === 'start') {
 				Pong(message.content);
-				socket.close();
+				lobby_open[variables.lobbyId] = false;
 			} else if (message.type === 'start_tournament') {
 				initTournamentSocket(variables).then((tournamentSocket) => {
 					tournamentSocket.send(JSON.stringify({ type: 'init', content: message.content }));
+					lobby_open[variables.lobbyId] = false;
 				});
 			} else if (message.type === 'error') {
 				console.error('Error:', message.content);
@@ -61,4 +69,12 @@ export async function initLobbySocket(variables, aiGame = false) {
             console.log('Lobby: WebSocket connection closed.');
         };
     });
+}
+
+export function getLobbyOpen(lobbyId) {
+	if (lobbyId === undefined) {
+		return lobby_open;
+	} else {
+		return lobby_open[lobbyId];
+	}
 }
