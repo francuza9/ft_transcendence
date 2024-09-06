@@ -41,9 +41,15 @@ class LobbyConsumer(AsyncWebsocketConsumer):
 					'aiGame': False,
 					'partOfTournament': False,
 					'tournamentID': None,
+					'available': True,
 				}
 
 			lobby_data[self.lobby_id]['connected_clients'].add(self.channel_name)
+			if len(lobby_data[self.lobby_id]['players']) < lobby_data[self.lobby_id]['max_users']:
+				lobby_data[self.lobby_id]['available'] = True
+			else:
+				lobby_data[self.lobby_id]['available'] = False
+
 
 			await self.channel_layer.group_add(
 				self.lobby_group_name,
@@ -224,8 +230,13 @@ class LobbyConsumer(AsyncWebsocketConsumer):
 				'type': 'error',
 				'content': 'No available bot names'
 			}))
+		if len(lobby_data[self.lobby_id]['players']) < lobby_data[self.lobby_id]['max_users']:
+			lobby_data[self.lobby_id]['available'] = True
+		else:
+			lobby_data[self.lobby_id]['available'] = False
 
 	async def send_tournament_message(self):
+		lobby_data[self.lobby_id]['available'] = False
 		username_is_bot_map = dict(zip(lobby_data[self.lobby_id]['players'], lobby_data[self.lobby_id]['is_bot']))
 		await self.channel_layer.group_send(
 			self.lobby_group_name,
@@ -236,6 +247,7 @@ class LobbyConsumer(AsyncWebsocketConsumer):
 		)
 
 	async def tournament_message(self, event):
+		lobby_data[self.lobby_id]['available'] = False
 		message = event['message']
 		await self.send(text_data=json.dumps({
 			'type': 'start_tournament',
@@ -258,6 +270,7 @@ class LobbyConsumer(AsyncWebsocketConsumer):
 		}))
 
 	async def send_start_message(self):
+		lobby_data[self.lobby_id]['available'] = False
 		display_names = []
 		for name in lobby_data[self.lobby_id]['players']:
 			disp = await self.getDispFromDB(name)
@@ -288,6 +301,8 @@ class LobbyConsumer(AsyncWebsocketConsumer):
 		)
 
 	async def start_message(self, event):
+		lobby_data[self.lobby_id]['available'] = False
+
 		message = event['message']
 		await self.send(text_data=json.dumps({
 			'type': 'start',
