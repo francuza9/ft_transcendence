@@ -54,6 +54,8 @@ export function renderPlayerList(times, players, scores) {
 		`;
 		
 		playerListElement.appendChild(row);
+		if (player.name === 'Player 1' || player.name === 'Player 2')
+			fetchAvatar(player.name); 
 		fetchAvatar(player.name, player.name);
 	});
 
