@@ -129,6 +129,11 @@ export const loadFriends = () => {
 						</div>
 					`;
 					friendItem.addEventListener('click', () => openChatWithFriend(friend));
+					const inviteBtn = friendItem.querySelector(`[data-invite="${friend.username}"]`);
+                    inviteBtn.addEventListener('click', (event) => {
+                        event.stopPropagation();
+                        sendInvitation(friend.username);
+                    });
 					friendList.appendChild(friendItem);
 					updateFriendStatus(friend.username);
 				});
@@ -242,13 +247,12 @@ export const loadFriendsModal = () => {
 	loadBlockedUsersTab();
 }
 
-export const sendInvitation = () => {
+export const sendInvitation = (player) => {
     const socket = getSocket();
-    const targetUser = 'b'; // You need to set the target user dynamically
     const lobbyURL = window.location.href;
 
-    console.log('Sending invitation');
-	socket.send(JSON.stringify({type: 'game_invitation', target: targetUser, lobby: lobbyURL}));
+    console.log('Sending invitation to', player);
+	socket.send(JSON.stringify({type: 'game_invitation', target: player, lobby: lobbyURL}));
 }
 
 function updateFriendStatus(username) {
