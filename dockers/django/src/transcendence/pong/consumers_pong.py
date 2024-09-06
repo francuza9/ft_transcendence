@@ -236,11 +236,15 @@ class PongConsumer(AsyncWebsocketConsumer):
 						if p1:
 							if pwin and pwin == p1:
 								p1.gamesWon += 1
+							else:
+								p1.gamesLost += 1
 							p1.gamesPlayed += 1
 							await sync_to_async(p1.save)()
 						if p2:
 							if pwin and pwin == p2:
 								p2.gamesWon += 1
+							else:
+								p2.gamesLost += 1
 							p2.gamesPlayed += 1
 							await sync_to_async(p2.save)()
 					break
