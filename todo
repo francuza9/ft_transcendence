@@ -24,7 +24,6 @@ GAME RESULTS SHOULD GO TO DATABASE
 
 Bugs {
 
-	Inside Lobby --> Login --> takes to home but doesnt change url
 
 
 }
@@ -32,8 +31,6 @@ Bugs {
 [George] {
 
 	Fix local game
-
-	Fix websocket errors when not logged in
 
 	Lobby (important):
 		When lobby doesnt exist, redirect to join page and show error popup to client

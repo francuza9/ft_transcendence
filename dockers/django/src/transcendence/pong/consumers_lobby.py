@@ -1,5 +1,6 @@
 from channels.generic.websocket import AsyncWebsocketConsumer
-from .ai import AI
+from asgiref.sync import sync_to_async
+from .models import CustomUser, Profile
 import json
 import logging
 import asyncio
@@ -230,6 +231,11 @@ class LobbyConsumer(AsyncWebsocketConsumer):
 		}))
 
 	async def send_start_message(self):
+		display_names = []
+		for name in lobby_data[self.lobby_id]['players']:
+			disp = await self.getDispFromDB(name)
+			display_names.append(disp)
+
 		await self.channel_layer.group_send(
 			self.lobby_group_name,
 			{
@@ -240,6 +246,7 @@ class LobbyConsumer(AsyncWebsocketConsumer):
 					'roomID': self.lobby_id,
 					'winning_score': lobby_data[self.lobby_id]['winning_score'],
 					'player_names': lobby_data[self.lobby_id]['players'],
+					'display_names': display_names,
 					'is_bot': lobby_data[self.lobby_id]['is_bot'],
 					'difficulty': lobby_data[self.lobby_id]['difficulty'],
 					'partOfTournament': lobby_data[self.lobby_id]['partOfTournament'],
@@ -256,3 +263,21 @@ class LobbyConsumer(AsyncWebsocketConsumer):
 			'content': message,
 		}))
 
+	async def getDispFromDB(self, target):
+		try:
+			user = await sync_to_async(CustomUser.objects.get)(username=target)
+			
+			profile = await sync_to_async(Profile.objects.get)(user=user)
+
+			display_name = profile.displayName
+		except CustomUser.DoesNotExist:
+			logger.info("User not found")
+			display_name = ""
+		except Profile.DoesNotExist:
+			logger.info("Profile not found for user")
+			display_name = ""
+		except Exception as e:
+			logger.error(f"Error fetching profile: {e}")
+			display_name = ""
+			
+		return display_name

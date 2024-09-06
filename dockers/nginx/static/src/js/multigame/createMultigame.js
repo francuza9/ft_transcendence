@@ -103,13 +103,15 @@ export function createMultigame(pcount, pov, map, socket) {
 			let pcountNew = data.pcount;
 			if (data.result != undefined && data.result != null) {
 				console.log("data result: ", data.result);
-				if (data.result === pov - 1) {
+				if (data.result === pov - 1 || pov === 0) {
 					cleanup();
 					if (pcountNew != 2) {
 						createMultigame(pcountNew, 0, map, socket);
 					} else {
 						cleanup();
 						socket.removeEventListener('message', handleMessage);
+						console.log(data.winners);
+						console.log("pov: ", pov);
 						create2Pgame(0, socket, [data.winners[0].name, data.winners[1].name]);
 					}
 					return ;
@@ -126,9 +128,10 @@ export function createMultigame(pcount, pov, map, socket) {
 						cleanup();
 						socket.removeEventListener('message', handleMessage);
 						console.log(data.winners);
+						console.log("pov wrong place: ", pov);
 						if (pov === 2)
 							create2Pgame(pov, socket, [data.winners[pov % 2].name, data.winners[pov - 1].name]);
-						else
+						else if (pov === 1)
 							create2Pgame(pov, socket, [data.winners[pov - 1].name, data.winners[pov % 2].name]);
 						return ;
 					}
