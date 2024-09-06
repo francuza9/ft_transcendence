@@ -31,7 +31,7 @@ Bugs {
 
 [George] {
 
-	Fix local game
+	Fix local game end
 
 	Fix websocket errors when not logged in
 
@@ -68,7 +68,6 @@ Bugs {
 	Invite to game
 	
 	When lobby doesnt exist, redirect to join page and show error popup to client
-
 
 	Fix Github Auth to not reload SPA
 

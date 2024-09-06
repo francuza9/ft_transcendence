@@ -174,7 +174,7 @@ export const openChatWithFriend = (friend) => {
     chatName.textContent = friend.name || "Unknown User";
     chatAvatar.src = friend.avatar;
 
-    loadChatMessages(friend.username);
+    loadChatMessages(friend.username, friend.name);
 	currentFriend = friend.username;
 	updateFriendStatus(friend.username);
 
@@ -182,7 +182,7 @@ export const openChatWithFriend = (friend) => {
 	friendContainer.setAttribute('data-value', friend.username);
 };
 
-const loadChatMessages = (friendUsername) => {
+const loadChatMessages = (friendUsername, friendDisplayName) => {
     const chatWindow = document.getElementById("messages");
 	chatWindow.innerHTML = '';
 
@@ -196,16 +196,31 @@ const loadChatMessages = (friendUsername) => {
     .then(response => response.json())
     .then(data => {
         if (data.success) {
-            data.messages.forEach(message => {
+			data.messages.forEach(message => {
                 const messageItem = document.createElement("div");
                 const messageClass = message.sender === variables.username ? 'sender' : 'recipient';
-				const paragraph = document.createElement("p");
-
-				paragraph.innerText = message.content;
                 messageItem.className = `message-item ${messageClass}`;
-                messageItem.appendChild(paragraph);
+
+                const linkRegex = /https:\/\/localhost\/\w{8}$/;
+                if (linkRegex.test(message.content)) {
+                    const inviteText = `${friendDisplayName} sent you an invitation!`;
+                    const inviteParagraph = document.createElement("p");
+                    inviteParagraph.innerText = inviteText;
+
+                    const joinButton = document.createElement("button");
+                    joinButton.innerText = "Join";
+                    joinButton.onclick = () => acceptInvitation(message.content);
+
+                    messageItem.appendChild(inviteParagraph);
+                    messageItem.appendChild(joinButton);
+                } else {
+                    const paragraph = document.createElement("p");
+                    paragraph.innerText = message.content;
+                    messageItem.appendChild(paragraph);
+                }
+
                 chatWindow.appendChild(messageItem);
-				chatWindow.scrollTop = chatWindow.scrollHeight;
+                chatWindow.scrollTop = chatWindow.scrollHeight;
             });
         } else {
             chatWindow.innerHTML = `<div class="error-message">${data.error}</div>`;
@@ -242,13 +257,16 @@ export const sendMessage = () => {
 };
 
 export const loadFriendsModal = () => {
-	backToFriends();
-	loadFriends();
-	loadEventListeners();
-	loadAddFriendTab();
-	loadFriendsTab();
-	loadFriendRequestsTab();
-	loadBlockedUsersTab();
+	checkLoginStatus().then(loggedIn => {
+		if (loggedIn) {
+			loadFriends();
+			loadEventListeners();
+			loadAddFriendTab();
+			loadFriendsTab();
+			loadFriendRequestsTab();
+			loadBlockedUsersTab();
+		}
+	});
 }
 
 export const sendInvitation = (player) => {

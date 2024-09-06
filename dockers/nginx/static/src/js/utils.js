@@ -73,7 +73,6 @@ export async function checkLoginStatus() {
 			variables.is_guest = user.is_guest;
 			return true;
         } else {
-            console.log('User is not logged in');
 			return false;
         }
     })

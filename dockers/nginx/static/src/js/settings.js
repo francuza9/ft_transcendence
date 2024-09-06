@@ -1,3 +1,4 @@
+import {getSocket} from '/static/views/lobby.js';
 import {getCookie} from '/static/src/js/cookies.js';
 import {checkLoginStatus, fetchAvatar} from '/static/src/js/utils.js';
 import {variables} from '/static/src/js/variables.js';
@@ -60,9 +61,13 @@ export async function logoutButton() {
 			checkUserState();
 			closeChat();
 			variables.username = undefined;
-			if ( window.location.pathname === '/account' ) {
+			if (window.location.pathname != '/') {
 				history.pushState(null, '', '/');
 				handleRouting();
+			}
+			const socket = getSocket();
+			if (socket) {
+				socket.close();
 			}
 			closeSettingsButton();
 			alert('You have been logged out successfully.');

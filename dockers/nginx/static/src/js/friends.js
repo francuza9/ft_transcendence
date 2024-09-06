@@ -1,5 +1,5 @@
 import {getSocket} from '/static/src/js/socket_handling/global_socket.js';
-import {loadFriendsModal} from '/static/src/js/chat.js';
+import {loadFriendsModal, backToFriends} from '/static/src/js/chat.js';
 
 export function addFriend(player) {
 	const socket = getSocket();
@@ -16,6 +16,7 @@ export function unfriendUser(player) {
 	console.log('unfriending', player);
 	socket.send(JSON.stringify({type: 'friend_removal', target: player}));
 	setTimeout(() => {
+		backToFriends();
 		loadFriendsModal();
 	}, 150);
 }
