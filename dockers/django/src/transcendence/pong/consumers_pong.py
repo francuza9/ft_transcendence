@@ -228,18 +228,20 @@ class PongConsumer(AsyncWebsocketConsumer):
 					if True in game_state.get('player_data', {}).values():
 						botGame = True
 					# Option 1: Incrementing values directly
-					# p1 = await self.getUserDB(names_list[0])
-					# p2 = await self.getUserDB(names_list[1])
-					# pwin = await self.getUserDB(winner_username)
-					# if not botGame:
-					# 	if p1:
-					# 		if pwin and pwin == p1:
-					# 			p1.gamesWon += 1
-					# 		p1.gamesPlayed += 1
-					# 	if p2:
-					# 		if pwin and pwin == p2:
-					# 			p2.gamesWon += 1
-					# 		p2.gamesPlayed += 1
+					p1 = await self.getUserDB(names_list[0])
+					p2 = await self.getUserDB(names_list[1])
+					pwin = await self.getUserDB(winner_username)
+					logger.info(f"p1: {p1}, p2: {p2}, pwin: {pwin}")
+					if not botGame:
+						if p1:
+							if pwin and pwin == p1:
+								p1.gamesWon += 1
+							p1.gamesPlayed += 1
+						if p2:
+							if pwin and pwin == p2:
+								p2.gamesWon += 1
+							p2.gamesPlayed += 1
+					logger.info(f"after p1: {p1}, p2: {p2}, pwin: {pwin}")
 					
 					# Option 2: Using the Game model
 					# if p1 and p2 and pwin:

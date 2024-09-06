@@ -23,6 +23,7 @@ class LobbyConsumer(AsyncWebsocketConsumer):
 			self.lobby_id = self.scope['url_route']['kwargs']['lobbyId']
 			
 			self.lobby_group_name = f"lobby_{self.lobby_id}"
+			self.username = ""
 
 			if self.lobby_id not in lobby_data:
 				logger.info(f"lobby: lobby_data: {lobby_data}")
@@ -60,10 +61,36 @@ class LobbyConsumer(AsyncWebsocketConsumer):
 		logger.info(f"lobby: Disconnect called with code: {close_code}")
 
 		if self.lobby_id in lobby_data:
+			# Remove the channel from connected clients
 			lobby_data[self.lobby_id]['connected_clients'].discard(self.channel_name)
 
+			try:
+				index = lobby_data[self.lobby_id]['players'].index(self.username)
+				if index != -1:
+					lobby_data[self.lobby_id]['players'].pop(index)
+					lobby_data[self.lobby_id]['is_bot'].pop(index)
+					if lobby_data[self.lobby_id]['admin'] == self.username:
+						if lobby_data[self.lobby_id]['players']:
+							lobby_data[self.lobby_id]['admin'] = lobby_data[self.lobby_id]['players'][0]
+						else:
+							lobby_data[self.lobby_id]['admin'] = None
+			except:
+				pass
+
+			# Remove the player if they exist
+			if self.channel_name in lobby_data[self.lobby_id]['players']:
+				index = lobby_data[self.lobby_id]['players'].index(self.channel_name)
+				lobby_data[self.lobby_id]['players'].pop(index)
+				lobby_data[self.lobby_id]['is_bot'].pop(index)
+				if lobby_data[self.lobby_id]['admin'] == self.channel_name:
+					if lobby_data[self.lobby_id]['players']:
+						lobby_data[self.lobby_id]['admin'] = lobby_data[self.lobby_id]['players'][0]
+					else:
+						lobby_data[self.lobby_id]['admin'] = None
+
+			# Remove lobby if no connected clients
 			if not lobby_data[self.lobby_id]['connected_clients']:
-				await asyncio.sleep(10)
+				await asyncio.sleep(10)  # Wait for a while to ensure it's not a temporary issue
 				if not lobby_data[self.lobby_id]['connected_clients']:
 					del lobby_data[self.lobby_id]
 					logger.info(f"lobby: Lobby {self.lobby_id} removed due to inactivity.")
@@ -76,10 +103,11 @@ class LobbyConsumer(AsyncWebsocketConsumer):
 		if self.lobby_id in lobby_data:
 			try:
 				await self.send_refresh_message()
-			except:
-				pass
+			except Exception as e:
+				logger.error(f"lobby: Error sending refresh message: {e}")
 
 		logger.info(f"lobby: WebSocket connection closed with code: {close_code} for lobby {self.lobby_id}")
+
 
 	async def receive(self, text_data=None):
 		if text_data:
@@ -87,10 +115,9 @@ class LobbyConsumer(AsyncWebsocketConsumer):
 			message_type = data.get('type')
 			content = data.get('content')
 
-			logger.info(f"lobby: message type: {message_type}")
-
 			if message_type == 'init':
 				username = content.get('username')
+				self.username = username
 				if lobby_data[self.lobby_id]['admin'] is None:
 					lobby_data[self.lobby_id]['admin'] = username
 				logger.info(f"my user: {username}, players: {lobby_data[self.lobby_id]['players']}")
