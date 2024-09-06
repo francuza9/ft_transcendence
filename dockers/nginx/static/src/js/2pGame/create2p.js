@@ -27,8 +27,14 @@ let cameraIndex = 2;
 let cameraFollow = false;
 export let scoremesh;
 
+let gameRunning = false;
+
 export function create2Pgame(mappov, socket, names) {
 	console.log("i was called");
+	if (gameRunning)
+		return;
+	else
+		gameRunning = true;
 	group = new THREE.Group();
 	if (mappov > 2)
 		mappov = 0;
@@ -132,12 +138,14 @@ export function create2Pgame(mappov, socket, names) {
 			const time = data.time;
 			const score = data.scores;
 			const names_list = data.players;
+			gameRunning = false;
 			console.log("non tournament game finished for : ", variables.username);
 			cleanup();
 			endGame(time, names_list, score, renderer);
 		} else if (variables.partOfTournament == true) {
 			console.log("tournament game finished");
 			cleanup();
+			gameRunning = false;
 			renderer.domElement.remove();
 			variables.partOfTournament = false;
 		}
