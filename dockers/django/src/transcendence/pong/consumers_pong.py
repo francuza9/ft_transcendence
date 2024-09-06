@@ -301,6 +301,7 @@ class PongConsumer(AsyncWebsocketConsumer):
 							'json': True
 						}
 					)
+					await asyncio.sleep(2)
 				else:
 					json_message = json.dumps({
 						'ball': {

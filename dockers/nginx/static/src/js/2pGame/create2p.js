@@ -28,6 +28,7 @@ let cameraFollow = false;
 export let scoremesh;
 
 export function create2Pgame(mappov, socket, names) {
+	console.log("i was called");
 	group = new THREE.Group();
 	if (mappov > 2)
 		mappov = 0;

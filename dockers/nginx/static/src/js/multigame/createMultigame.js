@@ -110,8 +110,6 @@ export function createMultigame(pcount, pov, map, socket) {
 					} else {
 						cleanup();
 						socket.removeEventListener('message', handleMessage);
-						console.log(data.winners);
-						console.log("pov: ", pov);
 						create2Pgame(0, socket, [data.winners[0].name, data.winners[1].name]);
 					}
 					return ;
@@ -127,8 +125,6 @@ export function createMultigame(pcount, pov, map, socket) {
 					} else {
 						cleanup();
 						socket.removeEventListener('message', handleMessage);
-						console.log(data.winners);
-						console.log("pov wrong place: ", pov);
 						if (pov === 2)
 							create2Pgame(pov, socket, [data.winners[pov % 2].name, data.winners[pov - 1].name]);
 						else if (pov === 1)
