@@ -393,3 +393,8 @@
 #friend-container {
 	cursor: pointer;
 }
+
+#invite-btn {
+	border: 1px solid rgba(255, 255, 255, 0.5);
+	margin-left: 15px;
+}
