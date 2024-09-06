@@ -224,36 +224,25 @@ class PongConsumer(AsyncWebsocketConsumer):
 						await self.send(text_data=json.dumps(packed_data))
 					except:
 						logger.info("Tried to send data to a closed connection")
+					
+					# updating database
 					botGame = False
 					if True in game_state.get('player_data', {}).values():
 						botGame = True
-					# Option 1: Incrementing values directly
 					p1 = await self.getUserDB(names_list[0])
 					p2 = await self.getUserDB(names_list[1])
 					pwin = await self.getUserDB(winner_username)
-					logger.info(f"p1: {p1}, p2: {p2}, pwin: {pwin}")
 					if not botGame:
 						if p1:
 							if pwin and pwin == p1:
 								p1.gamesWon += 1
 							p1.gamesPlayed += 1
+							await sync_to_async(p1.save)()
 						if p2:
 							if pwin and pwin == p2:
 								p2.gamesWon += 1
 							p2.gamesPlayed += 1
-					logger.info(f"after p1: {p1}, p2: {p2}, pwin: {pwin}")
-					
-					# Option 2: Using the Game model
-					# if p1 and p2 and pwin:
-						# sync_to_async(Game.objects.create)(
-						# 	player1=p1,
-						# 	player2=p2,
-						# 	winner=pwin,
-						# 	is_tournament=game_state.get('partOfTournament', False),
-						# 	player1Score=score[0],
-						# 	player2Score=score[1],
-						# 	has_bots=botGame
-						# )
+							await sync_to_async(p2.save)()
 					break
 				await self.channel_layer.group_send(
 					self.room_group_name,
@@ -335,8 +324,11 @@ class PongConsumer(AsyncWebsocketConsumer):
 
 	async def finish(self, event):
 		packed_data = event['message']
+		try:
+			await self.send(text_data=json.dumps(packed_data))
+		except:
+			logger.info("Tried to send data to a closed connection")
 
-		await self.send(text_data=json.dumps(packed_data))
 
 
 	async def pong_message(self, event):

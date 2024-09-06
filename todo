@@ -36,8 +36,6 @@ GAME RESULTS SHOULD GO TO DATABASE
 
 Bugs {
 
-	user is not removed from lobby if url changed (not sure if we need to fix it)
-
 }
 
 [George] {
