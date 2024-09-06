@@ -30,7 +30,6 @@ export let scoremesh;
 let gameRunning = false;
 
 export function create2Pgame(mappov, socket, names) {
-	console.log("i was called");
 	if (gameRunning)
 		return;
 	else

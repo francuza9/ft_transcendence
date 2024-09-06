@@ -1,6 +1,7 @@
 import { startGame } from '/static/src/js/3d.js';
 import { initPongSocket } from '/static/src/js/socket_handling/pong_socket.js';
 import { cleanupBackground } from '/static/src/js/background/background.js';
+import { variables } from '/static/src/js/variables.js';
 
 const NO_MAP = 0;
 const MOUNTAIN_MAP = 1;
@@ -35,6 +36,11 @@ export async function Pong(content) {
 		map = SPACE_MAP;
 	}
 
+	if (variables.username && content.player_names && variables.username === content.player_names[1]) {
+		console.log("sleeping");
+		await sleep(300);
+	}
+
 	// Initialize the Pong game
 	try {
         const { pov, socket } = await initPongSocket(content);
@@ -47,4 +53,8 @@ export async function Pong(content) {
     }
 
 	return element;
+}
+
+function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
 }

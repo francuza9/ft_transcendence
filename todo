@@ -40,9 +40,6 @@ Bugs {
 
 [George] {
 
-	Lobby (important):
-		When lobby doesnt exist, redirect to join page and show error popup to client
-
 	wrong users during game
 
 	manage lobbies differently
