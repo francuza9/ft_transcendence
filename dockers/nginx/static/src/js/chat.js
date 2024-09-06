@@ -255,7 +255,7 @@ export const sendInvitation = (player) => {
     const socket = getSocket();
     const lobbyURL = window.location.href;
 
-    console.log('Sending invitation to', player);
+    console.log('Sending invitation to', player, "url: ", lobbyURL);
 	socket.send(JSON.stringify({type: 'game_invitation', target: player, lobby: lobbyURL}));
 }
 
