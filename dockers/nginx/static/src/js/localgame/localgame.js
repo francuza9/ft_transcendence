@@ -131,7 +131,7 @@ export function startLocal(pointsToWin)
 			group.clear();
 			scene.clear();
 			renderer.dispose();
-			endGame(score, renderer);
+			endGame([1,1], ['Player 1', 'Player 2'], score, renderer);
 	}
 }
 

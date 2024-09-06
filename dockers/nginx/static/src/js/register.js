@@ -7,6 +7,7 @@ const commonUsernames = [
 	'www', 'root', 'webmaster', 'sysadmin', 'ftp', 'mail', 'postmaster', 'hostmaster', 'server', 'monitor', 'daemon',
 	'test', 'tester', 'demo', 'dev', 'developer', 'admin', 'owner', 'manager', 'user', 'username', 'login', 'signup',
 	'user1', 'user123', 'anonymous', 'nobody', 'default', 'unknown', 'hacker', 'cracker', 'password', 'security',
+	'Player 1', 'Player 2', 
 ]
 
 var alertMessage = 'Alert Message';
