@@ -4,7 +4,8 @@ import {replaceHTML} from '/static/src/js/utils.js';
 import {getCookie} from '/static/src/js/cookies.js';
 import {removeRegisterListeners} from '/static/src/js/register.js';
 import {goActive} from '/static/src/js/socket_handling/global_socket.js';
-import { closeSettingsButton } from '/static/src/js/settings.js';
+import {closeSettingsButton} from '/static/src/js/settings.js';
+import {loadFriendsModal} from '/static/src/js/chat.js';
 
 export const goBackFromLogin = () => {
 	if (!variables.previousPage) {
@@ -65,6 +66,7 @@ export const loginButton = () => {
 					handleRouting();
 				}
 				removeLoginListeners();
+				loadFriendsModal();
             } else {
                 console.error('Login failed:', data.message);
                 alert('Login failed: ' + data.message);

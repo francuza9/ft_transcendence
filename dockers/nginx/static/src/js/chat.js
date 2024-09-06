@@ -5,6 +5,7 @@ import {variables} from '/static/src/js/variables.js';
 import {getTranslation} from '/static/src/js/lang.js';
 import {addFriend, unfriendUser, blockUser, unblockUser, acceptFriendRequest, declineFriendRequest, unsendFriendRequest} from '/static/src/js/friends.js';
 import {in_lobby} from '/static/src/js/lobby.js';
+import {Lobby} from '/static/views/lobby.js';
 
 let chatInputListener = null;
 let currentFriend = null;
@@ -119,17 +120,17 @@ export const loadFriends = () => {
 								friendItem.className = "friend-item";
 								friendItem.dataset.username = friend.username;
 								friendItem.innerHTML = `
-						<div class="avatar-container">
-							<img src="${friend.avatar}" alt="${friend.name}" width="40" height="40" class="rounded-circle">
-							<span class="status-indicator"></span>
-						</div>
-						<span class="friend-name">${friend.name}</span>
-						<div class=${in_lobby ? '' : 'hidden'}>
-							<button id="invite-btn" class="btn btn-primary btn-sm" data-invite="${friend.username}">
-								<i class="ri-mail-add-fill"></i>
-							</button>
-						</div>
-					`;
+									<div class="avatar-container">
+										<img src="${friend.avatar}" alt="${friend.name}" width="40" height="40" class="rounded-circle">
+										<span class="status-indicator"></span>
+									</div>
+									<span class="friend-name">${friend.name}</span>
+									<div class=${in_lobby ? '' : 'hidden'}>
+										<button id="invite-btn" class="btn btn-primary btn-sm" data-invite="${friend.username}">
+											<i class="ri-mail-add-fill"></i>
+										</button>
+									</div>
+								`;
 								friendItem.addEventListener('click', () => openChatWithFriend(friend));
 								const inviteBtn = friendItem.querySelector(`[data-invite="${friend.username}"]`);
 								inviteBtn.addEventListener('click', (event) => {
@@ -201,7 +202,7 @@ const loadChatMessages = (friendUsername, friendDisplayName) => {
                 const messageClass = message.sender === variables.username ? 'sender' : 'recipient';
                 messageItem.className = `message-item ${messageClass}`;
 
-                const linkRegex = /https:\/\/localhost\/\w{8}$/;
+				const linkRegex = /\/(\w{8})$/;
                 if (linkRegex.test(message.content)) {
                     const inviteText = `${friendDisplayName} sent you an invitation!`;
                     const inviteParagraph = document.createElement("p");
@@ -617,4 +618,16 @@ const loadBlockedUsersTab = () => {
     .catch(error => {
         console.error("Error loading blocked users:", error);
     });
+};
+
+export const acceptInvitation = (link) => {
+    const linkRegex = /\/(\w{8})$/;
+    const match = link.match(linkRegex);
+
+    if (match) {
+        const lobbyId = match[1];
+        Lobby(lobbyId);
+    } else {
+        console.warn("Invalid invitation link format.");
+    }
 };
