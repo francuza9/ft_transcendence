@@ -22,8 +22,15 @@ General Mandatory Todo {
 
 GAME RESULTS SHOULD GO TO DATABASE
 
+Bugs {
+
+	Inside Lobby --> Login --> takes to home but doesnt change url
+
+
+}
+
 [George] {
-	
+
 	Fix local game
 
 	Fix websocket errors when not logged in
@@ -36,6 +43,10 @@ GAME RESULTS SHOULD GO TO DATABASE
 	capture games in database
 
 	manage lobbies differently
+
+	display name ingame
+
+	remove user from lobby after they leave (idk why its not working)
 
 	42 Auth
 
