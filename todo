@@ -42,8 +42,6 @@ Bugs {
 
 [George] {
 
-	Fix local game end
-
 	Lobby (important):
 		When lobby doesnt exist, redirect to join page and show error popup to client
 
@@ -52,8 +50,6 @@ Bugs {
 	capture games in database
 
 	manage lobbies differently
-
-	display name ingame
 
 	remove user from lobby after they leave (idk why its not working)
 
