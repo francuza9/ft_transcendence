@@ -263,6 +263,10 @@ class LobbyConsumer(AsyncWebsocketConsumer):
 			disp = await self.getDispFromDB(name)
 			display_names.append(disp)
 
+		for i in range(len(display_names)):
+			if display_names[i] == "":
+				display_names[i] = lobby_data[self.lobby_id]['players'][i]
+
 		await self.channel_layer.group_send(
 			self.lobby_group_name,
 			{

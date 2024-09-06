@@ -30,7 +30,6 @@ export async function initLobbySocket(variables, aiGame = false) {
 					variables.roomName = content.roomName;
 					variables.isTournament = content.isTournament;
 					variables.pointsToWin = content.winning_score;
-					console.log(variables.players);
 					if (!content.aiGame) {
 						refreshLobbyDetails(variables);
 					}
