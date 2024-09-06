@@ -30,7 +30,7 @@ Bugs {
 
 [George] {
 
-	Fix local game
+	Fix local game end
 
 	Lobby (important):
 		When lobby doesnt exist, redirect to join page and show error popup to client
@@ -64,11 +64,7 @@ Bugs {
 
 	Invite to game
 	
-	Add online status on player profile modals
-
 	When lobby doesnt exist, redirect to join page and show error popup to client
-
-
 
 	Fix Github Auth to not reload SPA
 
@@ -76,9 +72,7 @@ Bugs {
 
 	Tournament View
 
-
-
-
+	Important: Put settings.py credentials and keys, aswell as js github clientId in .env
 
 	Fix window resize stretching background
 

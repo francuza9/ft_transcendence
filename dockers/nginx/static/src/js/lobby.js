@@ -26,7 +26,6 @@ export const refreshLobbyDetails = (variables) => {
 	updateLobbyDetails(variables);
 	if (variables.username === variables.admin) {
 		showAdminButtons();
-
 	}
 }
 

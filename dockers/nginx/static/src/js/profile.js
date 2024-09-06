@@ -7,6 +7,7 @@ export async function viewProfile(event, player) {
 			player = variables.username;
 
 		const playerData = await getPlayerData(player);
+		const isOnline = variables.activeUsers[player];
 
 		if (playerData) {
 			const modalHeader = document.querySelector('#playerProfileModal .modal-header');
@@ -40,12 +41,23 @@ export async function viewProfile(event, player) {
 			avatarImg.style.height = '60px';
 			avatarImg.style.objectFit = 'cover';
 
+			const avatarContainer = document.createElement('div');
+			avatarContainer.appendChild(avatarImg);
+
+			if (isOnline) {
+				const statusIndicator = document.createElement('span');
+				statusIndicator.classList.add('status-indicator');
+				statusIndicator.classList.add('online');
+				avatarContainer.appendChild(statusIndicator);
+			}
+
+
 			const nameContainer = document.createElement('div');
 			nameContainer.innerHTML = `
 				<h5 class="mb-0">${displayName} ${usernameText}</h5>
 			`;
 
-			headerRow.appendChild(avatarImg);
+			headerRow.appendChild(avatarContainer);
 			headerRow.appendChild(nameContainer);
 			headerRow.appendChild(closeButton);
 
