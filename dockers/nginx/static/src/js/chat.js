@@ -4,9 +4,11 @@ import {isGuest, checkLoginStatus, ensureUsername} from '/static/src/js/utils.js
 import {variables} from '/static/src/js/variables.js';
 import {getTranslation} from '/static/src/js/lang.js';
 import {addFriend, unfriendUser, blockUser, unblockUser, acceptFriendRequest, declineFriendRequest, unsendFriendRequest} from '/static/src/js/friends.js';
+import {in_lobby} from '/static/src/js/lobby.js';
 
 let chatInputListener = null;
 let currentFriend = null;
+let addFriendEventListenerInitialized = false;
 
 export async function initChat() {
 	const section = document.getElementsByTagName('section')[0];
@@ -76,15 +78,17 @@ export const backToFriends = () => {
     const backBtn = document.getElementById("back-btn");
 	const settingsBtn = document.getElementById("manage-friends-btn");
 
-	chatArea.classList.add("hidden");
-    friendList.classList.remove("hidden");
-	settingsBtn.classList.remove("hidden");
+	if (chatArea) {
+		chatArea.classList.add("hidden");
+		friendList.classList.remove("hidden");
+		settingsBtn.classList.remove("hidden");
 
-    chatTitle.classList.add("hidden");
-    chatTitle.style.display = "none";
+		chatTitle.classList.add("hidden");
+		chatTitle.style.display = "none";
 
-    backBtn.classList.add("hidden");
-    backBtn.classList.remove("show");
+		backBtn.classList.add("hidden");
+		backBtn.classList.remove("show");
+	}
 };
 
 export const loadFriends = () => {
@@ -98,9 +102,7 @@ export const loadFriends = () => {
 	.then(response => response.json())
 	.then(data => {
 		const friendList = document.getElementById("friend-list");
-		const manageFriendsBtn = document.getElementById("manage-friends-btn");
 
-		manageFriendsBtn.classList.remove('hidden');
 		friendList.innerHTML = '';
 		if (data.friends.length === 0) {
 			const noFriendsMessage = document.createElement("div");
@@ -115,13 +117,23 @@ export const loadFriends = () => {
 					friendItem.className = "friend-item";
 					friendItem.dataset.username = friend.username;
 					friendItem.innerHTML = `
-					<div class="avatar-container">
-						<img src="${friend.avatar}" alt="${friend.name}" width="40" height="40" class="rounded-circle">
-						<span class="status-indicator"></span>
-					</div>
-					<span class="friend-name">${friend.name}</span>
-				`;
+						<div class="avatar-container">
+							<img src="${friend.avatar}" alt="${friend.name}" width="40" height="40" class="rounded-circle">
+							<span class="status-indicator"></span>
+						</div>
+						<span class="friend-name">${friend.name}</span>
+						<div class=${in_lobby ? '' : 'hidden'}>
+							<button id="invite-btn" class="btn btn-primary btn-sm" data-invite="${friend.username}">
+								<i class="ri-mail-add-fill"></i>
+							</button>
+						</div>
+					`;
 					friendItem.addEventListener('click', () => openChatWithFriend(friend));
+					const inviteBtn = friendItem.querySelector(`[data-invite="${friend.username}"]`);
+                    inviteBtn.addEventListener('click', (event) => {
+                        event.stopPropagation();
+                        sendInvitation(friend.username);
+                    });
 					friendList.appendChild(friendItem);
 					updateFriendStatus(friend.username);
 				});
@@ -235,13 +247,12 @@ export const loadFriendsModal = () => {
 	loadBlockedUsersTab();
 }
 
-export const sendInvitation = () => {
+export const sendInvitation = (player) => {
     const socket = getSocket();
-    const targetUser = 'b'; // You need to set the target user dynamically
     const lobbyURL = window.location.href;
 
-    console.log('Sending invitation');
-	socket.send(JSON.stringify({type: 'game_invitation', target: targetUser, lobby: lobbyURL}));
+    console.log('Sending invitation to', player);
+	socket.send(JSON.stringify({type: 'game_invitation', target: player, lobby: lobbyURL}));
 }
 
 function updateFriendStatus(username) {
@@ -299,20 +310,26 @@ export const switchTab = (value) => {
 }
 
 const loadEventListeners = () => {
-	document.querySelectorAll('input[data-tab-value]').forEach(element => {
-        element.addEventListener('click', (e) => {
-            const value = e.target.getAttribute('data-tab-value');
-            switchTab(value);
-        });
-    });
 
-    const addFriendBtn = document.getElementById('add-friend-btn');
-    if (addFriendBtn) {
-        addFriendBtn.addEventListener('click', () => {
-            const username = document.getElementById('add-friend-input').value;
-            sendFriendRequest(username);
-        });
-    }
+	document.querySelectorAll('input[data-tab-value]').forEach(element => {
+		element.addEventListener('click', (e) => {
+			const value = e.target.getAttribute('data-tab-value');
+			switchTab(value);
+		});
+	});
+
+	const addFriendBtn = document.getElementById('add-friend-btn');
+
+	const handleAddFriend = () => {
+		const username = document.getElementById('add-friend-input').value;
+		sendFriendRequest(username);
+	};
+
+	if (addFriendBtn && !addFriendEventListenerInitialized) {
+		addFriendBtn.removeEventListener('click', handleAddFriend);
+		addFriendBtn.addEventListener('click', handleAddFriend);
+		addFriendEventListenerInitialized = true;
+	}
 }
 
 function attachFriendListeners() {
@@ -374,8 +391,10 @@ export const sendFriendRequest = () => {
 const loadAddFriendTab = () => {
 	const usernameInput = document.getElementById('add-friend-input');
 
-    usernameInput.placeholder = getTranslation('friends.addInputFieldPlaceholder');
-	addEnterListener();
+	if (usernameInput) {
+		usernameInput.placeholder = getTranslation('friends.addInputFieldPlaceholder');
+		addEnterListener();
+	}
 }
 
 const handleEnterKey = (event) => {
@@ -450,11 +469,11 @@ const loadFriendsTab = () => {
 						<div class="d-inline-flex align-items-center">
 							<button class="btn btn-danger btn-sm me-2" data-unfriend="${friend.username}">
 								<i class="ri-user-unfollow-fill"></i>
-								<span class="ms-1">Unfriend</span>
+								<span class="ms-1">${getTranslation('friends.unfriend')}</span>
 							</button>
 							<button class="btn btn-warning btn-sm" data-block="${friend.username}">
 								<i class="ri-user-forbid-fill"></i>
-								<span class="ms-1">Block</span>
+								<span class="ms-1">${getTranslation('friends.block')}</span>
 							</button>
 						</div>
 					</td>
@@ -500,11 +519,11 @@ const loadFriendRequestsTab = () => {
 					<td class="align-middle text-center">
                         <button class="btn btn-success btn-sm me-2" data-accept="${request.username}">
 							<i class="ri-check-fill"></i>
-							<span class="ms-1">Accept</span>
+							<span class="ms-1">${getTranslation('friends.accept')}</span>
                         </button>
                         <button class="btn btn-danger btn-sm" data-decline="${request.username}">
                             <i class="ri-close-fill"></i>
-							<span class="ms-1">Decline</span>
+							<span class="ms-1">${getTranslation('friends.decline')}</span>
                         </button>
                     </td>
                 `;
@@ -520,7 +539,7 @@ const loadFriendRequestsTab = () => {
 					<td class="align-middle text-center">
                         <button class="btn btn-danger btn-sm" data-unsend="${request.username}">
                             <i class="ri-close-fill"></i>
-							<span class="ms-1">Cancel</span>
+							<span class="ms-1">${getTranslation('friends.cancel')}</span>
                         </button>
                     </td>
                 `;
@@ -565,7 +584,7 @@ const loadBlockedUsersTab = () => {
 					<td class="align-middle text-center">
                         <button class="btn btn-danger btn-sm" data-unblock="${blockedUser.username}">
                             <i class="ri-close-fill"></i>
-							<span class="ms-1">Unblock</span>
+							<span class="ms-1">${getTranslation('friends.unblock')}</span>
                         </button>
                     </td>
                 `;
