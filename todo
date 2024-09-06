@@ -24,7 +24,7 @@ GAME RESULTS SHOULD GO TO DATABASE
 
 Bugs {
 
-
+	user is not removed from lobby if url changed (not sure if we need to fix it)
 
 }
 
@@ -39,8 +39,6 @@ Bugs {
 
 	manage lobbies differently
 
-	remove user from lobby after they leave (idk why its not working)
-
 	42 Auth
 
 	REMOVE CAMERA CONTROL BEFORE PUSHING
@@ -50,8 +48,6 @@ Bugs {
 	
 	Leaderboard (not important at all):
 		Add Tournaments won and multiplayer games won, along with buttons to sort by them
-	
-	IMPORTANT: check if csrf exemptions should be removed
 	
 	Fix missing translation keys in account page
 }
