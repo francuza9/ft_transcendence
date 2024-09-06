@@ -1,6 +1,6 @@
 import { getUsername } from '/static/src/js/utils.js';
 import { variables } from '/static/src/js/variables.js';
-import { loadFriendsModal, hideFriendRequestMessages } from '/static/src/js/chat.js';
+import { loadFriendsModal, hideFriendRequestMessages, acceptInvitation } from '/static/src/js/chat.js';
 
 let socket;
 
@@ -28,15 +28,7 @@ export function goActive() {
 			variables.activeUsers = data.active_users;
 			loadFriendsModal();
 		} else if (data.type === 'privmsg') {
-			const chatWindow = document.getElementById("messages");
-			const messageItem = document.createElement("div");
-			const paragraph = document.createElement("p");
-
-			paragraph.innerText = data.message;
-			messageItem.className = "message-item recipient";
-			messageItem.appendChild(paragraph);
-			chatWindow.appendChild(messageItem);
-			chatWindow.scrollTop = chatWindow.scrollHeight;
+			console.log(data);
 			loadFriendsModal();
 		} else if (data.type === 'friend_request') {
 			console.log(data.sender, "wants to be your friend");
@@ -107,4 +99,11 @@ export function goActive() {
 
 export function getSocket() {
 	return socket;
+}
+
+export const closeGlobalSocket = () => {
+	const socket = getSocket();
+	if (socket) {
+		socket.close();
+	}
 }
