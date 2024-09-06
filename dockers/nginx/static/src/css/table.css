@@ -131,3 +131,14 @@
 	top: 28px !important;
 	right: 30px !important;
 }
+
+#profile-modal .status-indicator {
+    position: absolute;
+	left: 182px;
+	top: 66px;
+    width: 12px;
+    height: 12px;
+    background-color: limegreen;
+    border-radius: 50%;
+    display: none;
+}

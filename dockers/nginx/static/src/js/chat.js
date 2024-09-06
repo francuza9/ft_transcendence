@@ -92,31 +92,33 @@ export const backToFriends = () => {
 };
 
 export const loadFriends = () => {
-	fetch('/api/friends/', {
-		method: 'POST',
-		headers: {
-			'Content-Type': 'application/json',
-			'X-CSRFToken': getCookie('csrftoken')
-		}
-	})
-	.then(response => response.json())
-	.then(data => {
-		const friendList = document.getElementById("friend-list");
+	checkLoginStatus().then(loggedIn => {
+		if (loggedIn) {
+			fetch('/api/friends/', {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json',
+					'X-CSRFToken': getCookie('csrftoken')
+				}
+			})
+				.then(response => response.json())
+				.then(data => {
+					const friendList = document.getElementById("friend-list");
 
-		friendList.innerHTML = '';
-		if (data.friends.length === 0) {
-			const noFriendsMessage = document.createElement("div");
-			noFriendsMessage.className = "error-message";
-			noFriendsMessage.innerText = getTranslation('chat.noFriends');
-			noFriendsMessage.dataset.text = "chat.noFriends";
-			friendList.appendChild(noFriendsMessage);
-		} else {
-			ensureUsername().then(() => {
-				data.friends.forEach(friend => {
-					const friendItem = document.createElement("div");
-					friendItem.className = "friend-item";
-					friendItem.dataset.username = friend.username;
-					friendItem.innerHTML = `
+					friendList.innerHTML = '';
+					if (data.friends.length === 0) {
+						const noFriendsMessage = document.createElement("div");
+						noFriendsMessage.className = "error-message";
+						noFriendsMessage.innerText = getTranslation('chat.noFriends');
+						noFriendsMessage.dataset.text = "chat.noFriends";
+						friendList.appendChild(noFriendsMessage);
+					} else {
+						ensureUsername().then(() => {
+							data.friends.forEach(friend => {
+								const friendItem = document.createElement("div");
+								friendItem.className = "friend-item";
+								friendItem.dataset.username = friend.username;
+								friendItem.innerHTML = `
 						<div class="avatar-container">
 							<img src="${friend.avatar}" alt="${friend.name}" width="40" height="40" class="rounded-circle">
 							<span class="status-indicator"></span>
@@ -128,20 +130,22 @@ export const loadFriends = () => {
 							</button>
 						</div>
 					`;
-					friendItem.addEventListener('click', () => openChatWithFriend(friend));
-					const inviteBtn = friendItem.querySelector(`[data-invite="${friend.username}"]`);
-                    inviteBtn.addEventListener('click', (event) => {
-                        event.stopPropagation();
-                        sendInvitation(friend.username);
-                    });
-					friendList.appendChild(friendItem);
-					updateFriendStatus(friend.username);
+								friendItem.addEventListener('click', () => openChatWithFriend(friend));
+								const inviteBtn = friendItem.querySelector(`[data-invite="${friend.username}"]`);
+								inviteBtn.addEventListener('click', (event) => {
+									event.stopPropagation();
+									sendInvitation(friend.username);
+								});
+								friendList.appendChild(friendItem);
+								updateFriendStatus(friend.username);
+							});
+						});
+					}
+				})
+				.catch(error => {
+					console.error("Error loading friends:", error);
 				});
-			});
 		}
-	})
-	.catch(error => {
-		console.error("Error loading friends:", error);
 	});
 };
 
@@ -257,7 +261,6 @@ export const sendInvitation = (player) => {
 
 function updateFriendStatus(username) {
     const friendItem = document.querySelector(`.friend-item[data-username="${username}"]`);
-
 	const isOnline = variables.activeUsers[username];
 
     if (friendItem) {
