@@ -24,6 +24,10 @@ GAME RESULTS SHOULD GO TO DATABASE
 
 [George] {
 	
+	Fix local game
+
+	Fix websocket errors when not logged in
+
 	Lobby (important):
 		When lobby doesnt exist, redirect to join page and show error popup to client
 
@@ -50,14 +54,9 @@ GAME RESULTS SHOULD GO TO DATABASE
 
 [Marijn] {
 
-	Invite to game if in lobby and friends
+	Invite to game
 	
 	Add online status on player profile modals
-
-
-	Fix profile pictures at endgame
-
-	Add some padding to the error element in the create lobby page, the one that appears when the lobby name is too long?
 
 	When lobby doesnt exist, redirect to join page and show error popup to client
 

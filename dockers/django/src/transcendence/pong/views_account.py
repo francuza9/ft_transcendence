@@ -53,7 +53,6 @@ def get_profile_info(request, username):
 	except Exception as e:
 		return JsonResponse({'error': str(e)}, status=500)
 
-
 @login_required
 def get_account_info(request):
 	user = request.user

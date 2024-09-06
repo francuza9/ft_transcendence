@@ -145,6 +145,12 @@
 		"alreadyFriends": "You are already friends with this user!",
 		"alreadyReceived" : "You already have a pending friend request with that user!",
 		"userIsBlocked": "You can't send a friend request to a blocked user!",
-		"userBlockedYou": "You can't send this user a friend request because the user blocked you!"
+		"userBlockedYou": "You can't send this user a friend request because the user blocked you!",
+		"unfriend": "Unfriend",
+		"block": "Block",
+		"accept": "Accept",
+		"decline": "Decline",
+		"cancel": "Cancel",
+		"unblock": "Unblock"
 	}
 }

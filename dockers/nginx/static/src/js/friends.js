@@ -7,7 +7,7 @@ export function addFriend(player) {
 	console.log('adding friend', player);
 	setTimeout(() => {
 		socket.send(JSON.stringify({type: 'friend_request', target: player}));
-	}, 100);
+	}, 150);
 }
 
 export function unfriendUser(player) {
