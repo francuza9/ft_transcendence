@@ -5,7 +5,7 @@ import {variables} from '/static/src/js/variables.js';
 import {getTranslation} from '/static/src/js/lang.js';
 import {addFriend, unfriendUser, blockUser, unblockUser, acceptFriendRequest, declineFriendRequest, unsendFriendRequest} from '/static/src/js/friends.js';
 import {in_lobby} from '/static/src/js/lobby.js';
-import {Lobby} from '/static/views/lobby.js';
+import {handleRouting} from '/static/routers/router.js';
 
 let chatInputListener = null;
 let currentFriend = null;
@@ -183,7 +183,7 @@ export const openChatWithFriend = (friend) => {
 	friendContainer.setAttribute('data-value', friend.username);
 };
 
-const loadChatMessages = (friendUsername, friendDisplayName) => {
+export const loadChatMessages = (friendUsername, friendDisplayName) => {
     const chatWindow = document.getElementById("messages");
 	chatWindow.innerHTML = '';
 
@@ -204,16 +204,24 @@ const loadChatMessages = (friendUsername, friendDisplayName) => {
 
 				const linkRegex = /\/(\w{8})$/;
                 if (linkRegex.test(message.content)) {
-                    const inviteText = `${friendDisplayName} sent you an invitation!`;
-                    const inviteParagraph = document.createElement("p");
-                    inviteParagraph.innerText = inviteText;
+					if (message.sender === variables.username)
+					{
+						const inviteText = `You sent an invitation to ${message.recipient}`;
+						const inviteParagraph = document.createElement("p");
 
-                    const joinButton = document.createElement("button");
-                    joinButton.innerText = "Join";
-                    joinButton.onclick = () => acceptInvitation(message.content);
+						inviteParagraph.innerText = inviteText;
+						messageItem.appendChild(inviteParagraph);
+					} else {
+						const inviteText = `${friendDisplayName} sent you an invitation!`;
+						const inviteParagraph = document.createElement("p");
+						const joinButton = document.createElement("button");
 
-                    messageItem.appendChild(inviteParagraph);
-                    messageItem.appendChild(joinButton);
+						inviteParagraph.innerText = inviteText;
+						joinButton.innerText = "Join";
+						joinButton.onclick = () => acceptInvitation(message.content);
+						messageItem.appendChild(inviteParagraph);
+						messageItem.appendChild(joinButton);
+					}
                 } else {
                     const paragraph = document.createElement("p");
                     paragraph.innerText = message.content;
@@ -626,7 +634,8 @@ export const acceptInvitation = (link) => {
 
     if (match) {
         const lobbyId = match[1];
-        Lobby(lobbyId);
+		history.pushState(null, '', `/${lobbyId}`);
+		handleRouting();
     } else {
         console.warn("Invalid invitation link format.");
     }
