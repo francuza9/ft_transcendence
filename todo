@@ -27,16 +27,13 @@ GAME RESULTS SHOULD GO TO DATABASE
 	Lobby (important):
 		When lobby doesnt exist, redirect to join page and show error popup to client
 
-	Current {
-		wrong users during game
-	}
+	wrong users during game
 
-	Upcoming {
+	capture games in database
 
-		Spectator (manage lobbies differently)
+	manage lobbies differently
 
-		42 Auth
-	}
+	42 Auth
 
 	REMOVE CAMERA CONTROL BEFORE PUSHING
 }
