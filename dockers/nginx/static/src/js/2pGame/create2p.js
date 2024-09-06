@@ -227,9 +227,6 @@ export function create2Pgame(mappov, socket, names) {
 		if (lobbySock) {
 			lobbySock.close();
 		}
-		const lobbies = getLobbyOpen();
-		delete lobbies[variables.lobbyId];
-
 	}
 }
 

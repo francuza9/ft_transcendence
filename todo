@@ -14,6 +14,7 @@ DO NOT FORGET {
 	REMOVE CAMERA CONTROL BEFORE PUSHING
 	DONT PUSH .ENV TO GIT
 	REMOVE UNNECESSARY PRINTS
+	PUT TRANSLATIONS
 }
 
 General Mandatory Todo {
@@ -35,11 +36,13 @@ General Mandatory Todo {
 
 Bugs {
 
+	endgame popup after multi game is messed up
+
 }
 
 [George] {
 
-	manage lobbies differently
+	manage lobbies differently (they should get info about lobbies from server)
 
 	42 Auth
 
