@@ -277,6 +277,7 @@ class PongConsumer(AsyncWebsocketConsumer):
 						winners = game_state['multi']['players'].copy()
 						winners.pop(result_multi)
 						game_state['multi_winners'] = winners
+					
 					game_state['multi']['players'] = []
 					game_state['multi']['finished'] = True
 					game_state['loop_count'] -= 1
@@ -395,3 +396,22 @@ class PongConsumer(AsyncWebsocketConsumer):
 			profile = None
 			
 		return profile
+
+	async def getDispFromDB(self, target):
+		try:
+			user = await sync_to_async(CustomUser.objects.get)(username=target)
+			
+			profile = await sync_to_async(Profile.objects.get)(user=user)
+
+			display_name = profile.displayName
+		except CustomUser.DoesNotExist:
+			logger.info("User not found")
+			display_name = ""
+		except Profile.DoesNotExist:
+			logger.info("Profile not found for user")
+			display_name = ""
+		except Exception as e:
+			logger.error(f"Error fetching profile: {e}")
+			display_name = ""
+			
+		return display_name
