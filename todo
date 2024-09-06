@@ -10,6 +10,12 @@
 #                                                                              #
 # **************************************************************************** #
 
+DO NOT FORGET {
+	REMOVE CAMERA CONTROL BEFORE PUSHING
+	DONT PUSH .ENV TO GIT
+	REMOVE UNNECESSARY PRINTS
+}
+
 General Mandatory Todo {
 
 	Mandatory Part:
@@ -20,19 +26,12 @@ General Mandatory Todo {
 	Remote Authentication:
 	- 42 Authentication
 
-	Multiple Players:
-	- Add end logic (detailed in todo)
-
 	Chat:
-	- Invitation to the game
 	- Tournament Should warn users about the start of the game
-	- Access Users Profiles through Chat
 	
 	Extra Features That affect mandatory:
 	- Github should be SPA
 }
-
-GAME RESULTS SHOULD GO TO DATABASE
 
 Bugs {
 
@@ -44,7 +43,6 @@ Bugs {
 
 	42 Auth
 
-	REMOVE CAMERA CONTROL BEFORE PUSHING
 }
 
 [Youssef] {
