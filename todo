@@ -1,3 +1,15 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    todo                                               :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: marde-vr <marde-vr@42angouleme.fr>         +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2024/09/06 19:24:56 by marde-vr          #+#    #+#              #
+#    Updated: 2024/09/06 19:24:57 by marde-vr         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
 General Mandatory Todo {
 
 	Mandatory Part:
@@ -62,7 +74,7 @@ Bugs {
 
 [Marijn] {
 
-	Invite to game
+	Join Invite button css
 	
 	When lobby doesnt exist, redirect to join page and show error popup to client
 
