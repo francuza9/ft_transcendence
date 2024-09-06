@@ -3,12 +3,16 @@ import {getCookie, setCookie} from '/static/src/js/cookies.js';
 import {translateContent} from '/static/src/js/lang.js';
 import {removeGameRenderer} from '/static/src/js/end.js';
 import {setTranslations, getTranslation} from '/static/src/js/lang.js';
+import {loadFriends} from '/static/src/js/chat.js';
+import {in_lobby, updateInLobby} from '/static/src/js/lobby.js';
 
 export async function replaceHTML(path)
 {
 	const body = document.getElementsByTagName('body')[0];
 	let section = document.getElementsByTagName('section')[0];
 	const userLang = getCookie('userLang') || 'en';
+	if (path != '/static/src/html/lobby.html')
+		updateInLobby(false)
 
     try {
 		if (path.includes('login') || path.includes('register')) {
@@ -43,6 +47,7 @@ export async function replaceHTML(path)
         const translations = await translationsResponse.json();
 		setTranslations(translations);
         translateContent(translations);
+		loadFriends();
     } catch (error) {
         console.error('There was a problem with the fetch operation:', error);
     }
@@ -138,13 +143,15 @@ export async function fetchAvatar(id, player) {
 			result = await response.json();
 
 			if (result.success) {
-				avatarUrl = result.data;
+				avatarUrl = result.data.avatarUrl;
 			} else {
 				console.error('Failed to fetch avatar.');
 			}
 		}
 		if (avatarUrl)
 			document.getElementById(id).src = avatarUrl || '/static/default-avatar.png';
+		else
+			document.getElementById(id).src = '/static/default-avatar.png';
 	} catch (error) {
 		console.error('Error fetching avatar:', error);
 	}

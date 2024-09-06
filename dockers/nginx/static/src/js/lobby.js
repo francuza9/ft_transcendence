@@ -8,6 +8,11 @@ import {getSocketAI} from '/static/src/js/local.js';
 import {initTournamentSocket} from '/static/src/js/socket_handling/tournament_socket.js';
 
 let tournament_socket;
+export let in_lobby = false;
+
+export const updateInLobby = (value) => {
+	in_lobby = value;
+}
 
 function updateLobbyDetails(variables) {
 	if (variables.roomName)
