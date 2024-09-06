@@ -92,31 +92,33 @@ export const backToFriends = () => {
 };
 
 export const loadFriends = () => {
-	fetch('/api/friends/', {
-		method: 'POST',
-		headers: {
-			'Content-Type': 'application/json',
-			'X-CSRFToken': getCookie('csrftoken')
-		}
-	})
-	.then(response => response.json())
-	.then(data => {
-		const friendList = document.getElementById("friend-list");
+	checkLoginStatus().then(loggedIn => {
+		if (loggedIn) {
+			fetch('/api/friends/', {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json',
+					'X-CSRFToken': getCookie('csrftoken')
+				}
+			})
+				.then(response => response.json())
+				.then(data => {
+					const friendList = document.getElementById("friend-list");
 
-		friendList.innerHTML = '';
-		if (data.friends.length === 0) {
-			const noFriendsMessage = document.createElement("div");
-			noFriendsMessage.className = "error-message";
-			noFriendsMessage.innerText = getTranslation('chat.noFriends');
-			noFriendsMessage.dataset.text = "chat.noFriends";
-			friendList.appendChild(noFriendsMessage);
-		} else {
-			ensureUsername().then(() => {
-				data.friends.forEach(friend => {
-					const friendItem = document.createElement("div");
-					friendItem.className = "friend-item";
-					friendItem.dataset.username = friend.username;
-					friendItem.innerHTML = `
+					friendList.innerHTML = '';
+					if (data.friends.length === 0) {
+						const noFriendsMessage = document.createElement("div");
+						noFriendsMessage.className = "error-message";
+						noFriendsMessage.innerText = getTranslation('chat.noFriends');
+						noFriendsMessage.dataset.text = "chat.noFriends";
+						friendList.appendChild(noFriendsMessage);
+					} else {
+						ensureUsername().then(() => {
+							data.friends.forEach(friend => {
+								const friendItem = document.createElement("div");
+								friendItem.className = "friend-item";
+								friendItem.dataset.username = friend.username;
+								friendItem.innerHTML = `
 						<div class="avatar-container">
 							<img src="${friend.avatar}" alt="${friend.name}" width="40" height="40" class="rounded-circle">
 							<span class="status-indicator"></span>
@@ -128,20 +130,22 @@ export const loadFriends = () => {
 							</button>
 						</div>
 					`;
-					friendItem.addEventListener('click', () => openChatWithFriend(friend));
-					const inviteBtn = friendItem.querySelector(`[data-invite="${friend.username}"]`);
-                    inviteBtn.addEventListener('click', (event) => {
-                        event.stopPropagation();
-                        sendInvitation(friend.username);
-                    });
-					friendList.appendChild(friendItem);
-					updateFriendStatus(friend.username);
+								friendItem.addEventListener('click', () => openChatWithFriend(friend));
+								const inviteBtn = friendItem.querySelector(`[data-invite="${friend.username}"]`);
+								inviteBtn.addEventListener('click', (event) => {
+									event.stopPropagation();
+									sendInvitation(friend.username);
+								});
+								friendList.appendChild(friendItem);
+								updateFriendStatus(friend.username);
+							});
+						});
+					}
+				})
+				.catch(error => {
+					console.error("Error loading friends:", error);
 				});
-			});
 		}
-	})
-	.catch(error => {
-		console.error("Error loading friends:", error);
 	});
 };
 
@@ -170,7 +174,7 @@ export const openChatWithFriend = (friend) => {
     chatName.textContent = friend.name || "Unknown User";
     chatAvatar.src = friend.avatar;
 
-    loadChatMessages(friend.username);
+    loadChatMessages(friend.username, friend.name);
 	currentFriend = friend.username;
 	updateFriendStatus(friend.username);
 
@@ -178,7 +182,7 @@ export const openChatWithFriend = (friend) => {
 	friendContainer.setAttribute('data-value', friend.username);
 };
 
-const loadChatMessages = (friendUsername) => {
+const loadChatMessages = (friendUsername, friendDisplayName) => {
     const chatWindow = document.getElementById("messages");
 	chatWindow.innerHTML = '';
 
@@ -192,16 +196,31 @@ const loadChatMessages = (friendUsername) => {
     .then(response => response.json())
     .then(data => {
         if (data.success) {
-            data.messages.forEach(message => {
+			data.messages.forEach(message => {
                 const messageItem = document.createElement("div");
                 const messageClass = message.sender === variables.username ? 'sender' : 'recipient';
-				const paragraph = document.createElement("p");
-
-				paragraph.innerText = message.content;
                 messageItem.className = `message-item ${messageClass}`;
-                messageItem.appendChild(paragraph);
+
+                const linkRegex = /https:\/\/localhost\/\w{8}$/;
+                if (linkRegex.test(message.content)) {
+                    const inviteText = `${friendDisplayName} sent you an invitation!`;
+                    const inviteParagraph = document.createElement("p");
+                    inviteParagraph.innerText = inviteText;
+
+                    const joinButton = document.createElement("button");
+                    joinButton.innerText = "Join";
+                    joinButton.onclick = () => acceptInvitation(message.content);
+
+                    messageItem.appendChild(inviteParagraph);
+                    messageItem.appendChild(joinButton);
+                } else {
+                    const paragraph = document.createElement("p");
+                    paragraph.innerText = message.content;
+                    messageItem.appendChild(paragraph);
+                }
+
                 chatWindow.appendChild(messageItem);
-				chatWindow.scrollTop = chatWindow.scrollHeight;
+                chatWindow.scrollTop = chatWindow.scrollHeight;
             });
         } else {
             chatWindow.innerHTML = `<div class="error-message">${data.error}</div>`;
@@ -238,13 +257,16 @@ export const sendMessage = () => {
 };
 
 export const loadFriendsModal = () => {
-	backToFriends();
-	loadFriends();
-	loadEventListeners();
-	loadAddFriendTab();
-	loadFriendsTab();
-	loadFriendRequestsTab();
-	loadBlockedUsersTab();
+	checkLoginStatus().then(loggedIn => {
+		if (loggedIn) {
+			loadFriends();
+			loadEventListeners();
+			loadAddFriendTab();
+			loadFriendsTab();
+			loadFriendRequestsTab();
+			loadBlockedUsersTab();
+		}
+	});
 }
 
 export const sendInvitation = (player) => {
@@ -257,7 +279,6 @@ export const sendInvitation = (player) => {
 
 function updateFriendStatus(username) {
     const friendItem = document.querySelector(`.friend-item[data-username="${username}"]`);
-
 	const isOnline = variables.activeUsers[username];
 
     if (friendItem) {
