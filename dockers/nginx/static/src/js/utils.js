@@ -137,7 +137,7 @@ export async function fetchAvatar(id, player) {
 			if (result.avatarUrl)
 				avatarUrl = result.avatarUrl;
 		}
-		else {
+		else if (variables.username) {
 			const response = await fetch('/api/account_info/');
 			result = await response.json();
 
