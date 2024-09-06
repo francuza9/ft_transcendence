@@ -1,5 +1,5 @@
 from channels.generic.websocket import AsyncWebsocketConsumer
-from pong.models import Message, CustomUser, Profile
+from pong.models import Message, CustomUser
 from asgiref.sync import sync_to_async
 import json
 import logging
@@ -210,7 +210,6 @@ class GlobalConsumer(AsyncWebsocketConsumer):
 						'message': message,
 						'sender': self.username,
 						'recipient': target,
-						'senderDisplay': await self.getUserProfile(self.username).displayName,
 					}))
 
 	async def send_friend_removal(self, target):
@@ -239,10 +238,4 @@ class GlobalConsumer(AsyncWebsocketConsumer):
 		for client in GlobalConsumer.connected_clients:
 			if client.username == target:
 				return client
-		return None
-
-	async def getUserProfile(self, target):
-		userDB = await self.getUserDB(target)
-		if userDB:
-			return await sync_to_async(Profile.objects.get)(user=userDB)
 		return None
