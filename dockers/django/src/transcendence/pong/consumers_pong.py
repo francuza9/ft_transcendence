@@ -293,6 +293,8 @@ class PongConsumer(AsyncWebsocketConsumer):
 						'pcount': game_state['room_size'],
 						'winners': winners,
 					})
+					logger.info("sending msg to group:")
+					await self.print_all_users_in_channel_layer()
 					await self.channel_layer.group_send(
 						self.room_group_name,
 						{
@@ -416,3 +418,7 @@ class PongConsumer(AsyncWebsocketConsumer):
 			display_name = ""
 			
 		return display_name
+
+	async def print_all_users_in_channel_layer(self): #TODO: REMOVE AFTER TESTING
+		group_channel_names = self.channel_layer.groups.get(self.room_group_name, set())
+		logger.info(f"Users in {self.room_group_name}: {group_channel_names}")
