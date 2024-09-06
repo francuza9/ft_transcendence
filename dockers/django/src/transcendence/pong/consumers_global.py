@@ -55,7 +55,7 @@ class GlobalConsumer(AsyncWebsocketConsumer):
 				await self.unblock(target)
 		elif type == 'game_invitation':
 			target = text_data_json.get('target', None)
-			url = text_data_json.get('url', None)
+			url = text_data_json.get('lobby', None)
 			if target and url and 0 < len(target) <= 12 and 0 < len(url) <= 40:
 				await self.send_game_invitation(target, url)
 		elif type == 'friend_accept':
@@ -168,12 +168,10 @@ class GlobalConsumer(AsyncWebsocketConsumer):
 	async def send_game_invitation(self, target, url):
 		userDB = await self.getUserDB(target)
 		senderDB = await self.getUserDB(self.username)
-		logger.info("Starting to send game invit")
 		if userDB and senderDB:
 			if not await sync_to_async(senderDB.blocked_users.filter(id=userDB.id).exists)() \
 				and not await sync_to_async(userDB.blocked_users.filter(id=senderDB.id).exists)() \
 				and await sync_to_async(senderDB.friends.filter(id=userDB.id).exists)():
-				logger.info("redirecting to send privmsg")
 				await self.send_privmsg(url, target)
 
 	async def unblock(self, target):
@@ -201,12 +199,10 @@ class GlobalConsumer(AsyncWebsocketConsumer):
 		target_client = await self.getUserWS(target)
 		senderDB = await self.getUserDB(self.username)
 		userDB = await self.getUserDB(target)
-		logger.info("sending msg")
 		if senderDB and userDB:
 			if await sync_to_async(senderDB.friends.filter(id=userDB.id).exists)() \
 				and not await sync_to_async(senderDB.blocked_users.filter(id=userDB.id).exists)() \
 				and not await sync_to_async(userDB.blocked_users.filter(id=senderDB.id).exists)():
-				logger.info(f"sending {message} to {target}")
 				await sync_to_async(Message.objects.create)(sender=senderDB, recipient=userDB, content=message)
 				if target_client:
 					await target_client.send(text_data=json.dumps({
