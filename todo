@@ -56,10 +56,7 @@ GAME RESULTS SHOULD GO TO DATABASE
 
 	Invite to game
 	
-	Add online status on player profile modals
-
 	When lobby doesnt exist, redirect to join page and show error popup to client
-
 
 
 	Fix Github Auth to not reload SPA
@@ -68,9 +65,7 @@ GAME RESULTS SHOULD GO TO DATABASE
 
 	Tournament View
 
-
-
-
+	Important: Put settings.py credentials and keys, aswell as js github clientId in .env
 
 	Fix window resize stretching background
 
