@@ -83,7 +83,6 @@ export function checkCollision(ball, players, score, lights, scoremesh, pointsTo
 	}
 	if (score[0] == pointsToWin || score[1] == pointsToWin)
 	{
-		alert("Game Over");
 		return true;
 		// location.reload();
 	}
