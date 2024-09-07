@@ -119,7 +119,8 @@
 			"settings": "Account Settings",
 			"logout": "Logout",
             "languageButton": "Language",
-            "backButton": "Back"
+            "backButton": "Back",
+			"logoutSuccess": "You have been logged out successfully."
 		},
 		"end":{
 			"title": "Game Ended",

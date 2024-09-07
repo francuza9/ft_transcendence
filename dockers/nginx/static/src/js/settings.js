@@ -73,7 +73,7 @@ export async function logoutButton() {
 			closeGlobalSocket();
 			closeChat();
 			closeSettingsButton();
-			alert('You have been logged out successfully.');
+			alert(getTranslation('pages.settings.logoutSuccess'));
         } else {
             console.error('Logout failed:', data.message);
         }
