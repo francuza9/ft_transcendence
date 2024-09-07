@@ -5,7 +5,7 @@ import {variables} from '/static/src/js/variables.js';
 import {getTranslation} from '/static/src/js/lang.js';
 import {addFriend, unfriendUser, blockUser, unblockUser, acceptFriendRequest, declineFriendRequest, unsendFriendRequest} from '/static/src/js/friends.js';
 import {in_lobby} from '/static/src/js/lobby.js';
-import {handleRouting} from '/static/routers/router.js';
+import {Lobby} from '/static/views/lobby.js';
 
 let chatInputListener = null;
 let currentFriend = null;
@@ -216,6 +216,8 @@ export const loadChatMessages = (friendUsername, friendDisplayName) => {
 						const inviteParagraph = document.createElement("p");
 						const joinButton = document.createElement("button");
 
+						joinButton.classList.add('btn', 'btn-primary', 'btn-sm');
+						joinButton.id = 'join-btn';
 						inviteParagraph.innerText = inviteText;
 						joinButton.innerText = "Join";
 						joinButton.onclick = () => acceptInvitation(message.content);
@@ -634,9 +636,50 @@ export const acceptInvitation = (link) => {
 
     if (match) {
         const lobbyId = match[1];
+
 		history.pushState(null, '', `/${lobbyId}`);
-		handleRouting();
+		Lobby(lobbyId)
+		setTimeout(() => {
+			const chatWindow = document.getElementById("messages");
+
+			chatWindow.scrollTop = chatWindow.scrollHeight;
+		}, 150);
     } else {
         console.warn("Invalid invitation link format.");
     }
+};
+
+export const appendChatMessage = (message, sender, displayName) => {
+    const chatWindow = document.getElementById("messages");
+    const messageItem = document.createElement("div");
+    const messageClass = sender === variables.username ? 'sender' : 'recipient';
+    messageItem.className = `message-item ${messageClass}`;
+
+    const linkRegex = /\/(\w{8})$/;
+    if (linkRegex.test(message)) {
+        if (sender === variables.username) {
+            const inviteText = `You sent an invitation to ${displayName}`;
+            const inviteParagraph = document.createElement("p");
+            inviteParagraph.innerText = inviteText;
+            messageItem.appendChild(inviteParagraph);
+        } else {
+            const inviteText = `${displayName} sent you an invitation!`;
+            const inviteParagraph = document.createElement("p");
+            const joinButton = document.createElement("button");
+            inviteParagraph.innerText = inviteText;
+			joinButton.classList.add('btn', 'btn-primary', 'btn-sm');
+			joinButton.id = 'join-btn';
+            joinButton.innerText = "Join";
+            joinButton.onclick = () => acceptInvitation(message);
+            messageItem.appendChild(inviteParagraph);
+            messageItem.appendChild(joinButton);
+        }
+    } else {
+        const paragraph = document.createElement("p");
+        paragraph.innerText = message;
+        messageItem.appendChild(paragraph);
+    }
+
+    chatWindow.appendChild(messageItem);
+    chatWindow.scrollTop = chatWindow.scrollHeight;
 };

@@ -1,15 +1,3 @@
-# **************************************************************************** #
-#                                                                              #
-#                                                         :::      ::::::::    #
-#    todo                                               :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: marde-vr <marde-vr@42angouleme.fr>         +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2024/09/06 19:24:56 by marde-vr          #+#    #+#              #
-#    Updated: 2024/09/06 19:24:57 by marde-vr         ###   ########.fr        #
-#                                                                              #
-# **************************************************************************** #
-
 DO NOT FORGET {
 	REMOVE CAMERA CONTROL BEFORE PUSHING
 	DONT PUSH .ENV TO GIT
@@ -42,6 +30,8 @@ Bugs {
 
 [George] {
 
+	When lobby doesnt exist, redirect to join page and show error popup to client
+
 	42 Auth
 
 }
@@ -51,28 +41,32 @@ Bugs {
 	Leaderboard (not important at all):
 		Add Tournaments won and multiplayer games won, along with buttons to sort by them
 	
-	Fix missing translation keys in account page
+	Important: Fix missing translation keys in account page
 }
 
 [Marijn] {
 
-	Join Invite button css
-	
-	When lobby doesnt exist, redirect to join page and show error popup to client
-
 	Fix Github Auth to not reload SPA
+
+	Important: Fix missing translation keys in account page
 
 	Update map preview images
 
 	Tournament View
 
-	Important: Put settings.py credentials and keys, aswell as js github clientId in .env
 
-	Fix window resize stretching background
+
+
+
+
+
+
+
 
 	Add all languages in translations (only at end)
 
 	Extra {
+		Fix window resize stretching background
 		Game transition animations
 		Animations for smooth transition between pages
 		Easter egg(s)

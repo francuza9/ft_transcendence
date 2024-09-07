@@ -11,7 +11,6 @@ export const accountButton = (e) => {
 	handleRouting();
 }
 
-// JavaScript to handle the edit button functionality for everything (texts and avatar)
 export const editField = (field) => {
     console.log('Editing field:', field);
 
@@ -23,10 +22,9 @@ export const editField = (field) => {
 		const saveButton = document.getElementById('save-avatar-modal');
 		
 		avatarPreview.src = avatarImage.src;
-		fileInput.value = ''; // Clear the file input
-		saveButton.disabled = true; // Disable the save button
+		fileInput.value = '';
+		saveButton.disabled = true;
 
-        // Show the remove button if the avatar is not the default image
         if (avatarPreview.src.includes('default-avatar.png')) {
             removeButton.style.display = 'none';
         } else {
@@ -39,18 +37,16 @@ export const editField = (field) => {
 		const confirmPasswordInput = document.getElementById('confirm-password-input-modal');
 		const errorElement = document.getElementById('password-error');
 
-		// Clear the input fields
 		currentPasswordInput.value = '';
 		newPasswordInput.value = '';
 		confirmPasswordInput.value = '';
 		errorElement.textContent = '';	
 	} else {
-        // For text fields, set the input value to the current display value
         const titleInput = document.getElementById(`${field}-input-modal`);
         const displayTitle = document.getElementById(field);
 		const errorElement = document.getElementById(`${field}-error`);
 
-		errorElement.textContent = ''; // Clear any previous error messages
+		errorElement.textContent = '';
 		errorElement.style.display = 'none';
 
         if (displayTitle && titleInput) {
@@ -62,7 +58,6 @@ export const editField = (field) => {
     }
 };
 
-// JavaScript to handle the save button functionality only for text fields
 export const saveField = async (field) => {
 	const titleInput = document.getElementById(`${field}-input-modal`);
 	const errorElement = document.getElementById(`${field}-error`);
@@ -75,7 +70,7 @@ export const saveField = async (field) => {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    'X-CSRFToken': getCookie('csrftoken'),  // Add CSRF token if needed
+                    'X-CSRFToken': getCookie('csrftoken'),
                 },
                 body: JSON.stringify({
                     field: field,
@@ -86,7 +81,6 @@ export const saveField = async (field) => {
             const result = await response.json();
 
             if (result.success) {
-				// Hide the modal
 				const modalInstance = bootstrap.Modal.getInstance(document.getElementById(`edit-${field}-modal`));
 				if (modalInstance)
 					modalInstance.hide();
@@ -94,11 +88,10 @@ export const saveField = async (field) => {
 				setTimeout(() => {
 					const backdrop = document.querySelector('.modal-backdrop');
 					if (backdrop) {
-						backdrop.remove();  // Remove the lingering backdrop
+						backdrop.remove();
 					}
 					}, 20);
 
-				// Clear the input field
 				titleInput.value = '';
 				errorElement.textContent = '';
 				fetchAccountInfo();
@@ -107,7 +100,6 @@ export const saveField = async (field) => {
             } else {
 				errorElement.textContent = result.message;
 				errorElement.style.display = 'block';
-				// alert(result.message);
                 console.error('Failed to update field:', result.message);
             }
         } catch (error) {
@@ -160,7 +152,7 @@ export const savePasswordButton = async () => {
 			setTimeout(() => {
 				const backdrop = document.querySelector('.modal-backdrop');
 				if (backdrop) {
-					backdrop.remove();  // Remove the lingering backdrop
+					backdrop.remove();
 				}
 				}, 20);
 
@@ -200,17 +192,16 @@ export const uploadAvatarButton = () => {
                 return;
             }
 
-            lastValidFile = file; // Store the last valid file
+            lastValidFile = file;
 
             const reader = new FileReader();
             reader.onload = function (e) {
-                avatarPreview.src = e.target.result; // Show the preview
-                removeButton.style.display = 'inline-block'; // Show the remove button
-                saveButton.disabled = false; // Enable the save button
+                avatarPreview.src = e.target.result;
+                removeButton.style.display = 'inline-block';
+                saveButton.disabled = false;
             };
-            reader.readAsDataURL(file); // Read the file and trigger the onload event
+            reader.readAsDataURL(file);
         } else if (lastValidFile) {
-            // If no file is selected, show the last valid file
             const reader = new FileReader();
             reader.onload = function (e) {
                 avatarPreview.src = e.target.result;
@@ -219,20 +210,18 @@ export const uploadAvatarButton = () => {
         }
     };
 
-    fileInput.click(); // Trigger the file input dialog
+    fileInput.click();
 };
 
 export const saveAvatarButton = async () => {
     const fileInput = document.getElementById('avatar-input-modal');
-    const file = fileInput.files[0]; // Check if a new avatar was uploaded
+    const file = fileInput.files[0];
     const avatarPreview = document.getElementById('avatar-preview-modal');
     const avatarImage = document.getElementById('avatar');
 
-    // Check if the current avatar is the default (meaning it was removed)
     const isAvatarRemoved = avatarPreview.src.includes('default-avatar.png');
 
     if (isAvatarRemoved) {
-        // If the avatar was removed, call the removal API
         try {
             const response = await fetch('/api/avatar_remove/', {
                 method: 'POST',
@@ -244,7 +233,6 @@ export const saveAvatarButton = async () => {
             const result = await response.json();
 
             if (result.success) {
-                // Update the avatar image to the default
                 avatarImage.src = "/static/default-avatar.png";
             } else {
                 console.error('Failed to remove avatar:', result.message);
@@ -257,7 +245,7 @@ export const saveAvatarButton = async () => {
         let fileToUpload = file || lastValidFile;
 
         const formData = new FormData();
-        formData.append('avatar', fileToUpload); // Append the correct file
+        formData.append('avatar', fileToUpload);
 
         try {
             const response = await fetch('/api/avatar_update/', {
@@ -271,7 +259,6 @@ export const saveAvatarButton = async () => {
             const result = await response.json();
 
             if (result.success) {
-                // Update the avatar image
                 avatarImage.src = result.avatarUrl;
             } else {
                 console.error('Failed to update avatar:', result.message);
@@ -282,11 +269,9 @@ export const saveAvatarButton = async () => {
         }
 
     } else {
-        // No changes were made; exit early
         console.log('No changes to avatar.');
     }
 
-    // Hide the modal
     const modalInstance = bootstrap.Modal.getInstance(document.getElementById('edit-avatar-modal'));
     if (modalInstance) {
         modalInstance.hide();
@@ -295,11 +280,10 @@ export const saveAvatarButton = async () => {
     setTimeout(() => {
         const backdrop = document.querySelector('.modal-backdrop');
         if (backdrop) {
-            backdrop.remove(); // Remove the lingering backdrop
+            backdrop.remove();
         }
     }, 20);
 
-    // Clear the file input
 	checkUserState();
     fileInput.value = '';
 };
@@ -310,15 +294,11 @@ export const removeAvatarButton = () => {
     const removeButton = document.getElementById('remove-avatar-modal');
     const saveButton = document.getElementById('save-avatar-modal');
 
-    // Show the default avatar in the preview
     avatarImage.src = '/static/default-avatar.png';
 
-    // Ensure file input is cleared, so no file is sent to the server
     fileInput.value = '';
 
-    // Hide the remove button since the avatar is now the default
     removeButton.style.display = 'none';
 
-    // Enable the save button
     saveButton.disabled = false;
 };
