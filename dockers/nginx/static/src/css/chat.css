@@ -398,3 +398,8 @@
 	border: 1px solid rgba(255, 255, 255, 0.5);
 	margin-left: 15px;
 }
+
+#join-btn {
+	border: 1px solid rgba(255, 255, 255, 0.5);
+	margin-top: 5px;
+}

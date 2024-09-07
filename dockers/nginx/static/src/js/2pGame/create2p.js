@@ -15,7 +15,7 @@ import { renderPlayerList } from '/static/src/js/end.js';
 import { endGame } from '/static/src/js/end.js';
 import { variables } from '/static/src/js/variables.js';
 import { getSocket } from '/static/views/lobby.js';
-import { getLobbyOpen } from '/static/src/js/socket_handling/lobby_socket.js';
+//import { getLobbyOpen } from '/static/src/js/socket_handling/lobby_socket.js';
 
 let group;
 export let keys = {
@@ -50,29 +50,22 @@ export function create2Pgame(mappov, socket, names) {
     const renderer = initRenderer();
     renderer.setAnimationLoop(animate);
 
-    // create plane and edges
     const plane = new initPlane();
     const planeEdges = new initEdges(mappov + 1);
 
-    // create walls
     const walls = new initWalls(mappov + 1);
 
-    // create players
     const players = new initPlayers(mappov + 1);
 
-    // create ball
     let ball = new Ball(scene);
     const ballmesh = ball.getMesh();
 
-    // create light
     const groupCornerLights = new initCornerLights(ballmesh);
     const light = new THREE.AmbientLight(0xffffff, 1);
 
-    // controls
     const controls = new OrbitControls(camera, renderer.domElement);
     controls.update();
 
-    // add objects to group
     group.add(plane);
     group.add(walls);
     group.add(players);

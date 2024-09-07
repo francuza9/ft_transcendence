@@ -1,21 +1,13 @@
 from pathlib import Path
+from dotenv import load_dotenv
 import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
-
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-pmw=v+l$+vufr@*%&!)*!)6v&e7yg)024^hf5mhrkp-siv&%jd'
-
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
-ALLOWED_HOSTS = [
-	'*',]
+SECRET_KEY = os.getenv('SECRET_KEY')
+DEBUG = os.getenv('DEBUG', 'False') == 'True'
+ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS').split(',')
 
 
 # Application definition
@@ -162,8 +154,8 @@ AUTH_PASSWORD_VALIDATORS = [
 
 #Github Login
 
-GITHUB_CLIENT_ID = 'Ov23li5k50XUjRjLs4bc'
-GITHUB_CLIENT_SECRET = '157ac47a8bf78d34acb704d057c6ec892d06fc1c'
+GITHUB_CLIENT_ID = os.getenv('GITHUB_CLIENT_ID')
+GITHUB_CLIENT_SECRET = os.getenv('GITHUB_CLIENT_SECRET')
 
 # Internationalization
 # https://docs.djangoproject.com/en/5.0/topics/i18n/
