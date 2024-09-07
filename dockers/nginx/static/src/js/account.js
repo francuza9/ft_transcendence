@@ -1,4 +1,5 @@
 import { fetchAccountInfo } from '/static/src/js/utils.js';
+import { getTranslation } from '/static/src/js/lang.js';
 import { handleRouting } from '/static/routers/router.js';
 import { getCookie } from '/static/src/js/cookies.js';
 import { checkUserState } from '/static/src/js/settings.js';
@@ -12,8 +13,6 @@ export const accountButton = (e) => {
 }
 
 export const editField = (field) => {
-    console.log('Editing field:', field);
-
     if (field === 'avatar') {
 		const avatarImage = document.getElementById('avatar');
 		const avatarPreview = document.getElementById('avatar-preview-modal');
@@ -157,7 +156,7 @@ export const savePasswordButton = async () => {
 				}, 20);
 
 			console.log('Password updated successfully');
-			alert('Password updated successfully');
+			alert(getTranslation('pages.account.passwordUpdateSuccessfull'));
 		} else {
 			errorElement.textContent = result.message;
 			errorElement.style.display = 'block';
@@ -182,12 +181,12 @@ export const uploadAvatarButton = () => {
 
         if (file) {
             if (file.size > maxFileSize) {
-                alert('File size exceeds the limit of 2MB');
+                alert(getTranslation('pages.account.fileSizeExceeded'));
                 fileInput.value = '';
                 return;
             }
             if (!allowedFormats.includes(file.type)) {
-                alert('File format not supported. Please upload a JPEG or PNG image');
+                alert(getTranslation('pages.account.unsuportedFormat'));
                 fileInput.value = '';
                 return;
             }

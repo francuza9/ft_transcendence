@@ -40,15 +40,11 @@ Bugs {
 	
 	Leaderboard (not important at all):
 		Add Tournaments won and multiplayer games won, along with buttons to sort by them
-	
-	Important: Fix missing translation keys in account page
 }
 
 [Marijn] {
 
 	Fix Github Auth to not reload SPA
-
-	Important: Fix missing translation keys in account page
 
 	Update map preview images
 
