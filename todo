@@ -16,7 +16,7 @@ General Mandatory Todo {
 	- 42 Authentication
 
 	Chat:
-	- Tournament Should warn users about the start of the game
+	- Tournament Should warn users about the start of the game 
 	
 	Extra Features That affect mandatory:
 	- Github should be SPA
@@ -29,6 +29,8 @@ Bugs {
 }
 
 [George] {
+
+	Fix history
 
 	When lobby doesnt exist, redirect to join page and show error popup to client
 
@@ -46,18 +48,14 @@ Bugs {
 
 	Fix Github Auth to not reload SPA
 
-	Update map preview images
+	Match History
 
 	Tournament View
 
+	Chat notifications
 
 
-
-
-
-
-
-
+	Update map preview images
 
 	Add all languages in translations (only at end)
 
