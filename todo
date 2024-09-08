@@ -49,6 +49,8 @@ Bugs {
 
 [Marijn] {
 
+	Hide guests from leaderboard
+	
 	Fix Github Auth to not reload SPA
 
 	Improve Match History table css

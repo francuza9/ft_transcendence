@@ -59,7 +59,9 @@ export async function viewProfile(event, player) {
 				if (matchHistoryTable) {
 					matchHistoryTable.remove();
 				}
-				buttonsRow.classList.remove('hidden');
+				if (!((variables.username === playerData.username) || isGuest(variables.username))) {
+					buttonsRow.classList.add('hidden');
+				}
 				statsRow.classList.remove('hidden');
 				bioRow.classList.remove('hidden');
 				backButton.classList.add('hidden');
