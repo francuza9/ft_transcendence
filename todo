@@ -8,7 +8,6 @@ General Mandatory Todo {
 
 	Mandatory Part:
 	- Not push Passwords on git
-	- Fix history
 	- Tournament Display
 
 	Remote Authentication:
@@ -28,8 +27,6 @@ Bugs {
 }
 
 [George] {
-
-	Fix history
 
 	When lobby doesnt exist, redirect to join page and show error popup to client
 

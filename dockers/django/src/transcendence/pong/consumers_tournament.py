@@ -62,6 +62,7 @@ class TournamentConsumer(AsyncWebsocketConsumer):
 		data = json.loads(text_data)
 		message_type = data.get('type')
 		content = data.get('content')
+		first_time_flag = True
 
 		if message_type == 'init':
 			if tournament_states[self.lobby_id]['players'] is None:
@@ -69,7 +70,8 @@ class TournamentConsumer(AsyncWebsocketConsumer):
 			while True:
 				if not tournament_states[self.lobby_id]['pairs']:
 					tournament_states[self.lobby_id]['pairs'] = self.generate_pairs(tournament_states[self.lobby_id]['players'])
-					await self.send_matchups()
+					await self.send_matchups(first_time_flag)
+					first_time_flag = False
 				if len([player for player, is_bot in tournament_states[self.lobby_id]['players'].items() if not is_bot]) <= tournament_states[self.lobby_id]['connections']:
 					await self.start_tournament()
 				while True:
@@ -124,12 +126,13 @@ class TournamentConsumer(AsyncWebsocketConsumer):
 						break
 				await self.send_to_pair(usernames, lobby_id, aiGame, botName)
 
-	async def send_matchups(self):
+	async def send_matchups(self, first_time_flag):
 		tournament_state = tournament_states[self.lobby_id]
 		message = {
 			'type': 'matchups',
 			'content': {
 				'matchups': tournament_state['pairs'],
+				'firstTime': first_time_flag,
 			}
 		}
 		

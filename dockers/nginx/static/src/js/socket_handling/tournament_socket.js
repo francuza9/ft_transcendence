@@ -34,6 +34,7 @@ export async function initTournamentSocket(variables) {
 					}
 				} else if (message.type === 'matchups') {
 					console.log(message.content.matchups);
+					console.log("First time: ", message.content.firstTime); // Disp tournament is starting if this value is true
 					generateTournamentView(message.content.matchups);
 				}
 			};
