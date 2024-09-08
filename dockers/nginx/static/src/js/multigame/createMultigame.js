@@ -13,8 +13,6 @@ import { variables } from '/static/src/js/variables.js';
 import { create2Pgame } from '/static/src/js/2pGame/create2p.js';
 
 export function createMultigame(pcount, pov, map, socket) {
-	console.log("My name: ", variables.username);
-
 	if (pov > pcount)
 		pov = 0;
 	const scene = initScene();
@@ -102,7 +100,6 @@ export function createMultigame(pcount, pov, map, socket) {
 			let data = JSON.parse(event.data);
 			let pcountNew = data.pcount;
 			if (data.result != undefined && data.result != null) {
-				console.log("data result: ", data.result);
 				if (data.result === pov - 1 || pov === 0) {
 					cleanup();
 					if (pcountNew != 2) {
@@ -249,7 +246,6 @@ export function createMultigame(pcount, pov, map, socket) {
 	}
 
 	function cleanup() {
-		console.log("cleanup called: ", renderer);
 		renderer.setAnimationLoop(null);
 		window.removeEventListener('resize', onWindowResize);
 		window.removeEventListener('keydown', boundOnKeydown);

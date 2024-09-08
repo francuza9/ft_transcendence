@@ -196,6 +196,9 @@ class PongConsumer(AsyncWebsocketConsumer):
 					times.append(time_length)
 					times.append(time_length)
 					names_list = list(game_state.get('player_data', {}).keys())
+					if game_state.get('multi')['finished']:
+						names_list = game_state.get('multi_winners')
+						names_list = [names_list[0].get('name', 'player_1'), names_list[1].get('name', 'player_2')]
 					if not names_list:
 						names_list = game_state.get('multi_winners')
 						names_list = [names_list[0].get('name', 'player_1'), names_list[1].get('name', 'player_2')]
