@@ -37,10 +37,7 @@ export function createMultigame(pcount, pov, map, socket) {
 
 	const light = new THREE.AmbientLight(0xffffff, 1);
 	const lights = createLights(pcount, ballMesh, vectorObjects);
-
 	const players = createPlayers(pcount, pov, vectorObjects);
-
-	// Attach direction vectors and side lengths to each player
 	players.children.forEach((player, i) => {
 		let v1 = vectorObjects[i];
 		let v2 = vectorObjects[(i + 1) % pcount];
@@ -57,7 +54,6 @@ export function createMultigame(pcount, pov, map, socket) {
 		sendInitialData(socket, vectorObjects);
 	}
 
-	// Controls
 	const controls = new OrbitControls(camera, renderer.domElement);
 	controls.update();
 
@@ -76,7 +72,6 @@ export function createMultigame(pcount, pov, map, socket) {
 
 	window.addEventListener('resize', onWindowResize, false);
 
-	// Event listeners for keyboard inputs
 	const keys = {
 		"a": false,
 		"d": false,
