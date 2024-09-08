@@ -29,6 +29,7 @@ from .views_avatar import (
 
 from .views_leaderboard import (
 	leaderboard_win_rate,
+    match_history,
 )
 
 from .views_friends import (

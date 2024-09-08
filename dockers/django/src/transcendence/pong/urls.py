@@ -21,4 +21,5 @@ urlpatterns = [
 	path('api/blocked/', views.get_blocked, name='get_blocked'),
 	path('api/friend_requests/', views.get_friend_requests, name='get_friend_requests'),
 	path('api/messages/<str:username>/', views.get_messages, name='get_messages'),
+    path('api/match_history/<str:username>/', views.match_history, name='match_history'),
 ]

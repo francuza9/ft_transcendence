@@ -123,12 +123,15 @@
     backdrop-filter: blur(15px);
     border-radius: 10px;
     color: white;
+	width: 600px;
+	padding: 8px;
 }
 
 #close-profile {
+	position: absolute;
 	font-size: inherit;
 	margin-top: inherit !important;
-	top: 28px !important;
+	top: 38px !important;
 	right: 30px !important;
 }
 
@@ -141,4 +144,38 @@
     background-color: limegreen;
     border-radius: 50%;
     display: none;
+}
+
+#games {
+	cursor: pointer;
+}
+
+#back-button {
+    background: transparent;
+	position: absolute;
+	font-size: inherit;
+	margin-top: inherit !important;
+	top: 30px !important;
+	left: 30px !important;
+	color: rgba(255, 255, 255, 0.5);
+	border: none;
+}
+
+#back-button i {
+    font-size: 1.7rem;
+}
+
+.table-container {
+    flex: 1;
+    overflow-y: auto;
+    max-height: 30vh;
+}
+
+#match-history .table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+#match-history .table td, .table th {
+    padding: 8px;
 }
