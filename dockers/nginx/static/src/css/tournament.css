@@ -1,0 +1,55 @@
+body {
+    background-color: black;
+    color: white;
+}
+
+.tournament-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.current-matches {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.match {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+}
+
+.player-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 150px; /* Adjust size as needed */
+}
+
+.player-avatar {
+    width: 100px; /* Adjust size as needed */
+    height: 100px; /* Adjust size as needed */
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+.vs {
+    font-size: 24px;
+    font-weight: bold;
+    color: white;
+}
+
+.player-placeholder {
+    width: 150px; /* Same size as player boxes */
+    height: 100px; /* Same size as player boxes */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 24px;
+    background-color: #f0f0f0;
+}
