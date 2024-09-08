@@ -15,27 +15,22 @@ class CustomUser(AbstractUser):
 	blocked_users = models.ManyToManyField('self', blank=True, symmetrical=False, related_name='blocked_by')
 
 	class Meta:
-		db_table = 'users'  # Set a custom table name
+		db_table = 'users'
 
 	@classmethod
 	def generate_unique_username(cls, prefix):
-		"""Generate a unique username with a given prefix and length."""
 		import random
 		import string
 		
 		while True:
-			username = f"{prefix}{''.join(random.choices(string.digits, k=6))}" #increase k to accomoadate more users
+			username = f"{prefix}{''.join(random.choices(string.digits, k=6))}"
 			if not cls.objects.filter(username=username).exists():
 				return username
 
 	@classmethod
 	def create_guest_user(cls, username_prefix="guest"):
-		"""Creates and returns a new guest user."""
-
-		# Generate a random guest username
 		guest_username = cls.generate_unique_username(username_prefix)
 
-		# Create the guest user with no email or password, and mark as guest
 		guest_user = cls.objects.create_user(
 			username=guest_username,
 			email=None,
@@ -46,12 +41,8 @@ class CustomUser(AbstractUser):
 	
 	@classmethod
 	def create_bot_user(cls, username_prefix="bot"):
-		"""Creates and returns a new bot user."""
-
-		# Generate a random bot username
 		bot_username = cls.generate_unique_username(username_prefix)
 
-		# Create the bot user with no email or password, and mark as bot
 		bot_user = cls.objects.create_user(
 			username=bot_username,
 			email=None,
@@ -78,18 +69,16 @@ class Profile(models.Model):
 	updatedAt = models.DateTimeField(auto_now=True)
 
 	class Meta:
-		db_table = 'profiles'  # Set a custom table name
+		db_table = 'profiles'
 
 	def save(self, *args, **kwargs):
-		# Check if the bio length exceeds 10 characters
 		if len(self.bio) > 500:
 			raise ValueError("Bio cannot exceed 10 characters.")
 
-		# Check if displayName is empty or default, and assign the user's username
 		if not self.displayName or self.displayName == 'displayName':
 			self.displayName = self.user.username
 
-		super().save(*args, **kwargs)  # Call the original save method
+		super().save(*args, **kwargs)
 
 	def __str__(self):
 		return self.displayName
@@ -100,17 +89,17 @@ class Tournament(models.Model):
 	startDate = models.DateTimeField(default=timezone.now)
 	endDate = models.DateTimeField(null=True, blank=True)
 	has_bots = models.BooleanField(default=False)
-	max_players = models.PositiveIntegerField(default=8)  # Maximum number of players allowed
+	max_players = models.PositiveIntegerField(default=8)
 	winner = models.ForeignKey(
 		CustomUser, 
 		null=True, 
 		blank=True, 
 		on_delete=models.SET_NULL, 
 		related_name='won_tournaments'
-	)  # Nullable, as the tournament may not have a winner yet
+	)  
 
 	class Meta:
-		db_table = 'tournaments'  # Set a custom table name
+		db_table = 'tournaments'\
 
 	def __str__(self):
 		return self.name
