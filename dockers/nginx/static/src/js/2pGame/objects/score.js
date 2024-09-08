@@ -48,9 +48,9 @@ export function updateScore(newScore, scoremesh) {
 
 		let color;
         if (score[0] > score[1]) {
-            color = 0xff0000; // Red
+            color = 0xd11913; // Red
         } else if (score[0] < score[1]) {
-            color = 0x0000ff; // Blue
+            color = 0x1653e0; // Blue
         } else {
             color = 0xffffff; // White
         }

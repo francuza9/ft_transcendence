@@ -15,17 +15,14 @@ export async function generateTournamentView(players, firstTime) {
     const tournamentContainer = document.createElement('div');
     tournamentContainer.className = 'tournament-container w-100';
 
-    // Create top half for current matches
     const currentMatches = document.createElement('div');
     currentMatches.className = 'current-matches';
 
-    // Populate current matches
     for (const pair of players) {
 		console.log(pair);
         const matchDiv = document.createElement('div');
         matchDiv.className = 'match';
 
-        // Create player boxes
         const playerDivs = [];
         for (const playerKey in pair) {
             const isBot = pair[playerKey];
@@ -33,7 +30,6 @@ export async function generateTournamentView(players, firstTime) {
             playerDivs.push(playerDiv);
         }
 
-        // Append player boxes and "VS" between them
         matchDiv.appendChild(playerDivs[0]);
         
         const vsDiv = document.createElement('div');
@@ -46,11 +42,7 @@ export async function generateTournamentView(players, firstTime) {
         currentMatches.appendChild(matchDiv);
     }
 
-    // Append the top half to the container
     tournamentContainer.appendChild(currentMatches);
-
-    // Append the tournament container to the section
-	console.log('added', tournamentContainer);
     section.appendChild(tournamentContainer);
 }
 

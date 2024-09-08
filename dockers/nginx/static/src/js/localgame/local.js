@@ -52,15 +52,15 @@ export function checkCollision(ball, players, score, lights, scoremesh, pointsTo
 			ball.speed += 0.02;
 		if (ball.direction.x > 0)
 		{
-			ball.color = 0xff0000;
+			ball.color = 0xd11913;
 			for (let i = 0; i < 4; i++)
-				lights[i].color.setHex(0xff0000);
+				lights[i].color.setHex(0xd11913);
 		}
 		else
 		{
-			ball.color = 0x0000ff;
+			ball.color = 0x1653e0;
 			for (let i = 0; i < 4; i++)
-				lights[i].color.setHex(0x0000ff);
+				lights[i].color.setHex(0x1653e0);
 		}
 		ball.ball.material.color.setHex(ball.color);
 		return ;
@@ -91,9 +91,9 @@ export function checkCollision(ball, players, score, lights, scoremesh, pointsTo
 		return ;
 	if (scoremesh.material && scoremesh.material.color) {
 	    if (score[0] > score[1])
-	        scoremesh.material.color.setHex(0xff0000); // Set to red
+	        scoremesh.material.color.setHex(0xd11913); // Set to red
 	    else if (score[0] < score[1])
-	        scoremesh.material.color.setHex(0x0000ff); // Set to blue
+	        scoremesh.material.color.setHex(0x1653e0); // Set to blue
 	    else
 	        scoremesh.material.color.setHex(0xffffff); // Set to white
 	} else {

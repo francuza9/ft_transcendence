@@ -87,17 +87,11 @@ export class Ball {
 	}
 
     animate() {
-    // Move ball in direction
 		this.ball.position.add(this.direction.clone().multiplyScalar(this.speed));
 		this.ball2.position.set(this.ball.position.x, this.ball.position.y, this.ball.position.z);
 
 		this.ball.rotation.y -= this.direction.x / 15;
 		this.ball2.rotation.y = this.ball.rotation.y + 0.6;
-
-		// if (this.direction.x > 0)
-			// this.color = 0xff0000;
-		// else
-			// this.color = 0x0000ff;
 
 		let x = 0;
 		if (this.speed > 0.25)
@@ -110,25 +104,20 @@ export class Ball {
 		if (this.frameCounter % x === 0) {
 			for (let i = 0; i < this.trail.length; i++) {
 				if (i === 0) {
-            	    // The first (largest) sphere directly follows the ball
 					this.trail[i].position.set(this.ball.position.x, this.ball.position.y, this.ball.position.z);
 				} else {
-            	    // Subsequent spheres follow the one before them, creating a trailing effect
 					this.trail[i].position.lerp(this.trail[i - 1].position, 0.5);
 				}
 			}
 		}
 		this.frameCounter++;
-		// this.adjustColorTowardsWhite();
 	}
 
 	adjustColorTowardsWhite() {
-    	// Extract RGB components
     	let r = (this.color >> 16) & 0xFF;
     	let g = (this.color >> 8) & 0xFF;
     	let b = this.color & 0xFF;
 
-    	// Increment each component, ensuring it does not exceed 0xFF
     	r = Math.min(r + 1, 0xFF);
     	g = Math.min(g + 1, 0xFF);
     	b = Math.min(b + 1, 0xFF);
