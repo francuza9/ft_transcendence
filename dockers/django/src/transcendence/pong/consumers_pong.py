@@ -232,6 +232,22 @@ class PongConsumer(AsyncWebsocketConsumer):
 					p1 = await self.getUserDB(names_list[0])
 					p2 = await self.getUserDB(names_list[1])
 					pwin = await self.getUserDB(winner_username)
+
+					new_game = await sync_to_async(Game.objects.create)(
+						player1=p1,
+						player2=p2,
+						winner=pwin,
+						has_bots=botGame,
+						player1Score=score[0],
+						player2Score=score[1],
+						is_tournament=game_state.get('partOfTournament', False),
+					)
+					await sync_to_async(new_game.save)()
+
+					p1 = await self.getProfileDB(names_list[0])
+					p2 = await self.getProfileDB(names_list[1])
+					pwin = await self.getProfileDB(winner_username)
+
 					if not botGame:
 						if p1:
 							if pwin and pwin == p1:
@@ -384,7 +400,7 @@ class PongConsumer(AsyncWebsocketConsumer):
 			'multi_winners': [],
 		}
 
-	async def getUserDB(self, target):
+	async def getProfileDB(self, target):
 		try:
 			user = await sync_to_async(CustomUser.objects.get)(username=target)
 			
@@ -400,6 +416,18 @@ class PongConsumer(AsyncWebsocketConsumer):
 			profile = None
 			
 		return profile
+
+	async def getUserDB(self, target):
+		try:
+			user = await sync_to_async(CustomUser.objects.get)(username=target)
+		except CustomUser.DoesNotExist:
+			logger.info("User not found")
+			user = None
+		except Exception as e:
+			logger.error(f"Error fetching profile: {e}")
+			user = None
+			
+		return user
 
 	async def getDispFromDB(self, target):
 		try:
