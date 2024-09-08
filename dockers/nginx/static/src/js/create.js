@@ -1,8 +1,6 @@
 import {replaceHTML} from '/static/src/js/utils.js';
 import {variables} from '/static/src/js/variables.js';
 import {checkLoginStatus, guestLogin, ensureUsername} from '/static/src/js/utils.js';
-import {refreshLobbyDetails} from '/static/src/js/lobby.js';
-import {initLobbySocket} from '/static/src/js/socket_handling/lobby_socket.js';
 import {Lobby} from '/static/views/lobby.js';
 
 export const setDefaultRoomName = () => {

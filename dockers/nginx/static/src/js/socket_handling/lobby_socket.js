@@ -3,6 +3,7 @@ import { ensureUsername } from '/static/src/js/utils.js';
 import { handleRouting } from '/static/routers/router.js';
 import { Pong } from '/static/views/pong_view.js';
 import { initTournamentSocket } from '/static/src/js/socket_handling/tournament_socket.js';
+import {updateInLobby} from '/static/src/js/lobby.js';
 
 
 export async function initLobbySocket(variables, aiGame = false) {
@@ -41,8 +42,10 @@ export async function initLobbySocket(variables, aiGame = false) {
 				history.pushState(null, '', `/join`);
 				handleRouting();
 			} else if (message.type === 'start') {
+				updateInLobby(false);
 				Pong(message.content);
 			} else if (message.type === 'start_tournament') {
+				updateInLobby(false);
 				initTournamentSocket(variables).then((tournamentSocket) => {
 					tournamentSocket.send(JSON.stringify({ type: 'init', content: message.content }));
 				});

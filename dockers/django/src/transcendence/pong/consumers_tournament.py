@@ -10,8 +10,6 @@ logger = logging.getLogger(__name__)
 tournament_states = {}
 
 class TournamentConsumer(AsyncWebsocketConsumer):
-	max_connections = 8
-
 	async def connect(self):
 		try:
 			self.lobby_id = self.scope['url_route']['kwargs'].get('lobbyId')
@@ -26,19 +24,18 @@ class TournamentConsumer(AsyncWebsocketConsumer):
 					'pairs': [],
 					'results': [],
 					'player_connections': {},
+					'ran': False,
+					'self': self,
 				}
 
 			tournament_state = tournament_states[self.lobby_id]
-			if tournament_state['connections'] >= self.max_connections:
-				await self.close()
+			user = self.scope['user']
+			if user.is_authenticated:
+				tournament_state['connections'] += 1
+				tournament_state['player_connections'][self.username] = self
+				await self.accept()
 			else:
-				user = self.scope['user']
-				if user.is_authenticated:
-					tournament_state['connections'] += 1
-					tournament_state['player_connections'][self.username] = self
-					await self.accept()
-				else:
-					await self.close()
+				await self.close()
 
 		except Exception as e:
 			logger.error(f"Error during connection setup: {e}")
@@ -65,33 +62,33 @@ class TournamentConsumer(AsyncWebsocketConsumer):
 		first_time_flag = True
 
 		if message_type == 'init':
-			if tournament_states[self.lobby_id]['players'] is None:
+			if not tournament_states[self.lobby_id]['ran']:
+				tournament_states[self.lobby_id]['ran'] = True
 				tournament_states[self.lobby_id]['players'] = content
-			while True:
-				if not tournament_states[self.lobby_id]['pairs']:
-					tournament_states[self.lobby_id]['pairs'] = self.generate_pairs(tournament_states[self.lobby_id]['players'])
-					await self.send_matchups(first_time_flag)
-					if first_time_flag:
-						await asyncio.sleep(10)
-					first_time_flag = False
-				if len([player for player, is_bot in tournament_states[self.lobby_id]['players'].items() if not is_bot]) <= tournament_states[self.lobby_id]['connections']:
-					await self.start_tournament()
 				while True:
-					if len(tournament_states[self.lobby_id]['results']) == len(tournament_states[self.lobby_id]['pairs']):
-						temp_list = {}
-						if len(tournament_states[self.lobby_id]['results']) == 1:
+					if not tournament_states[self.lobby_id]['pairs']:
+						tournament_states[self.lobby_id]['pairs'] = self.generate_pairs(tournament_states[self.lobby_id]['players'])
+					await self.send_matchups(first_time_flag)
+					first_time_flag = False
+					await asyncio.sleep(5)
+					if len([player for player, is_bot in tournament_states[self.lobby_id]['players'].items() if not is_bot]) <= tournament_states[self.lobby_id]['connections']:
+						await self.start_tournament()
+					while True:
+						if len(tournament_states[self.lobby_id]['results']) == len(tournament_states[self.lobby_id]['pairs']):
+							temp_list = {}
+							if len(tournament_states[self.lobby_id]['results']) == 1:
+								break
+							for i in tournament_states[self.lobby_id]['results']:
+								temp_list.update(i)
+							tournament_states[self.lobby_id]['players'] = temp_list
+							tournament_states[self.lobby_id]['pairs'] = []
+							tournament_states[self.lobby_id]['results'] = []
 							break
-						for i in tournament_states[self.lobby_id]['results']:
-							temp_list.update(i)
-						tournament_states[self.lobby_id]['players'] = temp_list
-						tournament_states[self.lobby_id]['pairs'] = []
-						tournament_states[self.lobby_id]['results'] = []
+						else:
+							await asyncio.sleep(1)
+					if len(tournament_states[self.lobby_id]['results']) == 1:
+						logger.info(f"Winner: {tournament_states[self.lobby_id]['results']}")
 						break
-					else:
-						await asyncio.sleep(1)
-				if len(tournament_states[self.lobby_id]['results']) == 1:
-					logger.info(f"Winner: {tournament_states[self.lobby_id]['results']}")
-					break
 
 
 	def generate_pairs(self, players):
@@ -128,7 +125,7 @@ class TournamentConsumer(AsyncWebsocketConsumer):
 						break
 				await self.send_to_pair(usernames, lobby_id, aiGame, botName)
 
-	async def send_matchups(self, first_time_flag):
+	async def send_matchups(self, first_time_flag=False):
 		tournament_state = tournament_states[self.lobby_id]
 		message = {
 			'type': 'matchups',
@@ -137,8 +134,8 @@ class TournamentConsumer(AsyncWebsocketConsumer):
 				'firstTime': first_time_flag,
 			}
 		}
-		
-		for connection in tournament_state['player_connections'].values():
+		await asyncio.sleep(0.5)
+		for username, connection in tournament_state['player_connections'].items():
 			await connection.send(text_data=json.dumps(message))
 
 	async def send_to_pair(self, usernames, lobby_id, aiGame, botName):
