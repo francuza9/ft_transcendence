@@ -32,9 +32,8 @@ export async function initTournamentSocket(variables) {
 					} else if (message.content.aiGame === false && message.content.admin === false) {
 						pvp_start(variables);
 					}
-				}
-				else if (message.type === 'matchups') {
-					console.log(message);
+				} else if (message.type === 'matchups') {
+					console.log(message.content.matchups);
 					generateTournamentView(message.content.matchups);
 				}
 			};
