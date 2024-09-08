@@ -34,7 +34,17 @@ Bugs {
 
 [Marijn] {
 
-	Fix Github Auth to not reload SPA
+	Fix clicking on bots to not do any requests to get profile
+
+	Remove Add a Bot button in lobby when tournament is full
+
+
+
+	Move Github token in JS to .env
+
+	Restore Github Authentication
+
+
 
 	Improve Match History table css
 
