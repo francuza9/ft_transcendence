@@ -49,15 +49,11 @@ Bugs {
 
 [Marijn] {
 
-	Hide guests from leaderboard
-	
 	Fix Github Auth to not reload SPA
 
 	Improve Match History table css
 
 	Tournament View
-
-	Chat notifications
 
 
 	Update map preview images
@@ -65,9 +61,14 @@ Bugs {
 	Add all languages in translations (only at end)
 
 	Extra {
+		Chat notifications
 		Fix window resize stretching background
 		Game transition animations
 		Animations for smooth transition between pages
 		Easter egg(s)
 	}
 }
+
+pairs[0].keys() --> players
+
+pairs [{p1,p2},{p3,p4},{...}]

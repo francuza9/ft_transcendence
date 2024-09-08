@@ -24,28 +24,37 @@ export async function initChat() {
 export const openChat = () => {
     const chatWindow = document.getElementById("chat-window");
     const chatInput = document.getElementById("chat-input");
-	const chatBtn = document.getElementById("chat-btn");
+    const chatBtn = document.getElementById("chat-btn");
     const sendBtn = document.getElementById("send-btn");
     const friendList = document.getElementById("friend-list");
-	const manageFriendsBtn = document.getElementById("manage-friends-btn");
-    
-    chatWindow.classList.remove("hidden");
-	chatBtn.classList.add("hidden");
+    const manageFriendsBtn = document.getElementById("manage-friends-btn");
+    const chatArea = document.getElementById("chat-area");
+    const backBtn = document.getElementById("back-btn");
 
-	checkLoginStatus().then(() => {
-		if (isGuest(variables.username) || !variables.username) {
-			friendList.innerHTML = '';
-			const noFriendsMessage = document.createElement("div");
-			noFriendsMessage.className = "error-message";
-			noFriendsMessage.innerText = getTranslation('chat.loginMessage');
-			noFriendsMessage.dataset.text = "chat.loginMessage";
-			friendList.appendChild(noFriendsMessage);
-			manageFriendsBtn.classList.add('hidden');
-		} else {
-			manageFriendsBtn.classList.remove('hidden');
-			loadFriends();
-		}
-	});
+    chatWindow.classList.remove("hidden");
+    chatBtn.classList.add("hidden");
+
+    if (chatArea && !chatArea.classList.contains("hidden")) {
+        manageFriendsBtn.classList.add("hidden");
+        backBtn.classList.remove("hidden");
+    } else {
+        manageFriendsBtn.classList.remove("hidden");
+        backBtn.classList.add("hidden");
+    }
+
+    checkLoginStatus().then(() => {
+        if (isGuest(variables.username) || !variables.username) {
+            friendList.innerHTML = '';
+            const noFriendsMessage = document.createElement("div");
+            noFriendsMessage.className = "error-message";
+            noFriendsMessage.innerText = getTranslation('chat.loginMessage');
+            noFriendsMessage.dataset.text = "chat.loginMessage";
+            friendList.appendChild(noFriendsMessage);
+            manageFriendsBtn.classList.add('hidden');
+        } else {
+            loadFriends();
+        }
+    });
 
     if (!chatInputListener) {
         chatInputListener = function(event) {

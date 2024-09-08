@@ -33,6 +33,10 @@ export async function initTournamentSocket(variables) {
 						pvp_start(variables);
 					}
 				}
+				else if (message.type === 'matchups') {
+					console.log(message);
+					generateTournamentView(message.content.matchups);
+				}
 			};
 
 			socket.onerror = function(error) {
