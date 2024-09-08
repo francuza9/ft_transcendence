@@ -8,7 +8,6 @@ import { initTournamentSocket } from '/static/src/js/socket_handling/tournament_
 export async function initLobbySocket(variables, aiGame = false) {
     return new Promise((resolve, reject) => {
         const socket = new WebSocket(`wss://${window.location.host}/ws/${variables.lobbyId}`);
-		lobby_open[variables.lobbyId] = true;
 
         socket.onopen = function() {
             ensureUsername().then(() => {

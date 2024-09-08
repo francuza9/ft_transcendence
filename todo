@@ -24,7 +24,6 @@ General Mandatory Todo {
 
 Bugs {
 
-	endgame popup after multi game is messed up
 
 }
 
@@ -33,6 +32,10 @@ Bugs {
 	Fix history
 
 	When lobby doesnt exist, redirect to join page and show error popup to client
+
+	blue player doesnt move for spectators after multi
+	
+	endgame popup after multi game is messed up
 
 	42 Auth
 
