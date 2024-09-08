@@ -1,3 +1,5 @@
+let socket;
+
 export async function initPongSocket(content) {
 	let roomId = content.roomID;
 	let room_size = content.playerCount;
@@ -9,7 +11,7 @@ export async function initPongSocket(content) {
 
     return new Promise((resolve, reject) => {
 
-        const socket = new WebSocket(`wss://${window.location.host}/ws/pong/${roomId}/`);
+        socket = new WebSocket(`wss://${window.location.host}/ws/pong/${roomId}/`);
 		let pov;
 
         socket.onopen = function() {
@@ -55,4 +57,8 @@ export async function initPongSocket(content) {
             console.log('Pong WebSocket connection closed.');
         };
     });
+}
+
+export function getPongSocket() {
+	return socket;
 }
