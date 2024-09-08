@@ -84,7 +84,7 @@ export function checkCollision(ball, players, score, lights, scoremesh, pointsTo
 	if (score[0] == pointsToWin || score[1] == pointsToWin)
 	{
 		return true;
-		// location.reload();
+		// location.Preload();
 	}
 	// Check if scoremesh has a material and if that material has a color property
 	if (scoremesh === 0)

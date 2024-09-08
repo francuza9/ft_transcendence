@@ -4,8 +4,9 @@ import {initLobbySocket} from '/static/src/js/socket_handling/lobby_socket.js';
 import {updateInLobby} from '/static/src/js/lobby.js';
 import {Join} from '/static/views/join.js';
 import {getTranslation} from '/static/src/js/lang.js';
-import {getPongSocket} from '/static/src/js/socket_handling/pong_socket.js';
 import {create2Pgame} from '/static/src/js/2pGame/create2p.js';
+import {createMultigame} from '/static/src/js/multigame/createMultigame.js';
+import {handleRouting} from '/static/routers/router.js';
 
 let socket;
 
@@ -45,6 +46,11 @@ export async function Lobby([lobbyId], valid=false) {
 function spectatePong(lobbyId) {
 
 	const socketPong = new WebSocket(`wss://${window.location.host}/ws/pong/${lobbyId}/`);
+	const section = document.getElementsByTagName('section')[0];
+	if (section) {
+		section.classList.add('hidden');
+	}
+
 
 	socketPong.onopen = function() {
 		console.log('Pong Spectator WebSocket connection opened.');
@@ -60,6 +66,8 @@ function spectatePong(lobbyId) {
 				const data = JSON.parse(event.data);
 				if (data.type === 'go') {
 					create2Pgame(0, socketPong, [data.names[0], data.names[1]]);
+				} else if (data.type === 'multi') {
+					createMultigame(data.size, 0, data.map, socketPong);
 				}
 			} catch (e) {
 				console.error('Pong Spectator Failed to parse JSON:', e, 'Received data:', event.data);
