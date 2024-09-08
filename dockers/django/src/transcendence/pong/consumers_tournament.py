@@ -72,7 +72,7 @@ class TournamentConsumer(AsyncWebsocketConsumer):
 					tournament_states[self.lobby_id]['pairs'] = self.generate_pairs(tournament_states[self.lobby_id]['players'])
 					await self.send_matchups(first_time_flag)
 					if first_time_flag:
-						asyncio.sleep(3)
+						await asyncio.sleep(10)
 					first_time_flag = False
 				if len([player for player, is_bot in tournament_states[self.lobby_id]['players'].items() if not is_bot]) <= tournament_states[self.lobby_id]['connections']:
 					await self.start_tournament()

@@ -133,7 +133,6 @@ export async function fetchAvatar(id, player) {
 			const response = await fetch(`/api/profile_info/${player}`);
 			result = await response.json();
 
-			console.log(result);
 			if (result.avatarUrl)
 				avatarUrl = result.avatarUrl;
 		}

@@ -50,9 +50,6 @@ Bugs {
 
 	Tournament View
 
-
-	Update map preview images
-
 	Add all languages in translations (only at end)
 
 	Extra {
@@ -63,3 +60,37 @@ Bugs {
 		Easter egg(s)
 	}
 }
+
+
+
+
+
+Player 1	Player 3
+	VS			VS
+Player 2	Player 4
+	???  VS  ???	
+
+		???
+		VS
+		???
+	
+	??? VS ???
+Player 5	Player 7
+	VS			VS
+Player 6	Player 8
+
+
+
+
+
+
+Player 1 VS Player 2         Player 3 VS Player 4
+	            ???  VS  ???	
+
+		???
+		VS
+		???
+	
+	??? VS ???
+Player 5 VS Player 6
+Player 7 VS Player 8

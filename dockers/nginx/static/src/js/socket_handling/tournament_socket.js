@@ -1,8 +1,9 @@
-
-import { ensureUsername } from '/static/src/js/utils.js';
+import {generateTournamentView} from '/static/src/js/tournament.js';
+import {ensureUsername} from '/static/src/js/utils.js';
 import {checkLoginStatus, guestLogin} from '/static/src/js/utils.js';
 import {initLobbySocket} from '/static/src/js/socket_handling/lobby_socket.js';
 import {addBot,startButton} from '/static/src/js/lobby.js';
+import {cleanupBackground} from '/static/src/js/background/background.js';
 
 export async function initTournamentSocket(variables) {
 	return new Promise((resolve, reject) => {
@@ -33,9 +34,8 @@ export async function initTournamentSocket(variables) {
 						pvp_start(variables);
 					}
 				} else if (message.type === 'matchups') {
-					console.log(message.content.matchups);
-					console.log("First time: ", message.content.firstTime); // Disp tournament is starting if this value is true
-					generateTournamentView(message.content.matchups);
+					generateTournamentView(message.content.matchups, message.content.firstTime);
+					cleanupBackground();
 				}
 			};
 

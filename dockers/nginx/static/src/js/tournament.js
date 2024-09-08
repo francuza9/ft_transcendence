@@ -1,74 +1,86 @@
-function generateTournament(players) {
-  const tournamentContainer = document.createElement('div');
-  tournamentContainer.classList.add('tournament-container');
-  
-  // Create the current round section
-  const currentRound = document.createElement('div');
-  currentRound.classList.add('current-round');
-  
-  players.forEach(pair => {
-    // Create player boxes for each pair
-    const playerBox1 = createPlayerBox(pair.p1);
-    const playerBox2 = createPlayerBox(pair.p2);
-    
-    currentRound.appendChild(playerBox1);
-    const line = createLine(); // Optional: Create a line between player pairs
-    currentRound.appendChild(line);
-    currentRound.appendChild(playerBox2);
-  });
+import { fetchAvatar, isGuest } from '/static/src/js/utils.js';
 
-  tournamentContainer.appendChild(currentRound);
-
-  // Create the next round section (empty boxes for the winners)
-  const nextRound = document.createElement('div');
-  nextRound.classList.add('next-round');
-  
-  const futureBoxCount = players.length / 2;
-  for (let i = 0; i < futureBoxCount; i++) {
-    const futureBox = createFutureBox();
-    nextRound.appendChild(futureBox);
-    if (i < futureBoxCount - 1) {
-      const line = createLine(); // Optional: Line between future boxes
-      nextRound.appendChild(line);
+export async function generateTournamentView(players, firstTime) {
+    console.log(players);
+    if (firstTime) {
+        console.log(firstTime);
     }
-  }
 
-  tournamentContainer.appendChild(nextRound);
+    const section = document.querySelector('section');
+    section.innerHTML = '';
 
-  document.body.appendChild(tournamentContainer); // Append the entire structure to the body
+    addTournamentStylesheet();
+
+    const tournamentContainer = document.createElement('div');
+    tournamentContainer.className = 'tournament-container w-100';
+
+    // Create top half for current matches
+    const currentMatches = document.createElement('div');
+    currentMatches.className = 'current-matches';
+
+    // Populate current matches
+    for (const pair of players) {
+        const matchDiv = document.createElement('div');
+        matchDiv.className = 'match';
+
+        // Create player boxes
+        const playerDivs = [];
+        for (const playerKey in pair) {
+            const isBot = pair[playerKey];
+            const playerDiv = createPlayerBox(playerKey, isBot);
+            playerDivs.push(playerDiv);
+        }
+
+        // Append player boxes and "VS" between them
+        matchDiv.appendChild(playerDivs[0]);
+        
+        const vsDiv = document.createElement('div');
+        vsDiv.className = 'vs';
+        vsDiv.textContent = 'VS';
+        matchDiv.appendChild(vsDiv);
+
+        matchDiv.appendChild(playerDivs[1]);
+
+        currentMatches.appendChild(matchDiv);
+    }
+
+    // Append the top half to the container
+    tournamentContainer.appendChild(currentMatches);
+
+    // Append the tournament container to the section
+    section.appendChild(tournamentContainer);
 }
 
-// Helper function to create a player box
-function createPlayerBox(player) {
-  const playerBox = document.createElement('div');
-  playerBox.classList.add('player-box');
-  
-  const img = document.createElement('img');
-  img.src = player.avatar;
-  img.alt = player.username;
-  img.classList.add('player-avatar');
-  
-  const name = document.createElement('span');
-  name.textContent = player.username;
-  name.classList.add('player-name');
-  
-  playerBox.appendChild(img);
-  playerBox.appendChild(name);
-  
-  return playerBox;
+function addTournamentStylesheet() {
+    const existingLink = document.querySelector('link[href="/static/src/css/tournament.css"]');
+    if (!existingLink) {
+        const link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.href = '/static/src/css/tournament.css';
+        document.head.appendChild(link);
+    }
 }
 
-// Helper function to create a future box with ???
-function createFutureBox() {
-  const futureBox = document.createElement('div');
-  futureBox.classList.add('future-box');
-  futureBox.textContent = '???';
-  return futureBox;
-}
+function createPlayerBox(username, isBot) {
+    const playerBox = document.createElement('div');
+    playerBox.classList.add('player-box');
 
-// Helper function to create a line between boxes (optional)
-function createLine() {
-  const line = document.createElement('div');
-  line.classList.add('line');
-  return line;
+    const img = document.createElement('img');
+    img.classList.add('player-avatar');
+    img.id = username;
+    img.src = '/static/default-avatar.png'; // Use default avatar
+
+    const name = document.createElement('span');
+    name.textContent = username;
+    name.classList.add('player-name');
+
+    playerBox.appendChild(img);
+    playerBox.appendChild(name);
+
+    // No need to fetch avatars for bots
+    if (!isBot && !isGuest(username)) {
+        fetchAvatar(username, username);
+    }
+
+    return playerBox;
 }
