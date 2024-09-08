@@ -22,8 +22,6 @@ General Mandatory Todo {
 
 Bugs {
 
-
-
 }
 
 [George] {
@@ -32,12 +30,6 @@ Bugs {
 
 	42 Auth
 
-}
-
-[Youssef] {
-	
-	Leaderboard (not important at all):
-		Add Tournaments won and multiplayer games won, along with buttons to sort by them
 }
 
 [Marijn] {
@@ -71,7 +63,3 @@ Bugs {
 		Easter egg(s)
 	}
 }
-
-pairs[0].keys() --> players
-
-pairs [{p1,p2},{p3,p4},{...}]
