@@ -1,10 +1,9 @@
-import {ensureUsername, isGuest, moveModalBackdrops} from '/static/src/js/utils.js';
-import {variables} from '/static/src/js/variables.js';
+import { ensureUsername, isGuest, moveModalBackdrops } from '/static/src/js/utils.js';
+import { variables } from '/static/src/js/variables.js';
 
 export async function viewProfile(event, player) {
 	try {
-		if (!player)
-			player = variables.username;
+		if (!player) player = variables.username;
 
 		const playerData = await getPlayerData(player);
 		const isOnline = variables.activeUsers[player];
@@ -26,9 +25,6 @@ export async function viewProfile(event, player) {
 			closeButton.className = 'btn-close btn-close-white';
 			closeButton.setAttribute('data-bs-dismiss', 'modal');
 			closeButton.setAttribute('aria-label', 'Close');
-			closeButton.style.position = 'absolute';
-			closeButton.style.top = '10px';
-			closeButton.style.right = '10px';
 
 			const headerRow = document.createElement('div');
 			headerRow.className = 'd-flex align-items-center p-3 text-white';
@@ -46,17 +42,30 @@ export async function viewProfile(event, player) {
 
 			if (isOnline) {
 				const statusIndicator = document.createElement('span');
-				statusIndicator.classList.add('status-indicator');
-				statusIndicator.classList.add('online');
+				statusIndicator.classList.add('status-indicator', 'online');
 				avatarContainer.appendChild(statusIndicator);
 			}
 
-
 			const nameContainer = document.createElement('div');
-			nameContainer.innerHTML = `
-				<h5 class="mb-0">${displayName} ${usernameText}</h5>
-			`;
+			nameContainer.innerHTML = `<h5 class="mb-0">${displayName} ${usernameText}</h5>`;
 
+			const backButton = document.createElement('button');
+			backButton.type = 'button';
+			backButton.id = 'back-button';
+			backButton.className = 'back-btn hidden';
+			backButton.innerHTML = `<i class="ri-arrow-left-line"></i>`;
+			backButton.addEventListener('click', () => {
+				const matchHistoryTable = document.getElementById('match-history');
+				if (matchHistoryTable) {
+					matchHistoryTable.remove();
+				}
+				buttonsRow.classList.remove('hidden');
+				statsRow.classList.remove('hidden');
+				bioRow.classList.remove('hidden');
+				backButton.classList.add('hidden');
+			});
+
+			headerRow.appendChild(backButton);
 			headerRow.appendChild(avatarContainer);
 			headerRow.appendChild(nameContainer);
 			headerRow.appendChild(closeButton);
@@ -66,7 +75,7 @@ export async function viewProfile(event, player) {
 			bioRow.innerHTML = playerData.bio ? `<p class="mb-0">${playerData.bio}</p>` : '';
 
 			const buttonsRow = document.createElement('div');
-			buttonsRow.className = 'd-flex justify-content-around py-3';
+			buttonsRow.className = 'py-3';
 
 			const friendButton = document.createElement('button');
 			friendButton.setAttribute('data-value', playerData.username);
@@ -97,16 +106,14 @@ export async function viewProfile(event, player) {
 			friendButton.setAttribute('data-bs-dismiss', 'modal');
 			blockButton.setAttribute('data-bs-dismiss', 'modal');
 
-			if (!(playerData.isBlocked || playerData.hasBlocked))
+			if (!(playerData.isBlocked || playerData.hasBlocked)) {
 				buttonsRow.appendChild(friendButton);
+			}
 			buttonsRow.appendChild(blockButton);
 
 			const statsRow = document.createElement('div');
 			statsRow.className = 'row text-center py-3';
-
-			const gamesTitle = document.createElement('h6');
-			gamesTitle.className = 'text-uppercase mb-3';
-			gamesTitle.textContent = 'Games';
+			statsRow.id = 'games';
 
 			const playedCol = createStatColumn('Played', playerData.gamesPlayed);
 			const wonCol = createStatColumn('Won', playerData.gamesWon);
@@ -116,6 +123,17 @@ export async function viewProfile(event, player) {
 			statsRow.appendChild(wonCol);
 			statsRow.appendChild(lostCol);
 
+			statsRow.addEventListener('click', async () => {
+				buttonsRow.classList.add('hidden');
+				statsRow.classList.add('hidden');
+				bioRow.classList.add('hidden');
+				backButton.classList.remove('hidden');
+
+				const matchHistoryTableContainer = await createMatchHistoryTable(player);
+				matchHistoryTableContainer.classList.add('match-history-table');
+				modalBody.appendChild(matchHistoryTableContainer);
+			});
+
 			modalHeader.appendChild(headerRow);
 			modalBody.appendChild(bioRow);
 			modalBody.appendChild(buttonsRow);
@@ -123,21 +141,13 @@ export async function viewProfile(event, player) {
 
 			ensureUsername().then(() => {
 				if ((variables.username === playerData.username) || isGuest(variables.username)) {
-					buttonsRow.style.visibility = 'hidden';
-					buttonsRow.style.height = '0';
+					buttonsRow.classList.add('hidden');
 				}
 			});
 
-			const manageFriendsModal = document.getElementById('manage-friends-modal');
-			const profileModalElement = document.getElementById('playerProfileModal');
 			const profileModal = new bootstrap.Modal(document.getElementById('playerProfileModal'));
-
-			manageFriendsModal.setAttribute('aria-hidden', 'true');
-			manageFriendsModal.style.pointerEvents = 'none';
 			profileModal.show();
-			manageFriendsModal.style.zIndex = 'auto';
 			moveModalBackdrops();
-			attachProfileHideEventListener(profileModalElement, manageFriendsModal);
 		} else {
 			console.log('No data for', player);
 		}
@@ -146,12 +156,41 @@ export async function viewProfile(event, player) {
 	}
 }
 
-function attachProfileHideEventListener(profileModal, manageFriendsModal) {
-	profileModal.addEventListener('hidden.bs.modal', () => {
-		manageFriendsModal.removeAttribute('aria-hidden');
-		manageFriendsModal.style.pointerEvents = '';
-		manageFriendsModal.style.zIndex = '';
-	}, { once: true });
+async function createMatchHistoryTable(player) {
+    const response = await fetch(`/api/match_history/${player}`);
+    const matchHistory = await response.json();
+
+    const table = document.createElement('table');
+    table.className = 'table table-hover text-center';
+    table.id = 'match-history';
+
+    const headerRow = document.createElement('tr');
+    headerRow.innerHTML = `
+        <th>Player 1</th>
+        <th>Player 2</th>
+        <th>Winner</th>
+        <th>Score</th>
+        <th>Date</th>
+    `;
+    table.appendChild(headerRow);
+
+    matchHistory.forEach(match => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+            <td>${match.player1}</td>
+            <td>${match.player2}</td>
+            <td>${match.winner || 'N/A'}</td>
+            <td>${match.player1Score} - ${match.player2Score}</td>
+            <td>${new Date(match.date).toLocaleDateString()}</td>
+        `;
+        table.appendChild(row);
+    });
+
+    const tableContainer = document.createElement('div');
+    tableContainer.className = 'table-container';
+    tableContainer.appendChild(table);
+
+    return tableContainer;
 }
 
 function createStatColumn(label, value) {
@@ -165,8 +204,7 @@ function createStatColumn(label, value) {
 }
 
 async function getPlayerData(player) {
-	if (isGuest(player))
-		return null;
+	if (isGuest(player)) return null;
 	try {
 		const response = await fetch(`/api/profile_info/${player}`);
 		if (!response.ok) {
@@ -174,7 +212,6 @@ async function getPlayerData(player) {
 		}
 
 		const result = await response.json();
-
 		return result;
 
 	} catch (error) {
