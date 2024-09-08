@@ -13,6 +13,7 @@ from .views_auth_github import (
 from .views_lobby import (
     create_lobby,
     get_lobbies,
+	check_lobby_status,
 )
 	
 from .views_account import (

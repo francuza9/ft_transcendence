@@ -42,10 +42,12 @@ class LobbyConsumer(AsyncWebsocketConsumer):
 					'partOfTournament': False,
 					'tournamentID': None,
 					'available': True,
+					'started': False,
+					'display_names': [],
 				}
 
 			lobby_data[self.lobby_id]['connected_clients'].add(self.channel_name)
-			if len(lobby_data[self.lobby_id]['players']) < lobby_data[self.lobby_id]['max_users']:
+			if len(lobby_data[self.lobby_id]['players']) < lobby_data[self.lobby_id]['max_users'] - 1:
 				lobby_data[self.lobby_id]['available'] = True
 			else:
 				lobby_data[self.lobby_id]['available'] = False
@@ -56,7 +58,6 @@ class LobbyConsumer(AsyncWebsocketConsumer):
 				self.channel_name
 			)
 			await self.accept()
-			# await self.send_refresh_message() # maybe remove this
 			logger.info(f"lobby: WebSocket connection accepted for lobby {self.lobby_id}")
 
 		except Exception as e:
@@ -93,6 +94,9 @@ class LobbyConsumer(AsyncWebsocketConsumer):
 						lobby_data[self.lobby_id]['admin'] = lobby_data[self.lobby_id]['players'][0]
 					else:
 						lobby_data[self.lobby_id]['admin'] = None
+
+			if len(lobby_data[self.lobby_id]['players']) < lobby_data[self.lobby_id]['max_users']:
+				lobby_data[self.lobby_id]['available'] = True
 
 			# Remove lobby if no connected clients
 			if not lobby_data[self.lobby_id]['connected_clients']:
@@ -237,6 +241,7 @@ class LobbyConsumer(AsyncWebsocketConsumer):
 
 	async def send_tournament_message(self):
 		lobby_data[self.lobby_id]['available'] = False
+		lobby_data[self.lobby_id]['started'] = False
 		username_is_bot_map = dict(zip(lobby_data[self.lobby_id]['players'], lobby_data[self.lobby_id]['is_bot']))
 		await self.channel_layer.group_send(
 			self.lobby_group_name,
@@ -248,6 +253,7 @@ class LobbyConsumer(AsyncWebsocketConsumer):
 
 	async def tournament_message(self, event):
 		lobby_data[self.lobby_id]['available'] = False
+		lobby_data[self.lobby_id]['started'] = False
 		message = event['message']
 		await self.send(text_data=json.dumps({
 			'type': 'start_tournament',
@@ -271,6 +277,7 @@ class LobbyConsumer(AsyncWebsocketConsumer):
 
 	async def send_start_message(self):
 		lobby_data[self.lobby_id]['available'] = False
+		lobby_data[self.lobby_id]['started'] = True
 		display_names = []
 		for name in lobby_data[self.lobby_id]['players']:
 			disp = await self.getDispFromDB(name)
@@ -279,6 +286,8 @@ class LobbyConsumer(AsyncWebsocketConsumer):
 		for i in range(len(display_names)):
 			if display_names[i] == "":
 				display_names[i] = lobby_data[self.lobby_id]['players'][i]
+
+		lobby_data[self.lobby_id]['display_names'] = display_names
 
 		await self.channel_layer.group_send(
 			self.lobby_group_name,
@@ -302,6 +311,7 @@ class LobbyConsumer(AsyncWebsocketConsumer):
 
 	async def start_message(self, event):
 		lobby_data[self.lobby_id]['available'] = False
+		lobby_data[self.lobby_id]['started'] = True
 
 		message = event['message']
 		await self.send(text_data=json.dumps({
