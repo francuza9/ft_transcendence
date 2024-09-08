@@ -3,6 +3,7 @@ from asgiref.sync import sync_to_async
 from .backend_pong.collisions import update_ball_position
 from .backend_pong.collisions_multi import update_ball_position_multi
 from .consumers_tournament import tournament_states
+from .consumers_lobby import lobby_data
 from .ai import AI
 from .models import Game, Profile, CustomUser
 import json
@@ -125,6 +126,24 @@ class PongConsumer(AsyncWebsocketConsumer):
 				players_list[playerID]['x'] = content.get('x')
 				players_list[playerID]['y'] = content.get('y')
 				players_list[playerID]['name'] = content.get('name')
+			
+			elif message_type == 'spectator':
+				lobby = data.get('lobby')
+				if game_state.get('room_size') == 2:
+					await self.send(text_data=json.dumps(
+						{
+							'type': 'go',
+							'names': lobby_data[lobby]['display_names'],
+						}
+					))
+				else:
+					await self.send(text_data=json.dumps(
+						{
+							'type': 'multi',
+							'size': game_state.get('room_size'),
+							'map': lobby_data[lobby]['map'],
+						}
+					))
 
 	async def game_update_loop(self):
 		await asyncio.sleep(3)

@@ -106,7 +106,8 @@
 			"leaveConfirmation": "Are you sure you want to leave",
 			"cancel": "Cancel",
             "startButton": "Start Game",
-			"addBot": "Add a Bot"
+			"addBot": "Add a Bot",
+			"lobbyInvalid": "The lobby you are trying to join is invalid, has been closed or is full."
         },
 		"leaderboard": {
 			"title": "Leaderboard"

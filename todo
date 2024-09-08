@@ -26,8 +26,6 @@ Bugs {
 
 [George] {
 
-	When lobby doesnt exist, redirect to join page and show error popup to client
-
 	42 Auth
 
 }
