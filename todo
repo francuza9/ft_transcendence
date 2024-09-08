@@ -1,5 +1,4 @@
 DO NOT FORGET {
-	REMOVE CAMERA CONTROL BEFORE PUSHING
 	DONT PUSH .ENV TO GIT
 	REMOVE UNNECESSARY PRINTS
 	PUT TRANSLATIONS
@@ -25,6 +24,7 @@ General Mandatory Todo {
 Bugs {
 
 
+
 }
 
 [George] {
@@ -32,10 +32,6 @@ Bugs {
 	Fix history
 
 	When lobby doesnt exist, redirect to join page and show error popup to client
-
-	blue player doesnt move for spectators after multi
-	
-	endgame popup after multi game is messed up
 
 	42 Auth
 
