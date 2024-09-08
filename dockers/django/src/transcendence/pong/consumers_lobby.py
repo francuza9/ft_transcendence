@@ -112,7 +112,8 @@ class LobbyConsumer(AsyncWebsocketConsumer):
 
 		if self.lobby_id in lobby_data:
 			try:
-				await self.send_refresh_message()
+				if not lobby_data[self.lobby_id]['started']:
+					await self.send_refresh_message()
 			except Exception as e:
 				logger.error(f"lobby: Error sending refresh message: {e}")
 
@@ -150,7 +151,8 @@ class LobbyConsumer(AsyncWebsocketConsumer):
 					lobby_data[self.lobby_id]['tournamentSocket'] = content.get('tournamentSocket')
 				lobby_data[self.lobby_id]['tournamentID'] = content.get('tournamentID')
 				try:
-					await self.send_refresh_message()
+					if not lobby_data[self.lobby_id]['started']:
+						await self.send_refresh_message()
 				except:
 					pass
 
@@ -225,7 +227,8 @@ class LobbyConsumer(AsyncWebsocketConsumer):
 			lobby_data[self.lobby_id]['players'].append(bot_name)
 			lobby_data[self.lobby_id]['is_bot'].append(True)
 			try:
-				await self.send_refresh_message()
+				if not lobby_data[self.lobby_id]['started']:
+					await self.send_refresh_message()
 			except:
 				pass
 			logger.info(f"lobby: Added bot with name {bot_name}")

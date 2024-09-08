@@ -34,10 +34,12 @@ export async function initTournamentSocket(variables) {
 						pvp_start(variables);
 					}
 				} else if (message.type === 'matchups') {
+					console.log("matchups received");
 					generateTournamentView(message.content.matchups, message.content.firstTime);
-					cleanupBackground();
-				}
-			};
+					if (message.content.firstTime) {
+						cleanupBackground();
+					}
+				};
 
 			socket.onerror = function(error) {
 				console.error('Tournament: WebSocket error:', error);
@@ -47,7 +49,7 @@ export async function initTournamentSocket(variables) {
 			socket.onclose = function() {
 				console.log('Tournament: WebSocket connection closed.');
 			};
-		});
+	}});
 	});
 }
 

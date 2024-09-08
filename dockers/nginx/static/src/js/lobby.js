@@ -22,10 +22,12 @@ function updateLobbyDetails(variables) {
 }
 
 export const refreshLobbyDetails = (variables) => {
-	renderPlayerList(variables);
-	updateLobbyDetails(variables);
-	if (variables.username === variables.admin) {
-		showAdminButtons();
+	if (in_lobby) {
+		renderPlayerList(variables);
+		updateLobbyDetails(variables);
+		if (variables.username === variables.admin) {
+			showAdminButtons();
+		}
 	}
 }
 

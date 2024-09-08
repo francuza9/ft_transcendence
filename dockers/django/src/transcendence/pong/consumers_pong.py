@@ -229,6 +229,8 @@ class PongConsumer(AsyncWebsocketConsumer):
 							winner_data = {winner_username: game_state['player_data'][winner_username]}
 							if winner_data not in tournament['results']:
 								tournament['results'].append(winner_data)
+								# await self.send_matchups(game_state)
+
 					packed_data = {
 						'scores': score,
 						'time': times,
@@ -254,36 +256,38 @@ class PongConsumer(AsyncWebsocketConsumer):
 					p2 = await self.getUserDB(names_list[1])
 					pwin = await self.getUserDB(winner_username)
 
-					new_game = await sync_to_async(Game.objects.create)(
-						player1=p1,
-						player2=p2,
-						winner=pwin,
-						has_bots=botGame,
-						player1Score=score[0],
-						player2Score=score[1],
-						is_tournament=game_state.get('partOfTournament', False),
-					)
-					await sync_to_async(new_game.save)()
+					if p1 and p2:
+						new_game = await sync_to_async(Game.objects.create)(
+							player1=p1,
+							player2=p2,
+							winner=pwin,
+							has_bots=botGame,
+							player1Score=score[0],
+							player2Score=score[1],
+							is_tournament=game_state.get('partOfTournament', False),
+						)
+						await sync_to_async(new_game.save)()
 
 					p1 = await self.getProfileDB(names_list[0])
 					p2 = await self.getProfileDB(names_list[1])
 					pwin = await self.getProfileDB(winner_username)
 
-					if not botGame and not game_state.get('partOfTournament', False):
-						if p1:
-							if pwin and pwin == p1:
-								p1.gamesWon += 1
-							else:
-								p1.gamesLost += 1
-							p1.gamesPlayed += 1
-							await sync_to_async(p1.save)()
-						if p2:
-							if pwin and pwin == p2:
-								p2.gamesWon += 1
-							else:
-								p2.gamesLost += 1
-							p2.gamesPlayed += 1
-							await sync_to_async(p2.save)()
+					if p1 and p2:
+						if not botGame and not game_state.get('partOfTournament', False):
+							if p1:
+								if pwin and pwin == p1:
+									p1.gamesWon += 1
+								else:
+									p1.gamesLost += 1
+								p1.gamesPlayed += 1
+								await sync_to_async(p1.save)()
+							if p2:
+								if pwin and pwin == p2:
+									p2.gamesWon += 1
+								else:
+									p2.gamesLost += 1
+								p2.gamesPlayed += 1
+								await sync_to_async(p2.save)()
 					break
 				await self.channel_layer.group_send(
 					self.room_group_name,
@@ -420,6 +424,18 @@ class PongConsumer(AsyncWebsocketConsumer):
 			'loop_count': 0,
 			'multi_winners': [],
 		}
+
+	async def send_matchups(self, game_state):
+		tournament_state = tournament_states[game_state['tournamentID']]
+		message = {
+			'type': 'matchups',
+			'content': {
+				'matchups': tournament_state['pairs'],
+				'firstTime': False,
+			}
+		}
+		
+		await tournament_state['self'].send(text_data=json.dumps(message))
 
 	async def getProfileDB(self, target):
 		try:

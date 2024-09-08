@@ -8,6 +8,7 @@ export async function generateTournamentView(players, firstTime) {
 
     const section = document.querySelector('section');
     section.innerHTML = '';
+	section.classList.remove('hidden');
 
     addTournamentStylesheet();
 
@@ -20,6 +21,7 @@ export async function generateTournamentView(players, firstTime) {
 
     // Populate current matches
     for (const pair of players) {
+		console.log(pair);
         const matchDiv = document.createElement('div');
         matchDiv.className = 'match';
 
@@ -48,6 +50,7 @@ export async function generateTournamentView(players, firstTime) {
     tournamentContainer.appendChild(currentMatches);
 
     // Append the tournament container to the section
+	console.log('added', tournamentContainer);
     section.appendChild(tournamentContainer);
 }
 
