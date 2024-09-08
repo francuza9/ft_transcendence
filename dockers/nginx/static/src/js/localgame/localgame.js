@@ -35,36 +35,24 @@ export function startLocal(pointsToWin)
 		group.add(scoremesh);
 	}).catch(error => {console.error('Failed to load score:', error);})
 
-	const scene = initScene();
-	const camera = initCamera(0);
-	const renderer = initRenderer();
+	const	scene = initScene();
+	const	camera = initCamera(0);
+	const	renderer = initRenderer();
 	renderer.setAnimationLoop( animate );
 
-		// create plane and edges
-	const plane = new initPlane();
-	const planeEdges = new initEdges(1);
+	const	plane = new initPlane();
+	const	planeEdges = new initEdges(1);
+	const	walls = new initWalls(1);
+	const	players = new initPlayers(1);
+	let		ball = new Ball(scene);
+	const	ballmesh = ball.getMesh();
+	const	groupCornerLights = new initCornerLights(ballmesh);
+	const	light = new THREE.AmbientLight( 0xffffff, 1 );
+	const	lights = [groupCornerLights.children[9], groupCornerLights.children[10], groupCornerLights.children[11], groupCornerLights.children[12]];
 
-	// create walls
-	const walls = new initWalls(1);
-
-	// create players
-	const players = new initPlayers(1);
-
-	// create ball
-	let ball = new Ball(scene);
-	const ballmesh = ball.getMesh();
-
-	// create light
-	const groupCornerLights = new initCornerLights(ballmesh);
-	const light = new THREE.AmbientLight( 0xffffff, 1 );
-
-	const lights = [groupCornerLights.children[9], groupCornerLights.children[10], groupCornerLights.children[11], groupCornerLights.children[12]];
-
-	// controls
 	const controls = new OrbitControls(camera, renderer.domElement);
 	controls.update();
 
-	// add objects to group
 	group.add(plane);
 	group.add(walls);
 	group.add(players);
@@ -77,14 +65,13 @@ export function startLocal(pointsToWin)
 	document.addEventListener('keydown', onKeydown);
 	document.addEventListener('keyup', onKeyup);
 
-	// add objects to scene //
 	initText().then(text => {
 		playerNames(0, "player 1", "player 2").then(names => {
-			group.add(text); // Add text mesh to the group
+			group.add(text);
 			group.add(names);
 			scene.add(light);
-	    	scene.add(group); // Add group to the scene after text is loaded
-	    	animate(); // Start animation loop after everything is set up
+			scene.add(group);
+			animate();
 		})
 	}).catch(error => {
 		console.error('Failed to load text:', error);
@@ -162,17 +149,6 @@ function disposeObject(object) {
         object.texture.dispose();
     }
 }
-
-function cleanupGroup(group) {
-    group.traverse(function (object) {
-        disposeObject(object);
-        
-        if (object instanceof THREE.Group) {
-            cleanupGroup(object);
-        }
-    });
-}
-
 
 function onKeydown(event) {
     if (event.key in keys) {
