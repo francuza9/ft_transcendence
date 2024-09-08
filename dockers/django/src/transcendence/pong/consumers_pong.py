@@ -129,12 +129,21 @@ class PongConsumer(AsyncWebsocketConsumer):
 			
 			elif message_type == 'spectator':
 				lobby = data.get('lobby')
-				await self.send(text_data=json.dumps(
-					{
-						'type': 'go',
-						'names': lobby_data[lobby]['display_names'],
-					}
-				))
+				if game_state.get('room_size') == 2:
+					await self.send(text_data=json.dumps(
+						{
+							'type': 'go',
+							'names': lobby_data[lobby]['display_names'],
+						}
+					))
+				else:
+					await self.send(text_data=json.dumps(
+						{
+							'type': 'multi',
+							'size': game_state.get('room_size'),
+							'map': lobby_data[lobby]['map'],
+						}
+					))
 
 	async def game_update_loop(self):
 		await asyncio.sleep(3)
