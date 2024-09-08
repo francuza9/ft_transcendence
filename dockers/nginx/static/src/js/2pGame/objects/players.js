@@ -6,8 +6,8 @@ export function initPlayers(n)
 {
 	const geometrySmall = new THREE.CylinderGeometry(0.1,0.1, 2);
 	const geometryBig = new THREE.BoxGeometry(0.2, 0.2, 2);
-	const materialp1 = new THREE.MeshLambertMaterial( {color:0xff0000, emissive: 0xff0000} );
-	const materialp2 = new THREE.MeshLambertMaterial( {color:0x0000ff, emissive: 0x0000ff} );
+	const materialp1 = new THREE.MeshLambertMaterial( {color:0xd11913, emissive: 0xd11913} );
+	const materialp2 = new THREE.MeshLambertMaterial( {color:0x1653e0, emissive: 0x1653e0} );
 
 	const group = new THREE.Group();
 

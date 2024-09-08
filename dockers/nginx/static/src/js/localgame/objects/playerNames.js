@@ -35,8 +35,8 @@ export function playerNames(pov, p1Name, p2Name) {
                 });
 
                 // Create material
-                const material1 = new THREE.MeshBasicMaterial({ color: 0xff0000 });
-                const material2 = new THREE.MeshBasicMaterial({ color: 0x0000ff });
+                const material1 = new THREE.MeshBasicMaterial({ color: 0xd11913 });
+                const material2 = new THREE.MeshBasicMaterial({ color: 0x1653e0 });
 
                 // Create mesh
                 const p1Mesh = new THREE.Mesh(geometry1, material1);
@@ -84,8 +84,8 @@ export function playerNames(pov, p1Name, p2Name) {
                 });
 
                 // Create material
-                const material1 = new THREE.MeshBasicMaterial({ color: 0xff0000 });
-                const material2 = new THREE.MeshBasicMaterial({ color: 0x0000ff });
+                const material1 = new THREE.MeshBasicMaterial({ color: 0xd11913 });
+                const material2 = new THREE.MeshBasicMaterial({ color: 0x1653e0 });
 
                 // Create mesh
                 const p1Mesh = new THREE.Mesh(geometry1, material1);
@@ -134,8 +134,8 @@ export function playerNames(pov, p1Name, p2Name) {
                 });
 
                 // Create material
-                const material1 = new THREE.MeshBasicMaterial({ color: 0xff0000 });
-                const material2 = new THREE.MeshBasicMaterial({ color: 0x0000ff });
+                const material1 = new THREE.MeshBasicMaterial({ color: 0xd11913 });
+                const material2 = new THREE.MeshBasicMaterial({ color: 0x1653e0 });
 
                 // Create mesh
                 const p1Mesh = new THREE.Mesh(geometry1, material1);

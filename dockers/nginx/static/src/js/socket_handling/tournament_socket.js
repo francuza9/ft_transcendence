@@ -39,7 +39,10 @@ export async function initTournamentSocket(variables) {
 					if (message.content.firstTime) {
 						cleanupBackground();
 					}
-				};
+				} else if (message.type === 'winner') {
+					console.log("winner is: ", message.content.winner);
+					displayWinner(message.content.winner);
+				}
 
 			socket.onerror = function(error) {
 				console.error('Tournament: WebSocket error:', error);

@@ -104,9 +104,9 @@ export class Ball {
 			this.ball.position.z = -4.5;
 
 		if (this.direction.x > 0)
-			this.color = 0xff0000;
+			this.color = 0xd11913;
 		else
-			this.color = 0x0000ff;
+			this.color = 0x1653e0;
 
 		let x = 0;
 		if (this.speed > 0.25)

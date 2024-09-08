@@ -88,6 +88,7 @@ class TournamentConsumer(AsyncWebsocketConsumer):
 							await asyncio.sleep(1)
 					if len(tournament_states[self.lobby_id]['results']) == 1:
 						logger.info(f"Winner: {tournament_states[self.lobby_id]['results']}")
+						await self.send_end_message()
 						break
 
 
@@ -135,6 +136,21 @@ class TournamentConsumer(AsyncWebsocketConsumer):
 			}
 		}
 		await asyncio.sleep(0.5)
+		for username, connection in tournament_state['player_connections'].items():
+			await connection.send(text_data=json.dumps(message))
+
+	async def send_end_message(self):
+		tournament_state = tournament_states[self.lobby_id]
+
+		winner = list(tournament_state['results'][0].keys())[0]
+
+		message = {
+			'type': 'winner',
+			'content': {
+				'winner': winner,
+			}
+		}
+
 		for username, connection in tournament_state['player_connections'].items():
 			await connection.send(text_data=json.dumps(message))
 
