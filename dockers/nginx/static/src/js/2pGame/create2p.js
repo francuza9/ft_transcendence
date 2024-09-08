@@ -118,9 +118,10 @@ export function create2Pgame(mappov, socket, names) {
 			} else if (bytes.length >= 4) {
 				ball.ball.position.x = bytes[0];
 				ball.ball.position.z = bytes[1];
-				if (mappov - 1 !== 0) {
+				if (mappov !== 1) {
 					players.children[0].position.z = bytes[2];
-				} else if (mappov - 1 !== 1) {
+				}
+				if (mappov !== 2) {
 					players.children[1].position.z = bytes[3];
 				}
 			} else {
@@ -133,11 +134,9 @@ export function create2Pgame(mappov, socket, names) {
 			const score = data.scores;
 			const names_list = data.players;
 			gameRunning = false;
-			console.log("non tournament game finished for : ", variables.username);
 			cleanup();
 			endGame(time, names_list, score, renderer);
 		} else if (variables.partOfTournament == true) {
-			console.log("tournament game finished");
 			cleanup();
 			gameRunning = false;
 			renderer.domElement.remove();
