@@ -248,7 +248,7 @@ class PongConsumer(AsyncWebsocketConsumer):
 					p2 = await self.getProfileDB(names_list[1])
 					pwin = await self.getProfileDB(winner_username)
 
-					if not botGame:
+					if not botGame and not game_state.get('partOfTournament', False):
 						if p1:
 							if pwin and pwin == p1:
 								p1.gamesWon += 1
