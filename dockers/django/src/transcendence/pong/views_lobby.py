@@ -1,6 +1,7 @@
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
+from django.views.decorators.http import require_GET
 from .consumers_lobby import lobby_data
 import json
 import logging
@@ -28,6 +29,17 @@ def create_lobby(request):
 
     return JsonResponse({'success': False, 'message': 'Invalid request method'}, status=405)
 
+@require_GET
+def check_lobby_status(request, lobby_id):
+	lobby_exists = lobby_id in lobby_data
+	
+	if lobby_exists:
+		if lobby_data[lobby_id]['available'] and not lobby_data[lobby_id]['started']:
+			return JsonResponse({'availability': 'free'})
+		elif lobby_data[lobby_id]['started']:
+			return JsonResponse({'availability': 'ingame'})
+
+	return JsonResponse({'availability': 'full_or_invalid'})
 
 def get_lobbies(request):
 	lobbies_list = []

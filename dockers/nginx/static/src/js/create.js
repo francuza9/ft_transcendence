@@ -160,7 +160,7 @@ export async function createRoomButton() {
 			variables.lobbyId = data.join_code;
 			history.pushState(null, '', `/${data.join_code}`);
 			variables.players = [variables.username];
-			Lobby([data.join_code]);
+			Lobby([data.join_code], true);
 
 		} else {
 			console.error('Failed to create room:', data.message);	

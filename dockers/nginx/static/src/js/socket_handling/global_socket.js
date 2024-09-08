@@ -104,6 +104,10 @@ export function getSocket() {
 	return socket;
 }
 
+export function getGlobalSocket() {
+	return socket;
+}
+
 export const closeGlobalSocket = () => {
 	const socket = getSocket();
 	if (socket) {
