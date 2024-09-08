@@ -22,7 +22,7 @@ class TournamentConsumer(AsyncWebsocketConsumer):
 			if self.lobby_id not in tournament_states:
 				tournament_states[self.lobby_id] = {
 					'connections': 0,
-					'players': None, # was None previously
+					'players': None,
 					'pairs': [],
 					'results': [],
 					'player_connections': {},
@@ -69,6 +69,7 @@ class TournamentConsumer(AsyncWebsocketConsumer):
 			while True:
 				if not tournament_states[self.lobby_id]['pairs']:
 					tournament_states[self.lobby_id]['pairs'] = self.generate_pairs(tournament_states[self.lobby_id]['players'])
+					await self.send_matchups()
 				if len([player for player, is_bot in tournament_states[self.lobby_id]['players'].items() if not is_bot]) <= tournament_states[self.lobby_id]['connections']:
 					await self.start_tournament()
 				while True:
@@ -114,7 +115,6 @@ class TournamentConsumer(AsyncWebsocketConsumer):
 					tournament_state['results'].append(winner)
 			else:
 				lobby_id = await self.generate_lobby_id()
-				logger.info(f'Generated lobby_id: {lobby_id} for pair: {usernames}')
 				aiGame = False
 				botName = None
 				for i in range(2):
@@ -123,6 +123,18 @@ class TournamentConsumer(AsyncWebsocketConsumer):
 						aiGame = True
 						break
 				await self.send_to_pair(usernames, lobby_id, aiGame, botName)
+
+	async def send_matchups(self):
+		tournament_state = tournament_states[self.lobby_id]
+		message = {
+			'type': 'matchups',
+			'content': {
+				'matchups': tournament_state['pairs'],
+			}
+		}
+		
+		for connection in tournament_state['player_connections'].values():
+			await connection.send(text_data=json.dumps(message))
 
 	async def send_to_pair(self, usernames, lobby_id, aiGame, botName):
 		tournament_state = tournament_states[self.lobby_id]
