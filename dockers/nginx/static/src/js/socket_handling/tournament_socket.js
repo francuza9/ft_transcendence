@@ -1,4 +1,4 @@
-import {generateTournamentView} from '/static/src/js/tournament.js';
+import {generateTournamentView, displayWinner} from '/static/src/js/tournament.js';
 import {ensureUsername} from '/static/src/js/utils.js';
 import {checkLoginStatus, guestLogin} from '/static/src/js/utils.js';
 import {initLobbySocket} from '/static/src/js/socket_handling/lobby_socket.js';

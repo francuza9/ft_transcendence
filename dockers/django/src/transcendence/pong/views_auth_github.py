@@ -43,6 +43,8 @@ def github(request):
         logger.error('No code provided in the request')
         return JsonResponse({'error': 'No code provided'}, status=400)
 
+    logger.info(f'Authorization code received: {code}')
+
     try:
         token_response = requests.post(
             'https://github.com/login/oauth/access_token',
@@ -54,6 +56,9 @@ def github(request):
             headers={'Accept': 'application/json'}
         )
         token_response.raise_for_status()
+
+        logger.info(f'Token response status code: {token_response.status_code}')
+        logger.info(f'Token response content: {token_response.text}')
 
         token_response_data = token_response.json()
         access_token = token_response_data.get('access_token')
@@ -68,6 +73,9 @@ def github(request):
             headers={'Authorization': f'token {access_token}'}
         )
         user_response.raise_for_status()
+
+        logger.info(f'User data response status code: {user_response.status_code}')
+        logger.info(f'User data response content: {user_response.text}')
 
         user_data = user_response.json()
         github_id = user_data.get('id')
@@ -96,9 +104,10 @@ def github(request):
             logger.info('Existing user logged in')
 
         user.backend = 'django.contrib.auth.backends.ModelBackend'
+
         django_login(request, user, backend=user.backend)
 
-        return render(request, 'oauth_callback.html', {'access_token': access_token})
+        return redirect('/')
 
     except requests.RequestException as e:
         logger.error(f'Request failed: {e}')
