@@ -14,7 +14,14 @@ export function setExited(value) {
 export async function generateTournamentView(players, firstTime, displays) {
 	const section = document.querySelector('section');
 	const warningDiv = document.createElement('div');
-    section.innerHTML = '';
+	const children = Array.from(section.children);
+	children.forEach(child => {
+		if (child.id !== 'chat' && child.id !== 'settings') {
+			section.removeChild(child);
+		} else {
+			child.classList.add('hidden');
+		}
+	});
     section.classList.remove('hidden');
 
     if (firstTime) {
@@ -130,8 +137,15 @@ function createTournamentContainer(players, displays) {
 
 export function displayWinner(winner) {
     const section = document.querySelector('section');
-    section.innerHTML = '';
-    section.classList.remove('hidden');
+	const children = Array.from(section.children);
+    children.forEach(child => {
+		if (child.id !== 'chat' && child.id !== 'settings') {
+			section.removeChild(child);
+		} else {
+			child.classList.add('hidden');
+		}
+	});
+	section.classList.remove('hidden');
     
     addTournamentStylesheet();
 
@@ -159,9 +173,6 @@ export function displayWinner(winner) {
         history.pushState(null, '', '/');
         handleRouting();
 
-		initChat();
-		initSettings();
-		initBackground();
 		resumeAnimation();
     });
 
