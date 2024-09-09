@@ -25,6 +25,7 @@ class TournamentConsumer(AsyncWebsocketConsumer):
 					'results': [],
 					'player_connections': {},
 					'ran': False,
+					'lobbies': {},
 					'self': self,
 				}
 
@@ -97,10 +98,16 @@ class TournamentConsumer(AsyncWebsocketConsumer):
 			id = data.get('tournamentID')
 			if id in tournament_states:
 				tournament_state = tournament_states[id]
+				logger.info(f"pairs: {tournament_state['pairs']}, results: {tournament_state['results']}")
 				for pair in tournament_state['pairs']:
 					usernames = list(pair.keys())
 					for name in usernames:
-					
+						if name not in tournament_state['results']:
+							await self.send(text_data=json.dumps({
+								'type': 'watch',
+								'id': tournament_state['lobbies'][name],
+							}))
+							break
 
 
 	async def generate_pairs(self, players):
@@ -117,6 +124,7 @@ class TournamentConsumer(AsyncWebsocketConsumer):
 
 	async def start_tournament(self):
 		tournament_state = tournament_states[self.lobby_id]
+		tournament_state['lobbies'] = {}
 		for pair in tournament_state['pairs']:
 			usernames = list(pair.keys())
 			is_bots = [pair[username] for username in usernames]
@@ -130,6 +138,9 @@ class TournamentConsumer(AsyncWebsocketConsumer):
 				lobby_id = await self.generate_lobby_id()
 				aiGame = False
 				botName = None
+				for i in range(2):
+					if not is_bots[i]:
+						tournament_state['lobbies'][usernames[i]] = lobby_id
 				for i in range(2):
 					if is_bots[i]:
 						botName = usernames[i]
