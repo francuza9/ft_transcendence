@@ -14,7 +14,9 @@ export async function Lobby([lobbyId], valid=false) {
 	let lobby = await getLobbyStatus(lobbyId);
 
 	if (lobby === undefined && !valid) {
-		console.error("Ran into error while fetching lobby data");
+		history.pushState(null, null, '/join');
+		Join();
+		setTimeout(() => alert(getTranslation('pages.lobby.lobbyInvalid')), 500);
 	} else if ((lobby && lobby === 'free') || valid) {
 		variables.lobbyId = lobbyId;
 	
@@ -34,6 +36,7 @@ export async function Lobby([lobbyId], valid=false) {
 			});
 		});
 	} else if (lobby === 'full_or_invalid') {
+		history.pushState(null, null, '/join');
 		Join();
 		setTimeout(() => alert(getTranslation('pages.lobby.lobbyInvalid')), 500);
 	} else if (lobby === 'ingame') {
