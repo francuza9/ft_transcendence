@@ -19,6 +19,9 @@ import { initSettings } from '/static/src/js/settings.js';
 import { handleButtonAction } from '/static/routers/buttons.js';
 import { checkLoginStatus } from '/static/src/js/utils.js';
 import { setExited } from '/static/src/js/tournament.js';
+import { getTournamentSocket } from '/static/src/js/socket_handling/tournament_socket.js';
+import { getLobbySocket } from '/static/src/js/socket_handling/lobby_socket.js';
+import { getPongSocket } from '/static/src/js/socket_handling/pong_socket.js';
 
 const router = [
     { path: /^\/$/, component: Home },
@@ -33,8 +36,6 @@ const router = [
 	{ path: /^\/account$/, component: Account },
 	{ path: /.*/, component: NotFound }, 
 ];
-
-const content = document.getElementById("body-content");
 
 const findRoute = (path) => {
     for (const route of router) {
@@ -53,7 +54,27 @@ export const handleRouting = () => {
     component(params);
 };
 
+const handleSockets = () => {
+	const tournSocket = getTournamentSocket();
+	if (tournSocket) {
+		tournSocket.close();
+	}
+
+	const lobbySocket = getLobbySocket();
+	if (lobbySocket) {
+		lobbySocket.close();
+	}
+
+	const pongSocket = getPongSocket();
+	if (pongSocket) {
+		pongSocket.close();
+	}
+};
+
 window.addEventListener('popstate', handleRouting);
+
+window.addEventListener('popstate', handleSockets);
+
 
 document.addEventListener('DOMContentLoaded', () => {
 
