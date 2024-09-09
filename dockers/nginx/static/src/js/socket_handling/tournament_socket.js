@@ -4,6 +4,7 @@ import {checkLoginStatus, guestLogin} from '/static/src/js/utils.js';
 import {initLobbySocket} from '/static/src/js/socket_handling/lobby_socket.js';
 import {addBot,startButton} from '/static/src/js/lobby.js';
 import {cleanupBackground} from '/static/src/js/background/background.js';
+import {spectatePong} from '/static/views/lobby.js';
 
 let socket;
 
@@ -41,6 +42,9 @@ export async function initTournamentSocket(variables) {
 					}
 				} else if (message.type === 'winner') {
 					displayWinner(message.content.winner);
+				} else if (message.type === 'watch') {
+					console.log("lobby id: ", message.id);
+					spectatePong(message.id);
 				}
 
 			socket.onerror = function(error) {
