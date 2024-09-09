@@ -1,4 +1,3 @@
-import {replaceHTML} from '/static/src/js/utils.js';
 import {variables} from '/static/src/js/variables.js';
 import {checkLoginStatus, guestLogin, ensureUsername} from '/static/src/js/utils.js';
 import {Lobby} from '/static/views/lobby.js';
