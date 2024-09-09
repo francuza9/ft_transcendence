@@ -1,13 +1,11 @@
 import requests
-from .views_utils import fetch_and_save_avatar, create_or_get_username, create_or_get_email
+from .views_utils import fetch_and_save_avatar, create_email_placeholder
 from django.conf import settings
-from urllib.parse import urlparse
 from django.contrib.auth import login as django_login
 from django.http import JsonResponse
 from django.shortcuts import redirect
+from .models import CustomUser
 import logging
-
-from .models import CustomUser as User, Profile
 
 logger = logging.getLogger(__name__)
 
@@ -55,15 +53,17 @@ def github(request):
 
         user_data = user_response.json()
         github_id = user_data.get('id')
-        username = create_or_get_username(user_data)
-        email = create_or_get_email(user_data)
+        username = user_data.get('login') + "\u200B" # Zero-width space to prevent duplicate usernames
+        email = user_data.get('email')
+        if CustomUser.objects.filter(email=email).exists():
+            email = create_email_placeholder(email)
         avatar_url = user_data.get('avatar_url')
 
         if not github_id:
             logger.error('Failed to retrieve GitHub user data: missing ID')
             return JsonResponse({'error': 'Failed to get user data'}, status=400)
 
-        user, created = User.objects.get_or_create(
+        user, created = CustomUser.objects.get_or_create(
             github_id=github_id,
             username=username,
             defaults={'email': email}
