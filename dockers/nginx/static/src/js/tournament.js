@@ -1,8 +1,6 @@
 import {fetchAvatar, isGuest} from '/static/src/js/utils.js';
 import {handleRouting} from '/static/routers/router.js';
-import {initBackground, resumeAnimation} from '/static/src/js/background/background.js';
-import {initChat} from '/static/src/js/chat.js';
-import {initSettings} from '/static/src/js/settings.js';
+import {resumeAnimation} from '/static/src/js/background/background.js';
 import {getTranslation} from '/static/src/js/lang.js';
 
 let exited = false;
