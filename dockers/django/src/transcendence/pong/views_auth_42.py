@@ -1,39 +1,15 @@
 import requests
 import logging
-import os
 from django.conf import settings
 from django.contrib.auth import login as django_login
 from django.core.files.base import ContentFile
+from .views_utils import fetch_and_save_avatar, create_or_get_username, create_or_get_email
 from django.http import JsonResponse
 from django.shortcuts import redirect, get_object_or_404
 
 from .models import CustomUser as User, Profile
 
 logger = logging.getLogger(__name__)
-
-def fetch_and_save_avatar(user, avatar_url):
-    try:
-        response = requests.get(avatar_url)
-        response.raise_for_status()
-
-        file_name = os.path.basename(avatar_url)
-        file_content = ContentFile(response.content, file_name)
-
-        profile, created = Profile.objects.get_or_create(
-            user=user,
-            defaults={'displayName': user.username}
-        )
-
-        if profile.avatarUrl.name == '':
-            profile.avatarUrl.save(file_name, file_content, save=True)
-        else:
-            profile.avatarUrl.save(file_name, file_content, save=True)
-        
-        return profile.avatarUrl.url
-
-    except requests.RequestException as e:
-        logger.error(f"Error fetching avatar: {e}")
-        return None
 
 def forty_two(request):
     code = request.GET.get('code')
@@ -75,8 +51,8 @@ def forty_two(request):
 
         user_data = user_response.json()
         forty_two_id = user_data.get('id')
-        username = user_data.get('login')
-        email = user_data.get('email')
+        username = create_or_get_username(user_data)
+        email = create_or_get_username(user_data)
         image_data = user_data.get('image', {})
         avatar_url = image_data.get('link')
 
