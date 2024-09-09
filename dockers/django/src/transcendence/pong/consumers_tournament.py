@@ -145,6 +145,7 @@ class TournamentConsumer(AsyncWebsocketConsumer):
 	async def send_matchups(self, first_time_flag=False):
 		tournament_state = tournament_states[self.lobby_id]
 
+		await asyncio.sleep(0.5)
 		display_name_pairs = await self.get_display_name_pairs(tournament_state['pairs'])
 
 		message = {
@@ -154,7 +155,6 @@ class TournamentConsumer(AsyncWebsocketConsumer):
 				'firstTime': first_time_flag,
 			}
 		}
-		await asyncio.sleep(0.5)
 		for username, connection in tournament_state['player_connections'].items():
 			await connection.send(text_data=json.dumps(message))
 
@@ -164,6 +164,8 @@ class TournamentConsumer(AsyncWebsocketConsumer):
 			new_pair = {}
 			for username, is_bot in pair.items():
 				display_name = await self.getDispFromDB(username)
+				if display_name == "":
+					display_name = username
 				new_pair[display_name] = is_bot
 			display_name_pairs.append(new_pair)
 		return display_name_pairs
