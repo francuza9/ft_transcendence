@@ -2,6 +2,7 @@ import * as THREE from 'three';
 
 import { OrbitControls } from 'https://cdn.jsdelivr.net/npm/three@0.161.0/examples/jsm/controls/OrbitControls.js';
 
+import { cleanupBackground, initBackground, resumeAnimation } from '/static/src/js/background/background.js';	
 import { initScene, initCamera, initRenderer } from './init.js';
 import { initCornerLights } from './objects/cornerLights.js';
 import { initText } from './objects/text.js';
@@ -13,6 +14,7 @@ import { initScore, updateScore } from './objects/score.js';
 import { endGame } from '/static/src/js/end.js';
 import { variables } from '/static/src/js/variables.js';
 import { getSocket } from '/static/views/lobby.js';
+import { handleRouting } from '/static/routers/router.js';
 
 let group;
 export let keys = {
@@ -27,6 +29,8 @@ let cameraFollow = false;
 export let scoremesh;
 
 let gameRunning = false;
+
+let rem_listener;
 
 export function create2Pgame(mappov, socket, names) {
 	if (gameRunning)
@@ -155,6 +159,22 @@ export function create2Pgame(mappov, socket, names) {
         console.error('Failed to load text:', error);
     });
 
+	rem_listener = () => {
+		gameRunning = false;
+		cleanup();
+		renderer.domElement.remove();
+		handleRouting();
+		const section = document.querySelector('section');
+		if (section) {
+			section.classList.remove('hidden');
+		}
+		cleanupBackground();
+		initBackground();
+		resumeAnimation();
+	};
+
+	window.addEventListener('popstate', rem_listener);
+
 	socket.binaryType = 'arraybuffer';
     function animate() {
 		if (mappov > 0)
@@ -205,6 +225,7 @@ export function create2Pgame(mappov, socket, names) {
 		window.removeEventListener('resize', onWindowResize);
 		window.removeEventListener('keydown', boundOnKeydown);
 		window.removeEventListener('keyup', boundOnKeyup);
+		window.removeEventListener('popstate', rem_listener);
 		socket.removeEventListener('message', handleMessage);
 		socket.close();
 		controls.dispose();
@@ -221,6 +242,7 @@ export function create2Pgame(mappov, socket, names) {
 	function sleep(s) {
 		return new Promise(resolve => setTimeout(resolve, s * 1000));
 	}
+
 }
 
 function updatePlayerPosition(player)
