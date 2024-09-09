@@ -142,37 +142,5 @@ export const loginWithGithubButton = () => {
 	const clientId = 'Ov23li5k50XUjRjLs4bc';
 	const redirectUri = 'https://localhost/api/github/';
 	const githubAuthUrl = `https://github.com/login/oauth/authorize?client_id=${clientId}&redirect_uri=${redirectUri}&scope=user:email`;
-
-	const width = 600;
-    const height = 700;
-    const left = (window.innerWidth / 2) - (width / 2);
-    const top = (window.innerHeight / 2) - (height / 2);
-
-    const popup = window.open(githubAuthUrl, 'githubLogin', `width=${width},height=${height},top=${top},left=${left}`);
-    
-    if (!popup) {
-        console.error('Popup blocked by the browser.');
-        return;
-    }
-
-  // Listen for messages from the popup
-    window.addEventListener('message', (event) => {
-        // Ensure the event comes from the correct origin
-        if (event.origin !== window.location.origin) {
-            return;
-        }
-
-        // Extract the authorization code or token
-        const { token, error } = event.data;
-
-        if (error) {
-            console.error('Error during authentication:', error);
-        } else if (token) {
-            console.log('GitHub OAuth token received:', token);
-            // Handle login success (store token, update UI, etc.)
-        }
-
-        // Close the popup after receiving the message
-        popup.close();
-    }, false);
+	window.location.href = githubAuthUrl;
 }
