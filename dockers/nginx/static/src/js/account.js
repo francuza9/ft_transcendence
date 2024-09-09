@@ -260,11 +260,11 @@ export const saveAvatarButton = async () => {
             if (result.success) {
                 avatarImage.src = result.avatarUrl;
             } else {
-                console.error('Failed to update avatar:', result.message);
+                alert('Failed to update avatar: ' + result.message);
             }
 
         } catch (error) {
-            console.error('Error updating avatar:', error);
+            alert('Error updating avatar: ' + error);
         }
 
     } else {
