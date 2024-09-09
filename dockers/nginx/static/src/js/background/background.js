@@ -1,5 +1,5 @@
 import * as THREE from "three";
-import { getFXScene } from "./FXScene.js";
+import { getFXScene, removeListener } from "./FXScene.js";
 
 const clock = new THREE.Clock();
 let animationPaused = false;
@@ -57,16 +57,6 @@ function onWindowResize() {
 	renderer.setSize(width, height);
 }
 
-function handleResize() {
-    const width = window.innerWidth;
-    const height = window.innerHeight;
-
-    camera.aspect = width / height;
-    camera.updateProjectionMatrix();
-
-    renderer.setSize(width, height);
-}
-
 export function animate_background() {
 	if (!animationPaused) {
 		requestAnimationFrame(animate_background);
@@ -108,6 +98,8 @@ export function cleanupBackground() {
 	if (canvas) {
 		canvas.remove();
 	}
+
+	removeListener();
 
 	window.removeEventListener('resize', onWindowResize);
 
