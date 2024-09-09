@@ -21,10 +21,9 @@ export async function generateTournamentView(players, firstTime) {
     const currentMatches = document.createElement('div');
     currentMatches.className = 'current-matches';
 
-    // Create rows for each match (player vs player)
 	players.forEach((pair) => {
 		const matchDiv = document.createElement('div');
-		matchDiv.className = 'match';  // Changed to match the CSS
+		matchDiv.className = 'match';
 
 		const playerDivs = [];
 		for (const playerKey in pair) {
@@ -51,23 +50,20 @@ export async function generateTournamentView(players, firstTime) {
 
 export function displayWinner(winner) {
     const section = document.querySelector('section');
-    section.innerHTML = '';  // Clear the section for the winner display
+    section.innerHTML = '';
     section.classList.remove('hidden');
     
     addTournamentStylesheet();
 
-    // Create container for the winner display
     const tournamentContainer = document.createElement('div');
     tournamentContainer.className = 'tournament-container winner-display w-100';
 
-    // Create the winner's player box with a crown and golden border
     const winnerDiv = document.createElement('div');
     winnerDiv.className = 'winner-display';
 
     const winnerBox = createWinnerBox(winner);
     winnerDiv.appendChild(winnerBox);
 
-    // Add buttons for actions (e.g., continue to home)
     const buttonsDiv = document.createElement('div');
     buttonsDiv.className = 'action-buttons';
 
@@ -75,13 +71,11 @@ export function displayWinner(winner) {
     homeButton.className = 'home-button';
     homeButton.textContent = 'Continue to Home';
     homeButton.addEventListener('click', () => {
-        // Remove confetti canvas when the home button is clicked
         const confettiCanvas = document.getElementById('confetti-canvas');
         if (confettiCanvas) {
             confettiCanvas.remove();
         }
 
-        // Navigate to the home page
         history.pushState(null, '', '/');
         handleRouting();
 
@@ -97,17 +91,15 @@ export function displayWinner(winner) {
     tournamentContainer.appendChild(winnerDiv);
     section.appendChild(tournamentContainer);
 
-    // Add the confetti canvas dynamically
     const confettiCanvas = document.createElement('canvas');
     confettiCanvas.id = 'confetti-canvas';
     section.appendChild(confettiCanvas);
 
-    // Trigger confetti animation
     triggerConfetti();
 }
 
 function triggerConfetti() {
-    const duration = 5000; // Duration of the animation in milliseconds (extended to 5 seconds)
+    const duration = 5000;
     const endTime = Date.now() + duration;
     const confettiCanvas = document.getElementById('confetti-canvas');
     const context = confettiCanvas.getContext('2d');
@@ -127,16 +119,15 @@ function triggerConfetti() {
         return Math.random() * (max - min) + min;
     }
 
-    // Create confetti particles
     function createParticles() {
         const particleCount = 150;
         for (let i = 0; i < particleCount; i++) {
             confettiParticles.push({
                 x: randomRange(0, confettiCanvas.width),
                 y: randomRange(0, confettiCanvas.height / 2) - confettiCanvas.height / 2,
-                dx: randomRange(-5, 5),   // Slower horizontal speed
-                dy: randomRange(3, 7),    // Slower vertical speed
-                size: randomRange(10, 15), // Bigger confetti pieces
+                dx: randomRange(-5, 5),
+                dy: randomRange(3, 7),
+                size: randomRange(10, 15),
                 color: colors[Math.floor(Math.random() * colors.length)],
                 rotation: randomRange(0, 360),
                 dRotation: randomRange(-5, 5)
@@ -144,7 +135,6 @@ function triggerConfetti() {
         }
     }
 
-    // Update and draw particles
     function updateParticles() {
         context.clearRect(0, 0, confettiCanvas.width, confettiCanvas.height);
         confettiParticles.forEach((particle, index) => {
@@ -152,12 +142,10 @@ function triggerConfetti() {
             particle.y += particle.dy;
             particle.rotation += particle.dRotation;
 
-            // Remove particles that are off-screen
             if (particle.y > confettiCanvas.height) {
                 confettiParticles.splice(index, 1);
             }
 
-            // Draw particle
             context.save();
             context.translate(particle.x, particle.y);
             context.rotate((particle.rotation * Math.PI) / 180);
@@ -169,7 +157,6 @@ function triggerConfetti() {
         if (Date.now() < endTime || confettiParticles.length > 0) {
             requestAnimationFrame(updateParticles);
         } else {
-            // Clear canvas after animation
             context.clearRect(0, 0, confettiCanvas.width, confettiCanvas.height);
         }
     }
@@ -213,24 +200,23 @@ function createPlayerBox(username, isBot) {
 
 function createWinnerBox(username) {
     const playerBox = document.createElement('div');
-    playerBox.classList.add('player-box', 'winner-box');  // Add winner styling
+    playerBox.classList.add('player-box', 'winner-box');
 
-    // Create the crown icon using Remixicon
     const crown = document.createElement('i');
-    crown.classList.add('ri-vip-crown-fill', 'crown-icon');  // Apply Remixicon crown
+    crown.classList.add('ri-vip-crown-fill', 'crown-icon');
 
     const img = document.createElement('img');
-    img.classList.add('player-avatar', 'winner-avatar');  // Golden border around avatar
+    img.classList.add('player-avatar', 'winner-avatar');
     img.id = username;
-    img.src = '/static/default-avatar.png';  // Default avatar for winner
+    img.src = '/static/default-avatar.png';
 
     const name = document.createElement('span');
     name.textContent = username;
     name.classList.add('player-name');
 
-    playerBox.appendChild(crown);  // Add crown icon on top
-    playerBox.appendChild(img);    // Add avatar with golden border
-    playerBox.appendChild(name);   // Add username
+    playerBox.appendChild(crown);
+    playerBox.appendChild(img);
+    playerBox.appendChild(name);
 
     return playerBox;
 }

@@ -24,7 +24,6 @@ def fetch_and_save_avatar(user, avatar_url):
             defaults={'displayName': user.username}
         )
 
-        # Save avatar
         if profile.avatarUrl.name == '':
             profile.avatarUrl.save(file_name, file_content, save=True)
         else:
@@ -55,7 +54,7 @@ def forty_two(request):
                 'client_id': settings.FORTY_TWO_CLIENT_ID,
                 'client_secret': settings.FORTY_TWO_CLIENT_SECRET,
                 'code': code,
-                'redirect_uri': 'https://localhost/api/42/'
+                'redirect_uri': 'https://10.11.249.79/api/42/'
             },
             headers={'Content-Type': 'application/x-www-form-urlencoded'}
         )
