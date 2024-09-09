@@ -42,9 +42,6 @@ export async function initTournamentSocket(variables) {
 					}
 				} else if (message.type === 'winner') {
 					displayWinner(message.content.winner);
-				} else if (message.type === 'watch') {
-					console.log("lobby id: ", message.id);
-					spectatePong(message.id);
 				}
 
 			socket.onerror = function(error) {

@@ -94,21 +94,6 @@ class TournamentConsumer(AsyncWebsocketConsumer):
 						logger.info(f"Winner: {tournament_states[self.lobby_id]['results']}")
 						await self.send_end_message()
 						break
-		elif message_type == 'let_me_watch':
-			id = data.get('tournamentID')
-			if id in tournament_states:
-				tournament_state = tournament_states[id]
-				logger.info(f"pairs: {tournament_state['pairs']}, results: {tournament_state['results']}")
-				for pair in tournament_state['pairs']:
-					usernames = list(pair.keys())
-					for name in usernames:
-						if name not in tournament_state['results']:
-							await self.send(text_data=json.dumps({
-								'type': 'watch',
-								'id': tournament_state['lobbies'][name],
-							}))
-							break
-
 
 	async def generate_pairs(self, players):
 		player_list = [(username, is_bot) for username, is_bot in players.items()]
