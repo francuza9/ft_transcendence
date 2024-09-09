@@ -10,6 +10,8 @@ DO NOT FORGET {
 
 [Marijn] {
 
+	Reset localgame variables before each game (AI difficulty, points to win)
+	
 	Improve Match History table css
 
 	check if chat is inside of section inside loadFriendsModal
