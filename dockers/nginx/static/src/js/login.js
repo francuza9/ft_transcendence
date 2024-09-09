@@ -131,10 +131,11 @@ function handleKeyPress(event) {
 }
 
 export const loginWith42Button = () =>  {
-    console.log('Login with 42');
-	let client_id;
-	const redirectUri = 'https://api.intra.42.fr/oauth/authorize';
-	window.location.href = redirectUri;
+	console.log('Redirecting to 42 for login...');
+	const clientId = 'u-s4t2ud-366ff59c57e39c9bb20376ac1f919739e63ecb8e0771aae3a5ce3e7bc3e65b20';
+	const redirectUri = 'https://localhost/api/42/';
+	const fortyTwoAuthUrl = `https://api.intra.42.fr/oauth/authorize?client_id=${clientId}&redirect_uri=${redirectUri}&response_type=code`;
+	window.location.href = fortyTwoAuthUrl;
 }
 
 export const loginWithGithubButton = () => {

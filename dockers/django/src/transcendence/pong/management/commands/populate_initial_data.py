@@ -12,17 +12,17 @@ class Command(BaseCommand):
 	def handle(self, *args, **kwargs):
 		# Create users
 		user1 = CustomUser.objects.create_user(
-			username='gtskitis',
+			username='george',
 			email='gtskitis@student.42angouleme.fr',
 			password='gtskitis123'
 		)
 		user2 = CustomUser.objects.create_user(
-			username='marde-vr',
+			username='marijn-vr',
 			email='marde-vr@student.42angouleme.fr',
 			password='marde-vr123'
 		)
 		user3 = CustomUser.objects.create_user(
-			username='jwadie-a',
+			username='joussef',
 			email='jwadie-a@student.42angouleme.fr',
 			password='jwadie-a123'
 		)
