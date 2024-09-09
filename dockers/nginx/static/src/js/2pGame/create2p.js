@@ -2,6 +2,7 @@ import * as THREE from 'three';
 
 import { OrbitControls } from 'https://cdn.jsdelivr.net/npm/three@0.161.0/examples/jsm/controls/OrbitControls.js';
 
+import { cleanupBackground, initBackground, resumeAnimation } from '/static/src/js/background/background.js';	
 import { initScene, initCamera, initRenderer } from './init.js';
 import { initCornerLights } from './objects/cornerLights.js';
 import { initText } from './objects/text.js';
@@ -13,7 +14,7 @@ import { initScore, updateScore } from './objects/score.js';
 import { endGame } from '/static/src/js/end.js';
 import { variables } from '/static/src/js/variables.js';
 import { getSocket } from '/static/views/lobby.js';
-import {replaceHTML} from '/static/src/js/utils.js';
+import { handleRouting } from '/static/routers/router.js';
 
 let group;
 export let keys = {
@@ -160,7 +161,15 @@ export function create2Pgame(mappov, socket, names) {
 
 	rem_listener = () => {
 		cleanup();
-		replaceHTML('/static/views/lobby.html');
+		renderer.domElement.remove();
+		handleRouting();
+		const section = document.querySelector('section');
+		if (section) {
+			section.classList.remove('hidden');
+		}
+		cleanupBackground();
+		initBackground();
+		resumeAnimation();
 	};
 
 	window.addEventListener('popstate', rem_listener);
@@ -232,12 +241,6 @@ export function create2Pgame(mappov, socket, names) {
 	function sleep(s) {
 		return new Promise(resolve => setTimeout(resolve, s * 1000));
 	}
-
-	window.addEventListener('popstate', () => {
-    // Handle history navigation
-    // For example, pause the game or reset the state
-    pauseGame(); // or any function that handles game state
-});
 
 }
 
