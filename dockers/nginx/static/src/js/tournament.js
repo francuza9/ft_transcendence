@@ -25,25 +25,56 @@ export async function generateTournamentView(players, firstTime) {
     }
 
     addTournamentStylesheet();
-	addWaitingDiv();
+
+	const containerDiv = document.createElement('div');
+    containerDiv.classList.add('tournament-wrapper');
 
 	if (firstTime) {
 		setTimeout(() => {
 			const tournamentContainer = createTournamentContainer(players);
-			section.appendChild(tournamentContainer);
+			containerDiv.appendChild(tournamentContainer);
+			containerDiv.appendChild(createWaitingDiv());
+
+            section.appendChild(containerDiv);
 			warningDiv.remove();
 		}, 3000);
+		setTimeout(() => {
+			showWaitingMessage();
+		}, 8500);
 	}
 	else {
 		const tournamentContainer = createTournamentContainer(players);
-		section.appendChild(tournamentContainer);
+		containerDiv.appendChild(tournamentContainer);
+		containerDiv.appendChild(createWaitingDiv());
+
+        section.appendChild(containerDiv);
+		setTimeout(() => {
+			showWaitingMessage();
+		}, 5500);
 	}
 }
 
-/*
-function addWaitingDiv() {
+function createWaitingDiv() {
+	const waitingDiv = document.createElement('div');
+	waitingDiv.id = "waitingDiv";
+    waitingDiv.classList.add('waiting-message', 'hidden');
 
-}*/
+	const textNode = document.createTextNode(getTranslation('pages.tournament.waiting'));
+    const dotsSpan = document.createElement('span');
+    dotsSpan.classList.add('dots');
+
+    waitingDiv.appendChild(textNode);
+    waitingDiv.appendChild(dotsSpan);
+
+	return waitingDiv;
+}
+
+export function showWaitingMessage() {
+    const waitingDiv = document.getElementById('waitingDiv');
+    if (waitingDiv) {
+        waitingDiv.classList.remove('hidden');
+    }
+}
 
 function createTournamentContainer(players) {
     const tournamentContainer = document.createElement('div');
