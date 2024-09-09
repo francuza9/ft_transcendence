@@ -10,6 +10,8 @@ DO NOT FORGET {
 
 [Marijn] {
 
+	Reset localgame variables before each game (AI difficulty, points to win)
+	
 	Improve Match History table css
 
 	Display displayname inside tournament view
