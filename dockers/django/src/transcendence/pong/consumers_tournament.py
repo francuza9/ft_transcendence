@@ -67,10 +67,13 @@ class TournamentConsumer(AsyncWebsocketConsumer):
 				tournament_states[self.lobby_id]['players'] = content
 				while True:
 					if not tournament_states[self.lobby_id]['pairs']:
-						tournament_states[self.lobby_id]['pairs'] = self.generate_pairs(tournament_states[self.lobby_id]['players'])
+						tournament_states[self.lobby_id]['pairs'] = await self.generate_pairs(tournament_states[self.lobby_id]['players'])
 					await self.send_matchups(first_time_flag)
+					if first_time_flag:
+						await asyncio.sleep(8)
+					else:
+						await asyncio.sleep(5)
 					first_time_flag = False
-					await asyncio.sleep(5)
 					if len([player for player, is_bot in tournament_states[self.lobby_id]['players'].items() if not is_bot]) <= tournament_states[self.lobby_id]['connections']:
 						await self.start_tournament()
 					while True:
@@ -90,9 +93,17 @@ class TournamentConsumer(AsyncWebsocketConsumer):
 						logger.info(f"Winner: {tournament_states[self.lobby_id]['results']}")
 						await self.send_end_message()
 						break
+		elif message_type == 'let_me_watch':
+			id = data.get('tournamentID')
+			if id in tournament_states:
+				tournament_state = tournament_states[id]
+				for pair in tournament_state['pairs']:
+					usernames = list(pair.keys())
+					for name in usernames:
+					
 
 
-	def generate_pairs(self, players):
+	async def generate_pairs(self, players):
 		player_list = [(username, is_bot) for username, is_bot in players.items()]
 		matchups = []
 		for i in range(0, len(player_list), 2):
