@@ -1,6 +1,11 @@
 import os
 import re
+import requests
+from urllib.parse import urlparse
 from django.utils.deconstruct import deconstructible
+import logging
+
+logger = logging.getLogger(__name__)
 
 @deconstructible
 class UploadTo(object):
