@@ -8,16 +8,9 @@ General Mandatory Todo {
 
 	Mandatory Part:
 	- Not push Passwords on git
-	- Tournament Display
-
-	Remote Authentication:
-	- 42 Authentication
 
 	Chat:
 	- Tournament Should warn users about the start of the game 
-	
-	Extra Features That affect mandatory:
-	- Github should be SPA
 }
 
 Bugs {
@@ -27,8 +20,6 @@ Bugs {
 [George] {
 
 	Fix url when going to a lobby that doesnt exist
-
-	42 Auth
 
 }
 
@@ -41,17 +32,6 @@ Bugs {
 	Add all languages in translations (only at end)
 
 }
-
-
-
-
-
-
-
-
-
-
-
 
 
 

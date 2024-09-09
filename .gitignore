@@ -8,3 +8,4 @@ dockers/django/src/transcendence/pong/backend_pong/__pycache__
 dockers/django/src/transcendence/pong/migrations/0001_initial.py
 dockers/django/src/transcendence/django_debug.log
 dockers/django/src/transcendence/media/profile_pictures/*
+.env
