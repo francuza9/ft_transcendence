@@ -5,9 +5,7 @@ import {replaceHTML} from '/static/src/js/utils.js';
 import {checkLoginStatus} from '/static/src/js/utils.js';
 import {variables} from '/static/src/js/variables.js';
 import {getSocketAI} from '/static/src/js/local.js';
-import {initTournamentSocket} from '/static/src/js/socket_handling/tournament_socket.js';
 
-let tournament_socket;
 export let in_lobby = false;
 
 export const updateInLobby = (value) => {
@@ -141,8 +139,4 @@ export const addBot = (self, tournamentSocket, botName=undefined) => {
 	} else {
         console.error('WebSocket is not open.');
     }
-}
-
-export function getTournamentSocket() {
-	return tournament_socket;
 }
