@@ -10,6 +10,10 @@ from .views_auth_github import (
     github,
 )
 
+from .views_auth_42 import (
+    forty_two,
+)
+
 from .views_lobby import (
     create_lobby,
     get_lobbies,
