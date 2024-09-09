@@ -43,7 +43,7 @@ export async function Lobby([lobbyId], valid=false) {
 	}
 }
 
-function spectatePong(lobbyId) {
+export function spectatePong(lobbyId) {
 
 	const socketPong = new WebSocket(`wss://${window.location.host}/ws/pong/${lobbyId}/`);
 	const section = document.getElementsByTagName('section')[0];

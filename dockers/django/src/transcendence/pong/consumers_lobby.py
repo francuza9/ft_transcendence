@@ -219,7 +219,6 @@ class LobbyConsumer(AsyncWebsocketConsumer):
 
 	async def addBot(self, address, botName):
 		available_names = [name for name in bot_names if name not in lobby_data[self.lobby_id]['players']]
-		logger.info(f"lobby: Available bot names: {available_names}")
 		if available_names:
 			bot_name = random.choice(available_names)
 			if botName != None:
