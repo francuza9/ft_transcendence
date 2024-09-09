@@ -6,7 +6,7 @@ import {initSettings} from '/static/src/js/settings.js';
 
 export async function generateTournamentView(players, firstTime) {
 	if (firstTime) {
-        console.log(firstTime);
+        console.log('firstTime', firstTime);
         
         const warningDiv = document.createElement('div');
         warningDiv.className = 'warning-message';

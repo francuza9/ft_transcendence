@@ -36,17 +36,13 @@ def fetch_and_save_avatar(user, avatar_url):
         return None
 
 def forty_two(request):
-    logger.info('42 callback received')
     code = request.GET.get('code')
 
     if not code:
         logger.error('No code provided in the request')
         return JsonResponse({'error': 'No code provided'}, status=400)
 
-    logger.info(f'Authorization code received: {code}')
-
     try:
-        # Exchange code for access token
         token_response = requests.post(
             'https://api.intra.42.fr/oauth/token',
             data={
@@ -60,9 +56,6 @@ def forty_two(request):
         )
         token_response.raise_for_status()
 
-        logger.info(f'Token response status code: {token_response.status_code}')
-        logger.info(f'Token response content: {token_response.text}')
-
         token_response_data = token_response.json()
         access_token = token_response_data.get('access_token')
 
@@ -71,15 +64,11 @@ def forty_two(request):
             logger.error(f'Error receiving access token: {error_description}')
             return JsonResponse({'error': 'Failed to get access token'}, status=400)
 
-        # Fetch user information
         user_response = requests.get(
             'https://api.intra.42.fr/v2/me',
             headers={'Authorization': f'Bearer {access_token}'}
         )
         user_response.raise_for_status()
-
-        logger.info(f'User data response status code: {user_response.status_code}')
-        logger.info(f'User data response content: {user_response.text}')
 
         user_data = user_response.json()
         forty_two_id = user_data.get('id')
@@ -103,9 +92,9 @@ def forty_two(request):
         fetch_and_save_avatar(user, avatar_url)
 
         if created:
-            logger.info('New user created')
+            logger.info('New 42 user created')
         else:
-            logger.info('Existing user logged in')
+            logger.info('Existing 42 user logged in')
 
         user.backend = 'django.contrib.auth.backends.ModelBackend'
 
