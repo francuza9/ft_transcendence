@@ -5,10 +5,11 @@ import { Pong } from '/static/views/pong_view.js';
 import { initTournamentSocket } from '/static/src/js/socket_handling/tournament_socket.js';
 import {updateInLobby} from '/static/src/js/lobby.js';
 
+let socket;
 
 export async function initLobbySocket(variables, aiGame = false) {
     return new Promise((resolve, reject) => {
-        const socket = new WebSocket(`wss://${window.location.host}/ws/${variables.lobbyId}`);
+        socket = new WebSocket(`wss://${window.location.host}/ws/${variables.lobbyId}`);
 
         socket.onopen = function() {
             ensureUsername().then(() => {
@@ -63,4 +64,8 @@ export async function initLobbySocket(variables, aiGame = false) {
             console.log('Lobby: WebSocket connection closed.');
         };
     });
+}
+
+export function getLobbySocket() {
+	return socket;
 }
