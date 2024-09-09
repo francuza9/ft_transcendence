@@ -7,6 +7,10 @@ import {removeGameRenderer} from '/static/src/js/end.js';
 import {setTranslations, getTranslation} from '/static/src/js/lang.js';
 import {loadFriends} from '/static/src/js/chat.js';
 import {in_lobby, updateInLobby} from '/static/src/js/lobby.js';
+import {initBackground, resumeAnimation} from '/static/src/js/background/background.js';
+
+let chatInitialized = false;
+let settingsInitialized = false;
 
 export async function replaceHTML(path)
 {
@@ -17,11 +21,21 @@ export async function replaceHTML(path)
 		updateInLobby(false)
 
 	let chatDiv = document.getElementById('chat');
-	if (!chatDiv)
-		initChat();
 	let settingsDiv = document.getElementById('settings');
-	if (!settingsDiv)
+	let backgroundContainer = document.getElementById('background-container');
+
+	if (!chatDiv && !chatInitialized) {
+		initChat();
+		chatInitialized = true;
+	}
+	if (!settingsDiv && !settingsInitialized) {
 		initSettings();
+		settingsInitialized = true;
+	}
+	if (backgroundContainer.childElementCount === 0) {
+		initBackground();
+		resumeAnimation();
+	}
 
     try {
 		if (path.includes('login') || path.includes('register')) {

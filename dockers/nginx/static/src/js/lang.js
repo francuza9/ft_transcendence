@@ -47,7 +47,7 @@ export function translateContent(translations) {
     });
 
 	const hello = document.getElementById('hello');
-	hello.textContent = `${getTranslation('pages.settings.hello')} ${variables.username}!`;
+	if (hello) hello.textContent = `${getTranslation('pages.settings.hello')} ${variables.username}!`;
 }
 
 export function getTranslation(key, translationsFile) {
