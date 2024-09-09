@@ -69,7 +69,7 @@ export function renderPlayerList(times, players, scores) {
 export const removeGameRenderer = () => {
 	gameRenderer.domElement.remove();
 	variables.endView = false;
-	initBackground();
+	// initBackground();
 	resumeAnimation();
 }
 
