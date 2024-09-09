@@ -4,35 +4,23 @@ DO NOT FORGET {
 	PUT TRANSLATIONS
 }
 
-General Mandatory Todo {
-
-	Mandatory Part:
-	- Not push Passwords on git
-
-	Chat:
-	- Tournament Should warn users about the start of the game 
-}
-
-Bugs {
-
-}
-
 [George] {
 
-	Fix url when going to a lobby that doesnt exist
+	Lobbies don't dissapear from join page
+	When you go back from game, you can't (at least when spectator, idk for normal games)
+	Give displayname inside tournament socket aswell as username instead of only username
 
 }
 
 [Marijn] {
 
-	Tournament start anouncement ???
-
 	Improve Match History table css
+
+	Display displayname inside tournament view
 
 	Add all languages in translations (only at end)
 
 }
-
 
 
 
