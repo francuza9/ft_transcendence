@@ -13,6 +13,7 @@ import { initScore, updateScore } from './objects/score.js';
 import { endGame } from '/static/src/js/end.js';
 import { variables } from '/static/src/js/variables.js';
 import { getSocket } from '/static/views/lobby.js';
+import { getTournamentSocket } from '/static/src/js/socket_handling/tournament_socket.js';
 
 let group;
 export let keys = {
@@ -137,7 +138,9 @@ export function create2Pgame(mappov, socket, names) {
 			cleanup();
 			gameRunning = false;
 			renderer.domElement.remove();
-			variables.partOfTournament = false;
+			// variables.partOfTournament = false;
+			const tournamentSocket = getTournamentSocket();
+			tournamentSocket.send(JSON.stringify({ type: 'let_me_watch', id: variables.tournamentID }));
 		}
 	};
 
