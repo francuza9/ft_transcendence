@@ -110,7 +110,8 @@
 			"lobbyInvalid": "The lobby you are trying to join is invalid, has been closed or is full."
         },
 		"tournament": {
-			"warning": "Tournament will begin shortly! Get ready!"
+			"warning": "Tournament will begin shortly! Get ready!",
+			"waiting": "Waiting for games to finish"
 		},
 		"leaderboard": {
 			"title": "Leaderboard"

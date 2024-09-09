@@ -10,10 +10,17 @@ body {
     gap: 20px;
 }
 
+.player-name {
+	font-weight: bold;
+	padding: 20px;
+	font-size: 1.5em;
+}
+
 .current-matches {
     display: flex;
     flex-direction: column;
     justify-content: center;
+    align-items: center;
     gap: 20px;
 }
 
@@ -107,4 +114,45 @@ body {
     0% { opacity: 1; }
     50% { opacity: 0.5; }
     100% { opacity: 1; }
+}
+
+.waiting-message {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #ffffff;
+    text-align: center;
+    margin-top: 20px;
+}
+
+.tournament-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+.dots::after {
+    content: '';
+    display: inline-block;
+    width: 1ch;
+    animation: dots 1s steps(3, end) infinite;
+}
+
+@keyframes dots {
+    0% {
+        content: '.';
+    }
+    33% {
+        content: '..';
+    }
+    66% {
+        content: '...';
+    }
+    100% {
+        content: '';
+    }
+}
+
+.hidden {
+    display: none;
 }
