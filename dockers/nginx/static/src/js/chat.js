@@ -197,8 +197,11 @@ export const openChatWithFriend = (friend) => {
         chatInputListener = function(event) {
             if (event.key === "Enter") {
                 sendBtn.click();
-				const chatInput = document.getElementById("chat-input");
-				if (chatInput) chatInput.value = '';
+				console.log("texting with ", friend.username);
+				setTimeout(() => {
+					const chatInput = document.getElementById("chat-input");
+					if (chatInput) chatInput.value = '';
+				}, 100);
             }
         };
     }
