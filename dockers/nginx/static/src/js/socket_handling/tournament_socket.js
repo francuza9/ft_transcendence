@@ -36,7 +36,7 @@ export async function initTournamentSocket(variables) {
 						pvp_start(variables);
 					}
 				} else if (message.type === 'matchups') {
-					generateTournamentView(message.content.matchups, message.content.firstTime);
+					generateTournamentView(message.content.matchups, message.content.firstTime, message.content.displays);
 					if (message.content.firstTime) {
 						cleanupBackground();
 					}
