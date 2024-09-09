@@ -42,6 +42,9 @@ def forty_two(request):
         logger.error('No code provided in the request')
         return JsonResponse({'error': 'No code provided'}, status=400)
 
+    hostname = request.get_host()
+    redirect_uri = f'https://{hostname}/api/42/'
+
     try:
         token_response = requests.post(
             'https://api.intra.42.fr/oauth/token',
@@ -50,7 +53,7 @@ def forty_two(request):
                 'client_id': settings.FORTY_TWO_CLIENT_ID,
                 'client_secret': settings.FORTY_TWO_CLIENT_SECRET,
                 'code': code,
-                'redirect_uri': 'https://10.11.249.79/api/42/'
+                'redirect_uri': redirect_uri
             },
             headers={'Content-Type': 'application/x-www-form-urlencoded'}
         )
