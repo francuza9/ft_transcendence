@@ -21,7 +21,6 @@ export async function initTournamentSocket(variables) {
 			socket.onmessage = function(event) {
 				const message = JSON.parse(event.data);
 				if (message.type === 'start') {
-					console.log("start received");
 					variables.lobbyId = message.content.lobbyId;
 					variables.aiGame = message.content.aiGame;
 					variables.isTournament = false;
@@ -36,13 +35,11 @@ export async function initTournamentSocket(variables) {
 						pvp_start(variables);
 					}
 				} else if (message.type === 'matchups') {
-					console.log("matchups received");
 					generateTournamentView(message.content.matchups, message.content.firstTime);
 					if (message.content.firstTime) {
 						cleanupBackground();
 					}
 				} else if (message.type === 'winner') {
-					console.log("winner is: ", message.content.winner);
 					displayWinner(message.content.winner);
 				}
 

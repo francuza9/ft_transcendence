@@ -5,7 +5,6 @@ import {initChat} from '/static/src/js/chat.js';
 import {initSettings} from '/static/src/js/settings.js';
 
 export async function generateTournamentView(players, firstTime) {
-    console.log(players);
     if (firstTime) {
         console.log(firstTime);
     }

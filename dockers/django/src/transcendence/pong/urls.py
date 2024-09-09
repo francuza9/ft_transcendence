@@ -16,6 +16,7 @@ urlpatterns = [
 	path('api/avatar_remove/', views.remove_avatar, name='remove_avatar'),
     path('api/logout/', views.logout_user, name='logout_user'),
     path('api/github/', views.github, name='github'),
+    path('api/42/', views.forty_two, name='forty_two'),
 	path('api/leaderboard/win_rate/', views.leaderboard_win_rate, name='leaderboard_win_rate'),
     path('api/friends/', views.get_friends, name='get_friends'),
 	path('api/blocked/', views.get_blocked, name='get_blocked'),
