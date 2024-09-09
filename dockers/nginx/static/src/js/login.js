@@ -133,7 +133,8 @@ function handleKeyPress(event) {
 export const loginWith42Button = () =>  {
 	console.log('Redirecting to 42 for login...');
 	const clientId = 'u-s4t2ud-366ff59c57e39c9bb20376ac1f919739e63ecb8e0771aae3a5ce3e7bc3e65b20';
-	const redirectUri = 'https://10.11.249.79/api/42/';
+	const hostname = window.location.hostname;
+	const redirectUri = `https://${hostname}/api/42/`;
 	const fortyTwoAuthUrl = `https://api.intra.42.fr/oauth/authorize?client_id=${clientId}&redirect_uri=${redirectUri}&response_type=code`;
 	window.location.href = fortyTwoAuthUrl;
 }
@@ -141,7 +142,8 @@ export const loginWith42Button = () =>  {
 export const loginWithGithubButton = () => {
 	console.log('Redirecting to GitHub for login...');
 	const clientId = 'Ov23li5k50XUjRjLs4bc';
-	const redirectUri = 'https://10.11.249.79/api/github/';
+	const hostname = window.location.hostname;
+	const redirectUri = `https://${hostname}/api/github/`;
 	const githubAuthUrl = `https://github.com/login/oauth/authorize?client_id=${clientId}&redirect_uri=${redirectUri}&scope=user:email`;
 	window.location.href = githubAuthUrl;
 }
