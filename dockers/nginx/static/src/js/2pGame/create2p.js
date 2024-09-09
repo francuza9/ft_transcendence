@@ -160,6 +160,7 @@ export function create2Pgame(mappov, socket, names) {
     });
 
 	rem_listener = () => {
+		gameRunning = false;
 		cleanup();
 		renderer.domElement.remove();
 		handleRouting();

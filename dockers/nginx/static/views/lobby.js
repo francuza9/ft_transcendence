@@ -78,6 +78,10 @@ export function spectatePong(lobbyId) {
 		}
 	}
 
+	socketPong.onclose = function() {
+		console.log('Pong Spectator WebSocket connection closed.');
+	}
+
 }
 
 async function getLobbyStatus(lobbyId) {
