@@ -7,8 +7,6 @@ DO NOT FORGET {
 [George] {
 
 	Lobbies don't dissapear from join page
-	When you go back from game, you can't (at least when spectator, idk for normal games)
-	Give displayname inside tournament socket aswell as username instead of only username
 
 }
 
