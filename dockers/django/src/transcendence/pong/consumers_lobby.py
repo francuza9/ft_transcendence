@@ -97,9 +97,8 @@ class LobbyConsumer(AsyncWebsocketConsumer):
 			if len(lobby_data[self.lobby_id]['players']) < lobby_data[self.lobby_id]['max_users']:
 				lobby_data[self.lobby_id]['available'] = True
 
-			# Remove lobby if no connected clients
 			if not lobby_data[self.lobby_id]['connected_clients']:
-				await asyncio.sleep(10)  # Wait for a while to ensure it's not a temporary issue
+				await asyncio.sleep(1)
 				if not lobby_data[self.lobby_id]['connected_clients']:
 					del lobby_data[self.lobby_id]
 					logger.info(f"lobby: Lobby {self.lobby_id} removed due to inactivity.")
