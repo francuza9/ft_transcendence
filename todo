@@ -37,17 +37,6 @@ Bugs {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
 Extra {
 	Fix clicking on bots to not do any requests to get profile
 	Remove Add a Bot button in lobby when tournament is full

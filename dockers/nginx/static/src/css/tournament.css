@@ -6,29 +6,26 @@ body {
 .tournament-container {
     display: flex;
     flex-direction: column;
-    align-items: center;  /* Center the container */
+    align-items: center;
     gap: 20px;
 }
 
-/* Layout for matches, each match should be a row with players on the left and right */
 .current-matches {
     display: flex;
-    flex-direction: column;  /* Stack matches vertically */
+    flex-direction: column;
     justify-content: center;
-    gap: 20px;  /* Space between each match */
+    gap: 20px;
 }
 
-/* Each match is laid out horizontally with players on either side of 'VS' */
 .match {
     display: flex;
     flex-direction: row;
     align-items: center;
-    justify-content: space-between;  /* Add space between player and VS */
-    width: 400px;  /* Adjust the width to fit players and VS comfortably */
+    justify-content: space-between;
+    width: 400px;
     gap: 10px;
 }
 
-/* Individual player box styling */
 .player-box {
     display: flex;
     flex-direction: column;
@@ -49,7 +46,6 @@ body {
     color: white;
 }
 
-/* Winner display styling */
 .winner-display {
     display: flex;
     flex-direction: column;
@@ -58,14 +54,14 @@ body {
 }
 
 .winner-avatar {
-    border: 5px solid gold;  /* Golden border around the avatar */
+    border: 5px solid gold; 
     border-radius: 50%;
 }
 
 .crown-icon {
-    font-size: 36px;  /* Size of the crown */
-    color: gold;      /* Crown color */
-    margin-bottom: -20px;  /* Adjust crown margin */
+    font-size: 36px;
+    color: gold;
+    margin-bottom: -20px;
 }
 
 .winner-box {
@@ -88,7 +84,6 @@ body {
     cursor: pointer;
 }
 
-/* Confetti canvas */
 #confetti-canvas {
     position: fixed;
     top: 0;
@@ -96,5 +91,5 @@ body {
     width: 100%;
     height: 100%;
     pointer-events: none;
-    z-index: 9999; /* Ensure the confetti is above other elements */
+    z-index: 9999;
 }
