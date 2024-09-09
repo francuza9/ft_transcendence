@@ -5,17 +5,20 @@ import {initChat} from '/static/src/js/chat.js';
 import {initSettings} from '/static/src/js/settings.js';
 import {getTranslation} from '/static/src/js/lang.js';
 
+let exited = false;
+
+export function setExited(value) {
+	exited = value;
+}
+
 export async function generateTournamentView(players, firstTime, displays) {
-
-	//TODO: players contain usernames with which you will fetch avatars
-	//		displays contain the display names of the players
-
 	const section = document.querySelector('section');
 	const warningDiv = document.createElement('div');
     section.innerHTML = '';
     section.classList.remove('hidden');
 
     if (firstTime) {
+		exited = false;
         warningDiv.className = 'warning-message';
         warningDiv.textContent = getTranslation('pages.tournament.warning');
 
@@ -35,25 +38,29 @@ export async function generateTournamentView(players, firstTime, displays) {
 
 	if (firstTime) {
 		setTimeout(() => {
-			const tournamentContainer = createTournamentContainer(players);
-			containerDiv.appendChild(tournamentContainer);
-			containerDiv.appendChild(createWaitingDiv());
+			if (!exited) {
+				const tournamentContainer = createTournamentContainer(players, displays);
+				containerDiv.appendChild(tournamentContainer);
+				containerDiv.appendChild(createWaitingDiv());
 
-            section.appendChild(containerDiv);
-			warningDiv.remove();
+				section.appendChild(containerDiv);
+				warningDiv.remove();
+			}
 		}, 3000);
 		setTimeout(() => {
-			showWaitingMessage();
+			if (!exited)
+				showWaitingMessage();
 		}, 8500);
 	}
 	else {
-		const tournamentContainer = createTournamentContainer(players);
+		const tournamentContainer = createTournamentContainer(players, displays);
 		containerDiv.appendChild(tournamentContainer);
 		containerDiv.appendChild(createWaitingDiv());
 
         section.appendChild(containerDiv);
 		setTimeout(() => {
-			showWaitingMessage();
+			if (!exited)
+				showWaitingMessage();
 		}, 5500);
 	}
 }
@@ -80,38 +87,45 @@ export function showWaitingMessage() {
     }
 }
 
-function createTournamentContainer(players) {
+function createTournamentContainer(players, displays) {
     const tournamentContainer = document.createElement('div');
     tournamentContainer.className = 'tournament-container w-100';
 
     const currentMatches = document.createElement('div');
     currentMatches.className = 'current-matches';
 
-	players.forEach((pair) => {
-		const matchDiv = document.createElement('div');
-		matchDiv.className = 'match';
+	let i = 1;
+    players.forEach((pair, index) => {
+        const matchDiv = document.createElement('div');
+        matchDiv.className = 'match';
 
+        const display = displays[index];
 		const playerDivs = [];
-		for (const playerKey in pair) {
-			const isBot = pair[playerKey];
-			const playerDiv = createPlayerBox(playerKey, isBot);
-			playerDivs.push(playerDiv);
-		}
 
-		matchDiv.appendChild(playerDivs[0]);
+        for (const playerKey in pair) {
+            const isBot = pair[playerKey];
+            i++;
+			const dispArray = Object.keys(display);
+			const displayName = dispArray[i%2];
 
-		const vsDiv = document.createElement('div');
-		vsDiv.className = 'vs';
-		vsDiv.textContent = 'VS';
-		matchDiv.appendChild(vsDiv);
+            const playerDiv = createPlayerBox(playerKey, displayName, isBot);
+            playerDivs.push(playerDiv);
+        }
 
-		matchDiv.appendChild(playerDivs[1]);
+        matchDiv.appendChild(playerDivs[0]);
 
-		currentMatches.appendChild(matchDiv);
-	});
+        const vsDiv = document.createElement('div');
+        vsDiv.className = 'vs';
+        vsDiv.textContent = 'VS';
+        matchDiv.appendChild(vsDiv);
+
+        matchDiv.appendChild(playerDivs[1]);
+
+        currentMatches.appendChild(matchDiv);
+    });
 
     tournamentContainer.appendChild(currentMatches);
-	return tournamentContainer;
+    return tournamentContainer;
 }
 
 export function displayWinner(winner) {
@@ -241,7 +255,7 @@ function addTournamentStylesheet() {
     }
 }
 
-function createPlayerBox(username, isBot) {
+function createPlayerBox(username, display, isBot) {
     const playerBox = document.createElement('div');
     playerBox.classList.add('player-box');
 
@@ -251,7 +265,7 @@ function createPlayerBox(username, isBot) {
     img.src = '/static/default-avatar.png';
 
     const name = document.createElement('span');
-    name.textContent = username;
+    name.textContent = display;
     name.classList.add('player-name');
 
     playerBox.appendChild(img);

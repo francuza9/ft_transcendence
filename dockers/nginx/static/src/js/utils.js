@@ -1,3 +1,5 @@
+import {initChat} from '/static/src/js/chat.js';
+import {initSettings} from '/static/src/js/settings.js';
 import {variables} from '/static/src/js/variables.js';
 import {getCookie, setCookie} from '/static/src/js/cookies.js';
 import {translateContent} from '/static/src/js/lang.js';
@@ -14,15 +16,22 @@ export async function replaceHTML(path)
 	if (path != '/static/src/html/lobby.html')
 		updateInLobby(false)
 
+	let chatDiv = document.getElementById('chat');
+	if (!chatDiv)
+		initChat();
+	let settingsDiv = document.getElementById('settings');
+	if (!settingsDiv)
+		initSettings();
+
     try {
 		if (path.includes('login') || path.includes('register')) {
-            const chatDiv = document.getElementById('chat');
-            const settingsDiv = document.getElementById('settings');
+            chatDiv = document.getElementById('chat');
+            settingsDiv = document.getElementById('settings');
             if (chatDiv) chatDiv.style.display = 'none';
             if (settingsDiv) settingsDiv.style.display = 'none';
         } else {
-            const chatDiv = document.getElementById('chat');
-            const settingsDiv = document.getElementById('settings');
+            chatDiv = document.getElementById('chat');
+            settingsDiv = document.getElementById('settings');
             if (chatDiv) chatDiv.style.display = '';
             if (settingsDiv) settingsDiv.style.display = '';
         }

@@ -42,6 +42,7 @@ export async function initTournamentSocket(variables) {
 					}
 				} else if (message.type === 'winner') {
 					displayWinner(message.content.winner);
+					socket.close();
 				}
 
 			socket.onerror = function(error) {
