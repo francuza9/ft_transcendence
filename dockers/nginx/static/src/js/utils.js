@@ -24,14 +24,9 @@ export async function replaceHTML(path)
 	let settingsDiv = document.getElementById('settings');
 	let backgroundContainer = document.getElementById('background-container');
 
-	if (!chatDiv && !chatInitialized) {
-		initChat();
-		chatInitialized = true;
-	}
-	if (!settingsDiv && !settingsInitialized) {
-		initSettings();
-		settingsInitialized = true;
-	}
+	if (chatDiv) chatDiv.classList.remove('hidden');
+	if (settingsDiv) settingsDiv.classList.remove('hidden');
+
 	if (backgroundContainer.childElementCount === 0) {
 		initBackground();
 		resumeAnimation();
