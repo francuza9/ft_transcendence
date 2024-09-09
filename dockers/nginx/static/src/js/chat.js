@@ -32,7 +32,7 @@ export const openChat = () => {
     const backBtn = document.getElementById("back-btn");
 
     chatWindow.classList.remove("hidden");
-    chatBtn.classList.add("hidden");
+    chatBtn.classList.add("open");
 
     if (chatArea && !chatArea.classList.contains("hidden")) {
         manageFriendsBtn.classList.add("hidden");
@@ -73,7 +73,7 @@ export const closeChat = () => {
 	const chatBtn = document.getElementById("chat-btn");
 
     chatWindow.classList.add("hidden");
-	chatBtn.classList.remove("hidden");
+	chatBtn.classList.remove("open");
 	removeEnterListener();
 
     if (chatInputListener) {

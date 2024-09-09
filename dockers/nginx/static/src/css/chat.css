@@ -276,7 +276,7 @@
     font-size: 20px;
 }
 
-.hidden {
+.hidden, .open {
     display: none;
 }
 
