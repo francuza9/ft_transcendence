@@ -151,7 +151,8 @@ class TournamentConsumer(AsyncWebsocketConsumer):
 		message = {
 			'type': 'matchups',
 			'content': {
-				'matchups': display_name_pairs,
+				'matchups': tournament_state['pairs'],
+				'displays': display_name_pairs,
 				'firstTime': first_time_flag,
 			}
 		}

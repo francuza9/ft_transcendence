@@ -5,7 +5,11 @@ import {initChat} from '/static/src/js/chat.js';
 import {initSettings} from '/static/src/js/settings.js';
 import {getTranslation} from '/static/src/js/lang.js';
 
-export async function generateTournamentView(players, firstTime) {
+export async function generateTournamentView(players, firstTime, displays) {
+
+	//TODO: players contain usernames with which you will fetch avatars
+	//		displays contain the display names of the players
+
 	const section = document.querySelector('section');
 	const warningDiv = document.createElement('div');
     section.innerHTML = '';
