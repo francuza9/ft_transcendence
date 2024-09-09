@@ -5,8 +5,21 @@ import {initChat} from '/static/src/js/chat.js';
 import {initSettings} from '/static/src/js/settings.js';
 
 export async function generateTournamentView(players, firstTime) {
-    if (firstTime) {
+	if (firstTime) {
         console.log(firstTime);
+        
+        const warningDiv = document.createElement('div');
+        warningDiv.className = 'warning-message';
+        warningDiv.textContent = 'Tournament will begin shortly! Get ready!';
+        
+        const section = document.querySelector('section');
+        section.appendChild(warningDiv);
+        
+        setTimeout(() => {
+            if (warningDiv.parentNode) {
+                warningDiv.parentNode.removeChild(warningDiv);
+            }
+        }, 3000);
     }
 
     const section = document.querySelector('section');
