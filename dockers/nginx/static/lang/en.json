@@ -109,6 +109,9 @@
 			"addBot": "Add a Bot",
 			"lobbyInvalid": "The lobby you are trying to join is invalid, has been closed or is full."
         },
+		"tournament": {
+			"warning": "Tournament will begin shortly! Get ready!"
+		},
 		"leaderboard": {
 			"title": "Leaderboard"
 		},

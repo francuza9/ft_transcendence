@@ -3,18 +3,20 @@ import {handleRouting} from '/static/routers/router.js';
 import {initBackground, resumeAnimation} from '/static/src/js/background/background.js';
 import {initChat} from '/static/src/js/chat.js';
 import {initSettings} from '/static/src/js/settings.js';
+import {getTranslation} from '/static/src/js/lang.js';
 
 export async function generateTournamentView(players, firstTime) {
-	if (firstTime) {
-        console.log('firstTime', firstTime);
-        
-        const warningDiv = document.createElement('div');
+	const section = document.querySelector('section');
+	const warningDiv = document.createElement('div');
+    section.innerHTML = '';
+    section.classList.remove('hidden');
+
+    if (firstTime) {
         warningDiv.className = 'warning-message';
-        warningDiv.textContent = 'Tournament will begin shortly! Get ready!';
-        
-        const section = document.querySelector('section');
+        warningDiv.textContent = getTranslation('pages.tournament.warning');
+
         section.appendChild(warningDiv);
-        
+
         setTimeout(() => {
             if (warningDiv.parentNode) {
                 warningDiv.parentNode.removeChild(warningDiv);
@@ -22,12 +24,28 @@ export async function generateTournamentView(players, firstTime) {
         }, 3000);
     }
 
-    const section = document.querySelector('section');
-    section.innerHTML = '';
-	section.classList.remove('hidden');
-
     addTournamentStylesheet();
+	addWaitingDiv();
 
+	if (firstTime) {
+		setTimeout(() => {
+			const tournamentContainer = createTournamentContainer(players);
+			section.appendChild(tournamentContainer);
+			warningDiv.remove();
+		}, 3000);
+	}
+	else {
+		const tournamentContainer = createTournamentContainer(players);
+		section.appendChild(tournamentContainer);
+	}
+}
+
+/*
+function addWaitingDiv() {
+
+}*/
+
+function createTournamentContainer(players) {
     const tournamentContainer = document.createElement('div');
     tournamentContainer.className = 'tournament-container w-100';
 
@@ -58,7 +76,7 @@ export async function generateTournamentView(players, firstTime) {
 	});
 
     tournamentContainer.appendChild(currentMatches);
-    section.appendChild(tournamentContainer);
+	return tournamentContainer;
 }
 
 export function displayWinner(winner) {
