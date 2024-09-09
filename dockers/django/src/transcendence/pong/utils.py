@@ -1,9 +1,7 @@
-import os
-import re
-import requests
-from urllib.parse import urlparse
 from django.utils.deconstruct import deconstructible
 import logging
+import os
+import re
 
 logger = logging.getLogger(__name__)
 
@@ -77,6 +75,9 @@ def is_valid_email(email):
 		return False, "Email cannot be longer than 64 characters."
 	if not re.match(r'^[A-Za-z0-9._%-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$', email):
 		return False, "Invalid email format."
+	#if email contains @student.42 in its domain
+	if "@student.42" in email:
+		return False, "42 student emails are not allowed."
 
 	return True, None
 
