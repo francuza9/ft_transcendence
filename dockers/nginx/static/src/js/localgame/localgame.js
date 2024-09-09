@@ -12,6 +12,8 @@ import { playerNames } from './objects/playerNames.js';
 import { initScore } from './objects/score.js';
 import { updatePlayerPositions, checkCollision } from './local.js';
 import { endGame } from '/static/src/js/end.js';
+import { cleanupBackground, initBackground, resumeAnimation } from '/static/src/js/background/background.js';	
+import { handleRouting } from '/static/routers/router.js';
 
 let group;
 export let keys = {
@@ -23,6 +25,7 @@ export let keys = {
 
 let score;
 export let scoremesh = 0;
+let rem_listener;
 
 export function startLocal(pointsToWin)
 {
@@ -78,6 +81,30 @@ export function startLocal(pointsToWin)
 	});
 
 
+	rem_listener = () => {
+		renderer.setAnimationLoop(null);
+		window.removeEventListener('resize', onWindowResize);
+		document.removeEventListener('keydown', onKeydown);
+		document.removeEventListener('keyup', onKeyup);
+		window.removeEventListener('popstate', rem_listener);
+		controls.dispose();
+		group.clear();
+		scene.clear();
+		renderer.dispose();
+		renderer.domElement.remove();
+		handleRouting();
+		const section = document.querySelector('section');
+		if (section) {
+			section.classList.remove('hidden');
+		}
+		cleanupBackground();
+		initBackground();
+		resumeAnimation();
+		
+	};
+
+	window.addEventListener('popstate', rem_listener);
+
 	let previousTime = 0;
 	const fps = 45;
 	const interval = 1000 / fps;
@@ -119,6 +146,7 @@ export function startLocal(pointsToWin)
 			scene.clear();
 			renderer.dispose();
 			endGame([1,1], ['Player 1', 'Player 2'], score, renderer);
+		
 	}
 }
 

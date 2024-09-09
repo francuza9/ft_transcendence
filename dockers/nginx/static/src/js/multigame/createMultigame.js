@@ -11,6 +11,11 @@ import { createPlayers } from './objects/players.js';
 import { buildMap } from './scene/maps/chooseMap.js';
 import { variables } from '/static/src/js/variables.js';
 import { create2Pgame } from '/static/src/js/2pGame/create2p.js';
+import { cleanupBackground, initBackground, resumeAnimation } from '/static/src/js/background/background.js';	
+import { handleRouting } from '/static/routers/router.js';
+
+
+let rem_listener;
 
 export function createMultigame(pcount, pov, map, socket) {
 	if (pov > pcount)
@@ -146,6 +151,21 @@ export function createMultigame(pcount, pov, map, socket) {
 		}
 	}
 	socket.addEventListener('message', handleMessage);
+
+	rem_listener = () => {
+		cleanup();
+		renderer.domElement.remove();
+		handleRouting();
+		const section = document.querySelector('section');
+		if (section) {
+			section.classList.remove('hidden');
+		}
+		cleanupBackground();
+		initBackground();
+		resumeAnimation();
+	};
+
+	window.addEventListener('popstate', rem_listener);
 
 	function animate() {
 		// Send player positions over the socket
