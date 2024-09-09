@@ -144,16 +144,29 @@ class TournamentConsumer(AsyncWebsocketConsumer):
 
 	async def send_matchups(self, first_time_flag=False):
 		tournament_state = tournament_states[self.lobby_id]
+
+		display_name_pairs = await self.get_display_name_pairs(tournament_state['pairs'])
+
 		message = {
 			'type': 'matchups',
 			'content': {
-				'matchups': tournament_state['pairs'],
+				'matchups': display_name_pairs,
 				'firstTime': first_time_flag,
 			}
 		}
 		await asyncio.sleep(0.5)
 		for username, connection in tournament_state['player_connections'].items():
 			await connection.send(text_data=json.dumps(message))
+
+	async def get_display_name_pairs(self, pairs):
+		display_name_pairs = []
+		for pair in pairs:
+			new_pair = {}
+			for username, is_bot in pair.items():
+				display_name = await self.getDispFromDB(username)
+				new_pair[display_name] = is_bot
+			display_name_pairs.append(new_pair)
+		return display_name_pairs
 
 	async def send_end_message(self):
 		tournament_state = tournament_states[self.lobby_id]
@@ -169,6 +182,7 @@ class TournamentConsumer(AsyncWebsocketConsumer):
 
 		for username, connection in tournament_state['player_connections'].items():
 			await connection.send(text_data=json.dumps(message))
+
 
 	async def send_to_pair(self, usernames, lobby_id, aiGame, botName):
 		tournament_state = tournament_states[self.lobby_id]
