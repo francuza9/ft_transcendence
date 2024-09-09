@@ -84,7 +84,6 @@ class LobbyConsumer(AsyncWebsocketConsumer):
 			except:
 				pass
 
-			# Remove the player if they exist
 			if self.channel_name in lobby_data[self.lobby_id]['players']:
 				index = lobby_data[self.lobby_id]['players'].index(self.channel_name)
 				lobby_data[self.lobby_id]['players'].pop(index)

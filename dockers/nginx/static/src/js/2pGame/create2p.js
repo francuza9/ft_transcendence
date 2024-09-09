@@ -13,6 +13,7 @@ import { initScore, updateScore } from './objects/score.js';
 import { endGame } from '/static/src/js/end.js';
 import { variables } from '/static/src/js/variables.js';
 import { getSocket } from '/static/views/lobby.js';
+import {replaceHTML} from '/static/src/js/utils.js';
 
 let group;
 export let keys = {
@@ -27,6 +28,8 @@ let cameraFollow = false;
 export let scoremesh;
 
 let gameRunning = false;
+
+let rem_listener;
 
 export function create2Pgame(mappov, socket, names) {
 	if (gameRunning)
@@ -155,6 +158,13 @@ export function create2Pgame(mappov, socket, names) {
         console.error('Failed to load text:', error);
     });
 
+	rem_listener = () => {
+		cleanup();
+		replaceHTML('/static/views/lobby.html');
+	};
+
+	window.addEventListener('popstate', rem_listener);
+
 	socket.binaryType = 'arraybuffer';
     function animate() {
 		if (mappov > 0)
@@ -205,6 +215,7 @@ export function create2Pgame(mappov, socket, names) {
 		window.removeEventListener('resize', onWindowResize);
 		window.removeEventListener('keydown', boundOnKeydown);
 		window.removeEventListener('keyup', boundOnKeyup);
+		window.removeEventListener('popstate', rem_listener);
 		socket.removeEventListener('message', handleMessage);
 		socket.close();
 		controls.dispose();
@@ -221,6 +232,13 @@ export function create2Pgame(mappov, socket, names) {
 	function sleep(s) {
 		return new Promise(resolve => setTimeout(resolve, s * 1000));
 	}
+
+	window.addEventListener('popstate', () => {
+    // Handle history navigation
+    // For example, pause the game or reset the state
+    pauseGame(); // or any function that handles game state
+});
+
 }
 
 function updatePlayerPosition(player)
