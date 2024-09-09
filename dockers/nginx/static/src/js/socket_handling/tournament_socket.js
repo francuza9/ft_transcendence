@@ -5,10 +5,12 @@ import {initLobbySocket} from '/static/src/js/socket_handling/lobby_socket.js';
 import {addBot,startButton} from '/static/src/js/lobby.js';
 import {cleanupBackground} from '/static/src/js/background/background.js';
 
+let socket;
+
 export async function initTournamentSocket(variables) {
 	return new Promise((resolve, reject) => {
 		ensureUsername().then(() => {
-			const socket = new WebSocket(`wss://${window.location.host}/ws/tournament/${variables.lobbyId}/?username=${variables.username}`);
+			socket = new WebSocket(`wss://${window.location.host}/ws/tournament/${variables.lobbyId}/?username=${variables.username}`);
 			variables.tournamentID = variables.lobbyId;
 
 			socket.onopen = function() {
@@ -126,6 +128,10 @@ async function pvp_start(variables) {
 	} catch (error) {
 		console.error('Failed to initialize WebSocket:', error);
 	}
+}
+
+export function getTournamentSocket() {
+	return socket;
 }
 
 function sleep(ms, callback) {
