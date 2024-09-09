@@ -1,4 +1,6 @@
 from channels.generic.websocket import AsyncWebsocketConsumer
+from .models import CustomUser, Profile
+from asgiref.sync import sync_to_async
 import json
 import random
 import string
@@ -92,8 +94,15 @@ class TournamentConsumer(AsyncWebsocketConsumer):
 							await asyncio.sleep(1)
 					if len(tournament_states[self.lobby_id]['results']) == 1:
 						logger.info(f"Winner: {tournament_states[self.lobby_id]['results']}")
+						original_key = list(tournament_states[self.lobby_id]['results'][0].keys())[0]
+						nick = await self.getDispFromDB(original_key)
+						if nick != "":
+							result_dict = tournament_states[self.lobby_id]['results'][0]
+							updated_result_dict = {nick: result_dict.pop(original_key)}
+							tournament_states[self.lobby_id]['results'][0] = updated_result_dict
 						await self.send_end_message()
 						break
+
 
 	async def generate_pairs(self, players):
 		player_list = [(username, is_bot) for username, is_bot in players.items()]
@@ -181,3 +190,22 @@ class TournamentConsumer(AsyncWebsocketConsumer):
 
 	async def generate_lobby_id(self):
 		return ''.join(random.choices(string.ascii_letters + string.digits, k=8))
+
+	async def getDispFromDB(self, target):
+		try:
+			user = await sync_to_async(CustomUser.objects.get)(username=target)
+			
+			profile = await sync_to_async(Profile.objects.get)(user=user)
+
+			display_name = profile.displayName
+		except CustomUser.DoesNotExist:
+			logger.info("User not found")
+			display_name = ""
+		except Profile.DoesNotExist:
+			logger.info("Profile not found for user")
+			display_name = ""
+		except Exception as e:
+			logger.error(f"Error fetching profile: {e}")
+			display_name = ""
+			
+		return display_name
