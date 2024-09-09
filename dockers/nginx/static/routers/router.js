@@ -18,6 +18,7 @@ import { initChat } from '/static/src/js/chat.js';
 import { initSettings } from '/static/src/js/settings.js'; 
 import { handleButtonAction } from '/static/routers/buttons.js';
 import { checkLoginStatus } from '/static/src/js/utils.js';
+import { setExited } from '/static/src/js/tournament.js';
 
 const router = [
     { path: /^\/$/, component: Home },
@@ -46,6 +47,7 @@ const findRoute = (path) => {
 };
 
 export const handleRouting = () => {
+	setExited(true);
     const path = normalizePath(window.location.pathname);
 	const { component, params } = findRoute(path);
     component(params);
