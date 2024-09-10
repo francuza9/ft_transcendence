@@ -2,6 +2,7 @@ DO NOT FORGET {
 	DONT PUSH .ENV TO GIT
 	REMOVE UNNECESSARY PRINTS
 	PUT TRANSLATIONS
+	Test translations in account page
 }
 
 bugs {
