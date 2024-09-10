@@ -194,6 +194,7 @@ export const openChatWithFriend = (friend) => {
             }
         };
     }
+	chatInput.placeholder = getTranslation('pages.chat.type');
 	chatInput.addEventListener("keypress", chatInputListener);
 };
 
@@ -220,13 +221,13 @@ export const loadChatMessages = (friendUsername, friendDisplayName) => {
                 if (linkRegex.test(message.content)) {
 					if (message.sender === variables.username)
 					{
-						const inviteText = `You sent an invitation to ${message.recipient}`;
+						const inviteText = `${getTranslation('pages.chat.invitationSent')} ${message.recipient}`;
 						const inviteParagraph = document.createElement("p");
 
 						inviteParagraph.innerText = inviteText;
 						messageItem.appendChild(inviteParagraph);
 					} else {
-						const inviteText = `${friendDisplayName} sent you an invitation!`;
+						const inviteText = `${friendDisplayName} ${getTranslation('pages.chat.invitationReceived')}`;
 						const inviteParagraph = document.createElement("p");
 						const joinButton = document.createElement("button");
 
@@ -672,12 +673,12 @@ export const appendChatMessage = (message, sender, displayName) => {
     const linkRegex = /\/(\w{8})$/;
     if (linkRegex.test(message)) {
         if (sender === variables.username) {
-            const inviteText = `You sent an invitation to ${displayName}`;
+            const inviteText = `${getTranslation('pages.chat.invitationSent')} ${displayName}`;
             const inviteParagraph = document.createElement("p");
             inviteParagraph.innerText = inviteText;
             messageItem.appendChild(inviteParagraph);
         } else {
-            const inviteText = `${displayName} sent you an invitation!`;
+            const inviteText = `${displayName} ${getTranslation('pages.chat.invitationReceived')}`;
             const inviteParagraph = document.createElement("p");
             const joinButton = document.createElement("button");
             inviteParagraph.innerText = inviteText;
