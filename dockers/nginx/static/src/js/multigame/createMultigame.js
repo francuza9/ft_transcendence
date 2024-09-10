@@ -93,6 +93,7 @@ export function createMultigame(pcount, pov, map, socket) {
 	}
 
 
+	console.log("********************");
 	const handleMessage = (event) => {
 		if (event.data instanceof ArrayBuffer) {
 		} else if (event.data instanceof Blob) {
@@ -100,6 +101,9 @@ export function createMultigame(pcount, pov, map, socket) {
 			let data = JSON.parse(event.data);
 			let pcountNew = data.pcount;
 			if (data.result != undefined && data.result != null) {
+				console.log("my pov: ", pov - 1);
+				console.log("result: ", data.result);
+				socket.removeEventListener('message', handleMessage);
 				if (data.result === pov - 1 || pov === 0) {
 					cleanup();
 					if (pcountNew != 2) {
