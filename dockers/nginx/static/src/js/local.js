@@ -75,8 +75,8 @@ export async function play_with_ai() {
 			try {
 				socket = await initLobbySocket(variables, true);
 				if (socket) {
-					addBot();
-					startButton();
+					addBot(self, socket);
+					startButton(self, socket);
 				} else {
 					console.error('Failed to initialize socket.');
 				}
