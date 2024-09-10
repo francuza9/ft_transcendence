@@ -75,7 +75,6 @@ def register_view(request):
 			return JsonResponse({'success': True, 'message': 'User registered successfully'})
 
 		except IntegrityError as e:
-			logging.error("IntegrityError during user registration: %s", e)
 			return JsonResponse({'success': False, 'message': 'registrationFailed'})
 
 		except json.JSONDecodeError:
