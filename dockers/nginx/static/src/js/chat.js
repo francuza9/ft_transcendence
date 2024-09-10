@@ -63,10 +63,6 @@ export const closeChat = () => {
 
     chatWindow.classList.add("hidden");
 	chatBtn.classList.remove("open");
-
-    if (chatInputListener) {
-        chatInput.removeEventListener("keypress", chatInputListener);
-    }
 };
 
 export const backToFriends = () => {
@@ -88,8 +84,6 @@ export const backToFriends = () => {
 
 		backBtn.classList.add("hidden");
 		backBtn.classList.remove("show");
-
-		
 	}
 
 	if (chatInput) {
@@ -197,11 +191,6 @@ export const openChatWithFriend = (friend) => {
         chatInputListener = function(event) {
             if (event.key === "Enter") {
                 sendBtn.click();
-				console.log("texting with ", friend.username);
-				setTimeout(() => {
-					const chatInput = document.getElementById("chat-input");
-					if (chatInput) chatInput.value = '';
-				}, 100);
             }
         };
     }
@@ -461,7 +450,6 @@ const handleEnterKey = (event) => {
 }
 
 const addEnterListener = () => {
-	console.log("event lsitener was set");
     const usernameInput = document.getElementById('add-friend-input');
 
     if (usernameInput) {
@@ -470,7 +458,6 @@ const addEnterListener = () => {
 };
 
 const removeEnterListener = () => {
-	console.log("event lsitener was removed");
     const usernameInput = document.getElementById('add-friend-input');
     if (usernameInput) {
         usernameInput.removeEventListener('keyup', handleEnterKey);
@@ -662,6 +649,7 @@ export const acceptInvitation = (link) => {
 
     if (match) {
         const lobbyId = match[1];
+		console.log(lobbyId);
 
 		history.pushState(null, '', `/${lobbyId}`);
 		Lobby(lobbyId)
