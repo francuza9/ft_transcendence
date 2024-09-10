@@ -53,7 +53,6 @@ def is_valid_display_name(display_name):
 def is_valid_password(password, password_confirm, username):
 	if len(password) < 8 or len(password) > 32:
 		return False, "passwordLengthError"
-		"PasswordLengthError"
 	if password == username:
 		return False, "passwordUsernameError"
 	if not re.search(r'[0-9]', password):
