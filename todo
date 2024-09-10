@@ -10,6 +10,10 @@ bugs {
 
 	after game is finished background goes over the game and game is under (its scrollable)
 
+	check if console.error is ok to leave
+
+	fix blank screen when creating local game after leaving created multiplayer lobby
+
 	settings dont get translated sometimes (often)
 }
 

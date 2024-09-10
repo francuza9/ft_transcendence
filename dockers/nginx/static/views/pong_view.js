@@ -37,11 +37,9 @@ export async function Pong(content) {
 	}
 
 	if (variables.username && content.player_names && variables.username === content.player_names[1]) {
-		console.log("sleeping");
 		await sleep(300);
 	}
 
-	// Initialize the Pong game
 	try {
         const { pov, socket } = await initPongSocket(content);
 		if (room_size < 2 || room_size > 8 || room_size < pov) {
