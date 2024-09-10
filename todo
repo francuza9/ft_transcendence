@@ -8,24 +8,30 @@ bugs {
 
 	invitation to game --> lobby doesnt exist
 
-	enter doesnt work after game
-
 	after game is finished background goes over the game and game is under (its scrollable)
-
-	open chat with someone --> click play --> enter doesnt work anymore --> go back to friends --> go back in chat --> messages disappear  
 }
 
 
+Missing translations {
+	404 page
+	Login invalid credentials alert
+	Points to Win, Players, and AI difficulty in create and createLocal
+
+	Profile, games count: played, won, lost
+	Profile Match History
+	Lobby Details
+	Tournament continue to home button
+}
 
 
 Extra {
-	Reset localgame variables before each game (AI difficulty, points to win)
 	Improve Match History table css
-	Fix clicking on bots to not do any requests to get profile
 	Remove Add a Bot button in lobby when tournament is full
+
+	Reset localgame variables before each game (AI difficulty, points to win)
+	Fix clicking on bots to not do any requests to get profile
 	Chat notifications
 	Fix window resize stretching background
 	Game transition animations
 	Animations for smooth transition between pages
-	Easter egg(s)
 }

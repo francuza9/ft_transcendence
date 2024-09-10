@@ -6,6 +6,7 @@ import {removeRegisterListeners} from '/static/src/js/register.js';
 import {goActive} from '/static/src/js/socket_handling/global_socket.js';
 import {closeSettingsButton} from '/static/src/js/settings.js';
 import {loadFriendsModal} from '/static/src/js/chat.js';
+import {getTranslation} from '/static/src/js/lang.js';
 
 export const goBackFromLogin = () => {
 	if (!variables.previousPage) {
@@ -54,7 +55,6 @@ export const loginButton = () => {
         .then(response => response.json())
         .then(data => {
             if (data.success) {
-                console.log('Login successful');
 				closeSettingsButton();
 				goActive();
 				if (variables.nextPage == 'room') {
@@ -69,15 +69,15 @@ export const loginButton = () => {
 				loadFriendsModal();
             } else {
                 console.error('Login failed:', data.message);
-                alert('Login failed: ' + data.message);
+                alert(getTranslation('pages.login.failed'));
             }
         })
         .catch(error => {
             console.error('Error:', error);
-            alert('An error occurred during login');
+            alert(getTranslation('pages.login.error'));
         });
     } else {
-        alert('Please enter both email and password');
+        alert(getTranslation('pages.login.invalid'));
     }
 };
 

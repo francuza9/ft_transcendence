@@ -26,7 +26,12 @@
             "previousSlide": "Previous",
             "nextSlide": "Next",
             "selectButton": "Select",
-            "createRoomButton": "Create Room"
+            "createRoomButton": "Create Room",
+			"players": "Players",
+			"pointsToWin": "Points to Win",
+			"AIDifficulty": "AI Difficulty",
+			"defaultPoints": "3 Points to Win",
+			"defaultPlayers": "2 Players"
         },
         "joinRoom": {
             "pageTitle": "Join Room",
@@ -94,7 +99,10 @@
             "noAccount": "Don't have an account?",
             "registerLink": "Register",
             "loginWith42": "Sign in with 42",
-            "loginWithGithub": "Sign in with Github"
+            "loginWithGithub": "Sign in with Github",
+			"failed": "Login failed: Invalid credentials",
+			"error": "An error occurred during login",
+			"invalid": "Please enter both email and password"
         },
         "lobby": {
             "title": "Room Name",
@@ -116,7 +124,7 @@
 		"leaderboard": {
 			"title": "Leaderboard"
 		},
-		"settings":{
+		"settings": {
 			"loginButton": "Login",
             "registerButton": "Register",
 			"hello": "Hello",
@@ -127,11 +135,15 @@
             "backButton": "Back",
 			"logoutSuccess": "You have been logged out successfully."
 		},
-		"end":{
+		"end": {
 			"title": "Game Ended",
 			"leaderboard": "Leaderboard",
 			"continue": "Continue",
 			"again": "Play Again"
+		},
+		"404": {
+			"404Message": "Oops! The page you're looking for doesn't exist.",
+			"return": "Return to Home"
 		}
     },
 	"chat": {
