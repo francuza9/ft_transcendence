@@ -24,16 +24,21 @@ INSTALLED_APPS = [
 
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 SECURE_SSL_REDIRECT = True
-SESSION_COOKIE_SECURE = True
-CSRF_COOKIE_SECURE = True
 SESSION_COOKIE_AGE = 172800  # 48 hours
-# SESSION_COOKIE_AGE = 120  # 2 minutes
 SESSION_EXPIRE_AT_BROWSER_CLOSE = False
 SESSION_SAVE_EVERY_REQUEST = True
 
-# Prevent JavaScript access to session cookies
+CSRF_COOKIE_NAME = 'csrftoken'
+CSRF_COOKIE_PATH = '/'
+CSRF_COOKIE_DOMAIN = None
+CSRF_COOKIE_SECURE = True
+CSRF_COOKIE_SAMESITE = 'None'
+CSRF_COOKIE_HTTPONLY = False
+
+SESSION_COOKIE_NAME = 'sessionid'
+SESSION_COOKIE_SECURE = True
+SESSION_COOKIE_SAMESITE = 'None'
 SESSION_COOKIE_HTTPONLY = True
-CSRF_COOKIE_HTTPONLY = True
 
 SECURE_HSTS_SECONDS = 3600  # Adjust as needed
 SECURE_HSTS_INCLUDE_SUBDOMAINS = True
@@ -55,8 +60,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-	'whitenoise.middleware.WhiteNoiseMiddleware',
-	'corsheaders.middleware.CorsMiddleware',
+	# 'whitenoise.middleware.WhiteNoiseMiddleware',
+	# 'corsheaders.middleware.CorsMiddleware',
 ]
 
 ROOT_URLCONF = 'transcendence.urls'
@@ -88,29 +93,35 @@ import os
 from django.conf import settings
 
 LOGGING = {
-    'version': 1,
-    'disable_existing_loggers': False,
-    'handlers': {
-        'console': {
-            'class': 'logging.StreamHandler',
-        },
-    },
-    'root': {
-        'handlers': ['console'],
-        'level': 'INFO',
-    },
-    'loggers': {
-        'django': {
-            'handlers': ['console'],
-            'level': 'INFO',
-            'propagate': True,
-        },
-        'django.request': {
-            'handlers': ['console'],
-            'level': 'INFO',
-            'propagate': False,
-        },
-    },
+	'version': 1,
+	'disable_existing_loggers': False,
+	'handlers': {
+		'console': {
+			'class': 'logging.StreamHandler',
+		},
+	},
+	'root': {
+		'handlers': ['console'],
+		'level': 'INFO',
+	},
+	'loggers': {
+		'django': {
+			'handlers': ['console'],
+			'level': 'INFO',
+			'propagate': True,
+		},
+		'django.request': {
+			'handlers': ['console'],
+			'level': 'INFO',
+			'propagate': False,
+		},
+		# Add this block to log CSRF failures
+		'django.security.csrf': {
+			'handlers': ['console'],
+			'level': 'DEBUG',  # Set to DEBUG to capture more detailed output
+			'propagate': False,
+		},
+	},
 }
 
 DATABASES = {

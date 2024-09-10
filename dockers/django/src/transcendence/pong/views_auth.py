@@ -6,6 +6,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.db.utils import IntegrityError
 import json
 
+@csrf_exempt
 def login_view(request):
 	if request.method == 'POST':
 		try:
@@ -18,10 +19,11 @@ def login_view(request):
 				return JsonResponse({'success': True})
 			else:
 				return JsonResponse({'success': False, 'message': 'Invalid credentials'})
+		except json.JSONDecodeError:
+			return JsonResponse({'success': False, 'message': 'Invalid JSON data'})
 		except Exception as e:
-			return JsonResponse({'success': False, 'message': str(e)})
-	else:
-		return JsonResponse({'success': False, 'message': 'Invalid request method'})
+			return JsonResponse({'success': False, 'message': f'Error: {str(e)}'})
+	return JsonResponse({'success': False, 'message': 'Invalid request method'})
 
 @csrf_exempt
 def guest_login_view(request):
@@ -75,7 +77,6 @@ def register_view(request):
 			return JsonResponse({'success': True, 'message': 'User registered successfully'})
 
 		except IntegrityError as e:
-			logging.error("IntegrityError during user registration: %s", e)
 			return JsonResponse({'success': False, 'message': 'registrationFailed'})
 
 		except json.JSONDecodeError:

@@ -10,13 +10,24 @@ export function getCookie(name) {
             }
         }
     }
+	console.log('CSRF Token:', cookieValue);
     return cookieValue;
 }
 
 export function setCookie(name, value, days) {
+    if (typeof days !== 'number' || days <= 0) {
+        console.error('Invalid days parameter for setting cookie.');
+        return;
+    }
+    
     const expires = new Date(Date.now() + days * 864e5).toUTCString();
-    document.cookie = `${name}=${encodeURIComponent(value)}; expires=${expires}; path=/; SameSite=None; Secure`;
+    try {
+        document.cookie = `${name}=${encodeURIComponent(value)}; expires=${expires}; path=/; SameSite=None; Secure`;
+    } catch (error) {
+        console.error('Error setting cookie:', error);
+    }
 }
+
 
 /*
 export function getCookie(name) {

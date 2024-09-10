@@ -112,6 +112,13 @@ document.addEventListener('DOMContentLoaded', () => {
 		moveModalBackdrops();
 	});
 
+	fetch('/api/csrf/')
+	.then(response => response.json())
+	.then(data => {
+		console.log('CSRF Token:', data.csrftoken);
+		// Now the cookie should be set automatically
+	});
+
 	checkLoginStatus().then(loggedIn => {
 		if (loggedIn) {
 			goActive();
