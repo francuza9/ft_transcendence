@@ -25,7 +25,7 @@ export async function replaceHTML(path) {
     if (chatDiv) chatDiv.classList.remove('hidden');
     if (settingsDiv) settingsDiv.classList.remove('hidden');
 
-    if (backgroundContainer.childElementCount === 0) {
+    if (backgroundContainer.childElementCount === 0 && path != '/static/src/html/end.html') {
         initBackground();
         resumeAnimation();
     }
