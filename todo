@@ -7,14 +7,9 @@ DO NOT FORGET {
 
 bugs {
 
-	check if console.error is ok to leave
+	collisions
 
-	settings dont get translated sometimes (often)
-
-	mising backgriund after (play with ai --> back arrow)
-	after game is finished background goes over the game and game is under (its scrollable)
 }
-
 
 Extra {
 	Improve Match History table css

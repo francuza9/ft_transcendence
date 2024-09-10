@@ -3,18 +3,50 @@ import {getCookie} from '/static/src/js/cookies.js';
 import {checkLoginStatus, fetchAvatar} from '/static/src/js/utils.js';
 import {variables} from '/static/src/js/variables.js';
 import {handleRouting} from '/static/routers/router.js';
-import {getTranslation} from '/static/src/js/lang.js';
+import {getTranslation, setTranslations, getTranslationFile} from '/static/src/js/lang.js';
 import {closeChat} from '/static/src/js/chat.js';
 import {closeGlobalSocket} from '/static/src/js/socket_handling/global_socket.js';
 
 export async function initSettings() {
-	const section = document.getElementsByTagName('section')[0];
-	const settingsDiv = document.createElement("div");
-	const response = await fetch('/static/src/html/settings.html');
-	if (!response.ok) throw new Error('Network response was not ok');
-	settingsDiv.innerHTML = await response.text();
-	settingsDiv.id = "settings";
-	section.appendChild(settingsDiv);
+    const section = document.getElementsByTagName('section')[0];
+    const settingsDiv = document.createElement("div");
+    settingsDiv.id = "settings";
+
+    try {
+        const response = await fetch('/static/src/html/settings.html');
+        if (!response.ok) throw new Error('Network response was not ok');
+        settingsDiv.innerHTML = await response.text();
+        section.appendChild(settingsDiv);
+
+        if (!getTranslationFile()) {
+            const userLang = getCookie('userLang') || 'en';
+            const translationsResponse = await fetch(`/static/lang/${userLang}.json`);
+            if (!translationsResponse.ok) throw new Error('Network response was not ok');
+            const translations = await translationsResponse.json();
+            setTranslations(translations);
+        }
+
+        translateSettingsContent();
+    } catch (error) {
+        console.error('Error initializing settings:', error);
+    }
+}
+
+function translateSettingsContent() {
+    const settingsDiv = document.getElementById('settings');
+
+    if (!settingsDiv) return;
+
+    settingsDiv.querySelectorAll('[data-text]').forEach(element => {
+        const key = element.getAttribute('data-text');
+        const translation = getTranslation(key);
+
+        if (translation) {
+            element.innerHTML = translation;
+        } else {
+            console.warn('No translation for key:', key);
+        }
+    });
 }
 
 export const settingsButton = () => {
