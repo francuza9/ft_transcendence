@@ -5,22 +5,15 @@ from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.db.utils import IntegrityError
 import json
-import logging
-
-logger = logging.getLogger(__name__)
 
 @csrf_exempt
 def login_view(request):
-	logger.info("Login view called")
 	if request.method == 'POST':
 		try:
 			data = json.loads(request.body)
 			email = data.get('email').lower()
 			password = data.get('password')
-			logger.info(f"Received email: {email} and password: {password}")
-
 			user = authenticate(request, username=email, password=password)
-
 			if user is not None:
 				login(request, user)
 				return JsonResponse({'success': True})
@@ -99,7 +92,6 @@ def check_login_status(request):
             'email': request.user.email,
 			'is_guest': request.user.is_guest,
         }
-        logger.info(f"Authenticated user data: {user_data}")
         return JsonResponse({'success': True, 'user': user_data})
     else:
         return JsonResponse({'success': False, 'message': 'User is not logged in'})
