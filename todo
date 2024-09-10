@@ -11,6 +11,8 @@ bugs {
 
 	api security issue 
 
+	for 42   --> user_42   and for github --> user_GH
+
 }
 
 Extra {
@@ -24,3 +26,13 @@ Extra {
 	Game transition animations
 	Animations for smooth transition between pages
 }
+
+major
+Use a Framework as backend. --> 100%
+Standard user management, authentication, users across tournaments. --> 100%
+
+minor
+Use a front-end framework or toolkit. --> 100%
+Use a database for the backend -and more. --> 100%
+
+
