@@ -161,7 +161,7 @@ export function displayWinner(winner) {
 
     const homeButton = document.createElement('button');
     homeButton.className = 'home-button';
-    homeButton.textContent = 'Continue to Home';
+    homeButton.textContent = getTranslation('pages.end.continue');
     homeButton.addEventListener('click', () => {
         const confettiCanvas = document.getElementById('confetti-canvas');
         if (confettiCanvas) {

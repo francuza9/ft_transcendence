@@ -1,5 +1,6 @@
-import { ensureUsername, isGuest, moveModalBackdrops } from '/static/src/js/utils.js';
-import { variables } from '/static/src/js/variables.js';
+import {ensureUsername, isGuest, moveModalBackdrops} from '/static/src/js/utils.js';
+import {variables} from '/static/src/js/variables.js';
+import {getTranslation} from '/static/src/js/lang.js';
 
 export async function viewProfile(event, player) {
 	try {
@@ -86,14 +87,14 @@ export async function viewProfile(event, player) {
 				friendButton.setAttribute('data-variable', playerData.friendRequestSent ? 'unsendFriendRequest' : 'acceptFriendRequest');
 				friendButton.innerHTML = `
 					<i class="${playerData.friendRequestSent ? 'ri-subtract-fill' : 'ri-user-add-line'}"></i>
-					${playerData.friendRequestSent ? 'Unsend Friend Request' : 'Accept Friend Request'}
+					${playerData.friendRequestSent ? getTranslation('friends.unsend') : getTranslation('friends.accpet')}
 				`;
 			} else {
 				friendButton.className = `btn ${playerData.areFriends ? 'btn-danger' : 'btn-success'}`;
 				friendButton.setAttribute('data-variable', playerData.areFriends ? 'unfriendUser' : 'addFriend');
 				friendButton.innerHTML = `
 					<i class="${playerData.areFriends ? 'ri-user-unfollow-line' : 'ri-user-add-line'}"></i>
-					${playerData.areFriends ? 'Unfriend' : 'Add Friend'}
+					${playerData.areFriends ? getTranslation('friends.unfriend') : getTranslation('friends.addFriend')}
 				`;
 			}
 
@@ -102,7 +103,7 @@ export async function viewProfile(event, player) {
 			blockButton.setAttribute('data-variable', playerData.isBlocked ? 'unblockUser' : 'blockUser');
 			blockButton.setAttribute('data-value', playerData.username);
 			blockButton.innerHTML = `<i class="${playerData.isBlocked ? 'ri-close-fill' : 'ri-user-forbid-line'}"></i>
-				${playerData.isBlocked ? 'Unblock' : 'Block'}
+				${playerData.isBlocked ? getTranslation('friends.unblock') : getTranslation('friends.block')}
 			`;
 
 			friendButton.setAttribute('data-bs-dismiss', 'modal');
@@ -117,9 +118,9 @@ export async function viewProfile(event, player) {
 			statsRow.className = 'row text-center py-3';
 			statsRow.id = 'games';
 
-			const playedCol = createStatColumn('Played', playerData.gamesPlayed);
-			const wonCol = createStatColumn('Won', playerData.gamesWon);
-			const lostCol = createStatColumn('Lost', playerData.gamesLost);
+			const playedCol = createStatColumn(getTranslation('profile.played'), playerData.gamesPlayed);
+			const wonCol = createStatColumn(getTranslation('profile.won'), playerData.gamesWon);
+			const lostCol = createStatColumn(getTranslation('profile.lost'), playerData.gamesLost);
 
 			statsRow.appendChild(playedCol);
 			statsRow.appendChild(wonCol);
@@ -168,11 +169,11 @@ async function createMatchHistoryTable(player) {
 
     const headerRow = document.createElement('tr');
     headerRow.innerHTML = `
-        <th>Player 1</th>
-        <th>Player 2</th>
-        <th>Winner</th>
-        <th>Score</th>
-        <th>Date</th>
+		<th>${getTranslation('profile.p1')}</th>
+        <th>${getTranslation('profile.p1')}</th>
+        <th>${getTranslation('profile.won')}</th>
+        <th>${getTranslation('profile.score)}</th>
+        <th>${getTranslation('profile.date')}</th>
     `;
     table.appendChild(headerRow);
 

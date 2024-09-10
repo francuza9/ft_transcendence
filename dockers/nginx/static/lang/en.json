@@ -31,7 +31,10 @@
 			"pointsToWin": "Points to Win",
 			"AIDifficulty": "AI Difficulty",
 			"defaultPoints": "3 Points to Win",
-			"defaultPlayers": "2 Players"
+			"defaultPlayers": "2 Players",
+			"map": "Map",
+			"mode": "Mode",
+			"winningScore": "Winning Score"
         },
         "joinRoom": {
             "pageTitle": "Join Room",
@@ -149,7 +152,10 @@
 	"chat": {
 		"noFriends": "Add friends to chat with them",
 		"loginMessage": "Login to chat with friends",
-		"fail": "Failed to load messages. Please try again later."
+		"fail": "Failed to load messages. Please try again later.",
+		"invitationSent": "You sent an invitation to",
+		"invitationReceived": "sent you an invitation!",
+		"type": "Type a message"
 	},
 	"friends": {
 		"add": "Add Friends",
@@ -172,6 +178,19 @@
 		"accept": "Accept",
 		"decline": "Decline",
 		"cancel": "Cancel",
-		"unblock": "Unblock"
+		"unblock": "Unblock",
+		"unsend": "Unsend Friend Request",
+		"accept": "Accept Friend Request",
+		"addFriend": "Add friend"
+	},
+	"profile": {
+		"played": "Played",
+		"won": "Won",
+		"lost": "Lost",
+		"p1": "Player 1",
+		"p2": "Player 2",
+		"winner": "Winner",
+		"score": "Score",
+		"date": "Date"
 	}
 }

@@ -5,6 +5,7 @@ import {replaceHTML} from '/static/src/js/utils.js';
 import {checkLoginStatus} from '/static/src/js/utils.js';
 import {variables} from '/static/src/js/variables.js';
 import {getSocketAI} from '/static/src/js/local.js';
+import {getTranslation} from '/static/src/js/lang.js';
 
 export let in_lobby = false;
 
@@ -15,8 +16,8 @@ export const updateInLobby = (value) => {
 function updateLobbyDetails(variables) {
 	if (variables.roomName)
 		document.getElementById('lobbyTitle').innerText = variables.roomName;
-	const mode = variables.isTournament ? 'Tournament' : 'Classic';
-	document.getElementById('lobbyDetails').innerText = `Players: ${variables.players.length} / ${variables.maxPlayerCount} | Map: ${variables.map} | Wining Score: ${variables.pointsToWin} | Mode: ${mode}`;
+	const mode = variables.isTournament ? getTranslation('pages.createRoom.tournamentMode') : getTranslation('pages.createRoom.classicMode');
+	document.getElementById('lobbyDetails').innerText = `${getTranslation('pages.createRoom.players')}: ${variables.players.length} / ${variables.maxPlayerCount} | ${getTranslation('pages.createRoom.map')}: ${variables.map} | ${getTranslation('pages.createRoom.winningScore')}: ${variables.pointsToWin} | ${getTranslation('pages.createRoom.mode')}: ${mode}`;
 }
 
 export const refreshLobbyDetails = (variables) => {

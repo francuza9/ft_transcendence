@@ -1,6 +1,7 @@
 import {variables} from '/static/src/js/variables.js';
 import {checkLoginStatus, guestLogin, ensureUsername} from '/static/src/js/utils.js';
 import {Lobby} from '/static/views/lobby.js';
+import {getTranslation} from '/static/src/js/lang.js';
 
 export const setDefaultRoomName = () => {
     const displayTitle = document.getElementById('display-title');
