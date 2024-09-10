@@ -100,6 +100,7 @@ export function createMultigame(pcount, pov, map, socket) {
 			let data = JSON.parse(event.data);
 			let pcountNew = data.pcount;
 			if (data.result != undefined && data.result != null) {
+				socket.removeEventListener('message', handleMessage);
 				if (data.result === pov - 1 || pov === 0) {
 					cleanup();
 					if (pcountNew != 2) {

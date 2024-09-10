@@ -10,7 +10,7 @@ bugs {
 
 	lobby admin refreshes --> someone else becomes admin --> start game --> some users dont load properly (need sleep somewhere probably)
 
-	game going on lower levels gets fucked (spectators)
+	api security issue 
 
 }
 
