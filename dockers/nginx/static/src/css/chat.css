@@ -36,6 +36,7 @@
     visibility: hidden;
     pointer-events: none;
 	line-height: 1.7;
+	overflow-x: hidden;
 }
 
 #chat-window:not(.hidden) {
@@ -214,7 +215,6 @@
 #message-input-area {
     display: flex;
     align-items: center;
-    gap: 10px;
 	padding: 10px;
     background: transparent;
 }
@@ -402,4 +402,25 @@
 #join-btn {
 	border: 1px solid rgba(255, 255, 255, 0.5);
 	margin-top: 5px;
+}
+
+#messages::-webkit-scrollbar {
+    width: 8px;
+}
+
+#messages::-webkit-scrollbar-track{
+    background: transparent;
+}
+
+#messages::-webkit-scrollbar-track:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+#messages::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.6);
+    border-radius: 10px;
+}
+
+#messages::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.8);
 }

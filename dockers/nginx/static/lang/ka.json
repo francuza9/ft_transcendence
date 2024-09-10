@@ -1,0 +1,165 @@
+{
+    "pages": {
+        "home": {
+            "title": "კეთილი იყოს თქვენი მობრძანება Transcendence-ში",
+            "intro": "მზად იყავით თამაშისთვის!",
+            "playButton": "თამაში"
+        },
+        "createRoom": {
+            "pageTitle": "ოთახის შექმნა",
+            "saveButton": "შენახვა",
+            "cancelButton": "გაუქმება",
+            "editRoomName": "ოთახის სახელის შეცვლა",
+            "classicMode": "კლასიკური",
+            "tournamentMode": "ტურნირი",
+            "currentMap": "კლასიკური",
+            "chooseMapButton": "აირჩიეთ რუკა",
+            "selectMapTitle": "აირჩიეთ თქვენი რუკა",
+            "classicMapTitle": "კლასიკური",
+            "classicMapDescription": "კლასიკური რუკა.",
+            "mountainMapTitle": "მთა",
+            "mountainMapDescription": "მშვენიერი ხედი მთიდან!",
+            "desertMapTitle": "უდაბნო",
+            "desertMapDescription": "ლამაზი პირამიდები.",
+            "hellMapTitle": "ჯოჯოხეთი",
+            "hellMapDescription": "მაშინაც კი, თუ საშიშია, არ შეგეშინდეთ.",
+            "previousSlide": "წინა",
+            "nextSlide": "შემდეგი",
+            "selectButton": "არჩევა",
+            "createRoomButton": "ოთახის შექმნა"
+        },
+        "joinRoom": {
+            "pageTitle": "ოთახში შესვლა",
+            "roomName": "ოთახის სახელი",
+            "players": "მოთამაშეები",
+            "map": "რუკა",
+            "mode": "რეჟიმი",
+            "join": "შესვლა"
+        },
+        "register": {
+            "pageTitle": "რეგისტრაცია",
+            "usernameLabel": "მომხმარებლის სახელი",
+            "emailLabel": "ელფოსტა",
+            "passwordLabel": "პაროლი",
+            "confirmPasswordLabel": "დაადასტურეთ პაროლი",
+            "submitButton": "რეგისტრაცია",
+            "loginPrompt": "უკვე გაქვთ ანგარიში?",
+            "loginLink": "შესვლა"
+        },
+        "account": {
+            "pageTitle": "ანგარიშის პარამეტრები",
+            "avatarLabel": "ავატარი",
+            "usernameLabel": "მომხმარებლის სახელი",
+            "passwordLabel": "პაროლი",
+            "displayNameLabel": "სახელი",
+            "emailLabel": "ელფოსტა",
+            "bioLabel": "ბიოგრაფია",
+            "editButton": "შეცვლა",
+            "editAvatar": "ავატარის შეცვლა",
+            "changePassword": "პაროლის შეცვლა",
+            "editDisplayName": "სახელის შეცვლა",
+            "editEmail": "ელფოსტის შეცვლა",
+            "editBio": "ბიოგრაფიის შეცვლა",
+            "uploadButton": "ატვირთვა",
+            "removeButton": "ამოღება",
+            "saveButton": "შენახვა",
+            "cancelButton": "გაუქმება",
+            "currentPasswordLabel": "მიმდინარე პაროლი",
+            "newPasswordLabel": "ახალი პაროლი",
+            "confirmPasswordLabel": "დაადასტურეთ ახალი პაროლი",
+            "updateProfileButton": "პროფილის განახლება",
+            "gamesPlayedLabel": "განხორციელებული თამაშები",
+            "gamesWonLabel": "მოგებული თამაშები",
+            "gamesLostLabel": "წაგებული თამაშები",
+            "passwordUpdateSuccessfull": "პაროლი წარმატებით განახლდა",
+            "fileSizeExceeded": "ფაილის ზომა აღემატება 2MB-ს",
+            "unsuportedFormat": "ფაილის ფორმატი არ არის მხარდაჭერილი. ატვირთეთ JPEG ან PNG სურათი"
+        },
+        "play": {
+            "continueAsGuest": "გაგრძელება როგორც სტუმარი",
+            "login": "შესვლა",
+            "back": "უკან",
+            "local": "ლოკალური",
+            "online": "ონლაინ",
+            "joinRoomButton": "ოთახში შესვლა",
+            "createRoomButton": "ოთახის შექმნა",
+            "AI": "მოთამაშე VS AI",
+            "noAI": "მოთამაშე VS მოთამაშე"
+        },
+        "login": {
+            "title": "შესვლა",
+            "emailLabel": "მომხმარებლის სახელი ან ელფოსტა",
+            "passwordLabel": "პაროლი",
+            "loginButton": "შესვლა",
+            "noAccount": "ანგარიში არ გაქვთ?",
+            "registerLink": "რეგისტრაცია",
+            "loginWith42": "შესვლა 42-ით",
+            "loginWithGithub": "შესვლა Github-ით"
+        },
+        "lobby": {
+            "title": "ოთახის სახელი",
+            "details": "ოთახის დეტალები",
+            "profilePicture": "პროფილის სურათი",
+            "username": "მომხმარებლის სახელი",
+            "level": "დონე",
+            "leaveButton": "ოთახის დატოვება",
+            "leaveConfirmation": "დარწმუნებული ხართ, რომ გსურთ ოთახის დატოვება?",
+            "cancel": "გაუქმება",
+            "startButton": "თამაშის დაწყება",
+            "addBot": "ბოტის დამატება",
+            "lobbyInvalid": "ოთახი, რომელშიც ცდილობთ შესვლას, არასწორია, დახურულია ან სავსეა."
+        },
+        "tournament": {
+            "warning": "ტურნირი მალე დაიწყება! მოემზადეთ!",
+            "waiting": "ელოდება თამაშების დასრულებას"
+        },
+        "leaderboard": {
+            "title": "ლიდერთა დაფა"
+        },
+        "settings": {
+            "loginButton": "შესვლა",
+            "registerButton": "რეგისტრაცია",
+            "hello": "გამარჯობა",
+            "profile": "პროფილის ნახვა",
+            "settings": "ანგარიშის პარამეტრები",
+            "logout": "გამოსვლა",
+            "languageButton": "ენა",
+            "backButton": "უკან",
+            "logoutSuccess": "თქვენ წარმატებით გამოხვედით."
+        },
+        "end": {
+            "title": "თამაში დასრულდა",
+            "leaderboard": "ლიდერთა დაფა",
+            "continue": "გაგრძელება",
+            "again": "თავიდან თამაში"
+        }
+    },
+    "chat": {
+        "noFriends": "დაამატეთ მეგობრები, რათა მათთან ჩათაობა შეძლოთ",
+        "loginMessage": "ჩართეთ ჩათისთვის",
+        "fail": "შეტყობინებების ჩატვირთვა ვერ მოხერხდა. სცადეთ მოგვიანებით."
+    },
+    "friends": {
+        "add": "მეგობრების დამატება",
+        "manage": "მეგობრების მართვა",
+        "requests": "მეგობრების მოთხოვნები",
+        "blocked": "დაბლოკილი მომხმარებლები",
+        "addInputFieldPlaceholder": "მიუთითეთ მეგობრის სახელი...",
+        "noFriends": "თქვენ არ გყავთ მეგობრები!",
+        "noRequests": "არ გაქვთ მეგობრის მოთხოვნები.",
+        "noBlockedUsers": "არ გყავთ დაბლოკილი მომხმარებლები.",
+        "requestSuccess": "მეგობრობის მოთხოვნა წარმატებით გაიგზავნა!",
+        "yourself": "თქვენ ვერ გაუგზავნით საკუთარ თავს მეგობრობის მოთხოვნას!",
+        "unknownUser": "მომხმარებელი ვერ მოიძებნა!",
+        "alreadyFriends": "თქვენ უკვე მეგობრები ხართ ამ მომხმარებელთან!",
+        "alreadyReceived": "თქვენ უკვე გაქვთ ამ მომხმარებლისგან მიღებული მეგობრობის მოთხოვნა!",
+        "userIsBlocked": "თქვენ არ შეგიძლიათ მეგობრობის მოთხოვნის გაგზავნა დაბლოკილ მომხმარებელთან!",
+        "userBlockedYou": "თქვენ არ შეგიძლიათ ამ მომხმარებლისთვის მეგობრობის მოთხოვნის გაგზავნა, რადგან მომხმარებელმა დაგბლოკათ!",
+        "unfriend": "მეგობრის ამოშლა",
+        "block": "დაბლოკვა",
+        "accept": "მიღება",
+        "decline": "უარყოფა",
+        "cancel": "გაუქმება",
+        "unblock": "განბლოკვა"
+    }
+}

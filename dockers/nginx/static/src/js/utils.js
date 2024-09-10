@@ -12,28 +12,27 @@ import {initBackground, resumeAnimation} from '/static/src/js/background/backgro
 let chatInitialized = false;
 let settingsInitialized = false;
 
-export async function replaceHTML(path)
-{
-	const body = document.getElementsByTagName('body')[0];
-	let section = document.getElementsByTagName('section')[0];
-	const userLang = getCookie('userLang') || 'en';
-	if (path != '/static/src/html/lobby.html')
-		updateInLobby(false)
+export async function replaceHTML(path) {
+    const body = document.getElementsByTagName('body')[0];
+    let section = document.getElementsByTagName('section')[0];
+    const userLang = getCookie('userLang') || 'en';
+    if (path != '/static/src/html/lobby.html')
+        updateInLobby(false);
 
-	let chatDiv = document.getElementById('chat');
-	let settingsDiv = document.getElementById('settings');
-	let backgroundContainer = document.getElementById('background-container');
+    let chatDiv = document.getElementById('chat');
+    let settingsDiv = document.getElementById('settings');
+    let backgroundContainer = document.getElementById('background-container');
 
-	if (chatDiv) chatDiv.classList.remove('hidden');
-	if (settingsDiv) settingsDiv.classList.remove('hidden');
+    if (chatDiv) chatDiv.classList.remove('hidden');
+    if (settingsDiv) settingsDiv.classList.remove('hidden');
 
-	if (backgroundContainer.childElementCount === 0) {
-		initBackground();
-		resumeAnimation();
-	}
+    if (backgroundContainer.childElementCount === 0) {
+        initBackground();
+        resumeAnimation();
+    }
 
     try {
-		if (path.includes('login') || path.includes('register')) {
+        if (path.includes('login') || path.includes('register')) {
             chatDiv = document.getElementById('chat');
             settingsDiv = document.getElementById('settings');
             if (chatDiv) chatDiv.style.display = 'none';
@@ -45,27 +44,37 @@ export async function replaceHTML(path)
             if (settingsDiv) settingsDiv.style.display = '';
         }
 
-		if (variables.endView)
-			removeGameRenderer();
+        if (variables.endView)
+            removeGameRenderer();
+
         const response = await fetch(path);
         if (!response.ok) throw new Error('Network response was not ok');
         const htmlContent = await response.text();
-		const children = Array.from(section.children);
-
-		children.forEach(child => {
-			if (child.id !== 'chat' && child.id !== 'settings') {
-				section.removeChild(child);
-			}
-		});
-
-        section.innerHTML += htmlContent;
 
         const translationsResponse = await fetch(`/static/lang/${userLang}.json`);
         if (!translationsResponse.ok) throw new Error('Network response was not ok');
         const translations = await translationsResponse.json();
-		setTranslations(translations);
-        translateContent(translations);
-		loadFriends();
+        setTranslations(translations);
+
+        const tempDiv = document.createElement('div');
+        tempDiv.innerHTML = htmlContent;
+
+        tempDiv.querySelectorAll('[data-text]').forEach(element => {
+            const key = element.getAttribute('data-text');
+            const translation = getTranslation(key, translations);
+            if (translation) element.innerHTML = translation;
+        });
+
+        const children = Array.from(section.children);
+        children.forEach(child => {
+            if (child.id !== 'chat' && child.id !== 'settings') {
+                section.removeChild(child);
+            }
+        });
+
+        section.append(...tempDiv.children);
+
+        loadFriends();
     } catch (error) {
         console.error('There was a problem with the fetch operation:', error);
     }

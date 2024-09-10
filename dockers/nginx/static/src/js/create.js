@@ -16,13 +16,13 @@ export const setDefaultRoomName = () => {
 export const updatePlayerCount = (document, value) => {
 	variables.maxPlayerCount = parseInt(value, 10);
 	const dropdownButton = document.getElementById('btnGroupDrop1');
-	dropdownButton.textContent = `${variables.maxPlayerCount} Players`;
+	dropdownButton.textContent = `${variables.maxPlayerCount} ${getTranslation('pages.createRoom.players')}`;
 }
 
 export const updatePointsToWin = (document, value) => {
 	variables.pointsToWin = parseInt(value, 10);
 	const dropdownButton = document.getElementById('btnGroupDrop2');
-	dropdownButton.textContent = `${variables.pointsToWin} Points to Win`;
+	dropdownButton.textContent = `${variables.pointsToWin} ${getTranslation('pages.createRoom.pointsToWin')}`;
 }
 
 export const updateIsTournament = (document, value) => {
@@ -32,11 +32,11 @@ export const updateIsTournament = (document, value) => {
 
 	if (variables.isTournament) {
 		variables.maxPlayerCount = 4;
-		dropdownButton.textContent = `${variables.maxPlayerCount} Players`;
+		dropdownButton.textContent = `${variables.maxPlayerCount} ${getTranslation('pages.createRoom.players')}`;
 		mapSection.classList.add('hidden');
 	} else {
 		variables.maxPlayerCount = 2;
-		dropdownButton.textContent = `${variables.maxPlayerCount} Players`;
+		dropdownButton.textContent = `${variables.maxPlayerCount} ${getTranslation('pages.createRoom.players')}`;
 		mapSection.classList.remove('hidden');
 	}
 }
