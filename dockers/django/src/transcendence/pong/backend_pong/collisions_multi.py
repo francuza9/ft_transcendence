@@ -34,7 +34,6 @@ def update_ball_position_multi(game_state):
 		collision_with_wall, collision_with_player = check_collision(ball, player, edge)
 		
 		if collision_with_player:
-			logger.info(f"Collision with player {i}")
 			if game_state['multi']['collision_counter'] == 0:
 				game_state['multi']['temp_dir'] = direction.copy()
 			game_state['multi']['collision_counter'] += 1
@@ -68,8 +67,7 @@ def update_ball_position_multi(game_state):
 			game_state['multi']['ball_position'] = ball
 			game_state['multi']['ball_speed'] = 0.08
 			logger.info(f"Player {i} loses")
-			return None
-			# return i
+			return i
 
 	return None
 

@@ -90,7 +90,10 @@
 			"passwordUsernameAlert": "Password cannot contain username",
 			"confirmPasswordEmptyAlert": "Please enter Password confirmation",
 			"confirmPasswordMatchError": "Passwords do not match",
-			"confirmPasswordMatchAlert": "Passwords do not match"
+			"confirmPasswordMatchAlert": "Passwords do not match",
+			"usernameExists": "Username already exists",
+			"emailExists": "Email already exists",
+			"registrationFailed": "Registration failed: An unexpected database error occurred. Please try again."
         },
         "account": {
 			"pageTitle": "Account Settings",
@@ -120,7 +123,29 @@
 			"passwordUpdateSuccessfull": "Password updated successfully",
 			"passwordUpdateFailed": "Password update failed",
 			"fileSizeExceeded": "File size exceeds the limit of 2MB",
-			"unsuportedFormat": "File format not supported. Please upload a JPEG or PNG image"
+			"unsuportedFormat": "File format not supported. Please upload a JPEG or PNG image",
+			"usernameLengthError": "Username must be between 3 and 12 characters long",
+			"usernameComponentsError": "Username can only contain alphanumeric characters and underscores",
+			"usernameSpaceError": "Username cannot contain spaces",
+			"usernameUnderscoreError": "Username cannot start or end with an underscore",
+			"usernameConsecutiveError": "Username cannot contain consecutive underscores",
+			"usernameLetterError": "Username must contain at least one letter",
+			"usernameCommonError": "The chosen username is too common",
+			"displayNameLengthError": "Display name must be between 3 and 12 characters long",
+			"displayNameLetterError": "Display name must contain at least one letter",
+			"passwordLengthError": "Password must be between 8 and 32 characters long",
+			"passwordUsernameError": "Password cannot be the same as the username",
+			"passwordLowercaseError": "Password must contain at least one lowercase letter",
+			"passwordUppercaseError": "Password must contain at least one uppercase letter",
+			"passwordDigitError": "Password must contain at least one digit",
+			"passwordMatchError": "Passwords do not match",
+			"emailEmptyError": "Email cannot be empty",
+			"emailSpaceError": "Email cannot contain spaces",
+			"emailLengthError": "Email cannot be longer than 64 characters",
+			"emailFormatError": "Invalid email format",
+			"emailStudentError": "42 student emails are not allowed",
+			"bioLengthError": "Bio cannot be longer than 200 characters",
+			"bioLineError": "Bio cannot be longer than 5 lines"
         },
         "play": {
             "continueAsGuest": "Continue as guest",
@@ -164,7 +189,11 @@
 			"waiting": "Waiting for games to finish"
 		},
 		"leaderboard": {
-			"title": "Leaderboard"
+			"title": "Leaderboard",
+			"player": "Player",
+			"gamesPlayed": "Games Played",
+			"gamesWon": "Games Won",
+			"winRatio": "Win Ratio"
 		},
 		"settings": {
 			"loginButton": "Login",
