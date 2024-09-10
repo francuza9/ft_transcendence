@@ -194,7 +194,7 @@ export const openChatWithFriend = (friend) => {
             }
         };
     }
-	chatInput.placeholder = getTranslation('pages.chat.type');
+	chatInput.placeholder = getTranslation('chat.type');
 	chatInput.addEventListener("keypress", chatInputListener);
 };
 

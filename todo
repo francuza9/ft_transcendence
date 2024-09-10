@@ -9,18 +9,8 @@ bugs {
 	invitation to game --> lobby doesnt exist
 
 	after game is finished background goes over the game and game is under (its scrollable)
-}
 
-
-Missing translations {
-	404 page
-	Login invalid credentials alert
-	Points to Win, Players, and AI difficulty in create and createLocal
-	Chat invitations and chat type a message input box
-	Profile, games count: played, won, lost
-	Profile Match History
-	Lobby Details
-	Tournament continue to home button
+	settings dont get translated sometimes (often)
 }
 
 
