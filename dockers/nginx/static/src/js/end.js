@@ -1,6 +1,5 @@
 import {replaceHTML, fetchAvatar} from '/static/src/js/utils.js'
 import {variables} from '/static/src/js/variables.js';
-import {initBackground, resumeAnimation} from '/static/src/js/background/background.js';
 
 let gameRenderer;
 
@@ -67,8 +66,6 @@ export function renderPlayerList(times, players, scores) {
 export const removeGameRenderer = () => {
 	gameRenderer.domElement.remove();
 	variables.endView = false;
-	// initBackground();
-	resumeAnimation();
 }
 
 export const endGame = (time, names_list, score, renderer) => {
