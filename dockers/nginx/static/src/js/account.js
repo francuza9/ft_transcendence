@@ -95,9 +95,8 @@ export const saveField = async (field) => {
 				errorElement.textContent = '';
 				fetchAccountInfo();
             } else {
-				errorElement.textContent = result.message;
+				errorElement.textContent = getTranslation(`pages.account.${result.message}`);
 				errorElement.style.display = 'block';
-				alert(getTranslation(`pages.account.${result.message}`));
             }
         } catch (error) {
             console.error('Error updating field:', error);
@@ -116,13 +115,9 @@ export const savePasswordButton = async () => {
 	const confirmPassword = confirmPasswordInput.value;
 
 	if (!currentPassword || !newPassword || !confirmPassword) {
-		errorElement.textContent = 'Please fill in all fields';
+		errorElement.textContent = getTranslation('pages.account.emptyFieldsError');
 		errorElement.style.display = 'block';
 		return;
-	} else if (newPassword !== confirmPassword) {
-		errorElement.textContent = 'Passwords do not match';
-		errorElement.style.display = 'block';
-		return
 	}
 	try {
 		const response = await fetch('/api/password_update/', {
@@ -156,9 +151,8 @@ export const savePasswordButton = async () => {
 			console.log('Password updated successfully');
 			alert(getTranslation('pages.account.passwordUpdateSuccessfull'));
 		} else {
-			errorElement.textContent = result.message;
+			errorElement.textContent = getTranslation(`pages.account.${result.message}`);
 			errorElement.style.display = 'block';
-			alert(getTranslation(`pages.account.${result.message}`));
 		}
 	} catch (error) {
 		console.error('Error updating password:', error);

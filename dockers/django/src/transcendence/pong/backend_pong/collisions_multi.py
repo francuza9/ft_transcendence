@@ -72,6 +72,7 @@ def update_ball_position_multi(game_state):
 	return None
 
 def check_collision(ball, player, edge, paddle_length=2, ball_radius=0.25):
+	paddle_length += ball_radius * 2
 	player_x, player_y = player['x'], player['y']
 	ball_x, ball_y = ball['x'], ball['y']
 	corner_1_x, corner_1_y = edge[0]['x'], edge[0]['y']
@@ -108,7 +109,8 @@ def check_collision(ball, player, edge, paddle_length=2, ball_radius=0.25):
 	# logger.info(f"Collision with player: {collision_with_player}")
 	return True, collision_with_player
 
-def reflect_ball(ball, player, direction, edge, paddle_length=2, max_angle=math.pi/3):
+def reflect_ball(ball, player, direction, edge, paddle_length=2, ball_radius = 0.25, max_angle=math.pi/3):
+	paddle_length += ball_radius * 2
 	player_x, player_y = player['x'], player['y']
 	ball_x, ball_y = ball['x'], ball['y']
 	corner_1_x, corner_1_y = edge[0]['x'], edge[0]['y']

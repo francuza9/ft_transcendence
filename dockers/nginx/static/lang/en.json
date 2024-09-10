@@ -145,8 +145,13 @@
 			"emailFormatError": "Invalid email format",
 			"emailStudentError": "42 student emails are not allowed",
 			"bioLengthError": "Bio cannot be longer than 200 characters",
-			"bioLineError": "Bio cannot be longer than 5 lines"
-        },
+			"bioLineError": "Bio cannot be longer than 5 lines",
+			"emptyFieldsError": "Please fill in all the fields",
+			"currentPasswordError": "Current password is incorrect",
+			"usernameExists": "Username is already in use",
+			"displayNameExists": "Display Name is already in use",
+			"emailExists": "Email is already in use"
+		},
         "play": {
             "continueAsGuest": "Continue as guest",
             "login": "Login",
