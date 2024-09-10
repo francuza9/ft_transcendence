@@ -52,6 +52,8 @@ def get_lobbies(request):
 			'players': lobby['players'],
 			'admin': lobby['admin']
 		}
-		lobbies_list.append(lobby_info)
+		botGame = True in lobby['is_bot']
+		if lobby['is_tournament'] or not botGame:
+			lobbies_list.append(lobby_info)
 
 	return JsonResponse({'success': True, 'lobbies': lobbies_list})

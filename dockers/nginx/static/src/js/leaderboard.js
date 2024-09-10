@@ -10,20 +10,16 @@ export async function fetchLeaderboard() {
 		}
 
 		const result = await response.json();
-		console.log("Response received from API:", result);
 
 		if (!Array.isArray(result)) {
 			console.error("Expected data to be an array but received:", result);
 			return;
 		}
 
-		console.log("Successfully received leaderboard data. Processing...");
-
 		const playerList = document.getElementById('playerList');
 		playerList.innerHTML = '';
 
 		result.forEach((player, index) => {
-			console.log(`Processing player ${index + 1}:`, player);
 
 			const displayName = player.displayName || 'Unknown Player';
 			const gamesPlayed = player.gamesPlayed || 0;
@@ -31,7 +27,6 @@ export async function fetchLeaderboard() {
 			const gamesLost = player.gamesLost || 0;
 			const winRatio = player.win_ratio !== undefined ? (player.win_ratio * 100).toFixed(2) : '0.00';
 
-			console.log(`Rank: ${index + 1}, Name: ${displayName}, Games Played: ${gamesPlayed}, Games Won: ${gamesWon}, Games Lost: ${gamesLost}, Win Ratio: ${winRatio}%`);
 
 			const playerRow = document.createElement('tr');
 			playerRow.classList.add('player-row');
@@ -61,8 +56,6 @@ export async function fetchLeaderboard() {
 			lastRow.classList.add('no-bottom-border');
 		}
 
-		console.log("Leaderboard data successfully rendered.");
-		
 	} catch (error) {
 		console.error('Error encountered while fetching or processing leaderboard data:', error);
 	}
