@@ -19,13 +19,12 @@ export async function initChat() {
 	chatDiv.innerHTML = await response.text();
 	chatDiv.id = "chat";
 	section.appendChild(chatDiv);
+	addEnterListener();
 }
 
 export const openChat = () => {
     const chatWindow = document.getElementById("chat-window");
-    const chatInput = document.getElementById("chat-input");
     const chatBtn = document.getElementById("chat-btn");
-    const sendBtn = document.getElementById("send-btn");
     const friendList = document.getElementById("friend-list");
     const manageFriendsBtn = document.getElementById("manage-friends-btn");
     const chatArea = document.getElementById("chat-area");
@@ -55,16 +54,6 @@ export const openChat = () => {
             loadFriends();
         }
     });
-
-    if (!chatInputListener) {
-        chatInputListener = function(event) {
-            if (event.key === "Enter") {
-                sendBtn.click();
-            }
-        };
-    }
-
-    chatInput.addEventListener("keypress", chatInputListener);
 };
 
 export const closeChat = () => {
@@ -74,11 +63,6 @@ export const closeChat = () => {
 
     chatWindow.classList.add("hidden");
 	chatBtn.classList.remove("open");
-	removeEnterListener();
-
-    if (chatInputListener) {
-        chatInput.removeEventListener("keypress", chatInputListener);
-    }
 };
 
 export const backToFriends = () => {
@@ -87,6 +71,8 @@ export const backToFriends = () => {
     const chatTitle = document.getElementById("chat-title");
     const backBtn = document.getElementById("back-btn");
 	const settingsBtn = document.getElementById("manage-friends-btn");
+	const chatInput = document.getElementById("chat-input");
+
 
 	if (chatArea) {
 		chatArea.classList.add("hidden");
@@ -99,6 +85,14 @@ export const backToFriends = () => {
 		backBtn.classList.add("hidden");
 		backBtn.classList.remove("show");
 	}
+
+	if (chatInput) {
+		chatInput.value = '';
+	}
+
+	if (chatInputListener) {
+        chatInput.removeEventListener("keypress", chatInputListener);
+    }
 };
 
 export const loadFriends = () => {
@@ -169,6 +163,8 @@ export const openChatWithFriend = (friend) => {
     const backBtn = document.getElementById("back-btn");
 	const settingsBtn = document.getElementById("manage-friends-btn");
 	const friendContainer = document.getElementById("friend-container");
+	const chatInput = document.getElementById("chat-input");
+	const sendBtn = document.getElementById("send-btn");
 
     friendList.classList.add("hidden");
     chatArea.classList.remove("hidden");
@@ -190,6 +186,15 @@ export const openChatWithFriend = (friend) => {
 
 	friendContainer.setAttribute('data-variable', 'viewFriendProfile');
 	friendContainer.setAttribute('data-value', friend.username);
+
+	if (!chatInputListener) {
+        chatInputListener = function(event) {
+            if (event.key === "Enter") {
+                sendBtn.click();
+            }
+        };
+    }
+	chatInput.addEventListener("keypress", chatInputListener);
 };
 
 export const loadChatMessages = (friendUsername, friendDisplayName) => {
@@ -327,7 +332,6 @@ export const switchTab = (value) => {
 		tabPane.classList.add('hidden');
 	});
 
-	removeEnterListener();
 	const selectedTab = document.querySelector(`#tab-pane-${value}`);
 	if (selectedTab) {
 		selectedTab.classList.add('show', 'active');
@@ -645,6 +649,7 @@ export const acceptInvitation = (link) => {
 
     if (match) {
         const lobbyId = match[1];
+		console.log(lobbyId);
 
 		history.pushState(null, '', `/${lobbyId}`);
 		Lobby(lobbyId)

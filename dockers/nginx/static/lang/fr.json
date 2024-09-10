@@ -1,113 +1,165 @@
 {
-    "pages": {
-        "home": {
-            "title": "Bienvenue dans Transcendence",
-            "intro": "Préparez-vous à jouer !",
-            "playButton": "Jouer"
-        },
-        "createRoom": {
-            "pageTitle": "Créer une Salle",
-            "nameLabel": "Nom",
-            "myTitle": "Mon Titre",
-            "editButton": "✏️ Modifier",
-            "saveButton": "Enregistrer",
-            "cancelButton": "Annuler",
-            "modeLabel": "Mode",
-            "classicMode": "Classique",
-            "tournamentMode": "Tournoi",
-            "playersLabel": "Joueurs",
-            "mapLabel": "Carte",
-            "currentMap": "Classique",
-            "chooseMapButton": "Choisir la Carte",
-            "selectMapTitle": "Sélectionnez Votre Carte",
-            "classicMapTitle": "Classique",
-            "classicMapDescription": "La carte classique.",
-            "mountainMapTitle": "Montagne",
-            "mountainMapDescription": "Belle vue au sommet de la montagne !",
-            "desertMapTitle": "Désert",
-            "desertMapDescription": "Beaux pyramides.",
-            "hellMapTitle": "Enfer",
-            "hellMapDescription": "Ça peut avoir l'air effrayant mais je vous promets que ce n'est pas le cas.",
-            "previousSlide": "Précédent",
-            "nextSlide": "Suivant",
-            "selectButton": "Sélectionner",
-            "createRoomButton": "Créer une Salle"
-        },
-        "joinRoom": {
-            "pageTitle": "Rejoindre une Salle",
-            "refreshButton": "Actualiser",
-            "roomName": "Nom de la Salle",
-            "players": "Joueurs",
-            "map": "Carte",
-            "mode": "Mode",
-            "join": "Rejoindre",
-            "backButton": "Retour"
-        },
-        "register": {
-            "pageTitle": "S'inscrire",
-            "usernameLabel": "Nom d'utilisateur",
-            "emailLabel": "Email",
-            "passwordLabel": "Mot de passe",
-            "confirmPasswordLabel": "Confirmer le Mot de Passe",
-            "submitButton": "S'inscrire",
-            "loginPrompt": "Vous avez déjà un compte ?",
-            "loginLink": "Se connecter"
-        },
-        "account": {
-            "pageTitle": "Paramètres du Compte",
-			"editButton": "Modifier",
-			"editUsername": "Modifier le Nom d'Utilisateur",
-			"editDisplayName": "Modifier le Nom Affiché",
-			"editEmail": "Modifier l'Email",
-			"editBio": "Modifier la Bio",
-			"saveButton": "Enregistrer",
-            "cancelButton": "Annuler",
-			"removeButton": "Supprimer",
-            "uploadButton": "Télécharger",
+	"pages": {
+		"home": {
+			"title": "Bienvenue à Transcendence",
+			"intro": "Préparez-vous à jouer!",
+			"playButton": "Jouer"
+		},
+		"createRoom": {
+			"pageTitle": "Créer une salle",
+			"saveButton": "Sauvegarder",
+			"cancelButton": "Annuler",
+			"editRoomName": "Modifier le nom de la salle",
+			"classicMode": "Classique",
+			"tournamentMode": "Tournoi",
+			"currentMap": "Classique",
+			"chooseMapButton": "Choisir une carte",
+			"selectMapTitle": "Sélectionnez votre carte",
+			"classicMapTitle": "Classique",
+			"classicMapDescription": "La carte classique.",
+			"mountainMapTitle": "Montagne",
+			"mountainMapDescription": "Belle vue du sommet de la montagne!",
+			"desertMapTitle": "Désert",
+			"desertMapDescription": "Beaux pyramides.",
+			"hellMapTitle": "Enfer",
+			"hellMapDescription": "Ça peut sembler effrayant, mais je vous promets que ce n'est pas le cas.",
+			"previousSlide": "Précédent",
+			"nextSlide": "Suivant",
+			"selectButton": "Sélectionner",
+			"createRoomButton": "Créer une salle"
+		},
+		"joinRoom": {
+			"pageTitle": "Rejoindre une salle",
+			"roomName": "Nom de la salle",
+			"players": "Joueurs",
+			"map": "Carte",
+			"mode": "Mode",
+			"join": "Rejoindre"
+		},
+		"register": {
+			"pageTitle": "S'inscrire",
+			"usernameLabel": "Nom d'utilisateur",
+			"emailLabel": "Email",
+			"passwordLabel": "Mot de passe",
+			"confirmPasswordLabel": "Confirmez le mot de passe",
+			"submitButton": "S'inscrire",
+			"loginPrompt": "Vous avez déjà un compte?",
+			"loginLink": "Se connecter"
+		},
+		"account": {
+			"pageTitle": "Paramètres du compte",
 			"avatarLabel": "Avatar",
-            "usernameLabel": "Nom d'utilisateur",
-            "displayNameLabel": "Nom Affiché",
-            "emailLabel": "Email",
-            "bioLabel": "Bio",
-            "updateProfileButton": "Mettre à Jour le Profil",
-            "gamesPlayedLabel": "Jeux Joués",
-            "gamesWonLabel": "Jeux Gagnés",
-            "gamesLostLabel": "Jeux Perdus"
-        },
-        "play": {
-            "continueAsGuest": "Continuer en tant qu'invité",
-            "login": "Se Connecter",
-            "back": "Retour",
-            "localButton": "Local",
-            "onlineButton": "En Ligne",
-            "backButton": "Retour",
-            "joinRoomButton": "Rejoindre une Salle",
-            "createRoomButton": "Créer une Salle"
-        },
-        "login": {
-            "title": "Se Connecter",
-            "emailLabel": "Nom d'utilisateur ou Email",
-            "passwordLabel": "Mot de Passe",
-            "loginButton": "Se Connecter",
-            "noAccount": "Pas de compte ?",
-            "registerLink": "S'inscrire",
-            "loginWith42": "Se connecter avec 42",
-            "loginWithGithub": "Se connecter avec Github"
-        },
-        "lobby": {
-            "title": "Nom de la Salle",
-            "details": "Détails sur la salle",
-            "profilePicture": "Photo de Profil",
-            "username": "Nom d'utilisateur",
-            "level": "Niveau",
-            "leaveButton": "Quitter la Salle",
-            "startButton": "Démarrer le Jeu"
-        },
-        "settings": {
-            "loginButton": "Se Connecter",
-            "registerButton": "S'inscrire",
-            "languageButton": "Langue",
-            "backButton": "Retour"
-        }
-    }
+			"usernameLabel": "Nom d'utilisateur",
+			"passwordLabel": "Mot de passe",
+			"displayNameLabel": "Nom d'affichage",
+			"emailLabel": "Email",
+			"bioLabel": "Bio",
+			"editButton": "Modifier",
+			"editAvatar": "Modifier l'avatar",
+			"changePassword": "Changer le mot de passe",
+			"editDisplayName": "Modifier le nom d'affichage",
+			"editEmail": "Modifier l'email",
+			"editBio": "Modifier la bio",
+			"uploadButton": "Télécharger",
+			"removeButton": "Supprimer",
+			"saveButton": "Sauvegarder",
+			"cancelButton": "Annuler",
+			"currentPasswordLabel": "Mot de passe actuel",
+			"newPasswordLabel": "Nouveau mot de passe",
+			"confirmPasswordLabel": "Confirmer le nouveau mot de passe",
+			"updateProfileButton": "Mettre à jour le profil",
+			"gamesPlayedLabel": "Parties jouées",
+			"gamesWonLabel": "Parties gagnées",
+			"gamesLostLabel": "Parties perdues",
+			"passwordUpdateSuccessfull": "Mot de passe mis à jour avec succès",
+			"fileSizeExceeded": "La taille du fichier dépasse la limite de 2 Mo",
+			"unsuportedFormat": "Format de fichier non pris en charge. Veuillez télécharger une image JPEG ou PNG."
+		},
+		"play": {
+			"continueAsGuest": "Continuer en tant qu'invité",
+			"login": "Connexion",
+			"back": "Retour",
+			"local": "Local",
+			"online": "En ligne",
+			"joinRoomButton": "Rejoindre une salle",
+			"createRoomButton": "Créer une salle",
+			"AI": "Joueur contre IA",
+			"noAI": "Joueur contre Joueur"
+		},
+		"login": {
+			"title": "Connexion",
+			"emailLabel": "Nom d'utilisateur ou Email",
+			"passwordLabel": "Mot de passe",
+			"loginButton": "Se connecter",
+			"noAccount": "Pas de compte?",
+			"registerLink": "S'inscrire",
+			"loginWith42": "Se connecter avec 42",
+			"loginWithGithub": "Se connecter avec Github"
+		},
+		"lobby": {
+			"title": "Nom de la salle",
+			"details": "Détails de la salle",
+			"profilePicture": "Photo de profil",
+			"username": "Nom d'utilisateur",
+			"level": "Niveau",
+			"leaveButton": "Quitter la salle",
+			"leaveConfirmation": "Êtes-vous sûr de vouloir quitter",
+			"cancel": "Annuler",
+			"startButton": "Commencer le jeu",
+			"addBot": "Ajouter un Bot",
+			"lobbyInvalid": "Le salon que vous essayez de rejoindre est invalide, a été fermé ou est complet."
+		},
+		"tournament": {
+			"warning": "Le tournoi va bientôt commencer! Préparez-vous!",
+			"waiting": "En attente de la fin des parties"
+		},
+		"leaderboard": {
+			"title": "Classement"
+		},
+		"settings": {
+			"loginButton": "Connexion",
+			"registerButton": "S'inscrire",
+			"hello": "Bonjour",
+			"profile": "Voir le profil",
+			"settings": "Paramètres du compte",
+			"logout": "Déconnexion",
+			"languageButton": "Langue",
+			"backButton": "Retour",
+			"logoutSuccess": "Vous avez été déconnecté avec succès."
+		},
+		"end": {
+			"title": "Partie terminée",
+			"leaderboard": "Classement",
+			"continue": "Continuer",
+			"again": "Rejouer"
+		}
+	},
+	"chat": {
+		"noFriends": "Ajoutez des amis pour discuter avec eux",
+		"loginMessage": "Connectez-vous pour discuter avec des amis",
+		"fail": "Échec du chargement des messages. Veuillez réessayer plus tard."
+	},
+	"friends": {
+		"add": "Ajouter des amis",
+		"manage": "Gérer les amis",
+		"requests": "Demandes d'amis",
+		"blocked": "Utilisateurs bloqués",
+		"addInputFieldPlaceholder": "Entrez le nom d'utilisateur de l'ami...",
+		"noFriends": "Vous n'avez pas d'amis!",
+		"noRequests": "Vous n'avez aucune demande d'ami en attente.",
+		"noBlockedUsers": "Vous n'avez bloqué aucun utilisateur.",
+		"requestSuccess": "Demande d'ami envoyée avec succès!",
+		"yourself": "Vous ne pouvez pas envoyer une demande d'ami à vous-même!",
+		"unknownUser": "Utilisateur non trouvé!",
+		"alreadyFriends": "Vous êtes déjà ami avec cet utilisateur!",
+		"alreadyReceived": "Vous avez déjà une demande d'ami en attente avec cet utilisateur!",
+		"userIsBlocked": "Vous ne pouvez pas envoyer une demande d'ami à un utilisateur bloqué!",
+		"userBlockedYou": "Vous ne pouvez pas envoyer une demande d'ami à cet utilisateur car il vous a bloqué!",
+		"unfriend": "Retirer de la liste d'amis",
+		"block": "Bloquer",
+		"accept": "Accepter",
+		"decline": "Décliner",
+		"cancel": "Annuler",
+		"unblock": "Débloquer"
+	}
 }

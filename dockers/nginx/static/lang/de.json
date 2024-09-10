@@ -1,0 +1,165 @@
+{
+    "pages": {
+        "home": {
+            "title": "Willkommen bei Transcendence",
+            "intro": "Bereite dich auf das Spiel vor!",
+            "playButton": "Spielen"
+        },
+        "createRoom": {
+            "pageTitle": "Raum erstellen",
+            "saveButton": "Speichern",
+            "cancelButton": "Abbrechen",
+            "editRoomName": "Raumnamen bearbeiten",
+            "classicMode": "Klassisch",
+            "tournamentMode": "Turnier",
+            "currentMap": "Klassisch",
+            "chooseMapButton": "Karte wählen",
+            "selectMapTitle": "Wähle deine Karte",
+            "classicMapTitle": "Klassisch",
+            "classicMapDescription": "Die klassische Karte.",
+            "mountainMapTitle": "Berg",
+            "mountainMapDescription": "Schöne Aussicht vom Gipfel des Berges!",
+            "desertMapTitle": "Wüste",
+            "desertMapDescription": "Schöne Pyramiden.",
+            "hellMapTitle": "Hölle",
+            "hellMapDescription": "Es sieht gruselig aus, aber ich verspreche, es ist es nicht.",
+            "previousSlide": "Zurück",
+            "nextSlide": "Weiter",
+            "selectButton": "Auswählen",
+            "createRoomButton": "Raum erstellen"
+        },
+        "joinRoom": {
+            "pageTitle": "Raum beitreten",
+            "roomName": "Raumname",
+            "players": "Spieler",
+            "map": "Karte",
+            "mode": "Modus",
+            "join": "Beitreten"
+        },
+        "register": {
+            "pageTitle": "Registrieren",
+            "usernameLabel": "Benutzername",
+            "emailLabel": "E-Mail",
+            "passwordLabel": "Passwort",
+            "confirmPasswordLabel": "Passwort bestätigen",
+            "submitButton": "Registrieren",
+            "loginPrompt": "Hast du bereits ein Konto?",
+            "loginLink": "Anmelden"
+        },
+        "account": {
+            "pageTitle": "Kontoeinstellungen",
+            "avatarLabel": "Avatar",
+            "usernameLabel": "Benutzername",
+            "passwordLabel": "Passwort",
+            "displayNameLabel": "Anzeigename",
+            "emailLabel": "E-Mail",
+            "bioLabel": "Biografie",
+            "editButton": "Bearbeiten",
+            "editAvatar": "Avatar bearbeiten",
+            "changePassword": "Passwort ändern",
+            "editDisplayName": "Anzeigename bearbeiten",
+            "editEmail": "E-Mail bearbeiten",
+            "editBio": "Biografie bearbeiten",
+            "uploadButton": "Hochladen",
+            "removeButton": "Entfernen",
+            "saveButton": "Speichern",
+            "cancelButton": "Abbrechen",
+            "currentPasswordLabel": "Aktuelles Passwort",
+            "newPasswordLabel": "Neues Passwort",
+            "confirmPasswordLabel": "Neues Passwort bestätigen",
+            "updateProfileButton": "Profil aktualisieren",
+            "gamesPlayedLabel": "Gespielte Spiele",
+            "gamesWonLabel": "Gewonnene Spiele",
+            "gamesLostLabel": "Verlorene Spiele",
+            "passwordUpdateSuccessfull": "Passwort erfolgreich aktualisiert",
+            "fileSizeExceeded": "Dateigröße überschreitet das Limit von 2 MB",
+            "unsuportedFormat": "Dateiformat wird nicht unterstützt. Bitte laden Sie ein JPEG- oder PNG-Bild hoch"
+        },
+        "play": {
+            "continueAsGuest": "Als Gast fortfahren",
+            "login": "Anmelden",
+            "back": "Zurück",
+            "local": "Lokal",
+            "online": "Online",
+            "joinRoomButton": "Raum beitreten",
+            "createRoomButton": "Raum erstellen",
+            "AI": "Spieler gegen KI",
+            "noAI": "Spieler gegen Spieler"
+        },
+        "login": {
+            "title": "Anmelden",
+            "emailLabel": "Benutzername oder E-Mail",
+            "passwordLabel": "Passwort",
+            "loginButton": "Anmelden",
+            "noAccount": "Kein Konto?",
+            "registerLink": "Registrieren",
+            "loginWith42": "Mit 42 anmelden",
+            "loginWithGithub": "Mit Github anmelden"
+        },
+        "lobby": {
+            "title": "Raumname",
+            "details": "Raumdetails",
+            "profilePicture": "Profilbild",
+            "username": "Benutzername",
+            "level": "Level",
+            "leaveButton": "Raum verlassen",
+            "leaveConfirmation": "Bist du sicher, dass du den Raum verlassen möchtest?",
+            "cancel": "Abbrechen",
+            "startButton": "Spiel starten",
+            "addBot": "Bot hinzufügen",
+            "lobbyInvalid": "Der Lobby, der du beitreten möchtest, ist ungültig, wurde geschlossen oder ist voll."
+        },
+        "tournament": {
+            "warning": "Das Turnier beginnt in Kürze! Mach dich bereit!",
+            "waiting": "Warten auf den Abschluss der Spiele"
+        },
+        "leaderboard": {
+            "title": "Bestenliste"
+        },
+        "settings": {
+            "loginButton": "Anmelden",
+            "registerButton": "Registrieren",
+            "hello": "Hallo",
+            "profile": "Profil anzeigen",
+            "settings": "Kontoeinstellungen",
+            "logout": "Abmelden",
+            "languageButton": "Sprache",
+            "backButton": "Zurück",
+            "logoutSuccess": "Du wurdest erfolgreich abgemeldet."
+        },
+        "end": {
+            "title": "Spiel beendet",
+            "leaderboard": "Bestenliste",
+            "continue": "Fortsetzen",
+            "again": "Nochmals spielen"
+        }
+    },
+    "chat": {
+        "noFriends": "Füge Freunde hinzu, um mit ihnen zu chatten",
+        "loginMessage": "Melde dich an, um mit Freunden zu chatten",
+        "fail": "Fehler beim Laden der Nachrichten. Bitte versuche es später erneut."
+    },
+    "friends": {
+        "add": "Freunde hinzufügen",
+        "manage": "Freunde verwalten",
+        "requests": "Freundschaftsanfragen",
+        "blocked": "Blockierte Nutzer",
+        "addInputFieldPlaceholder": "Benutzernamen des Freundes eingeben...",
+        "noFriends": "Du hast keine Freunde!",
+        "noRequests": "Du hast keine ausstehenden Freundschaftsanfragen.",
+        "noBlockedUsers": "Du hast keine blockierten Nutzer.",
+        "requestSuccess": "Freundschaftsanfrage erfolgreich gesendet!",
+        "yourself": "Du kannst dir selbst keine Freundschaftsanfrage senden!",
+        "unknownUser": "Benutzer nicht gefunden!",
+        "alreadyFriends": "Du bist bereits mit diesem Benutzer befreundet!",
+        "alreadyReceived": "Du hast bereits eine ausstehende Freundschaftsanfrage mit diesem Benutzer!",
+        "userIsBlocked": "Du kannst einem blockierten Benutzer keine Freundschaftsanfrage senden!",
+        "userBlockedYou": "Du kannst diesem Benutzer keine Freundschaftsanfrage senden, da er dich blockiert hat!",
+        "unfriend": "Freundschaft beenden",
+        "block": "Blockieren",
+        "accept": "Akzeptieren",
+        "decline": "Ablehnen",
+        "cancel": "Abbrechen",
+        "unblock": "Entsperren"
+    }
+}
