@@ -80,14 +80,14 @@ def update_account_info(request):
 			new_value = data.get('value')
 
 			if not field or new_value is None:
-				return JsonResponse({'success': False, 'message': 'Field and value are required'})
+				return JsonResponse({'success': False, 'message': 'emptyFieldsError'})
 
 			user = request.user
 
 			if field == 'email':
 				new_value = new_value.lower()
 				if CustomUser.objects.filter(email=new_value).exclude(id=user.id).exists():
-					return JsonResponse({'success': False, 'message': 'Email is already in use'})
+					return JsonResponse({'success': False, 'message': 'emailExists'})
 				
 				valid, error_message = is_valid_email(new_value)
 				if not valid:
@@ -101,9 +101,9 @@ def update_account_info(request):
 
 			if field == 'displayName':
 				if CustomUser.objects.filter(username=new_value).exclude(id=user.id).exists():
-					return JsonResponse({'success': False, 'message': 'Username is already in use'})
+					return JsonResponse({'success': False, 'message': 'usernameExists'})
 				if Profile.objects.filter(displayName=new_value).exclude(user=user).exists():
-					return JsonResponse({'success': False, 'message': 'Display Name is already in use'})
+					return JsonResponse({'success': False, 'message': 'displayNameExists'})
 				
 				valid, error_message = is_valid_display_name(new_value)
 				if not valid:
@@ -121,23 +121,6 @@ def update_account_info(request):
 				profile.bio = new_value
 				profile.save()
 				return JsonResponse({'success': True, 'message': 'Field updated successfully'})
-
-
-			# if field in [f.name for f in CustomUser._meta.get_fields()]:
-			# 	# Update field in CustomUser model
-			# 	setattr(user, field, new_value)
-			# 	user.save()
-			# 	return JsonResponse({'success': True, 'message': 'Field updated successfully'})
-			
-			# profile, created = Profile.objects.get_or_create(user=user)
-
-			# if field in [f.name for f in Profile._meta.get_fields()]:
-			# 	# Update field in Profile model
-			# 	setattr(profile, field, new_value)
-			# 	profile.save()
-			# 	return JsonResponse({'success': True, 'message': 'Field updated successfully'})
-			
-			# return JsonResponse({'success': False, 'message': 'Invalid field'})
 
 		except json.JSONDecodeError:
 			return JsonResponse({'success': False, 'message': 'Invalid JSON'})
@@ -160,12 +143,12 @@ def password_update(request):
 			confirm_password = data.get('confirmPassword')
 
 			if not old_password or not new_password or not confirm_password:
-				return JsonResponse({'success': False, 'message': 'All fields are required'})
+				return JsonResponse({'success': False, 'message': 'emptyFieldsError'})
 
 			user = request.user
 
 			if not user.check_password(old_password):
-				return JsonResponse({'success': False, 'message': 'Current password is incorrect'})
+				return JsonResponse({'success': False, 'message': 'currentPasswordError'})
 			
 			valid, error_message = is_valid_password(new_password, confirm_password, user.username)
 			if not valid:
