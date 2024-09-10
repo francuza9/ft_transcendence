@@ -1,0 +1,165 @@
+{
+    "pages": {
+        "home": {
+            "title": "Welkom bij Transcendence",
+            "intro": "Maak je klaar om te spelen!",
+            "playButton": "Spelen"
+        },
+        "createRoom": {
+            "pageTitle": "Kamer aanmaken",
+            "saveButton": "Opslaan",
+            "cancelButton": "Annuleren",
+            "editRoomName": "Kamernaam bewerken",
+            "classicMode": "Klassiek",
+            "tournamentMode": "Toernooi",
+            "currentMap": "Klassiek",
+            "chooseMapButton": "Kies Kaart",
+            "selectMapTitle": "Kies je kaart",
+            "classicMapTitle": "Klassiek",
+            "classicMapDescription": "De klassieke kaart.",
+            "mountainMapTitle": "Berg",
+            "mountainMapDescription": "Mooi uitzicht bovenop de berg!",
+            "desertMapTitle": "Woestijn",
+            "desertMapDescription": "Mooie piramides.",
+            "hellMapTitle": "Hel",
+            "hellMapDescription": "Het ziet er misschien eng uit, maar ik beloof dat het dat niet is.",
+            "previousSlide": "Vorige",
+            "nextSlide": "Volgende",
+            "selectButton": "Selecteren",
+            "createRoomButton": "Kamer aanmaken"
+        },
+        "joinRoom": {
+            "pageTitle": "Kamer Joinen",
+            "roomName": "Kamernaam",
+            "players": "Spelers",
+            "map": "Kaart",
+            "mode": "Modus",
+            "join": "Deelnemen"
+        },
+        "register": {
+            "pageTitle": "Registreren",
+            "usernameLabel": "Gebruikersnaam",
+            "emailLabel": "E-mail",
+            "passwordLabel": "Wachtwoord",
+            "confirmPasswordLabel": "Bevestig Wachtwoord",
+            "submitButton": "Registreren",
+            "loginPrompt": "Heb je al een account?",
+            "loginLink": "Inloggen"
+        },
+        "account": {
+            "pageTitle": "Accountinstellingen",
+            "avatarLabel": "Avatar",
+            "usernameLabel": "Gebruikersnaam",
+            "passwordLabel": "Wachtwoord",
+            "displayNameLabel": "Weergavenaam",
+            "emailLabel": "E-mail",
+            "bioLabel": "Bio",
+            "editButton": "Bewerken",
+            "editAvatar": "Avatar bewerken",
+            "changePassword": "Wachtwoord wijzigen",
+            "editDisplayName": "Weergavenaam bewerken",
+            "editEmail": "E-mail bewerken",
+            "editBio": "Bio bewerken",
+            "uploadButton": "Uploaden",
+            "removeButton": "Verwijderen",
+            "saveButton": "Opslaan",
+            "cancelButton": "Annuleren",
+            "currentPasswordLabel": "Huidig Wachtwoord",
+            "newPasswordLabel": "Nieuw Wachtwoord",
+            "confirmPasswordLabel": "Bevestig Nieuw Wachtwoord",
+            "updateProfileButton": "Profiel bijwerken",
+            "gamesPlayedLabel": "Gespeelde Spellen",
+            "gamesWonLabel": "Gewonnen Spellen",
+            "gamesLostLabel": "Verloren Spellen",
+            "passwordUpdateSuccessfull": "Wachtwoord succesvol bijgewerkt",
+            "fileSizeExceeded": "Bestandsgrootte overschrijdt de limiet van 2MB",
+            "unsuportedFormat": "Bestandsformaat wordt niet ondersteund. Upload een JPEG- of PNG-afbeelding"
+        },
+        "play": {
+            "continueAsGuest": "Doorgaan als gast",
+            "login": "Inloggen",
+            "back": "Terug",
+            "local": "Lokaal",
+            "online": "Online",
+            "joinRoomButton": "Kamer Joinen",
+            "createRoomButton": "Kamer aanmaken",
+            "AI": "Speler tegen AI",
+            "noAI": "Speler tegen Speler"
+        },
+        "login": {
+            "title": "Inloggen",
+            "emailLabel": "Gebruikersnaam of E-mail",
+            "passwordLabel": "Wachtwoord",
+            "loginButton": "Inloggen",
+            "noAccount": "Heb je geen account?",
+            "registerLink": "Registreren",
+            "loginWith42": "Inloggen met 42",
+            "loginWithGithub": "Inloggen met Github"
+        },
+        "lobby": {
+            "title": "Kamernaam",
+            "details": "Kamerdetails",
+            "profilePicture": "Profielfoto",
+            "username": "Gebruikersnaam",
+            "level": "Level",
+            "leaveButton": "Kamer verlaten",
+            "leaveConfirmation": "Weet je zeker dat je de kamer wilt verlaten?",
+            "cancel": "Annuleren",
+            "startButton": "Start Spel",
+            "addBot": "Bot toevoegen",
+            "lobbyInvalid": "De lobby die je probeert te joinen is ongeldig, is gesloten of is vol."
+        },
+        "tournament": {
+            "warning": "Het toernooi begint binnenkort! Maak je klaar!",
+            "waiting": "Wachten tot de spellen zijn voltooid"
+        },
+        "leaderboard": {
+            "title": "Scorebord"
+        },
+        "settings": {
+            "loginButton": "Inloggen",
+            "registerButton": "Registreren",
+            "hello": "Hallo",
+            "profile": "Profiel bekijken",
+            "settings": "Accountinstellingen",
+            "logout": "Uitloggen",
+            "languageButton": "Taal",
+            "backButton": "Terug",
+            "logoutSuccess": "Je bent succesvol uitgelogd."
+        },
+        "end": {
+            "title": "Spel Beëindigd",
+            "leaderboard": "Scorebord",
+            "continue": "Doorgaan",
+            "again": "Opnieuw Spelen"
+        }
+    },
+    "chat": {
+        "noFriends": "Voeg vrienden toe om met hen te chatten",
+        "loginMessage": "Log in om met vrienden te chatten",
+        "fail": "Berichten laden mislukt. Probeer het later opnieuw."
+    },
+    "friends": {
+        "add": "Vrienden toevoegen",
+        "manage": "Vrienden beheren",
+        "requests": "Vriendverzoeken",
+        "blocked": "Geblokkeerde gebruikers",
+        "addInputFieldPlaceholder": "Voer de gebruikersnaam van je vriend in...",
+        "noFriends": "Je hebt geen vrienden!",
+        "noRequests": "Je hebt geen openstaande vriendverzoeken.",
+        "noBlockedUsers": "Je hebt geen geblokkeerde gebruikers.",
+        "requestSuccess": "Vriendschapsverzoek succesvol verzonden!",
+        "yourself": "Je kunt jezelf geen vriendschapsverzoek sturen!",
+        "unknownUser": "Gebruiker niet gevonden!",
+        "alreadyFriends": "Je bent al vrienden met deze gebruiker!",
+        "alreadyReceived": "Je hebt al een openstaand vriendschapsverzoek met deze gebruiker!",
+        "userIsBlocked": "Je kunt geen vriendschapsverzoek sturen naar een geblokkeerde gebruiker!",
+        "userBlockedYou": "Je kunt deze gebruiker geen vriendschapsverzoek sturen omdat hij jou geblokkeerd heeft!",
+        "unfriend": "Ontvrienden",
+        "block": "Blokkeren",
+        "accept": "Accepteren",
+        "decline": "Afwijzen",
+        "cancel": "Annuleren",
+        "unblock": "Deblokkeren"
+    }
+}
