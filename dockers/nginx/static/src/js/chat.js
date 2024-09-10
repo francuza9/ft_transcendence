@@ -2,7 +2,7 @@ import {getCookie} from '/static/src/js/cookies.js';
 import {getSocket} from '/static/src/js/socket_handling/global_socket.js';
 import {isGuest, checkLoginStatus, ensureUsername} from '/static/src/js/utils.js';
 import {variables} from '/static/src/js/variables.js';
-import {getTranslation} from '/static/src/js/lang.js';
+import {getTranslation, setTranslations, getTranslationFile} from '/static/src/js/lang.js';
 import {addFriend, unfriendUser, blockUser, unblockUser, acceptFriendRequest, declineFriendRequest, unsendFriendRequest} from '/static/src/js/friends.js';
 import {in_lobby} from '/static/src/js/lobby.js';
 import {Lobby} from '/static/views/lobby.js';
@@ -12,14 +12,46 @@ let currentFriend = null;
 let addFriendEventListenerInitialized = false;
 
 export async function initChat() {
-	const section = document.getElementsByTagName('section')[0];
-	const chatDiv = document.createElement("div");
-	const response = await fetch('/static/src/html/chat.html');
-	if (!response.ok) throw new Error('Network response was not ok');
-	chatDiv.innerHTML = await response.text();
-	chatDiv.id = "chat";
-	section.appendChild(chatDiv);
-	addEnterListener();
+    const section = document.getElementsByTagName('section')[0];
+    const chatDiv = document.createElement("div");
+    chatDiv.id = "chat";
+
+    try {
+        const response = await fetch('/static/src/html/chat.html');
+        if (!response.ok) throw new Error('Network response was not ok');
+        chatDiv.innerHTML = await response.text();
+        section.appendChild(chatDiv);
+
+		if (!getTranslationFile()) {
+			const userLang = getCookie('userLang') || 'en';
+			const translationsResponse = await fetch(`/static/lang/${userLang}.json`);
+			if (!translationsResponse.ok) throw new Error('Network response was not ok');
+			const translations = await translationsResponse.json();
+			setTranslations(translations);
+		}
+
+        translateChatContent();
+        addEnterListener();
+    } catch (error) {
+        console.error('Error initializing chat:', error);
+    }
+}
+
+function translateChatContent() {
+    const chatDiv = document.getElementById('chat');
+
+    if (!chatDiv) return;
+
+    chatDiv.querySelectorAll('[data-text]').forEach(element => {
+        const key = element.getAttribute('data-text');
+        const translation = getTranslation(key);
+
+        if (translation) {
+            element.innerHTML = translation;
+        } else {
+            console.warn('No translation for key:', key);
+        }
+    });
 }
 
 export const openChat = () => {
