@@ -38,8 +38,9 @@ h1 {
 
 .back-btn {
     top: 20px;
-    right: 20px;
-    width: 50px;
+	left: 20px;
+	width: 150px;
+	position: absolute;
     height: 50px;
     font-size: 32px;
     align-items: center;
