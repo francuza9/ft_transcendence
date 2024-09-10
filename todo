@@ -6,19 +6,12 @@ DO NOT FORGET {
 
 bugs {
 
-	invitation to game --> lobby doesnt exist
-
-	after game is finished background goes over the game and game is under (its scrollable)
-
 	check if console.error is ok to leave
-
-	fix blank screen when creating local game after leaving created multiplayer lobby
 
 	settings dont get translated sometimes (often)
 
 	mising backgriund after (play with ai --> back arrow)
-
-	joining lobby doesnt work anymore
+	after game is finished background goes over the game and game is under (its scrollable)
 }
 
 
