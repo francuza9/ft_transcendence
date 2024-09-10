@@ -170,9 +170,9 @@ async function createMatchHistoryTable(player) {
     const headerRow = document.createElement('tr');
     headerRow.innerHTML = `
 		<th>${getTranslation('profile.p1')}</th>
-        <th>${getTranslation('profile.p1')}</th>
+        <th>${getTranslation('profile.p2')}</th>
         <th>${getTranslation('profile.won')}</th>
-        <th>${getTranslation('profile.score)}</th>
+        <th>${getTranslation('profile.score')}</th>
         <th>${getTranslation('profile.date')}</th>
     `;
     table.appendChild(headerRow);
