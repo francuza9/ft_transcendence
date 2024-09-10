@@ -8,8 +8,8 @@ bugs {
 
 	settings dont get translated sometimes (often)
 
-	mising backgriund after (play with ai --> back arrow)	
-	after game is finished background goes over the game and game is under (its scrollable)
+	collisions
+
 }
 
 
