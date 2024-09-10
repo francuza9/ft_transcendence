@@ -6,12 +6,9 @@ DO NOT FORGET {
 
 bugs {
 
-	settings dont get translated sometimes (often)
-
 	collisions
 
 }
-
 
 Extra {
 	Improve Match History table css
