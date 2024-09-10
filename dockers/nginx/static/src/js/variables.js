@@ -23,6 +23,7 @@ export const variables = {
 	endView: false,
 	partOfTournament: false,
 	tournamentID: '',
+	isAI: 'false',
 };
 
 export const resetVariables = () => {
@@ -38,6 +39,7 @@ export const resetVariables = () => {
 	variables.players_dict = {}; // maybe remove
 	variables.partOfTournament = false;
 	variables.tournamentID = '';
+	variables.isAI = 'false';
 }
 
 export function updateVariable(document, variableName, value) {
