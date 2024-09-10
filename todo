@@ -9,6 +9,8 @@ bugs {
 	invitation to game --> lobby doesnt exist
 
 	after game is finished background goes over the game and game is under (its scrollable)
+
+	check if console.error is ok to leave
 }
 
 
