@@ -37,17 +37,12 @@ export function goActive() {
 			console.log(data.sender, "wants to be your friend");
 			loadFriendsModal();
 		} else if (data.type === 'friend_removal') {
-			console.log(data.sender, "Removed you from their friends list");
 			loadFriendsModal();
 		} else if (data.type === 'block') {
-			console.log(data.sender, "Blocked you");
 			loadFriendsModal();
 		} else if (data.type === 'unblock') {
-			console.log(data.sender, "Unblocked you");
 			loadFriendsModal();
 		} else if (data.type === 'game_invitation') {
-			const url = data.link;
-			console.log(data.sender, "Invited you to a game, link: ", url);
 			loadFriendsModal();
 		} else if (data.type === 'friend_request_sent') {
 			const usernameInput = document.getElementById('add-friend-input');

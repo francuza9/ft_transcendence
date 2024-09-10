@@ -32,7 +32,6 @@ def create_lobby(request):
 @require_GET
 def check_lobby_status(request, lobby_id):
 	lobby_exists = lobby_id in lobby_data
-	
 	if lobby_exists:
 		if lobby_data[lobby_id]['available'] and not lobby_data[lobby_id]['started']:
 			return JsonResponse({'availability': 'free'})
