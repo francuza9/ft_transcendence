@@ -169,8 +169,6 @@ export function create2Pgame(mappov, socket, names) {
 			section.classList.remove('hidden');
 		}
 		cleanupBackground();
-		initBackground();
-		resumeAnimation();
 	};
 
 	window.addEventListener('popstate', rem_listener);
