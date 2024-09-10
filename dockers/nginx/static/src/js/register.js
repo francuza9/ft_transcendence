@@ -1,6 +1,7 @@
 import {handleRouting} from '/static/routers/router.js';
 import {getCookie} from '/static/src/js/cookies.js';
 import {closeSettingsButton} from '/static/src/js/settings.js';
+import { getTranslation } from '/static/src/js/lang.js';
 
 const commonUsernames = [
 	'administrator', 'guest', 'system', 'support', 'superuser', 'moderator', 'operator', 'service', 'manager', 'staff',
@@ -20,40 +21,40 @@ function validateUsername() {
 
 	if (username === '') {
         usernameError.textContent = '';
-		alertMessage = 'Username cannot be empty';
+		alertMessage = getTranslation('pages.register.usernameEmptyAlert');
         return false;
     }
     if (username.length < 3) {
-        usernameError.textContent = 'Must be at least 3 characters long';
-		alertMessage = 'Username must be at least 3 characters long';
+        usernameError.textContent = getTranslation('pages.register.usernameShortError');
+		alertMessage = getTranslation('pages.register.usernameShortAlert');
         return false;
     } else if (username.length > 12) {
-        usernameError.textContent = 'Cannot exceed 12 characters';
-		alertMessage = 'Username cannot exceed 12 characters';
+        usernameError.textContent = getTranslation('pages.register.usernameLongError');
+		alertMessage = getTranslation('pages.register.usernameLongAlert');
         return false;
 	} else if (username.includes(' ')) {
-		usernameError.textContent = 'Cannot contain spaces';
-		alertMessage = 'Username cannot contain spaces';
+		usernameError.textContent = getTranslation('pages.register.usernameSpaceError');
+		alertMessage = getTranslation('pages.register.usernameSpaceAlert');
 		return false;
 	} else if (!/[a-zA-Z]/.test(username)) {
-		usernameError.textContent = 'Must contain at least one letter';
-		alertMessage = 'Username must contain at least one letter';
+		usernameError.textContent = getTranslation('pages.register.usernameLetterError');
+		alertMessage = getTranslation('pages.register.usernameLetterAlert');
 		return false;
     } else if (!/^[a-zA-Z0-9_]+$/.test(username)) {
-		usernameError.textContent = 'Only letters, numbers, and underscores';
-		alertMessage = 'Username can only contain letters, numbers, and underscores';
+		usernameError.textContent = getTranslation('pages.register.usernameComponentsError');
+		alertMessage = getTranslation('pages.register.usernameComponentsAlert');
         return false;
 	} else if (username[0] === '_' || username[username.length - 1] === '_') {
-		usernameError.textContent = 'Cannot start or end with underscore';
-		alertMessage = 'Username cannot start or end with underscore';
+		usernameError.textContent = getTranslation('pages.register.usernameUnderscoreError');
+		alertMessage = getTranslation('pages.register.usernameUnderscoreAlert');
 		return false;
 	} else if (/__/.test(username)) {
-		usernameError.textContent = 'No consecutive underscores';
-		alertMessage = 'Username cannot contain consecutive underscores';
+		usernameError.textContent = getTranslation('pages.register.usernameConsecutiveError');
+		alertMessage = getTranslation('pages.register.usernameConsecutiveAlert');
 		return false;
 	} else if (commonUsernames.includes(username.toLowerCase())) {
-		usernameError.textContent = 'Username is too common';
-		alertMessage = 'Username is too common';
+		usernameError.textContent = getTranslation('pages.register.usernameCommonError');
+		alertMessage = getTranslation('pages.register.usernameCommonAlert');
 		return false;
     } else {
         usernameError.textContent = '';
@@ -70,25 +71,25 @@ function validateEmail() {
 
 	if (email === '') {
 		emailError.textContent = ''; 
-		alertMessage = 'Email cannot be empty';
+		alertMessage = getTranslation('pages.register.emailEmptyAlert');
 		return false; 
 	}
 
 	if (email.length > 64) {
-		emailError.textContent = 'Cannot exceed 64 characters';
-		alertMessage = 'Email cannot exceed 64 characters';
+		emailError.textContent = getTranslation('pages.register.emailLongError');
+		alertMessage = getTranslation('pages.register.emailLongAlert');
 		return false;
 	}
 
 	if (!emailRegex.test(email)) {
-		emailError.textContent = 'Please enter a valid email address';
-		alertMessage = 'Please enter a valid email address';
+		emailError.textContent = getTranslation('pages.register.emailInvalidError');
+		alertMessage = getTranslation('pages.register.emailInvalidAlert');
 		return false;
 	} else {
 		emailError.textContent = '';
 		return true;
 	}
-	}
+}
 
 // Validation logic for password
 function validatePassword() {
@@ -99,32 +100,32 @@ function validatePassword() {
 
 	if (password === '') {
 		passwordError.textContent = '';
-		alertMessage = 'Please enter a password';
+		alertMessage = getTranslation('pages.register.passwordEmptyAlert');
 		return false;
 	}
     if (password.length < 8) {
-        passwordError.textContent = 'Must be at least 8 characters long';
-		alertMessage = 'Password must be at least 8 characters long';
+        passwordError.textContent = getTranslation('pages.register.passwordShortError');
+		alertMessage = getTranslation('pages.register.passwordShortAlert');
         return false;
 	} else if (password.length > 32) {
-		passwordError.textContent = 'Cannot exceed 32 characters';
-		alertMessage = 'Password cannot exceed 32 characters';
+		passwordError.textContent = getTranslation('pages.register.passwordLongError');
+		alertMessage = getTranslation('pages.register.passwordLongAlert');
 		return false;
     } else if (!/[a-z]/.test(password)) {
-        passwordError.textContent = 'Must contain at least one lowercase letter';
-		alertMessage = 'Password must contain at least one lowercase letter';
+        passwordError.textContent = getTranslation('pages.register.passwordLowercaseError');
+		alertMessage = getTranslation('pages.register.passwordLowercaseAlert');
         return false;
 	} else if (!/[A-Z]/.test(password)) {
-		passwordError.textContent = 'Must contain at least one uppercase letter';
-		alertMessage = 'Password must contain at least one uppercase letter';
+		passwordError.textContent = getTranslation('pages.register.passwordUppercaseError');
+		alertMessage = getTranslation('pages.register.passwordUppercaseAlert');
         return false;
 	} else if (!/[0-9]/.test(password)) {
-        passwordError.textContent = 'Must contain at least one digit';
-		alertMessage = 'Password must contain at least one digit';
+        passwordError.textContent = getTranslation('pages.register.passwordDigitError');
+		alertMessage = getTranslation('pages.register.passwordDigitAlert');
         return false;
 	} else if (username && password.toLowerCase().includes(username.toLowerCase())) {
-		passwordError.textContent = 'Password cannot contain username';
-		alertMessage = 'Password cannot contain username';
+		passwordError.textContent = getTranslation('pages.register.passwordUsernameError');
+		alertMessage = getTranslation('pages.register.passwordUsernameAlert');
     } else {
         passwordError.textContent = '';
         return true;
@@ -139,12 +140,12 @@ function validatePasswordConfirmation() {
 
 	if (confirmPasswordInput.value === '') {
 		confirmPasswordError.textContent = '';
-		alertMessage = 'Please enter Password confirmation';
+		alertMessage = getTranslation('pages.register.confirmPasswordEmptyAlert');
 		return false;
 	}
     if (passwordInput.value !== confirmPasswordInput.value) {
-        confirmPasswordError.textContent = 'Passwords do not match';
-		alertMessage = 'Passwords do not match';
+        confirmPasswordError.textContent = getTranslation('pages.register.confirmPasswordMatchError');
+		alertMessage = getTranslation('pages.register.confirmPasswordMatchAlert');
         return false;
     } else {
         confirmPasswordError.textContent = '';

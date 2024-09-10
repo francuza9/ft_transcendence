@@ -94,12 +94,10 @@ export const saveField = async (field) => {
 				titleInput.value = '';
 				errorElement.textContent = '';
 				fetchAccountInfo();
-
-                console.log('Field updated successfully');
             } else {
 				errorElement.textContent = result.message;
 				errorElement.style.display = 'block';
-                console.error('Failed to update field:', result.message);
+                alert('Failed to update field: ' + result.message);
             }
         } catch (error) {
             console.error('Error updating field:', error);
@@ -161,6 +159,7 @@ export const savePasswordButton = async () => {
 			errorElement.textContent = result.message;
 			errorElement.style.display = 'block';
 			console.error('Failed to update password:', result.message);
+			alert(getTranslation('pages.account.passwordUpdateFailed'));
 		}
 	} catch (error) {
 		console.error('Error updating password:', error);
