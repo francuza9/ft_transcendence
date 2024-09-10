@@ -3,6 +3,7 @@ DO NOT FORGET {
 	REMOVE UNNECESSARY PRINTS
 	PUT TRANSLATIONS
 	Test translations in account page
+	Handle 42 and github usernames
 }
 
 bugs {

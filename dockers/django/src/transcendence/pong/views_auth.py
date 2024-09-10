@@ -9,7 +9,6 @@ import logging
 
 logger = logging.getLogger(__name__)
 
-@csrf_exempt
 def login_view(request):
 	logger.info("Login view called")
 	if request.method == 'POST':
