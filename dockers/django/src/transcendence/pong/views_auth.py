@@ -72,10 +72,10 @@ def register_view(request):
 				return JsonResponse({'success': False, 'message': error_message})
 
 			if CustomUser.objects.filter(username=username).exists():
-				return JsonResponse({'success': False, 'message': 'Username already exists'})
+				return JsonResponse({'success': False, 'message': 'usernameExists'})
 
 			if CustomUser.objects.filter(email=email).exists():
-				return JsonResponse({'success': False, 'message': 'Email already exists'})
+				return JsonResponse({'success': False, 'message': 'emailExists'})
 
 			user = CustomUser.objects.create_user(username=username, email=email, password=password)
 			Profile.objects.create(user=user)
@@ -84,7 +84,7 @@ def register_view(request):
 
 		except IntegrityError as e:
 			logging.error("IntegrityError during user registration: %s", e)
-			return JsonResponse({'success': False, 'message': 'An unexpected database error occurred. Please try again.'})
+			return JsonResponse({'success': False, 'message': 'registrationFailed'})
 
 		except json.JSONDecodeError:
 			return JsonResponse({'success': False, 'message': 'Invalid JSON'})
