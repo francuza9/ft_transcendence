@@ -3,7 +3,7 @@ import {handleRouting} from '/static/routers/router.js';
 import {getSocket} from '/static/views/lobby.js';
 import {replaceHTML} from '/static/src/js/utils.js';
 import {checkLoginStatus} from '/static/src/js/utils.js';
-import {variables} from '/static/src/js/variables.js';
+import {variables, resetVariables} from '/static/src/js/variables.js';
 import {getSocketAI} from '/static/src/js/local.js';
 import {getTranslation} from '/static/src/js/lang.js';
 
@@ -76,6 +76,8 @@ export const leaveRoom = () => {
 
 	history.pushState(null, '', `/`);
 	replaceHTML('/static/src/html/room.html');
+
+	resetVariables();
 
 	const socket = getSocket();
 	if (!socket) {

@@ -87,7 +87,7 @@ export async function viewProfile(event, player) {
 				friendButton.setAttribute('data-variable', playerData.friendRequestSent ? 'unsendFriendRequest' : 'acceptFriendRequest');
 				friendButton.innerHTML = `
 					<i class="${playerData.friendRequestSent ? 'ri-subtract-fill' : 'ri-user-add-line'}"></i>
-					${playerData.friendRequestSent ? getTranslation('friends.unsend') : getTranslation('friends.accpet')}
+					${playerData.friendRequestSent ? getTranslation('friends.unsend') : getTranslation('friends.acceptRequest')}
 				`;
 			} else {
 				friendButton.className = `btn ${playerData.areFriends ? 'btn-danger' : 'btn-success'}`;

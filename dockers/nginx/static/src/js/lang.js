@@ -15,6 +15,10 @@ export const setTranslations = (translationFile) => {
 	translations = translationFile;
 }
 
+export const getTranslationFile = () => {
+	return translations;
+}
+
 export function translateContent(translations) {
     document.querySelectorAll('[data-text]').forEach(async element => {
         const key = element.getAttribute('data-text');
