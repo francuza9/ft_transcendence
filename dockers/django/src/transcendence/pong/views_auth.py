@@ -6,6 +6,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.db.utils import IntegrityError
 import json
 
+@csrf_exempt
 def login_view(request):
 	if request.method == 'POST':
 		try:
