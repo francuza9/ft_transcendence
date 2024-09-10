@@ -2,7 +2,6 @@ import {initChat} from '/static/src/js/chat.js';
 import {initSettings} from '/static/src/js/settings.js';
 import {variables} from '/static/src/js/variables.js';
 import {getCookie, setCookie} from '/static/src/js/cookies.js';
-import {translateContent} from '/static/src/js/lang.js';
 import {removeGameRenderer} from '/static/src/js/end.js';
 import {setTranslations, getTranslation} from '/static/src/js/lang.js';
 import {loadFriends} from '/static/src/js/chat.js';
