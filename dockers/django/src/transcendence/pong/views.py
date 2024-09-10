@@ -1,3 +1,9 @@
+from django.middleware.csrf import get_token
+from django.http import JsonResponse
+
+def get_csrf_token(request):
+	return JsonResponse({'csrftoken': get_token(request)})
+
 from .views_auth import (
     login_view,
     register_view,

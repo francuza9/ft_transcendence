@@ -4,6 +4,7 @@ DO NOT FORGET {
 	PUT TRANSLATIONS
 	Test translations in account page
 	Handle 42 and github usernames
+	do not log duplicate on populate_initial_db
 }
 
 bugs {

@@ -24,4 +24,5 @@ urlpatterns = [
 	path('api/messages/<str:username>/', views.get_messages, name='get_messages'),
     path('api/match_history/<str:username>/', views.match_history, name='match_history'),
 	path('api/lobby/status/<str:lobby_id>/', views.check_lobby_status, name='check_lobby_status'),
+	path('api/csrf/', views.get_csrf_token, name='get_csrf_token'),
 ]

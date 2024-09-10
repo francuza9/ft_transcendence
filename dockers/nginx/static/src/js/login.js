@@ -43,13 +43,16 @@ export const loginButton = () => {
     const password = document.getElementById('password').value;
 
     if (email && password) {
+		const token = getCookie('csrftoken');
+		console.log('Token:', token);
 
         fetch('/api/login/', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'X-CSRFToken': getCookie('csrftoken')
+                'X-CSRFToken': token || '',
             },
+			credentials: 'same-origin',
             body: JSON.stringify({ email, password })
         })
         .then(response => response.json())
