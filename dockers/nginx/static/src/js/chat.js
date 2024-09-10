@@ -650,10 +650,9 @@ export const acceptInvitation = (link) => {
 
     if (match) {
         const lobbyId = match[1];
-		console.log(lobbyId);
 
 		history.pushState(null, '', `/${lobbyId}`);
-		Lobby(lobbyId)
+		Lobby([lobbyId], true);
 		setTimeout(() => {
 			const chatWindow = document.getElementById("messages");
 

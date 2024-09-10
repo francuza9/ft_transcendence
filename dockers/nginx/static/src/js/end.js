@@ -43,8 +43,6 @@ export function renderPlayerList(times, players, scores) {
 			row.classList.add('highlighted-row');
 		}
 		
-		console.log(player);
-
 		row.innerHTML = `
 			<td>${rank + 1}</td>
 			<td><img id="${player.name}" alt="Profile Picture" class="player-img" /></td>

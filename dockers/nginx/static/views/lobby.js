@@ -13,7 +13,7 @@ let socket;
 export async function Lobby([lobbyId], valid=false) {
 	let lobby = await getLobbyStatus(lobbyId);
 
-	if (lobby === undefined && !valid) {
+	if (lobby === undefined || !valid) {
 		history.pushState(null, null, '/join');
 		Join();
 		setTimeout(() => alert(getTranslation('pages.lobby.lobbyInvalid')), 500);
