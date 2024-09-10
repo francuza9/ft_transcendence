@@ -97,7 +97,7 @@ export const saveField = async (field) => {
             } else {
 				errorElement.textContent = result.message;
 				errorElement.style.display = 'block';
-                alert('Failed to update field: ' + result.message);
+				alert(getTranslation(`pages.account.${result.message}`));
             }
         } catch (error) {
             console.error('Error updating field:', error);
@@ -158,8 +158,7 @@ export const savePasswordButton = async () => {
 		} else {
 			errorElement.textContent = result.message;
 			errorElement.style.display = 'block';
-			console.error('Failed to update password:', result.message);
-			alert(getTranslation('pages.account.passwordUpdateFailed'));
+			alert(getTranslation(`pages.account.${result.message}`));
 		}
 	} catch (error) {
 		console.error('Error updating password:', error);
@@ -259,7 +258,7 @@ export const saveAvatarButton = async () => {
             if (result.success) {
                 avatarImage.src = result.avatarUrl;
             } else {
-                alert('Failed to update avatar: ' + result.message);
+                alert(getTranslation(`pages.account.${result.message}`));
             }
 
         } catch (error) {

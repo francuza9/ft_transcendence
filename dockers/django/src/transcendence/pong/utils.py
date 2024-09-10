@@ -24,67 +24,68 @@ COMMON_USERNAMES = [
 
 def is_valid_username(username):
 	if len(username) < 3 or len(username) > 12:
-		return False, "Username must be between 3 and 12 characters long."
+		return False, "usernameLengthError"
 	if not re.match(r'^[A-Za-z0-9_]+$', username):
-		return False, "Username can only contain alphanumeric characters and underscores."
+		return False, "usernameComponentsError"
 	if ' ' in username:
-		return False, "Username cannot contain spaces."
+		return False, "usernameSpaceError"
 	if username[0] == '_' or username[-1] == '_':
-		return False, "Username cannot start or end with an underscore."
+		return False, "usernameUnderscoreError"
 	if '__' in username:
-		return False, "Username cannot contain consecutive underscores."
+		return False, "usernameConsecutiveError"
 	if not any(char.isalpha() for char in username):
-		return False, "Username must contain at least one letter."
+		return False, "usernameLetterError"
 	if username.lower() in COMMON_USERNAMES:
-		return False, "The chosen username is too common."
+		return False, "usernameCommonError"
 
 	return True, None
 
 def is_valid_display_name(display_name):
 	if len(display_name) < 3 or len(display_name) > 12:
-		return False, "Display name must be between 3 and 12 characters long."
+		return False, "displayNameLengthError"
 	# if ' ' in display_name:
 	# 	return False, "Display name cannot contain spaces."
 	if not any(char.isalpha() for char in display_name):
-		return False, "Display name must contain at least one letter."
+		return False, "displayNameLetterError"
 	
 	return True, None
 
 def is_valid_password(password, password_confirm, username):
 	if len(password) < 8 or len(password) > 32:
-		return False, "Password must be between 8 and 32 characters long."
+		return False, "passwordLengthError"
+		"PasswordLengthError"
 	if password == username:
-		return False, "Password cannot be the same as the username."
+		return False, "passwordUsernameError"
 	if not re.search(r'[0-9]', password):
-		return False, "Password must contain at least one number."
+		return False, "passwordLowercaseError"
 	if not re.search(r'[a-z]', password):
-		return False, "Password must contain at least one lowercase letter."
+		return False, "passwordUppercaseError"
 	if not re.search(r'[A-Z]', password):
-		return False, "Password must contain at least one uppercase letter."
+		return False, "passwordDigitError"
 	if password != password_confirm:
-		return False, "Passwords do not match."
+		return False, "passwordMatchError"
 
 	return True, None
 
 def is_valid_email(email):
 	if not email:
-		return False, "Email cannot be empty."
+		return False, "emailEmptyError"
 	if ' ' in email:
-		return False, "Email cannot contain spaces."
+		return False, "emailSpaceError"
 	if len(email) > 64:
-		return False, "Email cannot be longer than 64 characters."
+		return False, "emailLengthError"
 	if not re.match(r'^[A-Za-z0-9._%-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$', email):
-		return False, "Invalid email format."
+		return False, "emailFormatError"
 	#if email contains @student.42 in its domain
 	if "@student.42" in email:
-		return False, "42 student emails are not allowed."
+		return False, "emailStudentError"
 
 	return True, None
 
 
 def is_valid_bio(bio): 
 	if len(bio) > 200:
-		return False, "Bio cannot be longer than 200 characters."
+		return False, "bioLengthError"
 	if bio.count('\n') > 4:
-		return False, "Bio cannot be longer than 5 lines."
+		return False, "bioLineError"
 	return True, None
