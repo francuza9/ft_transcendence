@@ -10,9 +10,10 @@ export async function Account() {
 			history.pushState(null, '', '/login');
 			handleRouting();
 		} else {
-			replaceHTML('/static/src/html/account.html', false);
-			fetchAccountInfo();
-			closeSettingsButton();
+			replaceHTML('/static/src/html/account.html', false).then(() => {
+				fetchAccountInfo();
+				closeSettingsButton();
+			});
 		}
 	})
 	
