@@ -50,7 +50,7 @@ def forty_two(request):
 
 		user_data = user_response.json()
 		forty_two_id = user_data.get('id')
-		username = user_data.get('login') + "\u200B" # Zero-width space to prevent duplicate usernames
+		username = user_data.get('login') + "_42"
 		email = user_data.get('email')
 		if CustomUser.objects.filter(email=email).exists():
 			email = create_email_placeholder(email)
