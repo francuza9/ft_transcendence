@@ -9,9 +9,7 @@ DO NOT FORGET {
 
 bugs {
 
-	lobby admin refreshes --> someone else becomes admin --> start game --> some users dont load properly (need sleep somewhere probably)
-
-	api security issue 
+	api security issue
 
 	for 42   --> user_42   and for github --> user_GH
 

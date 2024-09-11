@@ -37,6 +37,8 @@ def is_valid_username(username):
 		return False, "usernameLetterError"
 	if username.lower() in COMMON_USERNAMES:
 		return False, "usernameCommonError"
+	if username[-3:] == "_42" or username[-3:] == "_GH":
+		return False, "usernameCommonError"
 
 	return True, None
 

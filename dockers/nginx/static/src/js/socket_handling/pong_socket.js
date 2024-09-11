@@ -33,7 +33,6 @@ export async function initPongSocket(content) {
         };
 
 		socket.onmessage = function(event) {
-			// Handle JSON data
 			if (typeof event.data === "string") {
 				try {
 					const data = JSON.parse(event.data);
