@@ -53,7 +53,7 @@ def github(request):
 
         user_data = user_response.json()
         github_id = user_data.get('id')
-        username = user_data.get('login') + "\u200B" # Zero-width space to prevent duplicate usernames
+        username = user_data.get('login') + "_GH"
         email = user_data.get('email')
         if CustomUser.objects.filter(email=email).exists():
             email = create_email_placeholder(email)
