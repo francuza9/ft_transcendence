@@ -150,34 +150,6 @@ export function startLocal(pointsToWin)
 	}
 }
 
-function logGroupStructure(group, level = 0) {
-    console.log(' '.repeat(level * 2) + group.name || 'Unnamed group');
-    group.children.forEach(child => {
-        if (child instanceof THREE.Group) {
-            logGroupStructure(child, level + 1);
-        }
-		else {
-			console.log('item');
-		}
-    });
-}
-
-function disposeObject(object) {
-    if (object.geometry) {
-        object.geometry.dispose();
-    }
-    if (object.material) {
-        if (Array.isArray(object.material)) {
-            object.material.forEach(material => material.dispose());
-        } else {
-            object.material.dispose();
-        }
-    }
-    if (object.texture) {
-        object.texture.dispose();
-    }
-}
-
 function onKeydown(event) {
     if (event.key in keys) {
         keys[event.key] = true;
