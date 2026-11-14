@@ -1,51 +1,45 @@
-# Transcendence
+# ft_transcendence
 
-## Project Overview
-
-**Transcendence** is a remote Pong website featuring a robust backend built with Django and a dynamic frontend utilizing JavaScript, HTML, and CSS, including the THREE.js library. The application is designed for seamless gameplay and interaction, offering various user features and functionalities.
-
-## Architecture
-
-- **Backend**: Django
-- **Frontend**: JavaScript, HTML, CSS, THREE.js
-- **Web Server**: Nginx (for TLS, reverse proxy, and serving static files)
-- **Database**: PostgreSQL
-- **Containerization**: Docker (using Docker Compose)
+A multiplayer Pong website: play locally, online against other people, in tournaments or against an AI, with accounts, friends and live chat. The final project of the École 42 common core, built by a team of four.
 
 ## Features
 
-- **User Management**: Registration, login, and profile management.
-- **Chat System**: Real-time chat functionality for users.
-- **Friends System**: Add, remove, block, and unfriend users.
-- **Active Status**: Display user activity in real time.
-- **HTTPS Protocol**: Secure communication over the network.
-- **Translations**: Support for multiple languages.
-- **Game Modes**:
-  - 1v1 Local Game
-  - 1v1 Remote Game
-  - Remote Tournament System with Matchmaking
-  - Multiplayer Remote Game (up to 8 players)
-  - Versus AI with 4 difficulty levels (one found in tournaments)
+- **Game modes**: 1v1 on one keyboard, 1v1 online, multiplayer online (up to 8 players), remote tournaments with matchmaking, and an AI opponent with 4 difficulty levels
+- **3D rendering** of the game in the browser with THREE.js
+- **Accounts**: registration, login and profiles
+- **Social**: friends, blocking, online status in real time and live chat
+- **Translations** into several languages
+- **HTTPS** end to end
 
-## Getting Started
+## Architecture
 
-### Prerequisites
+| Part | Technology |
+|---|---|
+| Backend | Django (Python) |
+| Real-time | WebSockets for games, chat and presence |
+| Frontend | JavaScript, HTML, CSS, THREE.js (single-page app) |
+| Web server | Nginx: TLS, reverse proxy and static files |
+| Database | PostgreSQL |
+| Deployment | Docker Compose, one container per service |
 
-- Docker must be installed on your machine.
+## What it took
 
-### Running the Application
+- Designing a backend that keeps game state authoritative while several clients play over the network
+- Real-time communication with WebSockets: games, chat and presence on one server
+- A game loop, physics and an AI opponent that behaves differently at each difficulty level
+- Matchmaking and tournament brackets
+- Authentication, sessions and basic web security (TLS, input validation)
+- Containerising a multi-service app and wiring Nginx, Django and PostgreSQL together
+- Working as a team of four on one codebase with Git
 
-1. Clone the repository:
-   ```bash
-   git clone <repository-url>
-   cd transcendence
-2. Use the provided Makefile to run the server:
-   ```bash
-   make
-## Clearing Up
-- To remove temporary files and resources, run:
-  ```bash
-  make clean
-- To clear all resources, including Docker volumes, use:
-  ```bash
-  make annihilate
+## Running it
+
+Requires Docker.
+
+```bash
+git clone https://github.com/francuza9/ft_transcendence.git
+cd ft_transcendence
+make            # build and start every container
+make clean      # stop them
+make annihilate # remove containers, images and volumes
+```
